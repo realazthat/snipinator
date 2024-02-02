@@ -6,7 +6,7 @@ __pycache__
 NOTES.md
 .logs/
 build/
-snippeter.egg-info/
+snipinator.egg-info/
 .deleteme
 **/.deleteme*
 .dockertmp/

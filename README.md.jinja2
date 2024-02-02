@@ -1,0 +1,29 @@
+# Snipinator
+
+## What
+
+What it does: Lets you make a `EXAMPLE.md` template and include snippets from
+your (working and tested) python codebase.
+
+Turn this (`snipinator/examples/EXAMPLE.md.jinja2`):
+
+{{ rawsnippet('snipinator/examples/EXAMPLE.md.jinja2', backtickify='md') }}
+
+Into this (`snipinator/examples/EXAMPLE.generated.md`):
+
+{{ rawsnippet('snipinator/examples/EXAMPLE.generated.md', backtickify='md') }}
+
+## Getting Started
+
+### Install
+
+```bash
+# Install from git (https://github.com/realazthat/snipinator)
+pip install git+https://github.com/realazthat/snipinator.git
+```
+
+### Use
+
+## Jinja2 Functions
+
+## How

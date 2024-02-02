@@ -16,7 +16,8 @@ from pathlib import Path
 from typing import TextIO
 
 from rich.console import Console
-from snipinate import DEFAULT_WARNING, Snipinate
+
+from snipinator.snipinate import DEFAULT_WARNING, Snipinate
 
 console = Console(file=sys.stderr)
 try:

@@ -5,10 +5,10 @@ set -e -x -v -u -o pipefail
 
 
 # TEMPLATE START
-python snipinator.cli --help
+python -m snipinator.cli --help
 
-python snipinator.cli \
-  -t "${PROJ_PATH}/README.md.jinja2" \
-  -o "${PROJ_PATH}/README.md" \
+python -m snipinator.cli \
+  -t "snipinator/examples/EXAMPLE.md.jinja2" \
+  -o "snipinator/examples/EXAMPLE.md" \
   --chmod 555
 # TEMPLATE END

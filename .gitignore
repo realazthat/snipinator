@@ -1,0 +1,12 @@
+.venv
+.vscode
+__pycache__
+.deleteme
+.cache
+NOTES.md
+.logs/
+build/
+snippeter.egg-info/
+.deleteme
+**/.deleteme*
+.dockertmp/

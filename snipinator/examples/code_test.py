@@ -9,6 +9,7 @@ from unittest import TestCase
 
 from .code import MyClass
 
+
 class TestCode(TestCase):
 
   def test_MyClass(self):

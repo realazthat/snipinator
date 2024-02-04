@@ -32,7 +32,7 @@ try:
       type=Path,
       default=Path.cwd(),
       help=
-      'Directory to use as the base for relative include paths in the template. Defaults to the current working directory.'
+      'Directory to use as the base for snippet paths in the template. Defaults to the current working directory.'
   )
   parser.add_argument(
       '-a',

@@ -20,6 +20,7 @@ from rich.console import Console
 from snipinator.snipinate import DEFAULT_WARNING, Snipinate
 
 console = Console(file=sys.stderr)
+args: argparse.Namespace | None = None
 try:
   parser = argparse.ArgumentParser(description=__doc__)
   parser.add_argument('-t',
@@ -195,4 +196,7 @@ try:
 
 except Exception:
   console.print_exception()
+  if args:
+    console.print('args:', args._get_kwargs(), style='bold red')
+
   sys.exit(1)

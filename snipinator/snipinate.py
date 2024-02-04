@@ -82,15 +82,16 @@ def pysnippet_function(
     raise FileNotFoundError(f'File not found: {json.dumps(str(path))}')
 
   if symbol is None:
-    source = path.read_text()
+    snippet = path.read_text()
   else:
-    source = _GetSymbolSource(path=path, symbol=symbol)
+    snippet = _GetSymbolSource(path=path, symbol=symbol)
 
-  result = _Backtickify(_Indent(source, indent=indent), backtickify=backtickify)
+  snippet = _Backtickify(snippet, backtickify=backtickify)
+  snippet = _Indent(snippet, indent=indent)
   if not escape:
-    return markupsafe.Markup(result)
+    return markupsafe.Markup(snippet)
   else:
-    return result
+    return snippet
 
 
 def rawsnippet_function(
@@ -114,12 +115,13 @@ def rawsnippet_function(
 
   if not path.exists():
     raise FileNotFoundError(f'File not found: {json.dumps(str(path))}')
-  result = _Backtickify(_Indent(path.read_text(), indent=indent),
-                        backtickify=backtickify)
+  snippet = path.read_text()
+  snippet = _Backtickify(snippet, backtickify=backtickify)
+  snippet = _Indent(snippet, indent=indent)
   if not escape:
-    return markupsafe.Markup(result)
+    return markupsafe.Markup(snippet)
   else:
-    return result
+    return snippet
 
 
 def snippet_function(
@@ -159,12 +161,12 @@ def snippet_function(
     )
   snippet_start += len(start)
   snippet = full_source[snippet_start:snippet_end]
-  result = _Backtickify(_Indent(snippet, indent=indent),
-                        backtickify=backtickify)
+  snippet = _Backtickify(snippet, backtickify=backtickify)
+  snippet = _Indent(snippet, indent=indent)
   if not escape:
-    return markupsafe.Markup(result)
+    return markupsafe.Markup(snippet)
   else:
-    return result
+    return snippet
 
 
 def _GetSymbolSource(*, path: Path, symbol: str) -> str:
@@ -204,6 +206,7 @@ def _Indent(text: str, *, indent: str | int | None) -> str:
 
 
 def _CountSequentialBackticks(text: str) -> int:
+  """Find the largest number of sequential backticks in the text."""
   for backticks in range(1, len(text)):
     search = '`' * backticks
     if search not in text:

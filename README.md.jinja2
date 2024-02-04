@@ -26,4 +26,12 @@ pip install git+https://github.com/realazthat/snipinator.git
 
 ## Jinja2 Functions
 
+## Gotchas
+
+- Be careful to escape `\{\{` and `\}\}`, or `\{\%` and `\%\}` or anything
+  jinja2 is sensitive to, in the templates. You'll have to escape it properly.
+- **Security:** This tool is not designed to be used with untrusted input. It is
+  designed to be used with your own codebase. Even so, be careful that your own
+  code won't be doing weird things.
+
 ## How

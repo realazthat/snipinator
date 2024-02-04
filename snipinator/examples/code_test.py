@@ -5,9 +5,9 @@
 # under the MIT license or a compatible open source license. See LICENSE.md for
 # the license text.
 
-from code import MyClass
 from unittest import TestCase
 
+from .code import MyClass
 
 class TestCode(TestCase):
 

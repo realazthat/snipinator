@@ -1,17 +1,20 @@
 # Snipinator
 
+Make your `README.md` into a Jinja2 template for including snippets from your
+python codebase. Uses Jinja2, and Python's AST library.
+
 ## What
 
 What it does: Lets you make a `EXAMPLE.md` template and include snippets from
 your (working and tested) python codebase.
 
-Turn this (`snipinator/examples/EXAMPLE.md.jinja2`):
+Turn this (`{{ path('snipinator/examples/EXAMPLE.md.jinja2') }}`):
 
-{{ rawsnippet('snipinator/examples/EXAMPLE.md.jinja2', backtickify='md') }}
+`{{ rawsnippet('snipinator/examples/EXAMPLE.md.jinja2', backtickify='md') }}`
 
-Into this (`snipinator/examples/EXAMPLE.generated.md`):
+Into this (`{{ path('snipinator/examples/EXAMPLE.generated.jinja2') }}`):
 
-{{ rawsnippet('snipinator/examples/EXAMPLE.generated.md', backtickify='md') }}
+`{{ rawsnippet('snipinator/examples/EXAMPLE.generated.md', backtickify='md') }}`
 
 ## Getting Started
 
@@ -24,14 +27,62 @@ pip install git+https://github.com/realazthat/snipinator.git
 
 ### Use
 
-## Jinja2 Functions
+`{{ rawsnippet('snipinator/examples/EXAMPLE.md.jinja2', backtickify='md') }}`
+
+## Available Functions in Jinja2
+
+`{{ pysignature(path='snipinator/snipinate.py', symbol='pysnippet', backtickify='py') }}`
+`{{ pysignature(path='snipinator/snipinate.py', symbol='pysignature', backtickify='py') }}`
+`{{ pysignature(path='snipinator/snipinate.py', symbol='rawsnippet', backtickify='py') }}`
+`{{ pysignature(path='snipinator/snipinate.py', symbol='snippet', backtickify='py') }}`
 
 ## Gotchas
 
-- Be careful to escape `\{\{` and `\}\}`, or `\{\%` and `\%\}` or anything
-  jinja2 is sensitive to, in the templates. You'll have to escape it properly.
 - **Security:** This tool is not designed to be used with untrusted input. It is
   designed to be used with your own codebase. Even so, be careful that your own
   code won't be doing weird things.
+- Be careful to escape `{% raw %}{{{% endraw %}` and `{% raw %}}}{% endraw %}`,
+  or `{% raw %}{%{% endraw %}` and `{% raw %}%}{% endraw %}` or anything jinja2
+  is sensitive to, in the templates. You'll have to escape it properly.
+- Recursion: Snipinator doesn't directly support recursive inclusion of
+  generated content. You can generate the contents of one file first, and
+  include that generated content into another template. This would mean that you
+  have to worry about order of generation.
+- Embedded Backticks: If there are backticks in the included snippet, it might
+  ruin the backticks you have in your markdown. This is why `backtickify`
+  parameter exists in the API, so that Snipinator provides the backticks, and it
+  will detect if there are backticks in the snippet and use a different number
+  of backticks on the entire snippet. So if the snippet contains
+  ```` ```My Snippet``` ````, Snipinator will use
+  ````` ````language ```My Snippet``` ```` ````` and this is a method that
+  Markdown uses to allow embedded backticks inside a code block.
+- Formatting: The `{% raw %}{{{% endraw %}` `{% raw %}}}{% endraw %}` used to
+  surround the snippet calls will unfortunately be formatted by a Markdown
+  formatter and make the call invalid. Workarounds:
+  - For code blocks: If you embed the snippet call in a code block, it will not
+    be formatted. However, because of **Embedded Backticks** gotcha, (see
+    above), this is not recommended, unless you know for sure that there are no
+    embedded backticks.
+  - If your formatter supports a comment that disabled formatting, you can
+    surround the snippet call with that comment.
+- Editing the wrong file: When you have a template and a generated file, it is
+  easy to edit the wrong file. To combat this:
+  - Snipinator provides a warning at the top of the generated file to remind you
+    that it is auto-generated.
+  - Snipinator will optionally chmod the file for you to make it read-only.
+- Newlines: This program assumes LF newlines. I don't know if it will work for
+  anything else.
+- Combining `backtickify` and `indent`: Doesn't make much sense, but if you do
+  it, it will run backtickify first, then indent everything including the
+  backticks.
 
-## How
+## Examples
+
+- Snipinator's own `README` at
+  [snipinator/README.md.jinja2](./snipinator/README.md.jinja2).
+  - Generated `README.md` at
+    [snipinator/README.md](./snipinator/README.md.jinja2).
+- `EXAMPLE.md.jinja2` at
+  [snipinator/examples/EXAMPLE.md.jinja2](./snipinator/examples/EXAMPLE.md.jinja2).
+  - Generated `EXAMPLE.md` at
+    [`{{path('snipinator/examples/EXAMPLE.generated.md')}}`](./snipinator/examples/EXAMPLE.generated.md).

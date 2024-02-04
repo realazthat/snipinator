@@ -8,7 +8,7 @@ SOURCE: `snipinator/examples/EXAMPLE.md.jinja2`.
 
 Here is a code snippet:
 
-```py
+````py
 class MyClass:
 
   def __init__(self, name):
@@ -19,4 +19,4 @@ class MyClass:
 
   def __repr__(self):
     return f'MyClass({self.name})'
-```
+````

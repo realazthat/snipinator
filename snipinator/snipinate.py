@@ -13,6 +13,7 @@ import sys
 import textwrap
 from functools import partial
 from pathlib import Path
+from typing import List
 
 import markupsafe
 from jinja2 import Environment, FileSystemLoader
@@ -43,9 +44,11 @@ def Snipinate(template_file_name: str,
                       autoescape=True,
                       keep_trailing_newline=True)
     # Bind pysnippet_function cwd argument to the current working directory
-    env.globals['pysnippet'] = partial(pysnippet_function, cwd=cwd)
-    env.globals['rawsnippet'] = partial(rawsnippet_function, cwd=cwd)
-    env.globals['snippet'] = partial(snippet_function, cwd=cwd)
+    env.globals['pysignature'] = partial(pysignature, cwd=cwd)
+    env.globals['pysnippet'] = partial(pysnippet, cwd=cwd)
+    env.globals['rawsnippet'] = partial(rawsnippet, cwd=cwd)
+    env.globals['snippet'] = partial(snippet, cwd=cwd)
+    env.globals['path'] = partial(path, cwd=cwd)
 
     template_ = env.from_string(template_string)
     rendered = template_.render(**template_args)
@@ -59,32 +62,75 @@ def Snipinate(template_file_name: str,
     raise
 
 
-def pysnippet_function(
-    path: str | Path,
-    symbol: str | None,
-    *,
-    cwd: Path,
-    escape: bool = False,
-    indent: str | int | None = None,
-    backtickify: bool | str = False) -> str | markupsafe.Markup:
-  path = Path(path)
+def pysignature(path: str,
+                symbol: str,
+                *,
+                escape: bool = False,
+                indent: str | int | None = None,
+                backtickify: bool | str = False,
+                cwd: Path) -> str:
+  """Return the signature of a class or function in a python file.
 
-  if path.is_absolute():
-    raise ValueError(
-        f'Path is absolute: {json.dumps(str(path))}, it should be relative')
-  path = cwd / path
+  Returns the {class,function} signature and the docstring.
 
-  if not path.is_relative_to(cwd):
-    raise ValueError(
-        f'Path is not relative to cwd: {json.dumps(str(path))}, cwd: {cwd}')
+  Args:
+      path (str): The path to the file.
+      symbol (str): The symbol to extract.
+      escape (bool, optional): Should use HTML entities escaping? Defaults to
+        False.
+      indent (str | int | None, optional): Should indent? By how much, or with
+        what prefix? Defaults to None.
+      backtickify (bool | str, optional): Should surround with backticks? With
+        what language? Defaults to False.
+      cwd (Path): This is used by the system and is not available as an
+        argument. You can change this on the command line.
 
-  if not path.exists():
-    raise FileNotFoundError(f'File not found: {json.dumps(str(path))}')
+  Returns:
+      str: The signature and docstring.
+  """
+  path_ = _CheckPath(path=path, cwd=cwd)
+  source = path_.read_text()
+  signature = _GetSymbolSignature(source=source, path=str(path_), symbol=symbol)
+
+  signature = _Backtickify(signature, backtickify=backtickify)
+  signature = _Indent(signature, indent=indent)
+  if not escape:
+    return markupsafe.Markup(signature)
+  else:
+    return signature
+
+
+def pysnippet(path: str,
+              symbol: str | None,
+              *,
+              escape: bool = False,
+              indent: str | int | None = None,
+              backtickify: bool | str = False,
+              cwd: Path) -> str | markupsafe.Markup:
+  """Return a python snippet, allowing you to specify a class or function.
+
+  Args:
+      path (str): The path to the file.
+      symbol (str | None): The symbol to extract. If None, the entire file is
+        returned. Defaults to None.
+      escape (bool, optional): Should use HTML entities escaping? Defaults to
+        False.
+      indent (str | int | None, optional): Should indent? By how much, or with
+        what prefix? Defaults to None.
+      backtickify (bool | str, optional): Should surround with backticks? With
+        what language? Defaults to False.
+      cwd (Path): This is used by the system and is not available as an
+        argument. You can change this on the command line.
+
+  Returns:
+      str | markupsafe.Markup: The snippet.
+  """
+  path_ = _CheckPath(path=path, cwd=cwd)
 
   if symbol is None:
-    snippet = path.read_text()
+    snippet = path_.read_text()
   else:
-    snippet = _GetSymbolSource(path=path, symbol=symbol)
+    snippet = _GetSymbolSource(path=path_, symbol=symbol)
 
   snippet = _Backtickify(snippet, backtickify=backtickify)
   snippet = _Indent(snippet, indent=indent)
@@ -94,28 +140,31 @@ def pysnippet_function(
     return snippet
 
 
-def rawsnippet_function(
-    path: str | Path,
-    *,
-    cwd: Path,
-    escape: bool = False,
-    indent: str | int | None = None,
-    backtickify: bool | str = False) -> str | markupsafe.Markup:
-  path = Path(path)
+def rawsnippet(path: str,
+               *,
+               escape: bool = False,
+               indent: str | int | None = None,
+               backtickify: bool | str = False,
+               cwd: Path) -> str | markupsafe.Markup:
+  """Return an entire file as a snippet.
 
-  if path.is_absolute():
-    raise ValueError(
-        f'Path is absolute: {json.dumps(str(path))}, it should be relative')
-  path = cwd / path
+  Args:
+      path (str): The path to the file.
+      escape (bool, optional): Should use HTML entities escaping? Defaults to
+        False.
+      indent (str | int | None, optional): Should indent? By how much, or with
+        what prefix? Defaults to None.
+      backtickify (bool | str, optional): Should surround with backticks? With
+        what language? Defaults to False.
+      cwd (Path): This is used by the system and is not available as an
+        argument. You can change this on the command line.
 
-  if not path.is_relative_to(cwd):
-    raise ValueError(
-        f'Path is not relative to cwd: {json.dumps(str(path))}, cwd: {json.dumps(str(cwd))}'
-    )
+  Returns:
+      str | markupsafe.Markup: The snippet.
+  """
 
-  if not path.exists():
-    raise FileNotFoundError(f'File not found: {json.dumps(str(path))}')
-  snippet = path.read_text()
+  path_ = _CheckPath(path=path, cwd=cwd)
+  snippet = path_.read_text()
   snippet = _Backtickify(snippet, backtickify=backtickify)
   snippet = _Indent(snippet, indent=indent)
   if not escape:
@@ -124,37 +173,44 @@ def rawsnippet_function(
     return snippet
 
 
-def snippet_function(
-    path: str | Path,
-    start: str,
-    end: str,
-    *,
-    cwd: Path,
-    escape: bool = False,
-    indent: str | int | None = None,
-    backtickify: bool | str = False) -> str | markupsafe.Markup:
-  path = Path(path)
+def snippet(path: str,
+            start: str,
+            end: str,
+            *,
+            escape: bool = False,
+            indent: str | int | None = None,
+            backtickify: bool | str = False,
+            cwd: Path) -> str | markupsafe.Markup:
+  """Returns a _delimited_ snippet from a file.
 
-  if path.is_absolute():
-    raise ValueError(
-        f'Path is absolute: {json.dumps(str(path))}, it should be relative')
-  path = cwd / path
+  Does not return the delimeters themselves.
 
-  if not path.is_relative_to(cwd):
-    raise ValueError(
-        f'Path is not relative to cwd: {json.dumps(str(path))}, cwd: {json.dumps(str(cwd))}'
-    )
+  Args:
+      path (str): The path to the file.
+      start (str): A string that indicates the start of the snippet.
+      end (str): A string that indicates the end of the snippet.
+      escape (bool, optional): Should use HTML entities escaping? Defaults to
+        False.
+      indent (str | int | None, optional): Should indent? By how much, or with
+        what prefix? Defaults to None.
+      backtickify (bool | str, optional): Should surround with backticks? With
+        what language? Defaults to False.
+      cwd (Path): This is used by the system and is not available as an
+        argument. You can change this on the command line.
 
-  if not path.exists():
-    raise FileNotFoundError(f'File not found: {json.dumps(str(path))}')
-  full_source = path.read_text()
+  Returns:
+      str | markupsafe.Markup: The snippet.
+  """
+
+  path_ = _CheckPath(path=path, cwd=cwd)
+
+  full_source = path_.read_text()
 
   snippet_start = full_source.find(start)
   snippet_end = full_source.find(end)
   if snippet_start == -1:
     raise ValueError(
-        f'Searched for {json.dumps(start)} in {json.dumps(str(path))} but not found'
-    )
+        f'Searched for {json.dumps(start)} in {json.dumps(path)} but not found')
   if snippet_end == -1:
     raise ValueError(
         f'Searched for {json.dumps(end)} in {json.dumps(str(path))} but not found'
@@ -169,31 +225,168 @@ def snippet_function(
     return snippet
 
 
-def _GetSymbolSource(*, path: Path, symbol: str) -> str:
-  source = path.read_text()
-  tree = ast.parse(source)
-  for node in ast.walk(tree):
-    # Check if the node is a ClassDef, FunctionDef, or a variable (Assign) and matches the symbol name
-    if isinstance(node,
-                  (ast.FunctionDef, ast.ClassDef, ast.Assign)) and getattr(
-                      node, 'name', None) == symbol:
-      # For variables, it's a bit more complex to match the symbol name, as Assign nodes don't have a 'name' attribute
-      if isinstance(node, ast.Assign):
-        # This will extract variable names from Assign nodes, but note it assumes simple assignments
-        # Complex assignments (e.g., tuple unpacking) are not covered in this simplistic approach
-        for target in node.targets:
-          if isinstance(target, ast.Name) and target.id == symbol:
-            break
-        else:
-          continue
+def path(path: str,
+         *,
+         escape: bool = False,
+         indent: str | int | None = None,
+         backtickify: bool | str = False,
+         cwd: Path) -> str | markupsafe.Markup:
+  """Verifies that `path` exists, and just returns `path`.
 
-      # Use the ast module to extract the line numbers and get the source code
-      start_line = node.lineno
-      end_line = node.end_lineno if hasattr(node, 'end_lineno') else start_line
-      code = source.splitlines()[start_line - 1:end_line]
-      return '\n'.join(code)
+  Unfortunately, I don't know how to use this inside a link, because the
+  formatters will destroy it, and it cannot be put into a code block (as the url
+  section of a link in markdown does not allow code blocks).
+
+  Args:
+      path (str): The path to verify.
+      escape (bool, optional): Should use HTML entities escaping? Defaults to
+        False.
+      indent (str | int | None, optional): Should indent? By how much, or with
+        what prefix? Defaults to None.
+      backtickify (bool | str, optional): Should surround with backticks? With
+        what language? Defaults to False.
+      cwd (Path): This is used by the system and is not available as an
+        argument. You can change this on the command line.
+
+  Returns:
+      str | markupsafe.Markup: Just returns the path. If the path doesn't exist,
+        it will raise an error.
+  """
+  _CheckPath(path=path, cwd=cwd)
+
+  path_str = path
+  path_str = _Backtickify(path_str, backtickify=backtickify)
+  path_str = _Indent(path_str, indent=indent)
+  if not escape:
+    return markupsafe.Markup(path_str)
+  else:
+    return path_str
+
+
+def _CheckPath(*, path: str, cwd: Path) -> Path:
+  path_ = Path(path)
+
+  if path_.is_absolute():
+    raise ValueError(
+        f'Path is absolute: {json.dumps(path)}, it should be relative')
+  path_ = cwd / path_
+
+  if not path_.is_relative_to(cwd):
+    raise ValueError(
+        f'Path is not relative to cwd: {json.dumps(path)}, cwd: {json.dumps(str(cwd))}'
+    )
+  return path_
+
+
+def _GetSymbolSource(*, path: Path, symbol: str) -> str:
+  try:
+    source = path.read_text()
+    tree = ast.parse(source)
+    for node in ast.walk(tree):
+      # Check if the node is a ClassDef, FunctionDef, or a variable (Assign) and matches the symbol name
+      if isinstance(node,
+                    (ast.FunctionDef, ast.ClassDef, ast.Assign)) and getattr(
+                        node, 'name', None) == symbol:
+        # For variables, it's a bit more complex to match the symbol name, as Assign nodes don't have a 'name' attribute
+        if isinstance(node, ast.Assign):
+          # This will extract variable names from Assign nodes, but note it assumes simple assignments
+          # Complex assignments (e.g., tuple unpacking) are not covered in this simplistic approach
+          for target in node.targets:
+            if isinstance(target, ast.Name) and target.id == symbol:
+              break
+          else:
+            continue
+
+        # Use the ast module to extract the line numbers and get the source code
+        start_line_index = node.lineno - 1
+        end_line_index = _GetEOLIndex(node)
+        code = source.splitlines()[start_line_index:end_line_index + 1]
+        return '\n'.join(code)
+    raise ValueError(
+        f'Symbol {json.dumps(symbol)} not found in {json.dumps(str(path))}')
+  except Exception as e:
+    raise ValueError(
+        f'Error getting source for {json.dumps(symbol)} in {json.dumps(str(path))}: {json.dumps(str(e))}'
+    ) from e
+
+
+def _FindTargetNode(node: ast.AST, path_parts: List[str]) -> ast.AST | None:
+  for child in ast.iter_child_nodes(node):
+    if not isinstance(child,
+                      (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
+      continue
+    name = child.name
+    if name == path_parts[0]:
+      if len(path_parts) == 1:
+        return child
+      else:
+        return _FindTargetNode(child, path_parts[1:])
+  return None
+
+
+def _GetClassDocstringEndIndex(class_node: ast.ClassDef) -> int:
+  if not class_node.body:
+    return class_node.lineno - 1
+  first_member_line = class_node.body[0].lineno
+  first_member_line_index = first_member_line - 1
+  return first_member_line_index - 1
+
+
+def _GetEOLIndex(node: ast.AST) -> int:
+  if hasattr(node, 'end_lineno') and node.end_lineno is not None:
+    return node.end_lineno - 1
+  name = getattr(node, 'name', 'N/A')
   raise ValueError(
-      f'Symbol {json.dumps(symbol)} not found in {json.dumps(str(path))}')
+      f'end_lineno not found for {json.dumps(name)} of type {type(node)} defined at line {node.lineno}, this can happen in Python < 3.8.0. sys.version_info: {sys.version_info}.'
+  )
+
+
+def _FirstNonDocstringLineIndex(
+    node: ast.FunctionDef | ast.AsyncFunctionDef) -> int:
+  """Get the index of the first non-docstring line in the function definition.
+
+  Note: This returns line _index_ which is zero based. AST returns line number.
+  """
+  if not node.body:
+    return _GetEOLIndex(node)
+  first_node = node.body[0]
+  if isinstance(first_node, ast.Expr) and isinstance(first_node.value,
+                                                     (ast.Constant)):
+    if len(node.body) >= 2:
+      return node.body[1].lineno - 1
+    try:
+      return _GetEOLIndex(first_node)
+    except ValueError:
+      return _GetEOLIndex(node)
+  else:
+    return first_node.lineno - 1
+
+
+def _GetSymbolSignature(source: str, path: str, symbol: str) -> str:
+  try:
+    tree = ast.parse(source, filename=Path(path).name)
+
+    path_components = symbol.split('.')
+    target_node = _FindTargetNode(tree, path_components)
+    if target_node is None:
+      raise ValueError(
+          f'Symbol {json.dumps(symbol)} not found in {json.dumps(str(path))}')
+
+    start_line_index = target_node.lineno - 1
+    if isinstance(target_node, ast.ClassDef):
+      end_line_index = _GetClassDocstringEndIndex(target_node)
+    elif isinstance(target_node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+      end_line_index = _FirstNonDocstringLineIndex(target_node)
+    else:
+      raise ValueError(
+          f'Unsupported symbol type: {json.dumps(symbol)} of type {type(target_node)} in {json.dumps(str(path))}'
+      )
+
+    return '\n'.join(source.splitlines()[start_line_index:end_line_index])
+  except Exception as e:
+    raise ValueError(
+        f'Error getting signature for {json.dumps(symbol)} in {json.dumps(str(path))}: {json.dumps(str(e))}'
+    ) from e
 
 
 def _Indent(text: str, *, indent: str | int | None) -> str:

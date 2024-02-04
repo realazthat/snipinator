@@ -4,11 +4,13 @@
 set -e -x -v -u -o pipefail
 
 
-# TEMPLATE START
+# HELP START
 python -m snipinator.cli --help
+# HELP END
 
+# EXAMPLE START
 python -m snipinator.cli \
   -t "snipinator/examples/EXAMPLE.md.jinja2" \
   -o "snipinator/examples/EXAMPLE.md" \
   --chmod 555
-# TEMPLATE END
+# EXAMPLE END

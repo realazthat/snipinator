@@ -27,7 +27,13 @@ pip install git+https://github.com/realazthat/snipinator.git
 
 ### Use
 
+`{{ path('snipinator/examples/EXAMPLE.md.jinja2') }}`:
+
 `{{ rawsnippet('snipinator/examples/EXAMPLE.md.jinja2', backtickify='md') }}`
+
+`{{ shell('python -m snipinator.cli --help', backtickify='bash') }}`
+
+`{{ shell('python -m snipinator.cli -t snipinator/examples/EXAMPLE.md.jinja2', backtickify='bash') }}`
 
 ## Available Functions in Jinja2
 

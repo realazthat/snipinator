@@ -64,6 +64,8 @@ pip install git+https://github.com/realazthat/snipinator.git
 
 ### Use
 
+`snipinator/examples/EXAMPLE.md.jinja2`:
+
 ````md
 # A README
 
@@ -72,6 +74,65 @@ Here is a code snippet:
 `{{ pysnippet(path='snipinator/examples/code.py', symbol='MyClass', backtickify='py') }}`
 
 ````
+
+````bash
+$python -m snipinator.cli --help
+usage: cli.py [-h] -t TEMPLATE [--cwd CWD] [-a ARGS]
+              [--templates-searchpath TEMPLATES_SEARCHPATH] [-o OUTPUT]
+              [--warning-message WARNING_MESSAGE] [--chmod CHMOD]
+
+CLI: Python code snipinator for markdown files, e.g READMEs, from actual
+(testable) code.
+
+options:
+  -h, --help            show this help message and exit
+  -t TEMPLATE, --template TEMPLATE
+                        Path to the template file. Use "-" for stdin.
+  --cwd CWD             Directory to use as the base for snippet paths in the
+                        template. Defaults to the current working directory.
+  -a ARGS, --args ARGS  JSON string with template arguments. Defaults to {}.
+  --templates-searchpath TEMPLATES_SEARCHPATH
+                        Path to the directory with templates for include
+                        directives etc. Defaults to None.
+  -o OUTPUT, --output OUTPUT
+                        Path to the output file. Use "-" for stdout. Defaults
+                        to "-".
+  --warning-message WARNING_MESSAGE
+                        Warning message to include in the output file. To
+                        prevent accidentally editing generated file.Defaults
+                        to the default warning message.
+  --chmod CHMOD         Change the mode of the output file, an octant. To
+                        prevent accidentally editing generated file. 444 is
+                        useful here. Defaults to None.
+
+````
+
+``````bash
+$python -m snipinator.cli -t snipinator/examples/EXAMPLE.md.jinja2
+<!--
+
+WARNING: This file is auto-generated. Do not edit directly.
+SOURCE: `snipinator/examples/EXAMPLE.md.jinja2`.
+
+-->
+# A README
+
+Here is a code snippet:
+
+````py
+class MyClass:
+
+  def __init__(self, name):
+    self.name = name
+
+  def __str__(self):
+    return f'MyClass({self.name})'
+
+  def __repr__(self):
+    return f'MyClass({self.name})'
+````
+
+``````
 
 ## Available Functions in Jinja2
 

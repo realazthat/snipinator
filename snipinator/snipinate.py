@@ -9,6 +9,7 @@
 import ast
 import html
 import json
+import subprocess
 import sys
 import textwrap
 from functools import partial
@@ -49,6 +50,7 @@ def Snipinate(template_file_name: str,
     env.globals['rawsnippet'] = partial(rawsnippet, cwd=cwd)
     env.globals['snippet'] = partial(snippet, cwd=cwd)
     env.globals['path'] = partial(path, cwd=cwd)
+    env.globals['shell'] = partial(shell, cwd=cwd)
 
     template_ = env.from_string(template_string)
     rendered = template_.render(**template_args)
@@ -261,6 +263,45 @@ def path(path: str,
     return markupsafe.Markup(path_str)
   else:
     return path_str
+
+
+def shell(args: str,
+          *,
+          escape: bool = False,
+          indent: str | int | None = None,
+          backtickify: bool | str = False,
+          cwd: Path) -> str | markupsafe.Markup:
+  """Run a shell command and return the output.
+
+  Args:
+      args (str): The command to run.
+      escape (bool, optional): Should use HTML entities escaping? Defaults to
+        False.
+      indent (str | int | None, optional): Should indent? By how much, or with
+        what prefix? Defaults to None.
+      backtickify (bool | str, optional): Should surround with backticks? With
+        what language? Defaults to False.
+      cwd (Path): This is used by the system and is not available as an
+        argument. You can change this on the command line.
+
+  Returns:
+      str | markupsafe.Markup: _description_
+  """
+
+  result = subprocess.run(args,
+                          cwd=cwd,
+                          stdout=subprocess.PIPE,
+                          stderr=subprocess.STDOUT,
+                          text=True,
+                          shell=True)
+
+  output = f'${args}\n{result.stdout}'
+  output = _Backtickify(output, backtickify=backtickify)
+  output = _Indent(output, indent=indent)
+  if not escape:
+    return markupsafe.Markup(output)
+  else:
+    return output
 
 
 def _CheckPath(*, path: str, cwd: Path) -> Path:

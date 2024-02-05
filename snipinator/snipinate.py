@@ -319,30 +319,39 @@ def _CheckPath(*, path: str, cwd: Path) -> Path:
   return path_
 
 
+def _GetNodeNames(
+    node: ast.FunctionDef | ast.AsyncFunctionDef | ast.ClassDef | ast.Assign
+) -> List[str]:
+  if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
+    return [node.name]
+  elif isinstance(node, ast.Assign):
+    names = []
+    for target in node.targets:
+      if isinstance(target, ast.Name):
+        id: str = target.id
+        names.append(id)
+    return names
+  raise ValueError(f'Unsupported node type: {type(node)}')
+
+
 def _GetSymbolSource(*, path: Path, symbol: str) -> str:
   try:
     source = path.read_text()
     tree = ast.parse(source)
     for node in ast.walk(tree):
-      # Check if the node is a ClassDef, FunctionDef, or a variable (Assign) and matches the symbol name
-      if isinstance(node,
-                    (ast.FunctionDef, ast.ClassDef, ast.Assign)) and getattr(
-                        node, 'name', None) == symbol:
-        # For variables, it's a bit more complex to match the symbol name, as Assign nodes don't have a 'name' attribute
-        if isinstance(node, ast.Assign):
-          # This will extract variable names from Assign nodes, but note it assumes simple assignments
-          # Complex assignments (e.g., tuple unpacking) are not covered in this simplistic approach
-          for target in node.targets:
-            if isinstance(target, ast.Name) and target.id == symbol:
-              break
-          else:
-            continue
+      if not isinstance(
+          node,
+          (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef, ast.Assign)):
+        continue
+      names = _GetNodeNames(node)
+      if symbol not in names:
+        continue
 
-        # Use the ast module to extract the line numbers and get the source code
-        start_line_index = node.lineno - 1
-        end_line_index = _GetEOLIndex(node)
-        code = source.splitlines()[start_line_index:end_line_index + 1]
-        return '\n'.join(code)
+      # Use the ast module to extract the line numbers and get the source code
+      start_line_index = node.lineno - 1
+      end_line_index = _GetEOLIndex(node)
+      code = source.splitlines()[start_line_index:end_line_index + 1]
+      return '\n'.join(code)
     raise ValueError(
         f'Symbol {json.dumps(symbol)} not found in {json.dumps(str(path))}')
   except Exception as e:

@@ -66,7 +66,7 @@ try:
       type=str,
       default=None,
       help=
-      'Change the mode of the output file, an octant. To prevent accidentally editing generated file. 444 is useful here. Defaults to None.'
+      'Change the mode (permissions) of the output file, an octant (see chmod help for more info) e.g 444 or 555. To prevent accidentally editing generated file. Defaults to None.'
   )
 
   args = parser.parse_args()

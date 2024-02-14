@@ -77,9 +77,11 @@ Here is a code snippet:
 
 ````bash
 $python -m snipinator.cli --help
-usage: cli.py [-h] -t TEMPLATE [--cwd CWD] [-a ARGS]
-              [--templates-searchpath TEMPLATES_SEARCHPATH] [-o OUTPUT]
-              [--warning-message WARNING_MESSAGE] [--chmod CHMOD]
+usage: python -m snipinator.cli [-h] -t TEMPLATE [--cwd CWD] [-a ARGS]
+                                [--templates-searchpath TEMPLATES_SEARCHPATH]
+                                [-o OUTPUT]
+                                [--warning-message WARNING_MESSAGE]
+                                [--chmod CHMOD]
 
 CLI: Python code snipinator for markdown files, e.g READMEs, from actual
 (testable) code.
@@ -101,9 +103,10 @@ options:
                         Warning message to include in the output file. To
                         prevent accidentally editing generated file.Defaults
                         to the default warning message.
-  --chmod CHMOD         Change the mode of the output file, an octant. To
-                        prevent accidentally editing generated file. 444 is
-                        useful here. Defaults to None.
+  --chmod CHMOD         Change the mode (permissions) of the output file, an
+                        octant (see chmod help for more info) e.g 444 or 555.
+                        To prevent accidentally editing generated file.
+                        Defaults to None.
 
 ````
 

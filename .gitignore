@@ -10,3 +10,4 @@ snipinator.egg-info/
 .deleteme
 **/.deleteme*
 .dockertmp/
+dist/

@@ -273,6 +273,9 @@ def shell(args: str,
           cwd: Path) -> str | markupsafe.Markup:
   """Run a shell command and return the output.
 
+  Use at your own risk, this can potentially introduce security vulnerabilities.
+  Only use if you know what you are doing.
+
   Args:
       args (str): The command to run.
       escape (bool, optional): Should use HTML entities escaping? Defaults to

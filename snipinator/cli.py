@@ -19,10 +19,24 @@ from rich.console import Console
 
 from snipinator.snipinate import DEFAULT_WARNING, Snipinate
 
+
+def _GetProgramName() -> str:
+  if __package__:
+    # Use __package__ to get the base package name
+    base_module_path = __package__
+    # Infer the module name from the file path, with assumptions about the structure
+    module_name = Path(__file__).stem
+    # Construct what might be the intended full module path
+    full_module_path = f'{base_module_path}.{module_name}' if base_module_path else module_name
+    return f'python -m {full_module_path}'
+  else:
+    return sys.argv[0]
+
+
 console = Console(file=sys.stderr)
 args: argparse.Namespace | None = None
 try:
-  parser = argparse.ArgumentParser(description=__doc__)
+  parser = argparse.ArgumentParser(prog=_GetProgramName(), description=__doc__)
   parser.add_argument('-t',
                       '--template',
                       type=argparse.FileType('r'),

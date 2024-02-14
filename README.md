@@ -250,6 +250,34 @@ def snippet(path: str,
   """
 
 ````
+````py
+def shell(args: str,
+          *,
+          escape: bool = False,
+          indent: str | int | None = None,
+          backtickify: bool | str = False,
+          cwd: Path) -> str | markupsafe.Markup:
+  """Run a shell command and return the output.
+
+  Use at your own risk, this can potentially introduce security vulnerabilities.
+  Only use if you know what you are doing.
+
+  Args:
+      args (str): The command to run.
+      escape (bool, optional): Should use HTML entities escaping? Defaults to
+        False.
+      indent (str | int | None, optional): Should indent? By how much, or with
+        what prefix? Defaults to None.
+      backtickify (bool | str, optional): Should surround with backticks? With
+        what language? Defaults to False.
+      cwd (Path): This is used by the system and is not available as an
+        argument. You can change this on the command line.
+
+  Returns:
+      str | markupsafe.Markup: _description_
+  """
+
+````
 
 ## Gotchas
 

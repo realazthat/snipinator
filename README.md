@@ -294,10 +294,8 @@ def snippet(path: str,
 ## Examples
 
 - Snipinator's own `README` at
-  [snipinator/README.md.jinja2](./snipinator/README.md.jinja2).
-  - Generated `README.md` at
-    [snipinator/README.md](./snipinator/README.md.jinja2).
-- `EXAMPLE.md.jinja2` at
-  [snipinator/examples/EXAMPLE.md.jinja2](./snipinator/examples/EXAMPLE.md.jinja2).
-  - Generated `EXAMPLE.md` at
+  [`./README.md.jinja2`](./README.md.jinja2).
+  - Generated: [`./README.md`](./README.md).
+- [`snipinator/examples/EXAMPLE.md.jinja2`](./snipinator/examples/EXAMPLE.md.jinja2).
+  - Generated:
     [`snipinator/examples/EXAMPLE.generated.md`](./snipinator/examples/EXAMPLE.generated.md).

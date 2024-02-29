@@ -19,3 +19,5 @@ find snipinator -name "*_test.py" | while IFS= read -r TEST_FILE; do
   echo "Running ${TEST_FILE}"
   python -m "${TEST_MODULE}"
 done
+
+echo -e "${GREEN}All tests ran successfully${NC}"

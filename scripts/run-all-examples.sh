@@ -12,10 +12,7 @@ REQS="${PROJ_PATH}/requirements.txt" source "${PROJ_PATH}/scripts/utilities/ensu
 export PYTHONPATH=${PYTHONPATH:-}
 export PYTHONPATH=${PYTHONPATH}:${PWD}
 
-# Find all files in snipinator that end in _test.py
-find snipinator -name "*_test.py" | while IFS= read -r TEST_FILE; do
-  # Turn path into a python module name, e.g path/to/file.py to path.to.file
-  TEST_MODULE=$(echo "${TEST_FILE}" | sed -e "s/^\.\///" -e "s/\.py$//" -e "s/\//\./g")
-  echo "Running ${TEST_FILE}"
-  python -m "${TEST_MODULE}"
+# For each sh in snipinator/examples
+for EXAMPLE in $(find snipinator/examples -type f -name "*.sh"); do
+  bash "${EXAMPLE}"
 done

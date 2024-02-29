@@ -9,5 +9,5 @@ build/
 snipinator.egg-info/
 .deleteme
 **/.deleteme*
-.dockertmp/
+.act-project-path/
 dist/

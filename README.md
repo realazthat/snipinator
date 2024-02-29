@@ -56,10 +56,19 @@ class MyClass:
 
 ### Install
 
+**Requirements:**
+
+- Python 3.10+, uses PEP 604, pipe type hints for Union.
+
 ```bash
 # Install from git (https://github.com/realazthat/snipinator)
 pip install git+https://github.com/realazthat/snipinator.git
 ```
+
+**Tested on:**
+
+- WSL2 Ubuntu 20.04, Python 3.10.1
+- Ubuntu 20.04, Python 3.10.1
 
 ### Use
 

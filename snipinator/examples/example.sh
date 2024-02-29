@@ -12,6 +12,6 @@ python -m snipinator.cli --help
 python -m snipinator.cli \
   -t "snipinator/examples/EXAMPLE.md.jinja2" \
   --rm \
-  -o "snipinator/examples/EXAMPLE.md" \
+  -o "snipinator/examples/EXAMPLE.generated.md" \
   --chmod 555
 # EXAMPLE END

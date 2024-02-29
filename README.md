@@ -106,7 +106,7 @@ options:
                         directives etc. Defaults to None.
   --rm, --no-rm         Remove any existing file at the output path, before
                         writing the new one; useful if the existing file might
-                        be write protected.
+                        be write protected. (default: False)
   -o OUTPUT, --output OUTPUT
                         Path to the output file. Use "-" for stdout. Defaults
                         to "-".

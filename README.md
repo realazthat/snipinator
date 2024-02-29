@@ -329,3 +329,15 @@ def shell(args: str,
 - [`snipinator/examples/EXAMPLE.md.jinja2`](./snipinator/examples/EXAMPLE.md.jinja2).
   - Generated:
     [`snipinator/examples/EXAMPLE.generated.md`](./snipinator/examples/EXAMPLE.generated.md).
+
+## Release Process
+
+1. Bump the version in setup.py, following semantic versioning principles.
+2. Commit changes: Commit these changes with a message like "Prepare release
+   X.Y.Z".
+3. Tag the release: Create a git tag for the release with git tag -a vX.Y.Z -m
+   "Version X.Y.Z".
+4. Push to GitHub: Push the commit and tags to GitHub with `git push` and
+   `git push --tags`.
+5. Publish to PyPI: Publish the release to PyPI with
+   `bash scripts/deploy-to-pypi.sh`.

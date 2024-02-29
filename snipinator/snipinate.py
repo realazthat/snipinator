@@ -14,7 +14,7 @@ import sys
 import textwrap
 from functools import partial
 from pathlib import Path
-from typing import List
+from typing import Generator, List
 
 import markupsafe
 from jinja2 import Environment, FileSystemLoader
@@ -337,24 +337,51 @@ def _GetNodeNames(
   raise ValueError(f'Unsupported node type: {type(node)}')
 
 
+def _GetMatchingNodes(*, node: ast.AST,
+                      symbol_part: str) -> Generator[ast.AST, None, None]:
+  child_node: ast.AST
+  for child_node in ast.iter_child_nodes(node):
+    if not isinstance(
+        child_node,
+        (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef, ast.Assign)):
+      continue
+    names = _GetNodeNames(child_node)
+    if symbol_part in names:
+      yield child_node
+
+
+def _GetMatchingNodesRecursive(
+    *, node: ast.AST,
+    symbol_parts: List[str]) -> Generator[ast.AST, None, None]:
+  candidates = [node]
+  for symbol_part in symbol_parts:
+    next_candidates = []
+    candidate: ast.AST
+    for candidate in candidates:
+      matching_node: ast.AST
+      for matching_node in _GetMatchingNodes(node=candidate,
+                                             symbol_part=symbol_part):
+        next_candidates.append(matching_node)
+    candidates = next_candidates
+  yield from candidates
+
+
+def _DumpNode(*, source: str, node: ast.AST) -> str:
+  start_line_index = node.lineno - 1
+  end_line_index = _GetEOLIndex(node)
+  code = source.splitlines()[start_line_index:end_line_index + 1]
+  return '\n'.join(code)
+
+
 def _GetSymbolSource(*, path: Path, symbol: str) -> str:
+  symbol_parts = symbol.split('.')
   try:
     source = path.read_text()
     tree = ast.parse(source)
-    for node in ast.walk(tree):
-      if not isinstance(
-          node,
-          (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef, ast.Assign)):
-        continue
-      names = _GetNodeNames(node)
-      if symbol not in names:
-        continue
-
-      # Use the ast module to extract the line numbers and get the source code
-      start_line_index = node.lineno - 1
-      end_line_index = _GetEOLIndex(node)
-      code = source.splitlines()[start_line_index:end_line_index + 1]
-      return '\n'.join(code)
+    nodes = list(
+        _GetMatchingNodesRecursive(node=tree, symbol_parts=symbol_parts))
+    for node in nodes:
+      return _DumpNode(source=source, node=node)
     raise ValueError(
         f'Symbol {json.dumps(symbol)} not found in {json.dumps(str(path))}')
   except Exception as e:
@@ -386,11 +413,14 @@ def _GetClassDocstringEndIndex(class_node: ast.ClassDef) -> int:
 
 
 def _GetEOLIndex(node: ast.AST) -> int:
+
   if hasattr(node, 'end_lineno') and node.end_lineno is not None:
     return node.end_lineno - 1
+
+  lineno = getattr(node, 'lineno', None)
   name = getattr(node, 'name', 'N/A')
   raise ValueError(
-      f'end_lineno not found for {json.dumps(name)} of type {type(node)} defined at line {node.lineno}, this can happen in Python < 3.8.0. sys.version_info: {sys.version_info}.'
+      f'end_lineno not found for {json.dumps(name)} of type {type(node)} defined at line {lineno}, this can happen in Python < 3.8.0. sys.version_info: {sys.version_info}.'
   )
 
 

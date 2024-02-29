@@ -40,15 +40,14 @@ Here is a code snippet:
 
 ````py
 class MyClass:
+  """This is a global class"""
 
   def __init__(self, name):
     self.name = name
 
-  def __str__(self):
-    return f'MyClass({self.name})'
-
-  def __repr__(self):
-    return f'MyClass({self.name})'
+  def MyClassMethod(self):
+    """This is a method of MyClass"""
+    print(self.name)
 ````
 
 ``````
@@ -79,7 +78,7 @@ Here is a code snippet:
 $python -m snipinator.cli --help
 usage: python -m snipinator.cli [-h] -t TEMPLATE [--cwd CWD] [-a ARGS]
                                 [--templates-searchpath TEMPLATES_SEARCHPATH]
-                                [-o OUTPUT]
+                                [--rm | --no-rm] [-o OUTPUT]
                                 [--warning-message WARNING_MESSAGE]
                                 [--chmod CHMOD]
 
@@ -96,6 +95,9 @@ options:
   --templates-searchpath TEMPLATES_SEARCHPATH
                         Path to the directory with templates for include
                         directives etc. Defaults to None.
+  --rm, --no-rm         Remove any existing file at the output path, before
+                        writing the new one; useful if the existing file might
+                        be write protected.
   -o OUTPUT, --output OUTPUT
                         Path to the output file. Use "-" for stdout. Defaults
                         to "-".
@@ -124,16 +126,16 @@ Here is a code snippet:
 
 ````py
 class MyClass:
+  """This is a global class"""
 
   def __init__(self, name):
     self.name = name
 
-  def __str__(self):
-    return f'MyClass({self.name})'
-
-  def __repr__(self):
-    return f'MyClass({self.name})'
+  def MyClassMethod(self):
+    """This is a method of MyClass"""
+    print(self.name)
 ````
+
 
 ``````
 

@@ -7,17 +7,16 @@
 
 
 class MyClass:
+  """This is a global class"""
 
   def __init__(self, name):
     self.name = name
 
-  def __str__(self):
-    return f'MyClass({self.name})'
-
-  def __repr__(self):
-    return f'MyClass({self.name})'
+  def MyClassMethod(self):
+    """This is a method of MyClass"""
+    print(self.name)
 
 
-async def Method():
-  """This is a method"""
+async def GlobalMethod():
+  """This is a global method"""
   print('Hello')

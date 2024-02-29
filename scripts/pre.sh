@@ -11,7 +11,6 @@ bash scripts/generate-readme.sh
 bash scripts/run-all-examples.sh
 bash scripts/run-all-tests.sh
 bash scripts/precommit.sh
-# Check if we are in a GitHub Action, if so, don't run act, otherwise run act
-if [ -z "${GITHUB_ACTIONS:-}" ]; then
+if [[ -z "${GITHUB_ACTIONS:-}" ]]; then
   bash scripts/act.sh
 fi

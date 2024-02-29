@@ -61,8 +61,11 @@ class MyClass:
 - Python 3.10+, uses PEP 604, pipe type hints for Union.
 
 ```bash
+# Install from pypi (https://pypi.org/project/snipinator/)
+pip install snipinator
+
 # Install from git (https://github.com/realazthat/snipinator)
-pip install git+https://github.com/realazthat/snipinator.git
+pip install git+https://github.com/realazthat/snipinator.git@v1.0.2
 ```
 
 **Tested on:**
@@ -346,11 +349,13 @@ def shell(args: str,
 ## Release Process
 
 1. Bump the version in setup.py, following semantic versioning principles.
-2. Commit changes: Commit these changes with a message like "Prepare release
+2. Change any reference to the old version (or tag) in the README.md to the new
+   version.
+3. Commit changes: Commit these changes with a message like "Prepare release
    X.Y.Z".
-3. Tag the release: Create a git tag for the release with
+4. Tag the release: Create a git tag for the release with
    `git tag -a vX.Y.Z -m "Version X.Y.Z"`.
-4. Push to GitHub: Push the commit and tags to GitHub with `git push` and
+5. Push to GitHub: Push the commit and tags to GitHub with `git push` and
    `git push --tags`.
-5. Publish to PyPI: Publish the release to PyPI with
+6. Publish to PyPI: Publish the release to PyPI with
    `bash scripts/deploy-to-pypi.sh`.

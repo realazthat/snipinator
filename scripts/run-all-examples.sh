@@ -16,3 +16,5 @@ export PYTHONPATH=${PYTHONPATH}:${PWD}
 for EXAMPLE in $(find snipinator/examples -type f -name "*.sh"); do
   bash "${EXAMPLE}"
 done
+
+echo -e "${GREEN}All examples ran successfully${NC}"

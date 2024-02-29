@@ -34,6 +34,10 @@ fi
 eval "$(pyenv init --path)"
 eval "$(pyenv virtualenv-init -)"
 
+echo -e "${YELLOW}Installing python version from .python-version${NC}"
+echo -e "${YELLOW}This may take a while${NC}"
+echo -e "${YELLOW}$(cat $PWD/.python-version)${NC}"
 pyenv install --skip-existing
+echo -e "${YELLOW}$(python --version)${NC}"
 
 source "${PROJ_PATH}/scripts/utilities/ensure-py-version.sh"

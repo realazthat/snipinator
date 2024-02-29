@@ -326,9 +326,13 @@ def shell(args: str,
 - Snipinator's own `README` at
   [`./README.md.jinja2`](./README.md.jinja2).
   - Generated: [`./README.md`](./README.md).
+  - Generation script:
+    [`./scripts/generate-readme.sh`](./scripts/generate-readme.sh).
 - [`snipinator/examples/EXAMPLE.md.jinja2`](./snipinator/examples/EXAMPLE.md.jinja2).
   - Generated:
     [`snipinator/examples/EXAMPLE.generated.md`](./snipinator/examples/EXAMPLE.generated.md).
+  - Generation script:
+    [`./snipinator/examples.sh`](./snipinator/examples.sh).
 
 ## Release Process
 

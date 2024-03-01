@@ -6,6 +6,10 @@ SOURCE: `README.md.jinja2`.
 -->
 # Snipinator
 
+| Branch | Status                    |
+| ------ | ------------------------- |
+| Master | [![Build and Test][1]][2] |
+
 Make your `README.md` into a Jinja2 template for including snippets from your
 python codebase. Uses Jinja2, and Python's AST library.
 
@@ -359,3 +363,6 @@ def shell(args: str,
    `git push --tags`.
 6. Publish to PyPI: Publish the release to PyPI with
    `bash scripts/deploy-to-pypi.sh`.
+
+[1]: https://github.com/realazthat/snipinator/actions/workflows/ci.yml/badge.svg?branch=master
+[2]: https://github.com/realazthat/snipinator/actions/workflows/ci.yml

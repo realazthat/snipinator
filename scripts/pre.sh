@@ -11,7 +11,7 @@ bash scripts/type-check.sh
 bash scripts/generate-readme.sh
 bash scripts/run-all-examples.sh
 bash scripts/run-all-tests.sh
-bash scripts/precommit.sh
 if [[ -z "${GITHUB_ACTIONS:-}" ]]; then
+  bash scripts/precommit.sh
   bash scripts/act.sh
 fi

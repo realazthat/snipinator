@@ -7,6 +7,7 @@ SCRIPT_DIR=$(realpath "$(dirname "${BASH_SOURCE[0]}")")
 source "${SCRIPT_DIR}/utilities/common.sh"
 
 bash scripts/format.sh
+bash scripts/type-check.sh
 bash scripts/generate-readme.sh
 bash scripts/run-all-examples.sh
 bash scripts/run-all-tests.sh

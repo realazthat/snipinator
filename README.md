@@ -6,9 +6,9 @@ SOURCE: `README.md.jinja2`.
 -->
 # Snipinator
 
-| Branch | Status                    |
-| ------ | ------------------------- |
-| Master | [![Build and Test][1]][2] |
+|        | Status                                                                   |
+| ------ | ------------------------------------------------------------------------ |
+| Master | [![Build and Test][1]][2] ![GitHub License][3] [![PyPI - Version][4]][5] |
 
 Make your `README.md` into a Jinja2 template for including snippets from your
 python codebase. Uses Jinja2, and Python's AST library.
@@ -370,3 +370,6 @@ Also see Jinja2 v3
 
 [1]: https://github.com/realazthat/snipinator/actions/workflows/ci.yml/badge.svg?branch=master
 [2]: https://github.com/realazthat/snipinator/actions/workflows/ci.yml
+[3]: https://img.shields.io/github/license/realazthat/snipinator
+[4]: https://img.shields.io/pypi/v/snipinator
+[5]: https://pypi.org/project/snipinator/

@@ -297,6 +297,9 @@ def shell(args: str,
 
 ````
 
+Also see Jinja2 v3
+[Template Designer Documentation](https://jinja.palletsprojects.com/en/3.1.x/templates/).
+
 ## Gotchas
 
 - **Security:** This tool is not designed to be used with untrusted input. It is

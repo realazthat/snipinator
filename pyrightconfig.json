@@ -1,0 +1,18 @@
+{
+  "include": ["snipinator"],
+  "exclude": ["**/__pycache__"],
+  "ignore": [],
+  "defineConstant": {
+    "DEBUG": true
+  },
+  "stubPath": "snipinator/stubs",
+  "reportMissingImports": true,
+  "reportMissingTypeStubs": false,
+  "pythonVersion": "3.10",
+  "pythonPlatform": "Linux",
+  "executionEnvironments": [
+    {
+      "root": "snipinator"
+    }
+  ]
+}

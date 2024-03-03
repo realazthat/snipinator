@@ -9,5 +9,6 @@ VENV_PATH=".cache/scripts/.venv" source "${PROJ_PATH}/scripts/utilities/ensure-v
 REQS="${PROJ_PATH}/scripts/requirements-dev.txt" source "${PROJ_PATH}/scripts/utilities/ensure-reqs.sh"
 
 mypy "${PROJ_PATH}/snipinator"
+python3 -m pyright --stats
 
 echo -e "${GREEN}All type checks ran successfully${NC}"

@@ -324,23 +324,23 @@ def _CheckPath(*, path: str, cwd: Path) -> Path:
 
 def _GetNodeNames(
     node: ast.FunctionDef | ast.AsyncFunctionDef | ast.ClassDef | ast.Assign
-) -> List[str]:
+) -> Generator[str, None, None]:
   if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
-    return [node.name]
+    yield node.name
+    return
   elif isinstance(node, ast.Assign):
-    names = []
     for target in node.targets:
       if isinstance(target, ast.Name):
         id: str = target.id
-        names.append(id)
-    return names
+        yield id
+    return
   raise ValueError(f'Unsupported node type: {type(node)}')
 
 
-def _GetMatchingNodes(*, node: ast.AST,
-                      symbol_part: str) -> Generator[ast.AST, None, None]:
+def _FindMatchingChildNodes(*, parent: ast.AST,
+                            symbol_part: str) -> Generator[ast.AST, None, None]:
   child_node: ast.AST
-  for child_node in ast.iter_child_nodes(node):
+  for child_node in ast.iter_child_nodes(parent):
     if not isinstance(
         child_node,
         (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef, ast.Assign)):
@@ -350,20 +350,26 @@ def _GetMatchingNodes(*, node: ast.AST,
       yield child_node
 
 
-def _GetMatchingNodesRecursive(
-    *, node: ast.AST,
-    symbol_parts: List[str]) -> Generator[ast.AST, None, None]:
-  candidates = [node]
+def _FindTargetNodes(*, start: ast.AST,
+                     symbol_parts: List[str]) -> Generator[ast.AST, None, None]:
+  candidates = [start]
   for symbol_part in symbol_parts:
     next_candidates = []
     candidate: ast.AST
     for candidate in candidates:
       matching_node: ast.AST
-      for matching_node in _GetMatchingNodes(node=candidate,
-                                             symbol_part=symbol_part):
+      for matching_node in _FindMatchingChildNodes(parent=candidate,
+                                                   symbol_part=symbol_part):
         next_candidates.append(matching_node)
     candidates = next_candidates
   yield from candidates
+
+
+def _FindTargetNode(*, start: ast.AST,
+                    symbol_parts: List[str]) -> ast.AST | None:
+  for target_node in _FindTargetNodes(start=start, symbol_parts=symbol_parts):
+    return target_node
+  return None
 
 
 def _DumpNode(*, source: str, node: ast.AST) -> str:
@@ -378,8 +384,7 @@ def _GetSymbolSource(*, path: Path, symbol: str) -> str:
   try:
     source = path.read_text()
     tree = ast.parse(source)
-    nodes = list(
-        _GetMatchingNodesRecursive(node=tree, symbol_parts=symbol_parts))
+    nodes = list(_FindTargetNodes(start=tree, symbol_parts=symbol_parts))
     for node in nodes:
       return _DumpNode(source=source, node=node)
     raise ValueError(
@@ -388,20 +393,6 @@ def _GetSymbolSource(*, path: Path, symbol: str) -> str:
     raise ValueError(
         f'Error getting source for {json.dumps(symbol)} in {json.dumps(str(path))}: {json.dumps(str(e))}'
     ) from e
-
-
-def _FindTargetNode(node: ast.AST, path_parts: List[str]) -> ast.AST | None:
-  for child in ast.iter_child_nodes(node):
-    if not isinstance(child,
-                      (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
-      continue
-    name = child.name
-    if name == path_parts[0]:
-      if len(path_parts) == 1:
-        return child
-      else:
-        return _FindTargetNode(child, path_parts[1:])
-  return None
 
 
 def _GetClassDocstringEndIndex(class_node: ast.ClassDef) -> int:
@@ -445,22 +436,26 @@ def _FirstNonDocstringLineIndex(
     return first_node.lineno - 1
 
 
+def _EndIndex(target_node: ast.AST) -> int | None:
+  if isinstance(target_node, ast.ClassDef):
+    return _GetClassDocstringEndIndex(target_node)
+  elif isinstance(target_node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+    return _FirstNonDocstringLineIndex(target_node)
+  return None
+
+
 def _GetSymbolSignature(source: str, path: str, symbol: str) -> str:
   try:
     tree = ast.parse(source, filename=Path(path).name)
 
-    path_components = symbol.split('.')
-    target_node = _FindTargetNode(tree, path_components)
+    target_node = _FindTargetNode(start=tree, symbol_parts=symbol.split('.'))
     if target_node is None:
       raise ValueError(
           f'Symbol {json.dumps(symbol)} not found in {json.dumps(str(path))}')
 
     start_line_index = target_node.lineno - 1
-    if isinstance(target_node, ast.ClassDef):
-      end_line_index = _GetClassDocstringEndIndex(target_node)
-    elif isinstance(target_node, (ast.FunctionDef, ast.AsyncFunctionDef)):
-      end_line_index = _FirstNonDocstringLineIndex(target_node)
-    else:
+    end_line_index = _EndIndex(target_node)
+    if end_line_index is None:
       raise ValueError(
           f'Unsupported symbol type: {json.dumps(symbol)} of type {type(target_node)} in {json.dumps(str(path))}'
       )

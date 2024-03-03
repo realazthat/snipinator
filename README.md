@@ -302,9 +302,10 @@ Also see Jinja2 v3
 
 ## Gotchas
 
-- **Security:** This tool is not designed to be used with untrusted input. It is
-  designed to be used with your own codebase. Even so, be careful that your own
-  code won't be doing weird things.
+- **Security:** This tool is NOT designed to be used with untrusted input. It is
+  designed to be used with your own codebase. Even when using your own input, be
+  careful that your own code won't be doing anything that might inadvertently
+  include untrusted input.
 - Be careful to escape `{{` and `}}`,
   or `{%` and `%}` or anything jinja2
   is sensitive to, in the templates. You'll have to escape it properly.

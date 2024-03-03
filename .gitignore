@@ -11,3 +11,4 @@ snipinator.egg-info/
 **/.deleteme*
 .act-project-path/
 dist/
+.ruff_cache/

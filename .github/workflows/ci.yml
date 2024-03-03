@@ -17,12 +17,12 @@ jobs:
     - name: Use Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '20'
+        node-version: "20"
     - uses: actions/checkout@v4
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.11'
+        python-version: "3.11"
     - name: Install Bash (Ubuntu)
       run: sudo apt-get update && sudo apt-get install -y bash
     - name: Install dependencies

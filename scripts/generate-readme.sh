@@ -12,13 +12,13 @@ REQS="${PROJ_PATH}/requirements.txt" source "${PROJ_PATH}/scripts/utilities/ensu
 PYTHONPATH=${PYTHONPATH:-}
 export PYTHONPATH="${PROJ_PATH}:${PYTHONPATH}"
 
-python snipinator/cli.py \
+python -m snipinator.cli \
   -t "${PROJ_PATH}/snipinator/examples/EXAMPLE.md.jinja2" \
   --rm \
   -o "${PROJ_PATH}/snipinator/examples/EXAMPLE.generated.md" \
   --chmod 555
 
-python snipinator/cli.py \
+python -m snipinator.cli \
   -t "${PROJ_PATH}/README.md.jinja2" \
   --rm \
   -o "${PROJ_PATH}/README.md" \

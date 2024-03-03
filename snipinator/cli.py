@@ -17,7 +17,7 @@ from typing import Callable, List, TextIO
 
 from rich.console import Console
 
-from snipinator.snipinate import DEFAULT_WARNING, Snipinate
+from .snipinate import DEFAULT_WARNING, Snipinate
 
 
 def _GetProgramName() -> str:

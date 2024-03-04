@@ -30,7 +30,28 @@ def Snipinate(template_file_name: str,
               cwd: Path,
               template_args: dict,
               templates_searchpath: Path | None,
-              warning_message: str = DEFAULT_WARNING):
+              warning_message: str = DEFAULT_WARNING) -> str:
+  """Render the markdown template.
+
+  Args:
+      template_file_name (str): File name of the template, used for error
+        reporting.
+      template_string (str): The content of the template.
+      cwd (Path): Current working directory, used as a base for resolving
+        relative paths in the template.
+      template_args (dict): Any extra values the user wishes to pass to the
+        template, e.g. `{'name': 'John'}` if they wish to render variables as
+        Jinja2 is capable of.
+      templates_searchpath (Path | None): If specified, will use a custom
+        FileSystemLoader for Jinja2, with this search path. This is useful for
+        inclusion macros, etc. Defaults to None.
+      warning_message (str, optional): If specified, the top of the rendered
+        markdown will contain this warning. Useful for adding warnings about
+        editing the file, since it is generated. Defaults to DEFAULT_WARNING.
+
+  Returns:
+      str: Rendered markdown.
+  """
   try:
     warning_message = warning_message.format(
         template_file_name=template_file_name)

@@ -15,7 +15,9 @@ import time
 from pathlib import Path
 from typing import Callable, List, TextIO
 
+import colorama
 from rich.console import Console
+from rich_argparse import RichHelpFormatter  # type: ignore[import]
 
 from .snipinate import DEFAULT_WARNING, Snipinate
 
@@ -141,8 +143,12 @@ def main() -> int:
   console = Console(file=sys.stderr)
   args: argparse.Namespace | None = None
   try:
+    # Windows<10 requires this.
+    colorama.init()
+
     parser = argparse.ArgumentParser(prog=_GetProgramName(),
-                                     description=__doc__)
+                                     description=__doc__,
+                                     formatter_class=RichHelpFormatter)
     parser.add_argument('-t',
                         '--template',
                         type=argparse.FileType('r'),
@@ -160,7 +166,9 @@ def main() -> int:
         '--args',
         type=json.loads,
         default={},
-        help='JSON string with template arguments. Defaults to {}.')
+        help=
+        "JSON string with template arguments. Any extra values the user wishes to pass to the template, e.g. `{'name': 'John'}` if they wish to render variables as Jinja2 is capable of. Defaults to {}."
+    )
     parser.add_argument(
         '--templates-searchpath',
         type=Path,

@@ -94,7 +94,7 @@ Here is a code snippet:
 
 ````bash
 $python -m snipinator.cli --help
-usage: python -m snipinator.cli [-h] -t TEMPLATE [--cwd CWD] [-a ARGS]
+Usage: python -m snipinator.cli [-h] -t TEMPLATE [--cwd CWD] [-a ARGS]
                                 [--templates-searchpath TEMPLATES_SEARCHPATH]
                                 [--rm | --no-rm] [-o OUTPUT]
                                 [--warning-message WARNING_MESSAGE]
@@ -103,21 +103,23 @@ usage: python -m snipinator.cli [-h] -t TEMPLATE [--cwd CWD] [-a ARGS]
 CLI: Python code snipinator for markdown files, e.g READMEs, from actual
 (testable) code.
 
-options:
+Options:
   -h, --help            show this help message and exit
-  -t TEMPLATE, --template TEMPLATE
+  -t, --template TEMPLATE
                         Path to the template file. Use "-" for stdin.
   --cwd CWD             Directory to use as the base for snippet paths in the
                         template. Defaults to the current working directory.
-  -a ARGS, --args ARGS  JSON string with template arguments. Defaults to {}.
+  -a, --args ARGS       JSON string with template arguments. Any extra values
+                        the user wishes to pass to the template, e.g.
+                        `{'name': 'John'}` if they wish to render variables as
+                        Jinja2 is capable of. Defaults to {}.
   --templates-searchpath TEMPLATES_SEARCHPATH
                         Path to the directory with templates for include
                         directives etc. Defaults to None.
   --rm, --no-rm         Remove any existing file at the output path, before
                         writing the new one; useful if the existing file might
                         be write protected. (default: False)
-  -o OUTPUT, --output OUTPUT
-                        Path to the output file. Use "-" for stdout. Defaults
+  -o, --output OUTPUT   Path to the output file. Use "-" for stdout. Defaults
                         to "-".
   --warning-message WARNING_MESSAGE
                         Warning message to include in the output file. To

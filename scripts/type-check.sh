@@ -7,6 +7,7 @@ source "${SCRIPT_DIR}/utilities/common.sh"
 
 VENV_PATH=".cache/scripts/.venv" source "${PROJ_PATH}/scripts/utilities/ensure-venv.sh"
 REQS="${PROJ_PATH}/scripts/requirements-dev.txt" source "${PROJ_PATH}/scripts/utilities/ensure-reqs.sh"
+REQS="${PROJ_PATH}/requirements.txt" source "${PROJ_PATH}/scripts/utilities/ensure-reqs.sh"
 
 mypy "${PROJ_PATH}/snipinator"
 python3 -m pyright --stats

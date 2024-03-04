@@ -17,7 +17,7 @@ with open('requirements.txt') as f:
 
 setup(
     name='snipinator',
-    version='1.0.2',
+    version='1.0.3',
     packages=find_packages(),
     description=
     'Python code snippets for markdown files, e.g READMEs, from actual (testable) code.',

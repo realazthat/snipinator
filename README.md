@@ -71,7 +71,7 @@ class MyClass:
 pip install snipinator
 
 # Install from git (https://github.com/realazthat/snipinator)
-pip install git+https://github.com/realazthat/snipinator.git@v1.0.2
+pip install git+https://github.com/realazthat/snipinator.git@v1.0.3
 ```
 
 **Tested on:**
@@ -375,5 +375,5 @@ Also see Jinja2 v3
 [3]: https://img.shields.io/github/license/realazthat/snipinator
 [4]: https://img.shields.io/pypi/v/snipinator
 [5]: https://pypi.org/project/snipinator/
-[6]: https://img.shields.io/github/commits-since/realazthat/snipinator/v1.0.2/master
+[6]: https://img.shields.io/github/commits-since/realazthat/snipinator/v1.0.3/master
 [7]: https://img.shields.io/github/last-commit/realazthat/snipinator/master

@@ -31,7 +31,7 @@ Here is a code snippet:
 
 ````
 
-Into this (`snipinator/examples/EXAMPLE.generated.jinja2`):
+Into this (`snipinator/examples/EXAMPLE.generated.md`):
 
 ``````md
 <!--
@@ -354,7 +354,7 @@ Also see Jinja2 v3
   - Generated:
     [`snipinator/examples/EXAMPLE.generated.md`](./snipinator/examples/EXAMPLE.generated.md).
   - Generation script:
-    [`./snipinator/examples.sh`](./snipinator/examples.sh).
+    [`./snipinator/examples/example.sh`](./snipinator/examples/example.sh).
 
 ## Release Process
 

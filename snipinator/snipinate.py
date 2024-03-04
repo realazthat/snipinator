@@ -256,6 +256,9 @@ def path(path: str,
   """
   _CheckPath(path=path, cwd=cwd)
 
+  if not Path(path).exists():
+    raise FileNotFoundError(f'File not found: {json.dumps(path)}')
+
   path_str = path
   path_str = _Backtickify(path_str, backtickify=backtickify)
   path_str = _Indent(path_str, indent=indent)

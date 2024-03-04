@@ -12,8 +12,8 @@ SOURCE: `README.md.jinja2`.
 | ------ | ------------------------- | ------------------------------------ |
 | Master | [![Build and Test][1]][2] | ![since tagged][6] ![last commit][7] |
 
-Make your `README.md` into a Jinja2 template for including snippets from your
-python codebase. Uses Jinja2, and Python's AST library.
+CLI to embed snippets from your python codebase into your `README.md`. Uses
+Jinja2, and Python's AST library.
 
 ## What
 

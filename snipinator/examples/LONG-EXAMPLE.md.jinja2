@@ -15,3 +15,15 @@ Same thing but just the signature:
 Here is a code snippet (global method):
 
 `{{ pysnippet(path='snipinator/examples/code.py', symbol='GlobalMethod', backtickify='py') }}`
+
+Here is a terminal snippet:
+
+`{{ shell('ls -la snipinator/examples/code.py', backtickify='shell') }}`
+
+Here is a terminal snippet with terminal colors (raw svg):
+
+{{ shell('ls -la snipinator/examples/code.py', rich='svg') }}
+
+Here is a terminal snippet with terminal colors (img tag with svg data):
+
+{{ shell('ls -la snipinator/examples/code.py', rich='img+svg') }}

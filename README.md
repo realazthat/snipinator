@@ -64,7 +64,10 @@ class MyClass:
 
 **Requirements:**
 
-- Python 3.10+, uses PEP 604, pipe type hints for Union.
+- Linux-like environment
+  - Why: Uses chmod, rm, and pexpect.spawn().
+- Python 3.10+
+  - Why: uses PEP 604, pipe type hints for Union.
 
 ```bash
 # Install from pypi (https://pypi.org/project/snipinator/)
@@ -278,6 +281,7 @@ def shell(args: str,
           escape: bool = False,
           indent: str | int | None = None,
           backtickify: bool | str = False,
+          rich: Literal['svg'] | Literal['img+svg'] | Literal['raw'] = 'raw',
           cwd: Path) -> str | markupsafe.Markup:
   """Run a shell command and return the output.
 
@@ -292,13 +296,18 @@ def shell(args: str,
         what prefix? Defaults to None.
       backtickify (bool | str, optional): Should surround with backticks? With
         what language? Defaults to False.
+      rich (Literal['svg']|Literal['img+svg']|Literal['raw'], optional): If
+        'svg' a raw svg tag will be dumped into the markdown with the colored
+        terminal output. Note that your markdown renderer may not support this.
+        If 'img+svg' a base64 encoded image will be dumped into the markdown
+        with the colored terminal output. If 'raw' the raw terminal output will
+        be dumped into the markdown directly. Defaults to 'raw.
       cwd (Path): This is used by the system and is not available as an
         argument. You can change this on the command line.
 
   Returns:
-      str | markupsafe.Markup: _description_
+      str | markupsafe.Markup: Returns the output of the command.
   """
-
 ````
 
 Also see Jinja2 v3

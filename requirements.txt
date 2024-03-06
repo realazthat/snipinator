@@ -3,6 +3,7 @@ Jinja2 >=3,<4
 markdown-it-py >=3,<4
 MarkupSafe >=2,<3
 mdurl <1
+pexpect >4,<5
 Pygments >=2,<3
 rich >=13,<14
 rich-argparse >=1,<2

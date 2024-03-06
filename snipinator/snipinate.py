@@ -7,18 +7,29 @@
 """Python code snippets for markdown files, e.g READMEs, from actual (testable) code."""
 
 import ast
+import base64
 import html
 import json
+import logging
+import shlex
 import subprocess
 import sys
 import textwrap
 from functools import partial
+from io import StringIO
 from pathlib import Path
-from typing import Generator, List
+from typing import Generator, List, Literal
+from xml.dom import minidom
 
 import markupsafe
+import pexpect  # type: ignore[import]
 from jinja2 import Environment, FileSystemLoader
+from rich.console import Console
+from rich.terminal_theme import MONOKAI
+from rich.text import Text
+from rich.themes import DEFAULT as DEFAULT_THEME
 
+logger = logging.getLogger(__name__)
 DEFAULT_WARNING = '''
 WARNING: This file is auto-generated. Do not edit directly.
 SOURCE: `{template_file_name}`.
@@ -289,11 +300,16 @@ def path(path: str,
     return path_str
 
 
+def _ExecuteANSI(cmd: List[str], cwd: Path) -> str:
+  return pexpect.spawn(shlex.join(cmd), cwd=str(cwd)).read().decode()
+
+
 def shell(args: str,
           *,
           escape: bool = False,
           indent: str | int | None = None,
           backtickify: bool | str = False,
+          rich: Literal['svg'] | Literal['img+svg'] | Literal['raw'] = 'raw',
           cwd: Path) -> str | markupsafe.Markup:
   """Run a shell command and return the output.
 
@@ -308,21 +324,116 @@ def shell(args: str,
         what prefix? Defaults to None.
       backtickify (bool | str, optional): Should surround with backticks? With
         what language? Defaults to False.
+      rich (Literal['svg']|Literal['img+svg']|Literal['raw'], optional): If
+        'svg' a raw svg tag will be dumped into the markdown with the colored
+        terminal output. Note that your markdown renderer may not support this.
+        If 'img+svg' a base64 encoded image will be dumped into the markdown
+        with the colored terminal output. If 'raw' the raw terminal output will
+        be dumped into the markdown directly. Defaults to 'raw.
       cwd (Path): This is used by the system and is not available as an
         argument. You can change this on the command line.
 
   Returns:
-      str | markupsafe.Markup: _description_
+      str | markupsafe.Markup: Returns the output of the command.
   """
+  if rich in ['svg', 'img+svg']:
+    output = _ExecuteANSI(shlex.split(args), cwd=cwd)
 
-  result = subprocess.run(args,
-                          cwd=cwd,
-                          stdout=subprocess.PIPE,
-                          stderr=subprocess.STDOUT,
-                          text=True,
-                          shell=True)
+    CONSOLE_SVG_FORMAT = """\
+    <svg class="rich-terminal" viewBox="0 0 {width} {height}" xmlns="http://www.w3.org/2000/svg">
+        <!-- Generated with Rich textualize.io -->
+<style>
+@font-face {{
+font-family: "Fira Code";
+src: local("FiraCode-Regular"),
+url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff2/FiraCode-Regular.woff2") format("woff2"),
+url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff/FiraCode-Regular.woff") format("woff");
+font-style: normal;
+font-weight: 400;
+}}
+@font-face {{
+font-family: "Fira Code";
+src: local("FiraCode-Bold"),
+url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff2/FiraCode-Bold.woff2") format("woff2"),
+url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff/FiraCode-Bold.woff") format("woff");
+font-style: bold;
+font-weight: 700;
+}}
 
-  output = f'${args}\n{result.stdout}'
+.{unique_id}-matrix {{
+font-family: Fira Code, monospace;
+font-size: {char_height}px;
+line-height: {line_height}px;
+font-variant-east-asian: full-width;
+}}
+
+.{unique_id}-title {{
+font-size: 18px;
+font-weight: bold;
+font-family: arial;
+}}
+
+{styles}
+</style>
+
+        <defs>
+        <clipPath id="{unique_id}-clip-terminal">
+          <rect x="0" y="0" width="{terminal_width}" height="{terminal_height}" />
+        </clipPath>
+        {lines}
+        </defs>
+
+        <g transform="translate({terminal_x}, 0)">
+        {backgrounds}
+        <g class="{unique_id}-matrix">
+        {matrix}
+        </g>
+        </g>
+    </svg>
+    """
+
+    def CleanSVG(svg_code):
+
+      # Parse SVG content
+      dom = minidom.parseString(svg_code)
+      # Get the pretty printed version of the SVG content
+      cleaned_svg = dom.toprettyxml(indent='')
+      # minidom adds extra lines; remove them
+      cleaned_svg = '\n'.join(
+          [line for line in cleaned_svg.split('\n') if line.strip()])
+
+      return cleaned_svg
+
+    width = 80
+    console = Console(record=True,
+                      force_terminal=True,
+                      force_interactive=True,
+                      width=width,
+                      theme=DEFAULT_THEME,
+                      file=StringIO())
+    text = Text.from_ansi(output)
+    console.print(f'${args}')
+    console.print(text)
+    console.height = len(text.wrap(console, width=width))
+    svg = console.export_svg(theme=MONOKAI, code_format=CONSOLE_SVG_FORMAT)
+    svg = CleanSVG(svg)
+
+    print('svg:', svg)
+    if rich == 'svg':
+      output = svg
+    elif rich == 'img+svg':
+      output = ('<img src="data:image/svg+xml;base64,' +
+                base64.b64encode(svg.encode()).decode() + '"/>')
+    else:
+      raise ValueError(f'Unsupported rich format: {json.dumps(rich)}')
+  else:
+    result = subprocess.run(shlex.split(args),
+                            cwd=cwd,
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.STDOUT,
+                            text=True,
+                            check=True)
+    output = f'${args}\n{result.stdout}'
   output = _Backtickify(output, backtickify=backtickify)
   output = _Indent(output, indent=indent)
   if not escape:

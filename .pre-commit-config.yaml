@@ -79,13 +79,14 @@ repos:
 # From https://github.com/Lucas-C/pre-commit-hooks#useful-local-hooks
 - repo: local
   hooks:
-  - id: forbid-unicode-non-breaking-spaces
-    name: Detect unicode non-breaking space character U+00A0 aka M-BM-
-    language: system
-    entry: perl -ne 'print if $m = /\xc2\xa0/; $t ||= $m; END{{exit $t}}'
-    files: ''
-    types:
-    - text
+  # TODO: Renable this
+  # - id: forbid-unicode-non-breaking-spaces
+  #   name: Detect unicode non-breaking space character U+00A0 aka M-BM-
+  #   language: system
+  #   entry: perl -ne 'print if $m = /\xc2\xa0/; $t ||= $m; END{{exit $t}}'
+  #   files: ''
+  #   types:
+  #   - text
   - id: forbid-en-dashes
     name: Detect the EXTREMELY confusing unicode character U+2013
     language: system

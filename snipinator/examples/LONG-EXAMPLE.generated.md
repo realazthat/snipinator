@@ -30,7 +30,7 @@ Here is a code snippet (class member method):
     print(self.name)
 ````
 
-\--
+______________________________________________________________________
 
 Same thing but just the signature:
 

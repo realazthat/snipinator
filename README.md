@@ -306,8 +306,10 @@ def shell(args: str,
           indent: str | int | None = None,
           backtickify: bool | str = False,
           decomentify: bool = False,
-          rich: Literal['svg'] | Literal['img+svg'] | Literal['raw'] = 'raw',
-          cwd: Path) -> str | markupsafe.Markup:
+          rich: Literal['svg'] | Literal['img+b64+svg'] | Literal['raw']
+          | str = 'raw',
+          cwd: Path,
+          template_file_name: str) -> str | markupsafe.Markup:
   """Run a shell command and return the output.
 
   Use at your own risk, this can potentially introduce security vulnerabilities.
@@ -326,14 +328,26 @@ def shell(args: str,
         uncomments to uncomment the output. This allows you to have the Jinja2
         call unmolested by markdown formatters, because they will be inside of
         a comment section. Defaults to False.
-      rich (Literal['svg']|Literal['img+svg']|Literal['raw'], optional): If
-        'svg' a raw svg tag will be dumped into the markdown with the colored
-        terminal output. Note that your markdown renderer may not support this.
-        If 'img+svg' a base64 encoded image will be dumped into the markdown
-        with the colored terminal output. If 'raw' the raw terminal output will
-        be dumped into the markdown directly. Defaults to 'raw.
+      rich (Literal['svg']|Literal['img+b64+svg']|Literal['raw']|str, optional):
+        Optionally outputs colored terminal output as an image.
+        * If `rich` is a relative file path that ends with ".svg", the svg will
+          be saved to that location and an img tag will be emitted. The path
+          will be relative to the template file, which is specified on the
+          command line. If the template is from stdin, the path will be relative
+          to the current working directory (cwd) which is also specified on the
+          command line.
+        * If 'svg' a raw svg tag will be dumped into the markdown with the
+          colored terminal output. Note that your markdown renderer may not
+          support this.
+        * If 'img+svg' a base64 encoded image will be dumped into the markdown
+          with the colored terminal output.
+        * If 'raw' the raw (uncolored) terminal output will be dumped into the
+          markdown directly.
+        * Defaults to 'raw.
       cwd (Path): This is used by the system and is not available as an
         argument. You can change this on the command line.
+      template_file_name (Path): This is used by the system and is not available
+        as an argument.
 
   Returns:
       str | markupsafe.Markup: Returns the output of the command.

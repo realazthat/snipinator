@@ -46,7 +46,9 @@ def Snipinate(template_file_name: str,
 
   Args:
       template_file_name (str): File name of the template, used for error
-        reporting.
+        reporting. Can be '-' to indicate stdin. Otherwise should be a path
+        relative to `cwd`. Does not have to exist. Will be used as a hint
+        as to where to output embedded files, such as images, etc.
       template_string (str): The content of the template.
       cwd (Path): Current working directory, used as a base for resolving
         relative paths in the template.
@@ -82,7 +84,9 @@ def Snipinate(template_file_name: str,
     env.globals['rawsnippet'] = partial(rawsnippet, cwd=cwd)
     env.globals['snippet'] = partial(snippet, cwd=cwd)
     env.globals['path'] = partial(path, cwd=cwd)
-    env.globals['shell'] = partial(shell, cwd=cwd)
+    env.globals['shell'] = partial(shell,
+                                   cwd=cwd,
+                                   template_file_name=template_file_name)
 
     template_ = env.from_string(template_string)
     rendered = template_.render(**template_args)
@@ -339,48 +343,9 @@ def _ExecuteANSI(cmd: List[str], cwd: Path) -> str:
   return pexpect.spawn(shlex.join(cmd), cwd=str(cwd)).read().decode()
 
 
-def shell(args: str,
-          *,
-          escape: bool = False,
-          indent: str | int | None = None,
-          backtickify: bool | str = False,
-          decomentify: bool = False,
-          rich: Literal['svg'] | Literal['img+svg'] | Literal['raw'] = 'raw',
-          cwd: Path) -> str | markupsafe.Markup:
-  """Run a shell command and return the output.
+def _GetTerminalSVG(args: str, terminal_output: str) -> str:
 
-  Use at your own risk, this can potentially introduce security vulnerabilities.
-  Only use if you know what you are doing.
-
-  Args:
-      args (str): The command to run.
-      escape (bool, optional): Should use HTML entities escaping? Defaults to
-        False.
-      indent (str | int | None, optional): Should indent? By how much, or with
-        what prefix? Defaults to None.
-      backtickify (bool | str, optional): Should surround with backticks? With
-        what language? Defaults to False.
-      decomentify (bool, optional): Assuming that you will be using HTML
-        comments around this call, setting this to true will add corresponding
-        uncomments to uncomment the output. This allows you to have the Jinja2
-        call unmolested by markdown formatters, because they will be inside of
-        a comment section. Defaults to False.
-      rich (Literal['svg']|Literal['img+svg']|Literal['raw'], optional): If
-        'svg' a raw svg tag will be dumped into the markdown with the colored
-        terminal output. Note that your markdown renderer may not support this.
-        If 'img+svg' a base64 encoded image will be dumped into the markdown
-        with the colored terminal output. If 'raw' the raw terminal output will
-        be dumped into the markdown directly. Defaults to 'raw.
-      cwd (Path): This is used by the system and is not available as an
-        argument. You can change this on the command line.
-
-  Returns:
-      str | markupsafe.Markup: Returns the output of the command.
-  """
-  if rich in ['svg', 'img+svg']:
-    output = _ExecuteANSI(shlex.split(args), cwd=cwd)
-
-    CONSOLE_SVG_FORMAT = """\
+  CONSOLE_SVG_FORMAT = """\
     <svg class="rich-terminal" viewBox="0 0 {width} {height}" xmlns="http://www.w3.org/2000/svg">
         <!-- Generated with Rich textualize.io -->
 <style>
@@ -433,41 +398,87 @@ font-family: arial;
     </svg>
     """
 
-    def CleanSVG(svg_code):
+  def CleanSVG(svg_code):
 
-      # Parse SVG content
-      dom = minidom.parseString(svg_code)
-      # Get the pretty printed version of the SVG content
-      cleaned_svg = dom.toprettyxml(indent='')
-      # minidom adds extra lines; remove them
-      cleaned_svg = '\n'.join(
-          [line for line in cleaned_svg.split('\n') if line.strip()])
+    # Parse SVG content
+    dom = minidom.parseString(svg_code)
+    # Get the pretty printed version of the SVG content
+    cleaned_svg = dom.toprettyxml(indent='')
+    # minidom adds extra lines; remove them
+    cleaned_svg = '\n'.join(
+        [line for line in cleaned_svg.split('\n') if line.strip()])
 
-      return cleaned_svg
+    return cleaned_svg
 
-    width = 80
-    console = Console(record=True,
-                      force_terminal=True,
-                      force_interactive=True,
-                      width=width,
-                      theme=DEFAULT_THEME,
-                      file=StringIO())
-    text = Text.from_ansi(output)
-    console.print(f'${args}')
-    console.print(text)
-    console.height = len(text.wrap(console, width=width))
-    svg = console.export_svg(theme=MONOKAI, code_format=CONSOLE_SVG_FORMAT)
-    svg = CleanSVG(svg)
+  width = 80
+  console = Console(record=True,
+                    force_terminal=True,
+                    force_interactive=True,
+                    width=width,
+                    theme=DEFAULT_THEME,
+                    file=StringIO())
+  text = Text.from_ansi(terminal_output)
+  console.print(f'${args}')
+  console.print(text)
+  console.height = len(text.wrap(console, width=width))
+  svg = console.export_svg(theme=MONOKAI, code_format=CONSOLE_SVG_FORMAT)
+  svg = CleanSVG(svg)
+  return svg
 
-    print('svg:', svg)
-    if rich == 'svg':
-      output = svg
-    elif rich == 'img+svg':
-      output = ('<img src="data:image/svg+xml;base64,' +
-                base64.b64encode(svg.encode()).decode() + '"/>')
-    else:
-      raise ValueError(f'Unsupported rich format: {json.dumps(rich)}')
-  else:
+
+def shell(args: str,
+          *,
+          escape: bool = False,
+          indent: str | int | None = None,
+          backtickify: bool | str = False,
+          decomentify: bool = False,
+          rich: Literal['svg'] | Literal['img+b64+svg'] | Literal['raw']
+          | str = 'raw',
+          cwd: Path,
+          template_file_name: str) -> str | markupsafe.Markup:
+  """Run a shell command and return the output.
+
+  Use at your own risk, this can potentially introduce security vulnerabilities.
+  Only use if you know what you are doing.
+
+  Args:
+      args (str): The command to run.
+      escape (bool, optional): Should use HTML entities escaping? Defaults to
+        False.
+      indent (str | int | None, optional): Should indent? By how much, or with
+        what prefix? Defaults to None.
+      backtickify (bool | str, optional): Should surround with backticks? With
+        what language? Defaults to False.
+      decomentify (bool, optional): Assuming that you will be using HTML
+        comments around this call, setting this to true will add corresponding
+        uncomments to uncomment the output. This allows you to have the Jinja2
+        call unmolested by markdown formatters, because they will be inside of
+        a comment section. Defaults to False.
+      rich (Literal['svg']|Literal['img+b64+svg']|Literal['raw']|str, optional):
+        Optionally outputs colored terminal output as an image.
+        * If `rich` is a relative file path that ends with ".svg", the svg will
+          be saved to that location and an img tag will be emitted. The path
+          will be relative to the template file, which is specified on the
+          command line. If the template is from stdin, the path will be relative
+          to the current working directory (cwd) which is also specified on the
+          command line.
+        * If 'svg' a raw svg tag will be dumped into the markdown with the
+          colored terminal output. Note that your markdown renderer may not
+          support this.
+        * If 'img+svg' a base64 encoded image will be dumped into the markdown
+          with the colored terminal output.
+        * If 'raw' the raw (uncolored) terminal output will be dumped into the
+          markdown directly.
+        * Defaults to 'raw.
+      cwd (Path): This is used by the system and is not available as an
+        argument. You can change this on the command line.
+      template_file_name (Path): This is used by the system and is not available
+        as an argument.
+
+  Returns:
+      str | markupsafe.Markup: Returns the output of the command.
+  """
+  if rich == 'raw':
     result = subprocess.run(shlex.split(args),
                             cwd=cwd,
                             stdout=subprocess.PIPE,
@@ -475,6 +486,41 @@ font-family: arial;
                             text=True,
                             check=True)
     output = f'${args}\n{result.stdout}'
+  elif rich in ['svg', 'img+svg'
+                ] or isinstance(rich, str) and rich.endswith('.svg'):
+    output = _ExecuteANSI(shlex.split(args), cwd=cwd)
+    svg = _GetTerminalSVG(args=args, terminal_output=output)
+    if rich == 'svg':
+      output = svg
+    elif rich == 'img+svg':
+      output = ('<img src="data:image/svg+xml;base64,' +
+                base64.b64encode(svg.encode()).decode() + '"/>')
+    elif isinstance(rich, str) and rich.endswith('.svg'):
+      svg_path = Path(rich)
+      if svg_path.is_absolute():
+        raise ValueError(
+            f'Path is absolute: {json.dumps(str(svg_path))}, it should be relative'
+        )
+      template_directory = cwd
+      if template_file_name != '-':
+        template_directory = Path(template_file_name).parent
+      svg_path = template_directory / svg_path
+      if not svg_path.is_relative_to(template_directory):
+        raise ValueError(
+            f'Path is not relative to cwd: {json.dumps(str(svg_path))}, cwd: {json.dumps(str(cwd))}'
+        )
+      template_rel_svg_path = svg_path.relative_to(template_directory)
+      svg_path.parent.mkdir(parents=True, exist_ok=True)
+      svg_path.write_text(svg)
+
+      output = f'<img src="{str(template_rel_svg_path)}"/>'
+    else:
+      raise ValueError(f'Unsupported rich format: {json.dumps(rich)}')
+  else:
+    raise ValueError(
+        f'Unsupported rich format: {json.dumps(rich)}, it should be "raw", "svg", or "img+svg", or a file path ending with ".svg"'
+    )
+
   output = _Backtickify(output, backtickify=backtickify)
   output = _Indent(output, indent=indent)
   output = _Decomentify(output, decomentify=decomentify)

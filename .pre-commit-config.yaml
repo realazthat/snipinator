@@ -18,7 +18,7 @@ repos:
   - id: detect-private-key
   - id: double-quote-string-fixer
   - id: end-of-file-fixer
-    exclude: ^.*\.md$
+    exclude: ^.*\.(md|svg)$
   - id: fix-byte-order-marker
   - id: fix-encoding-pragma
     exclude: ^.*__init__.py$

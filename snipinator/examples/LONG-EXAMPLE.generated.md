@@ -61,6 +61,13 @@ $ls -la snipinator/examples/code.py
 
 ______________________________________________________________________
 
+Here is a terminal snippet with terminal colors (img tag external svg):
+
+<!--
+--><img src="LONG-EXAMPLE.terminal-output.generated.svg"/><!-- -->
+
+______________________________________________________________________
+
 Here is a terminal snippet with terminal colors (img tag with svg data):
 
 <!--

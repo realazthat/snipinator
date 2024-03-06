@@ -6,7 +6,7 @@ SOURCE: `README.md.jinja2`.
 -->
 # Snipinator
 
-![GitHub License][3] [![PyPI - Version][4]][5]
+![GitHub License][3] [![PyPI - Version][4]][5] [![Python Version][8]][5]
 
 |        | Status                    |                                      |
 | ------ | ------------------------- | ------------------------------------ |
@@ -394,3 +394,4 @@ Also see Jinja2 v3
 [5]: https://pypi.org/project/snipinator/
 [6]: https://img.shields.io/github/commits-since/realazthat/snipinator/v1.0.3/master
 [7]: https://img.shields.io/github/last-commit/realazthat/snipinator/master
+[8]: https://img.shields.io/pypi/pyversions/snipinator

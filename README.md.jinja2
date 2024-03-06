@@ -52,7 +52,7 @@ pip install git+https://github.com/realazthat/snipinator.git@v1.0.3
 
 `{{ rawsnippet('snipinator/examples/EXAMPLE.md.jinja2', backtickify='md') }}`
 
-`{{ shell('python -m snipinator.cli --help', backtickify='bash') }}`
+<!--{{ shell('python -m snipinator.cli --help', rich='README.help.generated.svg', decomentify=True) }}-->
 
 `{{ shell('python -m snipinator.cli -t snipinator/examples/EXAMPLE.md.jinja2', backtickify='bash') }}`
 

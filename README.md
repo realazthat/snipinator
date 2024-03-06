@@ -95,45 +95,7 @@ Here is a code snippet:
 
 ````
 
-````bash
-$python -m snipinator.cli --help
-Usage: python -m snipinator.cli [-h] -t TEMPLATE [--cwd CWD] [-a ARGS]
-                                [--templates-searchpath TEMPLATES_SEARCHPATH]
-                                [--rm | --no-rm] [-o OUTPUT]
-                                [--warning-message WARNING_MESSAGE]
-                                [--chmod CHMOD]
-
-CLI: Python code snipinator for markdown files, e.g READMEs, from actual
-(testable) code.
-
-Options:
-  -h, --help            show this help message and exit
-  -t, --template TEMPLATE
-                        Path to the template file. Use "-" for stdin.
-  --cwd CWD             Directory to use as the base for snippet paths in the
-                        template. Defaults to the current working directory.
-  -a, --args ARGS       JSON string with template arguments. Any extra values
-                        the user wishes to pass to the template, e.g.
-                        `{'name': 'John'}` if they wish to render variables as
-                        Jinja2 is capable of. Defaults to {}.
-  --templates-searchpath TEMPLATES_SEARCHPATH
-                        Path to the directory with templates for include
-                        directives etc. Defaults to None.
-  --rm, --no-rm         Remove any existing file at the output path, before
-                        writing the new one; useful if the existing file might
-                        be write protected. (default: False)
-  -o, --output OUTPUT   Path to the output file. Use "-" for stdout. Defaults
-                        to "-".
-  --warning-message WARNING_MESSAGE
-                        Warning message to include in the output file. To
-                        prevent accidentally editing generated file.Defaults
-                        to the default warning message.
-  --chmod CHMOD         Change the mode (permissions) of the output file, an
-                        octant (see chmod help for more info) e.g 444 or 555.
-                        To prevent accidentally editing generated file.
-                        Defaults to None.
-
-````
+<!----><img src="README.help.generated.svg"/><!---->
 
 ``````bash
 $python -m snipinator.cli -t snipinator/examples/EXAMPLE.md.jinja2

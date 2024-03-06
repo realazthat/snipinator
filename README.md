@@ -63,6 +63,12 @@ class MyClass:
 
 ### Install
 
+#### Tested on
+
+- WSL2 Ubuntu 20.04, Python 3.10.0
+- Ubuntu 20.04, Python 3.10.0, 3.11.0, 3.12.0, tested in GitHub Actions workflow
+  ([build-and-test.yml](./.github/workflows/build-and-test.yml)).
+
 **Requirements:**
 
 - Linux-like environment
@@ -77,11 +83,6 @@ pip install snipinator
 # Install from git (https://github.com/realazthat/snipinator)
 pip install git+https://github.com/realazthat/snipinator.git@v1.0.4
 ```
-
-**Tested on:**
-
-- WSL2 Ubuntu 20.04, Python 3.10.1
-- Ubuntu 20.04, Python 3.10.1
 
 ### Use
 

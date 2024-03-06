@@ -26,14 +26,14 @@ ______________________________________________________________________
 
 Here is a terminal snippet:
 
-`{{ shell('ls -la snipinator/examples/code.py', backtickify='shell') }}`
+`{{ shell('python -m snipinator.cli --help', backtickify='shell') }}`
 
 ______________________________________________________________________
 
 Here is a terminal snippet with terminal colors (img tag external svg):
 
 <!--
-{{ shell('ls -la snipinator/examples/code.py',
+{{ shell('python -m snipinator.cli --help',
          rich='LONG-EXAMPLE.terminal-output.generated.svg',
          decomentify=True)
 }} -->
@@ -43,7 +43,7 @@ ______________________________________________________________________
 Here is a terminal snippet with terminal colors (img tag with svg data):
 
 <!--
-{{ shell('ls -la snipinator/examples/code.py', rich='img+svg', decomentify=True) }}
+{{ shell('python -m snipinator.cli --help', rich='img+svg', decomentify=True) }}
 -->
 
 ______________________________________________________________________
@@ -51,7 +51,7 @@ ______________________________________________________________________
 Here is a terminal snippet with terminal colors (raw svg):
 
 <!--
-{{ shell('ls -la snipinator/examples/code.py', rich='svg', decomentify=True) }}
+{{ shell('python -m snipinator.cli --help', rich='svg', decomentify=True) }}
 -->
 
 ______________________________________________________________________

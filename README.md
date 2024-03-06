@@ -161,6 +161,7 @@ def pysnippet(path: str,
       str | markupsafe.Markup: The snippet.
   """
 ````
+
 ````py
 def pysignature(path: str,
                 symbol: str,
@@ -195,6 +196,7 @@ def pysignature(path: str,
       str: The signature and docstring.
   """
 ````
+
 ````py
 def rawsnippet(path: str,
                *,
@@ -226,6 +228,7 @@ def rawsnippet(path: str,
   """
 
 ````
+
 ````py
 def snippet(path: str,
             start: str,
@@ -263,6 +266,7 @@ def snippet(path: str,
   """
 
 ````
+
 ````py
 def shell(args: str,
           *,
@@ -329,7 +333,9 @@ Also see Jinja2 v3
   include untrusted input.
 - Be careful to escape `{{` and `}}`,
   or `{%` and `%}` or anything jinja2
-  is sensitive to, in the templates. You'll have to escape it properly.
+  is sensitive to, in the templates. You'll have to escape it properly for
+  jinja2, which involves using `{% raw %}` and
+  `{% endraw %}` tags.
 - Recursion: Snipinator doesn't directly support recursive inclusion of
   generated content. You can generate the contents of one file first, and
   include that generated content into another template. This would mean that you
@@ -351,6 +357,10 @@ Also see Jinja2 v3
     embedded backticks.
   - If your formatter supports a comment that disabled formatting, you can
     surround the snippet call with that comment.
+  - New in 1.0.4: Put the snippet call inside a HTML comment, then use
+    `decommentify` parameter. See
+    [`snipinator/examples/LONG-EXAMPLE.md.jinja2`](./snipinator/examples/LONG-EXAMPLE.md.jinja2)
+    for examples.
 - Editing the wrong file: When you have a template and a generated file, it is
   easy to edit the wrong file. To combat this:
   - Snipinator provides a warning at the top of the generated file to remind you
@@ -374,6 +384,11 @@ Also see Jinja2 v3
     [`snipinator/examples/EXAMPLE.generated.md`](./snipinator/examples/EXAMPLE.generated.md).
   - Generation script:
     [`./snipinator/examples/example.sh`](./snipinator/examples/example.sh).
+- [`snipinator/examples/LONG-EXAMPLE.md.jinja2`](./snipinator/examples/LONG-EXAMPLE.md.jinja2).
+  - Generated:
+    [`snipinator/examples/LONG-EXAMPLE.generated.md`](./snipinator/examples/LONG-EXAMPLE.generated.md).
+  - Generation script:
+    [`./snipinator/examples/long-example.sh`](./snipinator/examples/long-example.sh).
 
 ## Contributions
 

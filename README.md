@@ -171,6 +171,7 @@ def pysnippet(path: str,
               escape: bool = False,
               indent: str | int | None = None,
               backtickify: bool | str = False,
+              decomentify: bool = False,
               cwd: Path) -> str | markupsafe.Markup:
   """Return a python snippet, allowing you to specify a class or function.
 
@@ -184,6 +185,11 @@ def pysnippet(path: str,
         what prefix? Defaults to None.
       backtickify (bool | str, optional): Should surround with backticks? With
         what language? Defaults to False.
+      decomentify (bool, optional): Assuming that you will be using HTML
+        comments around this call, setting this to true will add corresponding
+        comments to uncomment the output. This allows you to have the Jinja2
+        call unmolested by markdown formatters, because they will be inside of
+        a comment section. Defaults to False.
       cwd (Path): This is used by the system and is not available as an
         argument. You can change this on the command line.
 
@@ -198,6 +204,7 @@ def pysignature(path: str,
                 escape: bool = False,
                 indent: str | int | None = None,
                 backtickify: bool | str = False,
+                decomentify: bool = False,
                 cwd: Path) -> str:
   """Return the signature of a class or function in a python file.
 
@@ -212,6 +219,11 @@ def pysignature(path: str,
         what prefix? Defaults to None.
       backtickify (bool | str, optional): Should surround with backticks? With
         what language? Defaults to False.
+      decomentify (bool, optional): Assuming that you will be using HTML
+        comments around this call, setting this to true will add corresponding
+        comments to uncomment the output. This allows you to have the Jinja2
+        call unmolested by markdown formatters, because they will be inside of
+        a comment section. Defaults to False.
       cwd (Path): This is used by the system and is not available as an
         argument. You can change this on the command line.
 
@@ -225,6 +237,7 @@ def rawsnippet(path: str,
                escape: bool = False,
                indent: str | int | None = None,
                backtickify: bool | str = False,
+               decomentify: bool = False,
                cwd: Path) -> str | markupsafe.Markup:
   """Return an entire file as a snippet.
 
@@ -236,6 +249,11 @@ def rawsnippet(path: str,
         what prefix? Defaults to None.
       backtickify (bool | str, optional): Should surround with backticks? With
         what language? Defaults to False.
+      decomentify (bool, optional): Assuming that you will be using HTML
+        comments around this call, setting this to true will add corresponding
+        comments to uncomment the output. This allows you to have the Jinja2
+        call unmolested by markdown formatters, because they will be inside of
+        a comment section. Defaults to False.
       cwd (Path): This is used by the system and is not available as an
         argument. You can change this on the command line.
 
@@ -252,6 +270,7 @@ def snippet(path: str,
             escape: bool = False,
             indent: str | int | None = None,
             backtickify: bool | str = False,
+            decomentify: bool = False,
             cwd: Path) -> str | markupsafe.Markup:
   """Returns a _delimited_ snippet from a file.
 
@@ -267,6 +286,11 @@ def snippet(path: str,
         what prefix? Defaults to None.
       backtickify (bool | str, optional): Should surround with backticks? With
         what language? Defaults to False.
+      decomentify (bool, optional): Assuming that you will be using HTML
+        comments around this call, setting this to true will add corresponding
+        comments to uncomment the output. This allows you to have the Jinja2
+        call unmolested by markdown formatters, because they will be inside of
+        a comment section. Defaults to False.
       cwd (Path): This is used by the system and is not available as an
         argument. You can change this on the command line.
 
@@ -281,6 +305,7 @@ def shell(args: str,
           escape: bool = False,
           indent: str | int | None = None,
           backtickify: bool | str = False,
+          decomentify: bool = False,
           rich: Literal['svg'] | Literal['img+svg'] | Literal['raw'] = 'raw',
           cwd: Path) -> str | markupsafe.Markup:
   """Run a shell command and return the output.
@@ -296,6 +321,11 @@ def shell(args: str,
         what prefix? Defaults to None.
       backtickify (bool | str, optional): Should surround with backticks? With
         what language? Defaults to False.
+      decomentify (bool, optional): Assuming that you will be using HTML
+        comments around this call, setting this to true will add corresponding
+        uncomments to uncomment the output. This allows you to have the Jinja2
+        call unmolested by markdown formatters, because they will be inside of
+        a comment section. Defaults to False.
       rich (Literal['svg']|Literal['img+svg']|Literal['raw'], optional): If
         'svg' a raw svg tag will be dumped into the markdown with the colored
         terminal output. Note that your markdown renderer may not support this.

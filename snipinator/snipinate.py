@@ -102,6 +102,7 @@ def pysignature(path: str,
                 escape: bool = False,
                 indent: str | int | None = None,
                 backtickify: bool | str = False,
+                decomentify: bool = False,
                 cwd: Path) -> str:
   """Return the signature of a class or function in a python file.
 
@@ -116,6 +117,11 @@ def pysignature(path: str,
         what prefix? Defaults to None.
       backtickify (bool | str, optional): Should surround with backticks? With
         what language? Defaults to False.
+      decomentify (bool, optional): Assuming that you will be using HTML
+        comments around this call, setting this to true will add corresponding
+        comments to uncomment the output. This allows you to have the Jinja2
+        call unmolested by markdown formatters, because they will be inside of
+        a comment section. Defaults to False.
       cwd (Path): This is used by the system and is not available as an
         argument. You can change this on the command line.
 
@@ -128,6 +134,7 @@ def pysignature(path: str,
 
   signature = _Backtickify(signature, backtickify=backtickify)
   signature = _Indent(signature, indent=indent)
+  signature = _Decomentify(signature, decomentify=decomentify)
   if not escape:
     return markupsafe.Markup(signature)
   else:
@@ -140,6 +147,7 @@ def pysnippet(path: str,
               escape: bool = False,
               indent: str | int | None = None,
               backtickify: bool | str = False,
+              decomentify: bool = False,
               cwd: Path) -> str | markupsafe.Markup:
   """Return a python snippet, allowing you to specify a class or function.
 
@@ -153,6 +161,11 @@ def pysnippet(path: str,
         what prefix? Defaults to None.
       backtickify (bool | str, optional): Should surround with backticks? With
         what language? Defaults to False.
+      decomentify (bool, optional): Assuming that you will be using HTML
+        comments around this call, setting this to true will add corresponding
+        comments to uncomment the output. This allows you to have the Jinja2
+        call unmolested by markdown formatters, because they will be inside of
+        a comment section. Defaults to False.
       cwd (Path): This is used by the system and is not available as an
         argument. You can change this on the command line.
 
@@ -168,6 +181,7 @@ def pysnippet(path: str,
 
   snippet = _Backtickify(snippet, backtickify=backtickify)
   snippet = _Indent(snippet, indent=indent)
+  snippet = _Decomentify(snippet, decomentify=decomentify)
   if not escape:
     return markupsafe.Markup(snippet)
   else:
@@ -179,6 +193,7 @@ def rawsnippet(path: str,
                escape: bool = False,
                indent: str | int | None = None,
                backtickify: bool | str = False,
+               decomentify: bool = False,
                cwd: Path) -> str | markupsafe.Markup:
   """Return an entire file as a snippet.
 
@@ -190,6 +205,11 @@ def rawsnippet(path: str,
         what prefix? Defaults to None.
       backtickify (bool | str, optional): Should surround with backticks? With
         what language? Defaults to False.
+      decomentify (bool, optional): Assuming that you will be using HTML
+        comments around this call, setting this to true will add corresponding
+        comments to uncomment the output. This allows you to have the Jinja2
+        call unmolested by markdown formatters, because they will be inside of
+        a comment section. Defaults to False.
       cwd (Path): This is used by the system and is not available as an
         argument. You can change this on the command line.
 
@@ -201,6 +221,7 @@ def rawsnippet(path: str,
   snippet = path_.read_text()
   snippet = _Backtickify(snippet, backtickify=backtickify)
   snippet = _Indent(snippet, indent=indent)
+  snippet = _Decomentify(snippet, decomentify=decomentify)
   if not escape:
     return markupsafe.Markup(snippet)
   else:
@@ -214,6 +235,7 @@ def snippet(path: str,
             escape: bool = False,
             indent: str | int | None = None,
             backtickify: bool | str = False,
+            decomentify: bool = False,
             cwd: Path) -> str | markupsafe.Markup:
   """Returns a _delimited_ snippet from a file.
 
@@ -229,6 +251,11 @@ def snippet(path: str,
         what prefix? Defaults to None.
       backtickify (bool | str, optional): Should surround with backticks? With
         what language? Defaults to False.
+      decomentify (bool, optional): Assuming that you will be using HTML
+        comments around this call, setting this to true will add corresponding
+        comments to uncomment the output. This allows you to have the Jinja2
+        call unmolested by markdown formatters, because they will be inside of
+        a comment section. Defaults to False.
       cwd (Path): This is used by the system and is not available as an
         argument. You can change this on the command line.
 
@@ -253,6 +280,7 @@ def snippet(path: str,
   snippet = full_source[snippet_start:snippet_end]
   snippet = _Backtickify(snippet, backtickify=backtickify)
   snippet = _Indent(snippet, indent=indent)
+  snippet = _Decomentify(snippet, decomentify=decomentify)
   if not escape:
     return markupsafe.Markup(snippet)
   else:
@@ -264,6 +292,7 @@ def path(path: str,
          escape: bool = False,
          indent: str | int | None = None,
          backtickify: bool | str = False,
+         decomentify: bool = False,
          cwd: Path) -> str | markupsafe.Markup:
   """Verifies that `path` exists, and just returns `path`.
 
@@ -279,6 +308,11 @@ def path(path: str,
         what prefix? Defaults to None.
       backtickify (bool | str, optional): Should surround with backticks? With
         what language? Defaults to False.
+      decomentify (bool, optional): Assuming that you will be using HTML
+        comments around this call, setting this to true will add corresponding
+        comments to uncomment the output. This allows you to have the Jinja2
+        call unmolested by markdown formatters, because they will be inside of
+        a comment section. Defaults to False.
       cwd (Path): This is used by the system and is not available as an
         argument. You can change this on the command line.
 
@@ -294,6 +328,7 @@ def path(path: str,
   path_str = path
   path_str = _Backtickify(path_str, backtickify=backtickify)
   path_str = _Indent(path_str, indent=indent)
+  path_str = _Decomentify(path_str, decomentify=decomentify)
   if not escape:
     return markupsafe.Markup(path_str)
   else:
@@ -309,6 +344,7 @@ def shell(args: str,
           escape: bool = False,
           indent: str | int | None = None,
           backtickify: bool | str = False,
+          decomentify: bool = False,
           rich: Literal['svg'] | Literal['img+svg'] | Literal['raw'] = 'raw',
           cwd: Path) -> str | markupsafe.Markup:
   """Run a shell command and return the output.
@@ -324,6 +360,11 @@ def shell(args: str,
         what prefix? Defaults to None.
       backtickify (bool | str, optional): Should surround with backticks? With
         what language? Defaults to False.
+      decomentify (bool, optional): Assuming that you will be using HTML
+        comments around this call, setting this to true will add corresponding
+        uncomments to uncomment the output. This allows you to have the Jinja2
+        call unmolested by markdown formatters, because they will be inside of
+        a comment section. Defaults to False.
       rich (Literal['svg']|Literal['img+svg']|Literal['raw'], optional): If
         'svg' a raw svg tag will be dumped into the markdown with the colored
         terminal output. Note that your markdown renderer may not support this.
@@ -436,6 +477,7 @@ font-family: arial;
     output = f'${args}\n{result.stdout}'
   output = _Backtickify(output, backtickify=backtickify)
   output = _Indent(output, indent=indent)
+  output = _Decomentify(output, decomentify=decomentify)
   if not escape:
     return markupsafe.Markup(output)
   else:
@@ -631,5 +673,12 @@ def _Backtickify(text: str, *, backtickify: bool | str) -> str:
     return f'{bt_str}\n{text}\n{bt_str}'
   elif isinstance(backtickify, str):
     return f'{bt_str}{backtickify}\n{text}\n{bt_str}'
+  else:
+    return text
+
+
+def _Decomentify(text: str, *, decomentify: bool) -> str:
+  if decomentify:
+    return '-->' + text + '<!--'
   else:
     return text

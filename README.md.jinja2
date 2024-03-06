@@ -122,13 +122,23 @@ Also see Jinja2 v3
   - Generation script:
     [`{{path('./snipinator/examples/example.sh')}}`](./snipinator/examples/example.sh).
 
+## Contributions
+
+1. Fork the `master` branch.
+2. Stage your files: `git add path/to/file.py`.
+3. `bash scripts/pre.sh`, this will format, lint, and test the code.
+4. `git status` check if anything changed (generated README for example), if so, `git add` the changes, and go
+   back to the previous step.
+5. `git commit -m "..."`.
+6. Make a PR to `master`.
+
 ## Release Process
 
 1. Bump the version in setup.py, following semantic versioning principles.
 2. Change any reference to the old version (or tag) in the README.md to the new
    version.
 3. Commit changes: Commit these changes with a message like "Prepare release
-   X.Y.Z".
+   X.Y.Z". (See the contributions section [above](#contributions)).
 4. Tag the release: Create a git tag for the release with
    `git tag -a vX.Y.Z -m "Version X.Y.Z"`.
 5. Push to GitHub: Push the commit and tags to GitHub with `git push` and

@@ -22,8 +22,8 @@ jobs:
           gh: 3.10.0
         - file: 3.11.0
           gh: 3.11.0
-        - file: 3.12.2
-          gh: 3.12.2
+        - file: 3.12.0
+          gh: 3.12.0
 
     steps:
     - uses: actions/checkout@v4

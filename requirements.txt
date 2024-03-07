@@ -1,4 +1,5 @@
 colorama >=0.4,<1
+defusedxml >=0.7,<1
 Jinja2 >=3,<4
 markdown-it-py >=3,<4
 MarkupSafe >=2,<3

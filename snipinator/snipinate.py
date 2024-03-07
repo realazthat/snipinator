@@ -19,10 +19,10 @@ from functools import partial
 from io import StringIO
 from pathlib import Path
 from typing import Generator, List, Literal
-from xml.dom import minidom
 
 import markupsafe
 import pexpect  # type: ignore[import]
+from defusedxml import minidom  # type: ignore[import]
 from jinja2 import Environment, FileSystemLoader
 from rich.console import Console
 from rich.terminal_theme import MONOKAI
@@ -399,7 +399,6 @@ font-family: arial;
     """
 
   def CleanSVG(svg_code):
-
     # Parse SVG content
     dom = minidom.parseString(svg_code)
     # Get the pretty printed version of the SVG content

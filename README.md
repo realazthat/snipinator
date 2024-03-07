@@ -86,7 +86,8 @@ pip install git+https://github.com/realazthat/snipinator.git@v1.0.4
 
 ### Use
 
-`snipinator/examples/EXAMPLE.md.jinja2`:
+Example tempalte README:
+[`snipinator/examples/EXAMPLE.md.jinja2`](./snipinator/examples/EXAMPLE.md.jinja2):
 
 ````md
 # A README
@@ -97,10 +98,10 @@ Here is a code snippet:
 
 ````
 
-<!----><img src="README.help.generated.svg"/><!---->
+Generating the README:
 
 ``````bash
-$python -m snipinator.cli -t snipinator/examples/EXAMPLE.md.jinja2
+$ python -m snipinator.cli -t snipinator/examples/EXAMPLE.md.jinja2
 <!--
 
 WARNING: This file is auto-generated. Do not edit directly.
@@ -125,6 +126,10 @@ class MyClass:
 
 
 ``````
+
+CLI usage help:
+
+<!----><img src="README.help.generated.svg" alt="Output of `python -m snipinator.cli --help`" /><!---->
 
 ## Available Functions in Jinja2
 
@@ -276,6 +281,9 @@ def shell(args: str,
           decomentify: bool = False,
           rich: Literal['svg'] | Literal['img+b64+svg'] | Literal['raw']
           | str = 'raw',
+          rich_alt: str | None = None,
+          rich_bg_color: str | None = None,
+          include_args: bool = True,
           cwd: Path,
           template_file_name: str) -> str | markupsafe.Markup:
   """Run a shell command and return the output.
@@ -315,6 +323,14 @@ def shell(args: str,
         * If 'raw' the raw (uncolored) terminal output will be dumped into the
           markdown directly.
         * Defaults to 'raw.
+      rich_alt (str|None, optional): The alt text for the img tag. Defaults
+        to None.
+      rich_bg_color (str|None, optional): The background color for the terminal
+        output. Valid colors include anything valid for SVG colors. See
+        <https://developer.mozilla.org/en-US/docs/Web/CSS/color>. Defaults to
+        None (fully transparent).
+      include_args (bool, optional): Should include the command that was run in
+        the output? Defaults to True.
       cwd (Path): This is used by the system and is not available as an
         argument. You can change this on the command line.
       template_file_name (Path): This is used by the system and is not available

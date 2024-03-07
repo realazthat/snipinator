@@ -35,6 +35,22 @@ Here is a terminal snippet with terminal colors (img tag external svg):
 <!--
 {{ shell('python -m snipinator.cli --help',
          rich='LONG-EXAMPLE.terminal-output.generated.svg',
+         rich_bg_color='black',
+         rich_alt='terminal output',
+         decomentify=True)
+}} -->
+
+______________________________________________________________________
+
+Here is a terminal snippet with terminal colors (img tag external svg), without
+command included in the svg:
+
+<!--
+{{ shell('python -m snipinator.cli --help',
+         rich='LONG-EXAMPLE.terminal-output.generated.svg',
+         rich_bg_color='black',
+         rich_alt='terminal output',
+         include_args=False,
          decomentify=True)
 }} -->
 

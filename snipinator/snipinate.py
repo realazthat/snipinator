@@ -342,11 +342,15 @@ def _ExecuteANSI(args: str, cwd: Path) -> str:
   return pexpect.spawn(args, cwd=str(cwd)).read().decode()
 
 
-def _GetTerminalSVG(args: str, terminal_output: str) -> str:
+def _GetTerminalSVG(args: str,
+                    terminal_output: str,
+                    include_args: bool,
+                    bg_color: str | None = None) -> str:
 
   CONSOLE_SVG_FORMAT = """\
     <svg class="rich-terminal" viewBox="0 0 {width} {height}" xmlns="http://www.w3.org/2000/svg">
         <!-- Generated with Rich textualize.io -->
+        <rect width="100%" height="100%" fill="{bg_color}"/>
 <style>
 @font-face {{
 font-family: "Fira Code";
@@ -396,6 +400,11 @@ font-family: arial;
         </g>
     </svg>
     """
+  if bg_color is None:
+    # Make it transparent
+    bg_color = 'transparent'
+
+  CONSOLE_SVG_FORMAT = CONSOLE_SVG_FORMAT.replace('{bg_color}', bg_color)
 
   def CleanSVG(svg_code):
     # Parse SVG content
@@ -416,7 +425,9 @@ font-family: arial;
                     theme=DEFAULT_THEME,
                     file=StringIO())
   text = Text.from_ansi(terminal_output)
-  console.print(f'${args}')
+  if include_args:
+    prefix = '$ '
+    console.print(f'{prefix}{args}')
   console.print(text)
   console.height = len(text.wrap(console, width=width))
   svg = console.export_svg(theme=MONOKAI, code_format=CONSOLE_SVG_FORMAT)
@@ -432,6 +443,9 @@ def shell(args: str,
           decomentify: bool = False,
           rich: Literal['svg'] | Literal['img+b64+svg'] | Literal['raw']
           | str = 'raw',
+          rich_alt: str | None = None,
+          rich_bg_color: str | None = None,
+          include_args: bool = True,
           cwd: Path,
           template_file_name: str) -> str | markupsafe.Markup:
   """Run a shell command and return the output.
@@ -471,6 +485,14 @@ def shell(args: str,
         * If 'raw' the raw (uncolored) terminal output will be dumped into the
           markdown directly.
         * Defaults to 'raw.
+      rich_alt (str|None, optional): The alt text for the img tag. Defaults
+        to None.
+      rich_bg_color (str|None, optional): The background color for the terminal
+        output. Valid colors include anything valid for SVG colors. See
+        <https://developer.mozilla.org/en-US/docs/Web/CSS/color>. Defaults to
+        None (fully transparent).
+      include_args (bool, optional): Should include the command that was run in
+        the output? Defaults to True.
       cwd (Path): This is used by the system and is not available as an
         argument. You can change this on the command line.
       template_file_name (Path): This is used by the system and is not available
@@ -497,11 +519,20 @@ def shell(args: str,
         # trunk-ignore(bandit/B602)
         shell=True,
         check=True)
-    output = f'${args}\n{result.stdout}'
-  elif rich in ['svg', 'img+svg'
-                ] or isinstance(rich, str) and rich.endswith('.svg'):
+    output = ''
+    if include_args:
+      prefix = '$ '
+      output = f'{prefix}{args}\n'
+    output += result.stdout
+    if not output.endswith('\n'):
+      output += '\n'
+  elif (rich in ['svg', 'img+svg']
+        or isinstance(rich, str) and rich.endswith('.svg')):
     output = _ExecuteANSI(args, cwd=cwd)
-    svg = _GetTerminalSVG(args=args, terminal_output=output)
+    svg = _GetTerminalSVG(args=args,
+                          terminal_output=output,
+                          include_args=include_args,
+                          bg_color=rich_bg_color)
     if rich == 'svg':
       output = svg
     elif rich == 'img+svg':
@@ -525,7 +556,12 @@ def shell(args: str,
       svg_path.parent.mkdir(parents=True, exist_ok=True)
       svg_path.write_text(svg)
 
-      output = f'<img src="{str(template_rel_svg_path)}"/>'
+      alt_attr = ''
+      if rich_alt is not None:
+        rich_alt_escaped = html.escape(rich_alt, quote=True)
+        alt_attr = 'alt="' + rich_alt_escaped + '" '
+
+      output = f'<img src="{str(template_rel_svg_path)}" {alt_attr}/>'
     else:
       raise ValueError(f'Unsupported rich format: {json.dumps(rich)}')
   else:

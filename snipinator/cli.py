@@ -194,7 +194,7 @@ def main() -> int:
         type=str,
         default=DEFAULT_WARNING,
         help=
-        'Warning message to include in the output file. To prevent accidentally editing generated file.Defaults to the default warning message.'
+        'Warning message to include in the output file. To prevent accidentally editing generated file. Defaults to the default warning message.'
     )
     parser.add_argument(
         '--chmod',

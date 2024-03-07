@@ -17,7 +17,7 @@ import textwrap
 from functools import partial
 from io import StringIO
 from pathlib import Path
-from typing import Generator, List, Literal
+from typing import Generator, List, Literal, NamedTuple, Set
 
 import markupsafe
 import pexpect  # type: ignore[import]
@@ -77,15 +77,17 @@ def Snipinate(template_file_name: str,
     env = Environment(loader=loader,
                       autoescape=True,
                       keep_trailing_newline=True)
+
     # Bind pysnippet_function cwd argument to the current working directory
-    env.globals['pysignature'] = partial(pysignature, cwd=cwd)
-    env.globals['pysnippet'] = partial(pysnippet, cwd=cwd)
-    env.globals['rawsnippet'] = partial(rawsnippet, cwd=cwd)
-    env.globals['snippet'] = partial(snippet, cwd=cwd)
-    env.globals['path'] = partial(path, cwd=cwd)
-    env.globals['shell'] = partial(shell,
-                                   cwd=cwd,
-                                   template_file_name=template_file_name)
+    ctx = _Context(cwd=cwd,
+                   template_file_name=template_file_name,
+                   written_files=set())
+    env.globals['pysignature'] = partial(pysignature, _ctx=ctx)
+    env.globals['pysnippet'] = partial(pysnippet, _ctx=ctx)
+    env.globals['rawsnippet'] = partial(rawsnippet, _ctx=ctx)
+    env.globals['snippet'] = partial(snippet, _ctx=ctx)
+    env.globals['path'] = partial(path, _ctx=ctx)
+    env.globals['shell'] = partial(shell, _ctx=ctx)
 
     template_ = env.from_string(template_string)
     rendered = template_.render(**template_args)
@@ -99,6 +101,14 @@ def Snipinate(template_file_name: str,
     raise
 
 
+class _Context(NamedTuple):
+  """Private context for the Jinja2 functions."""
+
+  cwd: Path
+  template_file_name: str
+  written_files: Set[Path]
+
+
 def pysignature(path: str,
                 symbol: str,
                 *,
@@ -106,7 +116,7 @@ def pysignature(path: str,
                 indent: str | int | None = None,
                 backtickify: bool | str = False,
                 decomentify: bool = False,
-                cwd: Path) -> str:
+                _ctx: _Context) -> str:
   """Return the signature of a class or function in a python file.
 
   Returns the {class,function} signature and the docstring.
@@ -125,13 +135,13 @@ def pysignature(path: str,
         comments to uncomment the output. This allows you to have the Jinja2
         call unmolested by markdown formatters, because they will be inside of
         a comment section. Defaults to False.
-      cwd (Path): This is used by the system and is not available as an
-        argument. You can change this on the command line.
+      _ctx (_Context): This is used by the system and is not available as an
+        argument.
 
   Returns:
       str: The signature and docstring.
   """
-  path_ = _CheckPath(path=path, cwd=cwd)
+  path_ = _CheckPath(path=path, cwd=_ctx.cwd)
   source = path_.read_text()
   signature = _GetSymbolSignature(source=source, path=str(path_), symbol=symbol)
 
@@ -151,7 +161,7 @@ def pysnippet(path: str,
               indent: str | int | None = None,
               backtickify: bool | str = False,
               decomentify: bool = False,
-              cwd: Path) -> str | markupsafe.Markup:
+              _ctx: _Context) -> str | markupsafe.Markup:
   """Return a python snippet, allowing you to specify a class or function.
 
   Args:
@@ -169,13 +179,13 @@ def pysnippet(path: str,
         comments to uncomment the output. This allows you to have the Jinja2
         call unmolested by markdown formatters, because they will be inside of
         a comment section. Defaults to False.
-      cwd (Path): This is used by the system and is not available as an
-        argument. You can change this on the command line.
+      _ctx (_Context): This is used by the system and is not available as an
+        argument.
 
   Returns:
       str | markupsafe.Markup: The snippet.
   """
-  path_ = _CheckPath(path=path, cwd=cwd)
+  path_ = _CheckPath(path=path, cwd=_ctx.cwd)
 
   if symbol is None:
     snippet = path_.read_text()
@@ -197,7 +207,7 @@ def rawsnippet(path: str,
                indent: str | int | None = None,
                backtickify: bool | str = False,
                decomentify: bool = False,
-               cwd: Path) -> str | markupsafe.Markup:
+               _ctx: _Context) -> str | markupsafe.Markup:
   """Return an entire file as a snippet.
 
   Args:
@@ -213,14 +223,14 @@ def rawsnippet(path: str,
         comments to uncomment the output. This allows you to have the Jinja2
         call unmolested by markdown formatters, because they will be inside of
         a comment section. Defaults to False.
-      cwd (Path): This is used by the system and is not available as an
-        argument. You can change this on the command line.
+      _ctx (_Context): This is used by the system and is not available as an
+        argument.
 
   Returns:
       str | markupsafe.Markup: The snippet.
   """
 
-  path_ = _CheckPath(path=path, cwd=cwd)
+  path_ = _CheckPath(path=path, cwd=_ctx.cwd)
   snippet = path_.read_text()
   snippet = _Backtickify(snippet, backtickify=backtickify)
   snippet = _Indent(snippet, indent=indent)
@@ -239,7 +249,7 @@ def snippet(path: str,
             indent: str | int | None = None,
             backtickify: bool | str = False,
             decomentify: bool = False,
-            cwd: Path) -> str | markupsafe.Markup:
+            _ctx: _Context) -> str | markupsafe.Markup:
   """Returns a _delimited_ snippet from a file.
 
   Does not return the delimeters themselves.
@@ -259,14 +269,14 @@ def snippet(path: str,
         comments to uncomment the output. This allows you to have the Jinja2
         call unmolested by markdown formatters, because they will be inside of
         a comment section. Defaults to False.
-      cwd (Path): This is used by the system and is not available as an
-        argument. You can change this on the command line.
+      _ctx (_Context): This is used by the system and is not available as an
+        argument.
 
   Returns:
       str | markupsafe.Markup: The snippet.
   """
 
-  path_ = _CheckPath(path=path, cwd=cwd)
+  path_ = _CheckPath(path=path, cwd=_ctx.cwd)
 
   full_source = path_.read_text()
 
@@ -296,7 +306,7 @@ def path(path: str,
          indent: str | int | None = None,
          backtickify: bool | str = False,
          decomentify: bool = False,
-         cwd: Path) -> str | markupsafe.Markup:
+         _ctx: _Context) -> str | markupsafe.Markup:
   """Verifies that `path` exists, and just returns `path`.
 
   Unfortunately, I don't know how to use this inside a link, because the
@@ -316,14 +326,14 @@ def path(path: str,
         comments to uncomment the output. This allows you to have the Jinja2
         call unmolested by markdown formatters, because they will be inside of
         a comment section. Defaults to False.
-      cwd (Path): This is used by the system and is not available as an
-        argument. You can change this on the command line.
+      _ctx (_Context): This is used by the system and is not available as an
+        argument.
 
   Returns:
       str | markupsafe.Markup: Just returns the path. If the path doesn't exist,
         it will raise an error.
   """
-  _CheckPath(path=path, cwd=cwd)
+  _CheckPath(path=path, cwd=_ctx.cwd)
 
   if not Path(path).exists():
     raise FileNotFoundError(f'File not found: {json.dumps(path)}')
@@ -446,8 +456,7 @@ def shell(args: str,
           rich_alt: str | None = None,
           rich_bg_color: str | None = None,
           include_args: bool = True,
-          cwd: Path,
-          template_file_name: str) -> str | markupsafe.Markup:
+          _ctx: _Context) -> str | markupsafe.Markup:
   """Run a shell command and return the output.
 
   Use at your own risk, this can potentially introduce security vulnerabilities.
@@ -493,10 +502,8 @@ def shell(args: str,
         None (fully transparent).
       include_args (bool, optional): Should include the command that was run in
         the output? Defaults to True.
-      cwd (Path): This is used by the system and is not available as an
-        argument. You can change this on the command line.
-      template_file_name (Path): This is used by the system and is not available
-        as an argument.
+      _ctx (_Context): This is used by the system and is not available as an
+        argument.
 
   Returns:
       str | markupsafe.Markup: Returns the output of the command.
@@ -512,7 +519,7 @@ def shell(args: str,
     #   the security risks.
     result = subprocess.run(
         args,
-        cwd=cwd,
+        cwd=_ctx.cwd,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
         text=True,
@@ -528,7 +535,7 @@ def shell(args: str,
       output += '\n'
   elif (rich in ['svg', 'img+svg']
         or isinstance(rich, str) and rich.endswith('.svg')):
-    output = _ExecuteANSI(args, cwd=cwd)
+    output = _ExecuteANSI(args, cwd=_ctx.cwd)
     svg = _GetTerminalSVG(args=args,
                           terminal_output=output,
                           include_args=include_args,
@@ -544,16 +551,23 @@ def shell(args: str,
         raise ValueError(
             f'Path is absolute: {json.dumps(str(svg_path))}, it should be relative'
         )
-      template_directory = cwd
-      if template_file_name != '-':
-        template_directory = Path(template_file_name).parent
+      template_directory = _ctx.cwd
+      if _ctx.template_file_name != '-':
+        template_directory = Path(_ctx.template_file_name).parent
       svg_path = template_directory / svg_path
       if not svg_path.is_relative_to(template_directory):
         raise ValueError(
-            f'Path is not relative to cwd: {json.dumps(str(svg_path))}, cwd: {json.dumps(str(cwd))}'
+            f'Path is not relative to cwd: {json.dumps(str(svg_path))}, cwd: {json.dumps(str(_ctx.cwd))}'
         )
+      if svg_path in _ctx.written_files:
+        raise ValueError(
+            f'File already written: {json.dumps(str(svg_path))},'
+            ' it appears you are writing to the same file twice in the same template.'
+        )
+      _ctx.written_files.add(svg_path)
       template_rel_svg_path = svg_path.relative_to(template_directory)
       svg_path.parent.mkdir(parents=True, exist_ok=True)
+
       svg_path.write_text(svg)
 
       alt_attr = ''

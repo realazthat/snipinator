@@ -141,7 +141,7 @@ def pysnippet(path: str,
               indent: str | int | None = None,
               backtickify: bool | str = False,
               decomentify: bool = False,
-              cwd: Path) -> str | markupsafe.Markup:
+              _ctx: _Context) -> str | markupsafe.Markup:
   """Return a python snippet, allowing you to specify a class or function.
 
   Args:
@@ -159,8 +159,8 @@ def pysnippet(path: str,
         comments to uncomment the output. This allows you to have the Jinja2
         call unmolested by markdown formatters, because they will be inside of
         a comment section. Defaults to False.
-      cwd (Path): This is used by the system and is not available as an
-        argument. You can change this on the command line.
+      _ctx (_Context): This is used by the system and is not available as an
+        argument.
 
   Returns:
       str | markupsafe.Markup: The snippet.
@@ -175,7 +175,7 @@ def pysignature(path: str,
                 indent: str | int | None = None,
                 backtickify: bool | str = False,
                 decomentify: bool = False,
-                cwd: Path) -> str:
+                _ctx: _Context) -> str:
   """Return the signature of a class or function in a python file.
 
   Returns the {class,function} signature and the docstring.
@@ -194,8 +194,8 @@ def pysignature(path: str,
         comments to uncomment the output. This allows you to have the Jinja2
         call unmolested by markdown formatters, because they will be inside of
         a comment section. Defaults to False.
-      cwd (Path): This is used by the system and is not available as an
-        argument. You can change this on the command line.
+      _ctx (_Context): This is used by the system and is not available as an
+        argument.
 
   Returns:
       str: The signature and docstring.
@@ -209,7 +209,7 @@ def rawsnippet(path: str,
                indent: str | int | None = None,
                backtickify: bool | str = False,
                decomentify: bool = False,
-               cwd: Path) -> str | markupsafe.Markup:
+               _ctx: _Context) -> str | markupsafe.Markup:
   """Return an entire file as a snippet.
 
   Args:
@@ -225,8 +225,8 @@ def rawsnippet(path: str,
         comments to uncomment the output. This allows you to have the Jinja2
         call unmolested by markdown formatters, because they will be inside of
         a comment section. Defaults to False.
-      cwd (Path): This is used by the system and is not available as an
-        argument. You can change this on the command line.
+      _ctx (_Context): This is used by the system and is not available as an
+        argument.
 
   Returns:
       str | markupsafe.Markup: The snippet.
@@ -243,7 +243,7 @@ def snippet(path: str,
             indent: str | int | None = None,
             backtickify: bool | str = False,
             decomentify: bool = False,
-            cwd: Path) -> str | markupsafe.Markup:
+            _ctx: _Context) -> str | markupsafe.Markup:
   """Returns a _delimited_ snippet from a file.
 
   Does not return the delimeters themselves.
@@ -263,8 +263,8 @@ def snippet(path: str,
         comments to uncomment the output. This allows you to have the Jinja2
         call unmolested by markdown formatters, because they will be inside of
         a comment section. Defaults to False.
-      cwd (Path): This is used by the system and is not available as an
-        argument. You can change this on the command line.
+      _ctx (_Context): This is used by the system and is not available as an
+        argument.
 
   Returns:
       str | markupsafe.Markup: The snippet.
@@ -284,8 +284,7 @@ def shell(args: str,
           rich_alt: str | None = None,
           rich_bg_color: str | None = None,
           include_args: bool = True,
-          cwd: Path,
-          template_file_name: str) -> str | markupsafe.Markup:
+          _ctx: _Context) -> str | markupsafe.Markup:
   """Run a shell command and return the output.
 
   Use at your own risk, this can potentially introduce security vulnerabilities.
@@ -331,10 +330,8 @@ def shell(args: str,
         None (fully transparent).
       include_args (bool, optional): Should include the command that was run in
         the output? Defaults to True.
-      cwd (Path): This is used by the system and is not available as an
-        argument. You can change this on the command line.
-      template_file_name (Path): This is used by the system and is not available
-        as an argument.
+      _ctx (_Context): This is used by the system and is not available as an
+        argument.
 
   Returns:
       str | markupsafe.Markup: Returns the output of the command.

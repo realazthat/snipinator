@@ -281,7 +281,10 @@ def shell(args: str,
   """Run a shell command and return the output.
 
   Use at your own risk, this can potentially introduce security vulnerabilities.
-  Only use if you know what you are doing.
+  Only use if you know what you are doing. Ensure that no untrusted input can
+  be injected into the `args` parameter, or, into anything the command might
+  access. If an adversary can control the `args` parameter, they can execute
+  arbitrary commands on your system.
 
   Args:
       args (str): The command to run.

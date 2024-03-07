@@ -11,7 +11,6 @@ import base64
 import html
 import json
 import logging
-import shlex
 import subprocess
 import sys
 import textwrap
@@ -339,8 +338,8 @@ def path(path: str,
     return path_str
 
 
-def _ExecuteANSI(cmd: List[str], cwd: Path) -> str:
-  return pexpect.spawn(shlex.join(cmd), cwd=str(cwd)).read().decode()
+def _ExecuteANSI(args: str, cwd: Path) -> str:
+  return pexpect.spawn(args, cwd=str(cwd)).read().decode()
 
 
 def _GetTerminalSVG(args: str, terminal_output: str) -> str:
@@ -438,7 +437,10 @@ def shell(args: str,
   """Run a shell command and return the output.
 
   Use at your own risk, this can potentially introduce security vulnerabilities.
-  Only use if you know what you are doing.
+  Only use if you know what you are doing. Ensure that no untrusted input can
+  be injected into the `args` parameter, or, into anything the command might
+  access. If an adversary can control the `args` parameter, they can execute
+  arbitrary commands on your system.
 
   Args:
       args (str): The command to run.
@@ -478,16 +480,27 @@ def shell(args: str,
       str | markupsafe.Markup: Returns the output of the command.
   """
   if rich == 'raw':
-    result = subprocess.run(shlex.split(args),
-                            cwd=cwd,
-                            stdout=subprocess.PIPE,
-                            stderr=subprocess.STDOUT,
-                            text=True,
-                            check=True)
+    # Justification for ignoring bandit/B602:
+    # * The user passes the args in, and this is a tool for the user.
+    # * Presumably, this is running on the user's machine.
+    # * Alternatives: The purpose of this tool is to actually run a command on
+    #   the shell on behalf of the user, so there is no getting around this.
+    # * The user is responsible for the ensuring that their own inputs cannot
+    #   be injected. The documentation (README, docstring) has warning about
+    #   the security risks.
+    result = subprocess.run(
+        args,
+        cwd=cwd,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        text=True,
+        # trunk-ignore(bandit/B602)
+        shell=True,
+        check=True)
     output = f'${args}\n{result.stdout}'
   elif rich in ['svg', 'img+svg'
                 ] or isinstance(rich, str) and rich.endswith('.svg'):
-    output = _ExecuteANSI(shlex.split(args), cwd=cwd)
+    output = _ExecuteANSI(args, cwd=cwd)
     svg = _GetTerminalSVG(args=args, terminal_output=output)
     if rich == 'svg':
       output = svg

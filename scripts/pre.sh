@@ -8,6 +8,7 @@ source "${SCRIPT_DIR}/utilities/common.sh"
 bash scripts/format.sh
 bash scripts/type-check.sh
 bash scripts/generate-readme.sh
+bash scripts/generate-licenses.sh
 bash scripts/run-all-examples.sh
 bash scripts/run-all-tests.sh
 if [[ -z "${GITHUB_ACTIONS:-}" ]]; then

@@ -158,31 +158,30 @@ def main() -> int:
         '--cwd',
         type=Path,
         default=Path.cwd(),
-        help=
-        'Directory to use as the base for snippet paths in the template. Defaults to the current working directory.'
-    )
+        help='Directory to use as the base for snippet paths in the template.'
+        ' Defaults to the current working directory.')
     parser.add_argument(
         '-a',
         '--args',
         type=json.loads,
         default={},
-        help=
-        "JSON string with template arguments. Any extra values the user wishes to pass to the template, e.g. `{'name': 'John'}` if they wish to render variables as Jinja2 is capable of. Defaults to {}."
-    )
+        help='JSON string with template arguments.'
+        ' Any extra values the user wishes to pass to the template, e.g.'
+        " `{'name': 'John'}` if they wish to render variables as Jinja2 is"
+        ' capable of. Defaults to {}.')
     parser.add_argument(
         '--templates-searchpath',
         type=Path,
         default=None,
-        help=
-        'Path to the directory with templates for include directives etc. Defaults to None.'
-    )
+        help='Path to the directory with templates for include directives etc.'
+        ' Defaults to None, which means nothing can be included using Jinja2\'s'
+        ' include directives, which most users won\'t be needing.')
     parser.add_argument(
         '--rm',
         action=argparse.BooleanOptionalAction,
         default=False,
-        help=
-        'Remove any existing file at the output path, before writing the new one;'
-        ' useful if the existing file might be write protected.')
+        help='Remove any existing file at the output path, before writing the new'
+        ' one; useful if the existing file might be write protected.')
     parser.add_argument(
         '-o',
         '--output',
@@ -194,15 +193,16 @@ def main() -> int:
         type=str,
         default=DEFAULT_WARNING,
         help=
-        'Warning message to include in the output file. To prevent accidentally editing generated file. Defaults to the default warning message.'
-    )
+        'Warning message to include in the output file. To prevent accidentally'
+        ' editing generated file. Defaults to the default warning message.')
     parser.add_argument(
         '--chmod',
         type=str,
         default=None,
         help=
-        'Change the mode (permissions) of the output file, an octant (see chmod help for more info) e.g 444 or 555. To prevent accidentally editing generated file. Defaults to None.'
-    )
+        'Change the mode (permissions) of the output file, an octant (see chmod'
+        ' help for more info) e.g 444 or 555. To prevent accidentally editing'
+        ' generated file. Defaults to None.')
 
     args = parser.parse_args()
 

@@ -53,7 +53,7 @@ ______________________________________________________________________
 
 Here is a terminal snippet:
 
-````shell
+````console
 $ python -m snipinator.cli --help
 Usage: python -m snipinator.cli [-h] -t TEMPLATE [--cwd CWD] [-a ARGS]
                                 [--templates-searchpath TEMPLATES_SEARCHPATH]

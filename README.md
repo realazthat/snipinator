@@ -13,8 +13,7 @@ SOURCE: `README.md.jinja2`.
 | ------ | ------------------------- | ------------------------------------------ |
 | Master | [![Build and Test][1]][2] | [![since tagged][6]][10] ![last commit][7] |
 
-CLI to embed snippets from your python codebase into your `README.md`. Uses
-Jinja2, and Python's AST library.
+CLI to embed snippets from your python codebase into your `README.md`.
 
 ## What
 
@@ -405,6 +404,17 @@ Also see Jinja2 v3
     [`snipinator/examples/LONG-EXAMPLE.generated.md`](./snipinator/examples/LONG-EXAMPLE.generated.md).
   - Generation script:
     [`./snipinator/examples/long-example.sh`](./snipinator/examples/long-example.sh).
+
+## Thanks
+
+Main libraries used in Snipinator are:
+
+- Templating: [Jinja2](https://github.com/pallets/jinja).
+- Snippet inclusion: Python's AST library.
+- Colorful CLI help: [rich-argparse](https://github.com/hamdanal/rich-argparse).
+- ANSI coloring shell output:
+  {[pexpect](https://pexpect.readthedocs.io/en/stable/),
+  [rich](https://github.com/Textualize/rich)}.
 
 ## Contributions
 

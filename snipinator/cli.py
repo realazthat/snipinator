@@ -177,17 +177,25 @@ def main() -> int:
         ' Defaults to None, which means nothing can be included using Jinja2\'s'
         ' include directives, which most users won\'t be needing.')
     parser.add_argument(
+        '-o',
+        '--output',
+        type=str,
+        default='-',
+        help='Path to the output file. Use "-" for stdout. Defaults to "-".')
+    parser.add_argument(
         '--rm',
         action=argparse.BooleanOptionalAction,
         default=False,
         help='Remove any existing file at the output path, before writing the new'
         ' one; useful if the existing file might be write protected.')
     parser.add_argument(
-        '-o',
-        '--output',
-        type=str,
-        default='-',
-        help='Path to the output file. Use "-" for stdout. Defaults to "-".')
+        '--check',
+        action=argparse.BooleanOptionalAction,
+        default=False,
+        help='Check if the output file is the same as the rendered text, and'
+        ' exit with a non-zero status code if it is not. Does not write the'
+        ' file. Ignores options that modify the file (e.g --rm and --chmod).'
+        ' Useful for CI pipelines. Defaults to False.')
     parser.add_argument(
         '--warning-message',
         type=str,
@@ -210,6 +218,8 @@ def main() -> int:
       raise ValueError('Cannot use --rm with stdout')
     if args.chmod and args.output == '-':
       raise ValueError('Cannot use --chmod with stdout')
+    if args.check and args.output == '-':
+      raise ValueError('Cannot use --check with stdout')
 
     template_file: TextIO = args.template
     template_file_name = template_file.name
@@ -231,6 +241,13 @@ def main() -> int:
       print(rendered)
       return 0
     output_path = Path(args.output)
+
+    if args.check:
+      original_output: str | None = None
+      if output_path.exists():
+        original_output = output_path.read_text(encoding='utf-8')
+      return 0 if rendered == original_output else 1
+
     if output_path.exists() and args.rm:
       output_path.unlink()
     output_path.write_text(rendered, encoding='utf-8')

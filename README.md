@@ -92,7 +92,7 @@ class MyClass:
 pip install snipinator
 
 # Install from git (https://github.com/realazthat/snipinator)
-pip install git+https://github.com/realazthat/snipinator.git@v1.0.5
+pip install git+https://github.com/realazthat/snipinator.git@v1.0.6
 ```
 
 ### Use
@@ -457,8 +457,8 @@ Main libraries used in Snipinator are:
 [3]: https://img.shields.io/github/license/realazthat/snipinator
 [4]: https://img.shields.io/pypi/v/snipinator
 [5]: https://pypi.org/project/snipinator/
-[6]: https://img.shields.io/github/commits-since/realazthat/snipinator/v1.0.5/master
+[6]: https://img.shields.io/github/commits-since/realazthat/snipinator/v1.0.6/master
 [7]: https://img.shields.io/github/last-commit/realazthat/snipinator/master
 [8]: https://img.shields.io/pypi/pyversions/snipinator
 [9]: https://img.shields.io/github/languages/top/realazthat/snipinator.svg?&cacheSeconds=28800
-[10]: https://github.com/realazthat/snipinator/compare/v1.0.5...master
+[10]: https://github.com/realazthat/snipinator/compare/v1.0.6...master

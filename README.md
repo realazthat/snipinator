@@ -13,7 +13,7 @@ SOURCE: `README.md.jinja2`.
 | ------ | ------------------------- | ------------------------------------------ |
 | Master | [![Build and Test][1]][2] | [![since tagged][6]][10] ![last commit][7] |
 
-CLI to embed snippets from your python codebase into your `README.md`.
+CLI to embed snippets from your {python,other} codebases into your `README.md`.
 
 ## What
 
@@ -57,6 +57,18 @@ class MyClass:
 ````
 
 ``````
+
+## Features
+
+- Supports anything Jinja2 supports.
+- First class support for python source code.
+  - Can include python function signatures, docstrings, entire function source
+    code, classes.
+- Supports any language.
+  - With delimiter markers, or entire inclusion of the entire file.
+- First class support for markdown output (with backtickify, decomentify).
+- Can include shell output.
+  - Supports ANSI colors with SVG output.
 
 ## Getting Started
 

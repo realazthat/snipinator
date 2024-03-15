@@ -77,15 +77,16 @@ class MyClass:
 #### Tested on
 
 - WSL2 Ubuntu 20.04, Python 3.10.0
-- Ubuntu 20.04, Python 3.10.0, 3.11.0, 3.12.0, tested in GitHub Actions workflow
+- Ubuntu 20.04, Python 3.8.0, 3.9.0, 3.10.0, 3.11.0, 3.12.0, tested in GitHub
+  Actions workflow
   ([build-and-test.yml](./.github/workflows/build-and-test.yml)).
 
 **Requirements:**
 
 - Linux-like environment
   - Why: Uses chmod, rm, and pexpect.spawn().
-- Python 3.10+
-  - Why: uses PEP 604, pipe type hints for Union.
+- Python 3.8+
+  - Why: Some dev dependencies require Python 3.8+.
 
 ```bash
 # Install from pypi (https://pypi.org/project/snipinator/)
@@ -146,24 +147,24 @@ CLI usage help:
 
 ````py
 def pysnippet(path: str,
-              symbol: str | None,
+              symbol: Optional[str],
               *,
               escape: bool = False,
-              indent: str | int | None = None,
-              backtickify: bool | str = False,
+              indent: Union[str, int, None] = None,
+              backtickify: Union[bool, str] = False,
               decomentify: bool = False,
-              _ctx: _Context) -> str | markupsafe.Markup:
+              _ctx: _Context) -> Union[str, markupsafe.Markup]:
   """Return a python snippet, allowing you to specify a class or function.
 
   Args:
       path (str): The path to the file.
-      symbol (str | None): The symbol to extract. If None, the entire file is
+      symbol (Optional[str]): The symbol to extract. If None, the entire file is
         returned. Defaults to None.
       escape (bool, optional): Should use HTML entities escaping? Defaults to
         False.
-      indent (str | int | None, optional): Should indent? By how much, or with
+      indent (Union[str, int, None], optional): Should indent? By how much, or with
         what prefix? Defaults to None.
-      backtickify (bool | str, optional): Should surround with backticks? With
+      backtickify (Union[bool, str], optional): Should surround with backticks? With
         what language? Defaults to False.
       decomentify (bool, optional): Assuming that you will be using HTML
         comments around this call, setting this to true will add corresponding
@@ -174,7 +175,7 @@ def pysnippet(path: str,
         argument.
 
   Returns:
-      str | markupsafe.Markup: The snippet.
+      Union[str, markupsafe.Markup]: The snippet.
   """
 ````
 
@@ -183,8 +184,8 @@ def pysignature(path: str,
                 symbol: str,
                 *,
                 escape: bool = False,
-                indent: str | int | None = None,
-                backtickify: bool | str = False,
+                indent: Union[str, int, None] = None,
+                backtickify: Union[bool, str] = False,
                 decomentify: bool = False,
                 _ctx: _Context) -> str:
   """Return the signature of a class or function in a python file.
@@ -196,9 +197,9 @@ def pysignature(path: str,
       symbol (str): The symbol to extract.
       escape (bool, optional): Should use HTML entities escaping? Defaults to
         False.
-      indent (str | int | None, optional): Should indent? By how much, or with
+      indent (Union[str, int, None], optional): Should indent? By how much, or with
         what prefix? Defaults to None.
-      backtickify (bool | str, optional): Should surround with backticks? With
+      backtickify (Union[bool, str], optional): Should surround with backticks? With
         what language? Defaults to False.
       decomentify (bool, optional): Assuming that you will be using HTML
         comments around this call, setting this to true will add corresponding
@@ -217,19 +218,19 @@ def pysignature(path: str,
 def rawsnippet(path: str,
                *,
                escape: bool = False,
-               indent: str | int | None = None,
-               backtickify: bool | str = False,
+               indent: Union[str, int, None] = None,
+               backtickify: Union[bool, str] = False,
                decomentify: bool = False,
-               _ctx: _Context) -> str | markupsafe.Markup:
+               _ctx: _Context) -> Union[str, markupsafe.Markup]:
   """Return an entire file as a snippet.
 
   Args:
       path (str): The path to the file.
       escape (bool, optional): Should use HTML entities escaping? Defaults to
         False.
-      indent (str | int | None, optional): Should indent? By how much, or with
+      indent (Union[str, int, None], optional): Should indent? By how much, or with
         what prefix? Defaults to None.
-      backtickify (bool | str, optional): Should surround with backticks? With
+      backtickify (Union[bool, str], optional): Should surround with backticks? With
         what language? Defaults to False.
       decomentify (bool, optional): Assuming that you will be using HTML
         comments around this call, setting this to true will add corresponding
@@ -240,7 +241,7 @@ def rawsnippet(path: str,
         argument.
 
   Returns:
-      str | markupsafe.Markup: The snippet.
+      Union[str, markupsafe.Markup]: The snippet.
   """
 
 ````
@@ -251,10 +252,10 @@ def snippet(path: str,
             end: str,
             *,
             escape: bool = False,
-            indent: str | int | None = None,
-            backtickify: bool | str = False,
+            indent: Union[str, int, None] = None,
+            backtickify: Union[bool, str] = False,
             decomentify: bool = False,
-            _ctx: _Context) -> str | markupsafe.Markup:
+            _ctx: _Context) -> Union[str, markupsafe.Markup]:
   """Returns a _delimited_ snippet from a file.
 
   Does not return the delimeters themselves.
@@ -265,9 +266,9 @@ def snippet(path: str,
       end (str): A string that indicates the end of the snippet.
       escape (bool, optional): Should use HTML entities escaping? Defaults to
         False.
-      indent (str | int | None, optional): Should indent? By how much, or with
+      indent (Union[str, int, None], optional): Should indent? By how much, or with
         what prefix? Defaults to None.
-      backtickify (bool | str, optional): Should surround with backticks? With
+      backtickify (Union[bool, str], optional): Should surround with backticks? With
         what language? Defaults to False.
       decomentify (bool, optional): Assuming that you will be using HTML
         comments around this call, setting this to true will add corresponding
@@ -278,7 +279,7 @@ def snippet(path: str,
         argument.
 
   Returns:
-      str | markupsafe.Markup: The snippet.
+      Union[str, markupsafe.Markup]: The snippet.
   """
 
 ````
@@ -287,15 +288,15 @@ def snippet(path: str,
 def shell(args: str,
           *,
           escape: bool = False,
-          indent: str | int | None = None,
-          backtickify: bool | str = False,
+          indent: Union[str, int, None] = None,
+          backtickify: Union[bool, str] = False,
           decomentify: bool = False,
-          rich: Literal['svg'] | Literal['img+b64+svg'] | Literal['raw']
-          | str = 'raw',
-          rich_alt: str | None = None,
-          rich_bg_color: str | None = None,
+          rich: Union[Literal['svg'], Literal['img+b64+svg'], Literal['raw'],
+                      str] = 'raw',
+          rich_alt: Optional[str] = None,
+          rich_bg_color: Optional[str] = None,
           include_args: bool = True,
-          _ctx: _Context) -> str | markupsafe.Markup:
+          _ctx: _Context) -> Union[str, markupsafe.Markup]:
   """Run a shell command and return the output.
 
   Use at your own risk, this can potentially introduce security vulnerabilities.
@@ -308,16 +309,16 @@ def shell(args: str,
       args (str): The command to run.
       escape (bool, optional): Should use HTML entities escaping? Defaults to
         False.
-      indent (str | int | None, optional): Should indent? By how much, or with
+      indent (Union[str, int, None], optional): Should indent? By how much, or with
         what prefix? Defaults to None.
-      backtickify (bool | str, optional): Should surround with backticks? With
+      backtickify (Union[bool, str], optional): Should surround with backticks? With
         what language? Defaults to False.
       decomentify (bool, optional): Assuming that you will be using HTML
         comments around this call, setting this to true will add corresponding
         uncomments to uncomment the output. This allows you to have the Jinja2
         call unmolested by markdown formatters, because they will be inside of
         a comment section. Defaults to False.
-      rich (Literal['svg']|Literal['img+b64+svg']|Literal['raw']|str, optional):
+      rich (Union[Literal['svg'], Literal['img+b64+svg'], Literal['raw'], str], optional):
         Optionally outputs colored terminal output as an image.
         * If `rich` is a relative file path that ends with ".svg", the svg will
           be saved to that location and an img tag will be emitted. The path
@@ -333,9 +334,9 @@ def shell(args: str,
         * If 'raw' the raw (uncolored) terminal output will be dumped into the
           markdown directly.
         * Defaults to 'raw.
-      rich_alt (str|None, optional): The alt text for the img tag. Defaults
+      rich_alt (Optional[str], optional): The alt text for the img tag. Defaults
         to None.
-      rich_bg_color (str|None, optional): The background color for the terminal
+      rich_bg_color (Optional[str], optional): The background color for the terminal
         output. Valid colors include anything valid for SVG colors. See
         <https://developer.mozilla.org/en-US/docs/Web/CSS/color>. Defaults to
         None (fully transparent).
@@ -345,7 +346,7 @@ def shell(args: str,
         argument.
 
   Returns:
-      str | markupsafe.Markup: Returns the output of the command.
+      Union[str, markupsafe.Markup]: Returns the output of the command.
   """
 ````
 

@@ -69,6 +69,12 @@
     "Author": "UNKNOWN",
     "License": "Apache Software License",
     "Name": "types-colorama",
-    "Version": "0.4.15.20240205"
+    "Version": "0.4.15.20240311"
+  },
+  {
+    "Author": "\"Guido van Rossum, Jukka Lehtosalo, \u0141ukasz Langa, Michael Lee\" <levkivskyi@gmail.com>",
+    "License": "Python Software Foundation License",
+    "Name": "typing_extensions",
+    "Version": "4.10.0"
   }
 ]

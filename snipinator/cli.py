@@ -13,7 +13,7 @@ import subprocess
 import sys
 import time
 from pathlib import Path
-from typing import Callable, List, TextIO
+from typing import Callable, List, Optional, TextIO
 
 import colorama
 from rich.console import Console
@@ -141,7 +141,7 @@ def _ChmodTryAll(*, path: Path, mode10: int, console: Console) -> None:
 
 def main() -> int:
   console = Console(file=sys.stderr)
-  args: argparse.Namespace | None = None
+  args: Optional[argparse.Namespace] = None
   try:
     # Windows<10 requires this.
     colorama.init()
@@ -184,13 +184,13 @@ def main() -> int:
         help='Path to the output file. Use "-" for stdout. Defaults to "-".')
     parser.add_argument(
         '--rm',
-        action=argparse.BooleanOptionalAction,
+        action='store_true',
         default=False,
         help='Remove any existing file at the output path, before writing the new'
         ' one; useful if the existing file might be write protected.')
     parser.add_argument(
         '--check',
-        action=argparse.BooleanOptionalAction,
+        action='store_true',
         default=False,
         help='Check if the output file is the same as the rendered text, and'
         ' exit with a non-zero status code if it is not. Does not write the'
@@ -243,7 +243,7 @@ def main() -> int:
     output_path = Path(args.output)
 
     if args.check:
-      original_output: str | None = None
+      original_output: Optional[str] = None
       if output_path.exists():
         original_output = output_path.read_text(encoding='utf-8')
       return 0 if rendered == original_output else 1

@@ -17,7 +17,7 @@ import textwrap
 from functools import partial
 from io import StringIO
 from pathlib import Path
-from typing import Generator, List, Literal, NamedTuple, Set
+from typing import Generator, List, Literal, NamedTuple, Optional, Set, Union
 
 import markupsafe
 import pexpect  # type: ignore[import]
@@ -39,7 +39,7 @@ def Snipinate(template_file_name: str,
               template_string: str,
               cwd: Path,
               template_args: dict,
-              templates_searchpath: Path | None,
+              templates_searchpath: Optional[Path],
               warning_message: str = DEFAULT_WARNING) -> str:
   """Render the markdown template.
 
@@ -54,7 +54,7 @@ def Snipinate(template_file_name: str,
       template_args (dict): Any extra values the user wishes to pass to the
         template, e.g. `{'name': 'John'}` if they wish to render variables as
         Jinja2 is capable of.
-      templates_searchpath (Path | None): If specified, will use a custom
+      templates_searchpath (Path, optional): If specified, will use a custom
         FileSystemLoader for Jinja2, with this search path. This is useful for
         inclusion macros, etc. Defaults to None.
       warning_message (str, optional): If specified, the top of the rendered
@@ -71,7 +71,7 @@ def Snipinate(template_file_name: str,
       warning_message = html.escape(warning_message)
       warning_message = f'<!--\n{warning_message}\n-->\n'
 
-    loader: FileSystemLoader | None = None
+    loader: Optional[FileSystemLoader] = None
     if templates_searchpath is not None:
       loader = FileSystemLoader(templates_searchpath)
     env = Environment(loader=loader,
@@ -113,8 +113,8 @@ def pysignature(path: str,
                 symbol: str,
                 *,
                 escape: bool = False,
-                indent: str | int | None = None,
-                backtickify: bool | str = False,
+                indent: Union[str, int, None] = None,
+                backtickify: Union[bool, str] = False,
                 decomentify: bool = False,
                 _ctx: _Context) -> str:
   """Return the signature of a class or function in a python file.
@@ -126,9 +126,9 @@ def pysignature(path: str,
       symbol (str): The symbol to extract.
       escape (bool, optional): Should use HTML entities escaping? Defaults to
         False.
-      indent (str | int | None, optional): Should indent? By how much, or with
+      indent (Union[str, int, None], optional): Should indent? By how much, or with
         what prefix? Defaults to None.
-      backtickify (bool | str, optional): Should surround with backticks? With
+      backtickify (Union[bool, str], optional): Should surround with backticks? With
         what language? Defaults to False.
       decomentify (bool, optional): Assuming that you will be using HTML
         comments around this call, setting this to true will add corresponding
@@ -155,24 +155,24 @@ def pysignature(path: str,
 
 
 def pysnippet(path: str,
-              symbol: str | None,
+              symbol: Optional[str],
               *,
               escape: bool = False,
-              indent: str | int | None = None,
-              backtickify: bool | str = False,
+              indent: Union[str, int, None] = None,
+              backtickify: Union[bool, str] = False,
               decomentify: bool = False,
-              _ctx: _Context) -> str | markupsafe.Markup:
+              _ctx: _Context) -> Union[str, markupsafe.Markup]:
   """Return a python snippet, allowing you to specify a class or function.
 
   Args:
       path (str): The path to the file.
-      symbol (str | None): The symbol to extract. If None, the entire file is
+      symbol (Optional[str]): The symbol to extract. If None, the entire file is
         returned. Defaults to None.
       escape (bool, optional): Should use HTML entities escaping? Defaults to
         False.
-      indent (str | int | None, optional): Should indent? By how much, or with
+      indent (Union[str, int, None], optional): Should indent? By how much, or with
         what prefix? Defaults to None.
-      backtickify (bool | str, optional): Should surround with backticks? With
+      backtickify (Union[bool, str], optional): Should surround with backticks? With
         what language? Defaults to False.
       decomentify (bool, optional): Assuming that you will be using HTML
         comments around this call, setting this to true will add corresponding
@@ -183,7 +183,7 @@ def pysnippet(path: str,
         argument.
 
   Returns:
-      str | markupsafe.Markup: The snippet.
+      Union[str, markupsafe.Markup]: The snippet.
   """
   path_ = _CheckPath(path=path, cwd=_ctx.cwd)
 
@@ -204,19 +204,19 @@ def pysnippet(path: str,
 def rawsnippet(path: str,
                *,
                escape: bool = False,
-               indent: str | int | None = None,
-               backtickify: bool | str = False,
+               indent: Union[str, int, None] = None,
+               backtickify: Union[bool, str] = False,
                decomentify: bool = False,
-               _ctx: _Context) -> str | markupsafe.Markup:
+               _ctx: _Context) -> Union[str, markupsafe.Markup]:
   """Return an entire file as a snippet.
 
   Args:
       path (str): The path to the file.
       escape (bool, optional): Should use HTML entities escaping? Defaults to
         False.
-      indent (str | int | None, optional): Should indent? By how much, or with
+      indent (Union[str, int, None], optional): Should indent? By how much, or with
         what prefix? Defaults to None.
-      backtickify (bool | str, optional): Should surround with backticks? With
+      backtickify (Union[bool, str], optional): Should surround with backticks? With
         what language? Defaults to False.
       decomentify (bool, optional): Assuming that you will be using HTML
         comments around this call, setting this to true will add corresponding
@@ -227,7 +227,7 @@ def rawsnippet(path: str,
         argument.
 
   Returns:
-      str | markupsafe.Markup: The snippet.
+      Union[str, markupsafe.Markup]: The snippet.
   """
 
   path_ = _CheckPath(path=path, cwd=_ctx.cwd)
@@ -246,10 +246,10 @@ def snippet(path: str,
             end: str,
             *,
             escape: bool = False,
-            indent: str | int | None = None,
-            backtickify: bool | str = False,
+            indent: Union[str, int, None] = None,
+            backtickify: Union[bool, str] = False,
             decomentify: bool = False,
-            _ctx: _Context) -> str | markupsafe.Markup:
+            _ctx: _Context) -> Union[str, markupsafe.Markup]:
   """Returns a _delimited_ snippet from a file.
 
   Does not return the delimeters themselves.
@@ -260,9 +260,9 @@ def snippet(path: str,
       end (str): A string that indicates the end of the snippet.
       escape (bool, optional): Should use HTML entities escaping? Defaults to
         False.
-      indent (str | int | None, optional): Should indent? By how much, or with
+      indent (Union[str, int, None], optional): Should indent? By how much, or with
         what prefix? Defaults to None.
-      backtickify (bool | str, optional): Should surround with backticks? With
+      backtickify (Union[bool, str], optional): Should surround with backticks? With
         what language? Defaults to False.
       decomentify (bool, optional): Assuming that you will be using HTML
         comments around this call, setting this to true will add corresponding
@@ -273,7 +273,7 @@ def snippet(path: str,
         argument.
 
   Returns:
-      str | markupsafe.Markup: The snippet.
+      Union[str, markupsafe.Markup]: The snippet.
   """
 
   path_ = _CheckPath(path=path, cwd=_ctx.cwd)
@@ -303,10 +303,10 @@ def snippet(path: str,
 def path(path: str,
          *,
          escape: bool = False,
-         indent: str | int | None = None,
-         backtickify: bool | str = False,
+         indent: Union[str, int, None] = None,
+         backtickify: Union[bool, str] = False,
          decomentify: bool = False,
-         _ctx: _Context) -> str | markupsafe.Markup:
+         _ctx: _Context) -> Union[str, markupsafe.Markup]:
   """Verifies that `path` exists, and just returns `path`.
 
   Unfortunately, I don't know how to use this inside a link, because the
@@ -317,9 +317,9 @@ def path(path: str,
       path (str): The path to verify.
       escape (bool, optional): Should use HTML entities escaping? Defaults to
         False.
-      indent (str | int | None, optional): Should indent? By how much, or with
+      indent (Union[str, int, None], optional): Should indent? By how much, or with
         what prefix? Defaults to None.
-      backtickify (bool | str, optional): Should surround with backticks? With
+      backtickify (Union[bool, str], optional): Should surround with backticks? With
         what language? Defaults to False.
       decomentify (bool, optional): Assuming that you will be using HTML
         comments around this call, setting this to true will add corresponding
@@ -330,7 +330,7 @@ def path(path: str,
         argument.
 
   Returns:
-      str | markupsafe.Markup: Just returns the path. If the path doesn't exist,
+      Union[str, markupsafe.Markup]: Just returns the path. If the path doesn't exist,
         it will raise an error.
   """
   _CheckPath(path=path, cwd=_ctx.cwd)
@@ -355,7 +355,7 @@ def _ExecuteANSI(args: str, cwd: Path) -> str:
 def _GetTerminalSVG(args: str,
                     terminal_output: str,
                     include_args: bool,
-                    bg_color: str | None = None) -> str:
+                    bg_color: Optional[str] = None) -> str:
 
   CONSOLE_SVG_FORMAT = """\
     <svg class="rich-terminal" viewBox="0 0 {width} {height}" xmlns="http://www.w3.org/2000/svg">
@@ -448,15 +448,15 @@ font-family: arial;
 def shell(args: str,
           *,
           escape: bool = False,
-          indent: str | int | None = None,
-          backtickify: bool | str = False,
+          indent: Union[str, int, None] = None,
+          backtickify: Union[bool, str] = False,
           decomentify: bool = False,
-          rich: Literal['svg'] | Literal['img+b64+svg'] | Literal['raw']
-          | str = 'raw',
-          rich_alt: str | None = None,
-          rich_bg_color: str | None = None,
+          rich: Union[Literal['svg'], Literal['img+b64+svg'], Literal['raw'],
+                      str] = 'raw',
+          rich_alt: Optional[str] = None,
+          rich_bg_color: Optional[str] = None,
           include_args: bool = True,
-          _ctx: _Context) -> str | markupsafe.Markup:
+          _ctx: _Context) -> Union[str, markupsafe.Markup]:
   """Run a shell command and return the output.
 
   Use at your own risk, this can potentially introduce security vulnerabilities.
@@ -469,16 +469,16 @@ def shell(args: str,
       args (str): The command to run.
       escape (bool, optional): Should use HTML entities escaping? Defaults to
         False.
-      indent (str | int | None, optional): Should indent? By how much, or with
+      indent (Union[str, int, None], optional): Should indent? By how much, or with
         what prefix? Defaults to None.
-      backtickify (bool | str, optional): Should surround with backticks? With
+      backtickify (Union[bool, str], optional): Should surround with backticks? With
         what language? Defaults to False.
       decomentify (bool, optional): Assuming that you will be using HTML
         comments around this call, setting this to true will add corresponding
         uncomments to uncomment the output. This allows you to have the Jinja2
         call unmolested by markdown formatters, because they will be inside of
         a comment section. Defaults to False.
-      rich (Literal['svg']|Literal['img+b64+svg']|Literal['raw']|str, optional):
+      rich (Union[Literal['svg'], Literal['img+b64+svg'], Literal['raw'], str], optional):
         Optionally outputs colored terminal output as an image.
         * If `rich` is a relative file path that ends with ".svg", the svg will
           be saved to that location and an img tag will be emitted. The path
@@ -494,9 +494,9 @@ def shell(args: str,
         * If 'raw' the raw (uncolored) terminal output will be dumped into the
           markdown directly.
         * Defaults to 'raw.
-      rich_alt (str|None, optional): The alt text for the img tag. Defaults
+      rich_alt (Optional[str], optional): The alt text for the img tag. Defaults
         to None.
-      rich_bg_color (str|None, optional): The background color for the terminal
+      rich_bg_color (Optional[str], optional): The background color for the terminal
         output. Valid colors include anything valid for SVG colors. See
         <https://developer.mozilla.org/en-US/docs/Web/CSS/color>. Defaults to
         None (fully transparent).
@@ -506,7 +506,7 @@ def shell(args: str,
         argument.
 
   Returns:
-      str | markupsafe.Markup: Returns the output of the command.
+      Union[str, markupsafe.Markup]: Returns the output of the command.
   """
   if rich == 'raw':
     # Justification for ignoring bandit/B602:
@@ -555,7 +555,7 @@ def shell(args: str,
       if _ctx.template_file_name != '-':
         template_directory = Path(_ctx.template_file_name).parent
       svg_path = template_directory / svg_path
-      if not svg_path.is_relative_to(template_directory):
+      if not _is_relative_to(svg_path, template_directory):
         raise ValueError(
             f'Path is not relative to cwd: {json.dumps(str(svg_path))}, cwd: {json.dumps(str(_ctx.cwd))}'
         )
@@ -592,6 +592,13 @@ def shell(args: str,
     return output
 
 
+def _is_relative_to(path: Path, other: Path) -> bool:
+  """Backport of Path.is_relative_to for Python < 3.9."""
+  absolute_path = path.resolve()
+  other_absolute = other.resolve()
+  return str(absolute_path).startswith(str(other_absolute))
+
+
 def _CheckPath(*, path: str, cwd: Path) -> Path:
   path_ = Path(path)
 
@@ -600,7 +607,7 @@ def _CheckPath(*, path: str, cwd: Path) -> Path:
         f'Path is absolute: {json.dumps(path)}, it should be relative')
   path_ = cwd / path_
 
-  if not path_.is_relative_to(cwd):
+  if not _is_relative_to(path_, cwd):
     raise ValueError(
         f'Path is not relative to cwd: {json.dumps(path)}, cwd: {json.dumps(str(cwd))}'
     )
@@ -608,7 +615,7 @@ def _CheckPath(*, path: str, cwd: Path) -> Path:
 
 
 def _GetNodeNames(
-    node: ast.FunctionDef | ast.AsyncFunctionDef | ast.ClassDef | ast.Assign
+    node: Union[ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef, ast.Assign]
 ) -> Generator[str, None, None]:
   if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
     yield node.name
@@ -651,7 +658,7 @@ def _FindTargetNodes(*, start: ast.AST,
 
 
 def _FindTargetNode(*, start: ast.AST,
-                    symbol_parts: List[str]) -> ast.AST | None:
+                    symbol_parts: List[str]) -> Optional[ast.AST]:
   for target_node in _FindTargetNodes(start=start, symbol_parts=symbol_parts):
     return target_node
   return None
@@ -701,7 +708,7 @@ def _GetEOLIndex(node: ast.AST) -> int:
 
 
 def _FirstNonDocstringLineIndex(
-    node: ast.FunctionDef | ast.AsyncFunctionDef) -> int:
+    node: Union[ast.FunctionDef, ast.AsyncFunctionDef]) -> int:
   """Get the index of the first non-docstring line in the function definition.
 
   Note: This returns line _index_ which is zero based. AST returns line number.
@@ -721,7 +728,7 @@ def _FirstNonDocstringLineIndex(
     return first_node.lineno - 1
 
 
-def _EndIndex(target_node: ast.AST) -> int | None:
+def _EndIndex(target_node: ast.AST) -> Optional[int]:
   if isinstance(target_node, ast.ClassDef):
     return _GetClassDocstringEndIndex(target_node)
   elif isinstance(target_node, (ast.FunctionDef, ast.AsyncFunctionDef)):
@@ -752,7 +759,7 @@ def _GetSymbolSignature(source: str, path: str, symbol: str) -> str:
     ) from e
 
 
-def _Indent(text: str, *, indent: str | int | None) -> str:
+def _Indent(text: str, *, indent: Union[str, int, None]) -> str:
   if isinstance(indent, int):
     return textwrap.indent(text, ' ' * indent)
   elif isinstance(indent, str):
@@ -770,7 +777,7 @@ def _CountSequentialBackticks(text: str) -> int:
   return 0
 
 
-def _Backtickify(text: str, *, backtickify: bool | str) -> str:
+def _Backtickify(text: str, *, backtickify: Union[bool, str]) -> str:
 
   count = _CountSequentialBackticks(text)
   count += 1

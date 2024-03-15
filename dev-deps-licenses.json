@@ -33,7 +33,7 @@
     "Author": "UNKNOWN",
     "License": "MIT License",
     "Name": "autoflake",
-    "Version": "2.2.1"
+    "Version": "2.3.1"
   },
   {
     "Author": "Filipe La\u00edns <lains@riseup.net>, Bern\u00e1t G\u00e1bor <gaborjbernat@gmail.com>, layday <layday@protonmail.com>, Henry Schreiner <henryschreineriii@gmail.com>",
@@ -111,7 +111,7 @@
     "Author": "Chris Kuehl",
     "License": "MIT License",
     "Name": "identify",
-    "Version": "2.5.33"
+    "Version": "2.5.35"
   },
   {
     "Author": "Kim Davies <kim+pypi@gumleaf.org>",
@@ -122,8 +122,14 @@
   {
     "Author": "Jason R. Coombs",
     "License": "Apache Software License",
-    "Name": "importlib-metadata",
-    "Version": "7.0.1"
+    "Name": "importlib_metadata",
+    "Version": "7.0.2"
+  },
+  {
+    "Author": "Barry Warsaw",
+    "License": "Apache Software License",
+    "Name": "importlib_resources",
+    "Version": "6.3.0"
   },
   {
     "Author": "Timothy Crosley",
@@ -261,7 +267,7 @@
     "Author": "Anthony Sottile",
     "License": "MIT License",
     "Name": "pre-commit",
-    "Version": "3.6.0"
+    "Version": "3.5.0"
   },
   {
     "Author": "Thomas Kluyver",
@@ -356,26 +362,8 @@
   {
     "Author": "UNKNOWN",
     "License": "Apache Software License",
-    "Name": "types-Pygments",
-    "Version": "2.17.0.20240106"
-  },
-  {
-    "Author": "UNKNOWN",
-    "License": "Apache Software License",
     "Name": "types-colorama",
-    "Version": "0.4.15.20240205"
-  },
-  {
-    "Author": "UNKNOWN",
-    "License": "Apache Software License",
-    "Name": "types-docutils",
-    "Version": "0.20.0.20240304"
-  },
-  {
-    "Author": "UNKNOWN",
-    "License": "Apache Software License",
-    "Name": "types-setuptools",
-    "Version": "69.1.0.20240302"
+    "Version": "0.4.15.20240311"
   },
   {
     "Author": "\"Guido van Rossum, Jukka Lehtosalo, \u0141ukasz Langa, Michael Lee\" <levkivskyi@gmail.com>",

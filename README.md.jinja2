@@ -41,15 +41,16 @@ Into this (`{{ path('snipinator/examples/EXAMPLE.generated.md') }}`):
 #### Tested on
 
 - WSL2 Ubuntu 20.04, Python 3.10.0
-- Ubuntu 20.04, Python 3.10.0, 3.11.0, 3.12.0, tested in GitHub Actions workflow
+- Ubuntu 20.04, Python 3.8.0, 3.9.0, 3.10.0, 3.11.0, 3.12.0, tested in GitHub
+  Actions workflow
   ([build-and-test.yml](./.github/workflows/build-and-test.yml)).
 
 **Requirements:**
 
 - Linux-like environment
   - Why: Uses chmod, rm, and pexpect.spawn().
-- Python 3.10+
-  - Why: uses PEP 604, pipe type hints for Union.
+- Python 3.8+
+  - Why: Some dev dependencies require Python 3.8+.
 
 ```bash
 # Install from pypi (https://pypi.org/project/snipinator/)

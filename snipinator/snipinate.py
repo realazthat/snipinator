@@ -348,12 +348,14 @@ def path(path: str,
     return path_str
 
 
-def _ExecuteANSI(args: str, cwd: Path) -> str:
-  return pexpect.spawn(args, cwd=str(cwd)).read().decode()
+def _ExecuteANSI(args: str, cwd: Path, rows: int, cols: int) -> str:
+  pty = pexpect.spawn(args, cwd=str(cwd), dimensions=(rows, cols))
+  return pty.read().decode()
 
 
 def _GetTerminalSVG(args: str,
                     terminal_output: str,
+                    cols: int,
                     include_args: bool,
                     bg_color: Optional[str] = None) -> str:
 
@@ -427,11 +429,10 @@ font-family: arial;
 
     return cleaned_svg
 
-  width = 80
   console = Console(record=True,
                     force_terminal=True,
                     force_interactive=True,
-                    width=width,
+                    width=cols,
                     theme=DEFAULT_THEME,
                     file=StringIO())
   text = Text.from_ansi(terminal_output)
@@ -439,7 +440,7 @@ font-family: arial;
     prefix = '$ '
     console.print(f'{prefix}{args}')
   console.print(text)
-  console.height = len(text.wrap(console, width=width))
+  console.height = len(text.wrap(console, width=cols))
   svg = console.export_svg(theme=MONOKAI, code_format=CONSOLE_SVG_FORMAT)
   svg = CleanSVG(svg)
   return svg
@@ -455,6 +456,8 @@ def shell(args: str,
                       str] = 'raw',
           rich_alt: Optional[str] = None,
           rich_bg_color: Optional[str] = None,
+          rich_rows: int = 24,
+          rich_cols: int = 80,
           include_args: bool = True,
           _ctx: _Context) -> Union[str, markupsafe.Markup]:
   """Run a shell command and return the output.
@@ -500,6 +503,10 @@ def shell(args: str,
         output. Valid colors include anything valid for SVG colors. See
         <https://developer.mozilla.org/en-US/docs/Web/CSS/color>. Defaults to
         None (fully transparent).
+      rich_rows (int, optional): The number of rows to use for the terminal
+        output. Doesn't seem to have much effect. Defaults to 24.
+      rich_cols (int, optional): The number of columns to use for the terminal
+        output. Defaults to 80.
       include_args (bool, optional): Should include the command that was run in
         the output? Defaults to True.
       _ctx (_Context): This is used by the system and is not available as an
@@ -535,9 +542,10 @@ def shell(args: str,
       output += '\n'
   elif (rich in ['svg', 'img+svg']
         or isinstance(rich, str) and rich.endswith('.svg')):
-    output = _ExecuteANSI(args, cwd=_ctx.cwd)
+    output = _ExecuteANSI(args, cwd=_ctx.cwd, rows=24, cols=rich_cols)
     svg = _GetTerminalSVG(args=args,
                           terminal_output=output,
+                          cols=rich_cols,
                           include_args=include_args,
                           bg_color=rich_bg_color)
     if rich == 'svg':

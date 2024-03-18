@@ -296,6 +296,8 @@ def shell(args: str,
                       str] = 'raw',
           rich_alt: Optional[str] = None,
           rich_bg_color: Optional[str] = None,
+          rich_rows: int = 24,
+          rich_cols: int = 80,
           include_args: bool = True,
           _ctx: _Context) -> Union[str, markupsafe.Markup]:
   """Run a shell command and return the output.
@@ -341,6 +343,10 @@ def shell(args: str,
         output. Valid colors include anything valid for SVG colors. See
         <https://developer.mozilla.org/en-US/docs/Web/CSS/color>. Defaults to
         None (fully transparent).
+      rich_rows (int, optional): The number of rows to use for the terminal
+        output. Doesn't seem to have much effect. Defaults to 24.
+      rich_cols (int, optional): The number of columns to use for the terminal
+        output. Defaults to 80.
       include_args (bool, optional): Should include the command that was run in
         the output? Defaults to True.
       _ctx (_Context): This is used by the system and is not available as an

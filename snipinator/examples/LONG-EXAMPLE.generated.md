@@ -120,6 +120,14 @@ command included in the svg:
 
 ______________________________________________________________________
 
+Here is a terminal snippet with terminal colors (img tag external svg, custom
+dimensions), without command included in the svg:
+
+<!--
+--><img src="LONG-EXAMPLE.terminal-dims.generated.svg" alt="terminal output" /><!-- -->
+
+______________________________________________________________________
+
 Here is a terminal snippet with terminal colors (img tag with svg data):
 
 <!--

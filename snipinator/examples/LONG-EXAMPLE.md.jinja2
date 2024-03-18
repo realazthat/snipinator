@@ -56,6 +56,21 @@ command included in the svg:
 
 ______________________________________________________________________
 
+Here is a terminal snippet with terminal colors (img tag external svg, custom
+dimensions), without command included in the svg:
+
+<!--
+{{ shell('python -m snipinator.cli --help',
+         rich='LONG-EXAMPLE.terminal-dims.generated.svg',
+         rich_bg_color='black',
+         rich_alt='terminal output',
+         rich_cols=100,
+         include_args=True,
+         decomentify=True)
+}} -->
+
+______________________________________________________________________
+
 Here is a terminal snippet with terminal colors (img tag with svg data):
 
 <!--

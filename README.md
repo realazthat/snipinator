@@ -84,7 +84,7 @@ class MyClass:
 **Requirements:**
 
 - Linux-like environment
-  - Why: Uses chmod, rm, and pexpect.spawn().
+  - Why: Uses pexpect.spawn().
 - Python 3.8+
   - Why: Some dev dependencies require Python 3.8+.
 

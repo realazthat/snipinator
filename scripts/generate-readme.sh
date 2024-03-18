@@ -15,10 +15,10 @@ python -m snipinator.cli \
   -t "${PROJ_PATH}/snipinator/examples/EXAMPLE.md.jinja2" \
   --rm \
   -o "${PROJ_PATH}/snipinator/examples/EXAMPLE.generated.md" \
-  --chmod 555
+  --chmod-ro
 
 python -m snipinator.cli \
   -t "${PROJ_PATH}/README.md.jinja2" \
   --rm \
   -o "${PROJ_PATH}/README.md" \
-  --chmod 555
+  --chmod-ro

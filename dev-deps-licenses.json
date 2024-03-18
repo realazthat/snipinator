@@ -129,7 +129,7 @@
     "Author": "Barry Warsaw",
     "License": "Apache Software License",
     "Name": "importlib_resources",
-    "Version": "6.3.0"
+    "Version": "6.3.1"
   },
   {
     "Author": "Timothy Crosley",

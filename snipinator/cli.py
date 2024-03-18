@@ -12,6 +12,7 @@ import shlex
 import subprocess
 import sys
 import time
+import warnings
 from pathlib import Path
 from typing import Callable, List, Optional, TextIO
 
@@ -139,6 +140,28 @@ def _ChmodTryAll(*, path: Path, mode10: int, console: Console) -> None:
   raise ValueError(f'Failed to change mode of {path}')
 
 
+def _MakeReadonly(path: Path, console: Console) -> None:
+
+  # Get the current permissions
+  original_mode8: str = _GetPermissionOctant8(path=path)
+  original_mode10 = int(original_mode8, 8)
+  # Remove write permissions
+  wanted_mode10: int = original_mode10 & 0o555
+  path.chmod(wanted_mode10)
+  new_mode8: str = _GetPermissionOctant8(path=path)
+  new_mode10 = int(new_mode8, 8)
+  if new_mode10 != wanted_mode10:
+    raise ValueError(f'Failed to change mode of {path},'
+                     f'\n Wanted: 0o{original_mode8} => 0o{new_mode8}'
+                     f'\n Wanted: {original_mode10} => {new_mode10}'
+                     f'\n Actual: 0o{original_mode8} => 0o{new_mode8}'
+                     f'\n Actual: {original_mode10} => {new_mode10}')
+  else:
+    console.print(
+        f'Changed mode of {path} from {_OctalToRWXStr(original_mode10)} => {_OctalToRWXStr(new_mode10)}',
+        style='bold green')
+
+
 def main() -> int:
   console = Console(file=sys.stderr)
   args: Optional[argparse.Namespace] = None
@@ -194,7 +217,7 @@ def main() -> int:
         default=False,
         help='Check if the output file is the same as the rendered text, and'
         ' exit with a non-zero status code if it is not. Does not write the'
-        ' file. Ignores options that modify the file (e.g --rm and --chmod).'
+        ' file. Ignores options that modify the file (e.g --rm and --chmod-ro).'
         ' Useful for CI pipelines. Defaults to False.')
     parser.add_argument(
         '--warning-message',
@@ -203,12 +226,24 @@ def main() -> int:
         help=
         'Warning message to include in the output file. To prevent accidentally'
         ' editing generated file. Defaults to the default warning message.')
-    parser.add_argument(
+
+    chmod_group = parser.add_mutually_exclusive_group(required=False)
+    chmod_group.add_argument(
+        '--chmod-ro',
+        action='store_true',
+        default=False,
+        help=
+        'Like chmod, but portable between linux and windows, effectively does'
+        ' `chmod a-w`. To prevent accidentally editing generated file. Defaults'
+        ' to False.')
+    chmod_group.add_argument(
         '--chmod',
         type=str,
         default=None,
         help=
-        'Change the mode (permissions) of the output file, an octant (see chmod'
+        # TODO: Remove this in the next major version (deprecated in 1.0.7).
+        'Deprecated: Use --chmod-ro.'
+        ' Change the mode (permissions) of the output file, an octant (see chmod'
         ' help for more info) e.g 444 or 555. To prevent accidentally editing'
         ' generated file. Defaults to None.')
 
@@ -218,6 +253,8 @@ def main() -> int:
       raise ValueError('Cannot use --rm with stdout')
     if args.chmod and args.output == '-':
       raise ValueError('Cannot use --chmod with stdout')
+    if args.chmod_ro and args.output == '-':
+      raise ValueError('Cannot use --chmod-ro with stdout')
     if args.check and args.output == '-':
       raise ValueError('Cannot use --check with stdout')
 
@@ -253,7 +290,13 @@ def main() -> int:
     output_path.write_text(rendered, encoding='utf-8')
 
     ##############################################################################
+    if args.chmod_ro:
+      _MakeReadonly(output_path, console=console)
+    ##############################################################################
     if args.chmod:
+      warnings.warn('The --chmod option is deprecated, use --chmod-ro instead.',
+                    DeprecationWarning,
+                    stacklevel=2)
       mode8: str = args.chmod
       mode10: int = int(args.chmod, 8)
       _ChmodTryAll(path=output_path, mode10=mode10, console=console)

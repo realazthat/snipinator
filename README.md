@@ -9,9 +9,10 @@ SOURCE: `README.md.jinja2`.
 ![Top language][9] ![GitHub License][3] [![PyPI - Version][4]][5]
 [![Python Version][8]][5]
 
-|        | Status                    |                                            |
-| ------ | ------------------------- | ------------------------------------------ |
-| Master | [![Build and Test][1]][2] | [![since tagged][6]][10] ![last commit][7] |
+|         | Status                     |                                              |
+| ------- | -------------------------- | -------------------------------------------- |
+| Master  | [![Build and Test][1]][2]  | [![since tagged][6]][10] ![last commit][7]   |
+| Develop | [![Build and Test][11]][2] | [![since tagged][13]][14] ![last commit][15] |
 
 CLI to embed snippets from your {python,other} codebases into your `README.md`.
 
@@ -76,7 +77,7 @@ class MyClass:
 
 #### Tested on
 
-- WSL2 Ubuntu 20.04, Python 3.10.0
+- WSL2 Ubuntu 20.04, Python 3.8.0
 - Ubuntu 20.04, Python 3.8.0, 3.9.0, 3.10.0, 3.11.0, 3.12.0, tested in GitHub
   Actions workflow
   ([build-and-test.yml](./.github/workflows/build-and-test.yml)).
@@ -431,13 +432,13 @@ Main libraries used in Snipinator are:
 
 ## Contributions
 
-1. Fork the `master` branch.
+1. (Optionally) Fork the `develop` branch.
 2. Stage your files: `git add path/to/file.py`.
 3. `bash scripts/pre.sh`, this will format, lint, and test the code.
 4. `git status` check if anything changed (generated README for example), if so,
    `git add` the changes, and go back to the previous step.
 5. `git commit -m "..."`.
-6. Make a PR to `master`.
+6. Make a PR to `develop` (or push to develop if you have the rights).
 
 ## Release Process
 
@@ -463,3 +464,7 @@ Main libraries used in Snipinator are:
 [8]: https://img.shields.io/pypi/pyversions/snipinator
 [9]: https://img.shields.io/github/languages/top/realazthat/snipinator.svg?&cacheSeconds=28800
 [10]: https://github.com/realazthat/snipinator/compare/v1.0.7...master
+[11]: https://github.com/realazthat/snipinator/actions/workflows/build-and-test.yml/badge.svg?branch=develop
+[13]: https://img.shields.io/github/commits-since/realazthat/snipinator/v1.0.7/develop
+[14]: https://img.shields.io/github/last-commit/realazthat/snipinator/develop
+[15]: https://github.com/realazthat/snipinator/compare/v1.0.7...develop

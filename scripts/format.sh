@@ -5,19 +5,19 @@ set -e -x -v -u -o pipefail
 SCRIPT_DIR=$(realpath "$(dirname "${BASH_SOURCE[0]}")")
 source "${SCRIPT_DIR}/utilities/common.sh"
 
-VENV_PATH=.cache/scripts/.venv source "${PROJ_PATH}/scripts/utilities/ensure-venv.sh"
-
-REQS="${PROJ_PATH}/scripts/requirements-dev.txt" source "${PROJ_PATH}/scripts/utilities/ensure-reqs.sh"
+VENV_PATH=".cache/scripts/.venv" source "${PROJ_PATH}/scripts/utilities/ensure-venv.sh"
+TOML=${PROJ_PATH}/pyproject.toml EXTRA=dev source "${PROJ_PATH}/scripts/utilities/ensure-reqs.sh"
 
 # Must have mdformat-gfm installed, otherwise checkboxes get messed up
 # find all *.md.jinja2 paths in snipinator
 find ./snipinator -type f -name "*.md.jinja2" -print0 \
-  | xargs -0 -I {} mdformat {}
+  | xargs -0 -I {} python -m mdformat {}
 
-mdformat ./README.md.jinja2
+python -m mdformat ./README.md.jinja2
 
 yapf -r ./snipinator -i
-yapf ./setup.py -i
+yapf -r ./scripts -i
+toml-sort --in-place ./pyproject.toml
 autoflake --remove-all-unused-imports --in-place --recursive ./snipinator
 isort ./snipinator
 

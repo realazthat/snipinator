@@ -5,12 +5,13 @@ set -e -x -v -u -o pipefail
 SCRIPT_DIR=$(realpath "$(dirname "${BASH_SOURCE[0]}")")
 source "${SCRIPT_DIR}/utilities/common.sh"
 
+bash scripts/run-all-examples.sh
+bash scripts/run-all-tests.sh
+bash scripts/pin-dev-reqs.sh
 bash scripts/format.sh
 bash scripts/type-check.sh
 bash scripts/generate-readme.sh
 bash scripts/generate-licenses.sh
-bash scripts/run-all-examples.sh
-bash scripts/run-all-tests.sh
 if [[ -z "${GITHUB_ACTIONS:-}" ]]; then
   bash scripts/act.sh
   bash scripts/precommit.sh

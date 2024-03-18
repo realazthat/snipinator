@@ -26,15 +26,15 @@ if command -v pyenv 1>/dev/null 2>&1; then
     if [[ "${PYENV_VERSION_NAME}" == "${EXPECTED_PYTHON_VERSION}" ]]; then
       if [[ "${PYENV_PYTHON_VERSION}" == "${PYTHON_VERSION}" ]]; then
         echo -e "${GREEN}Python version matches${NC}"
-        [[ $0 == "$BASH_SOURCE" ]] && EXIT="exit" || EXIT="return"
-        $EXIT 0
+        [[ $0 == "${BASH_SOURCE[0]}" ]] && EXIT="exit" || EXIT="return"
+        ${EXIT} 0
       fi
     fi
   fi
 fi
 
-if [ "${PYTHON_VERSION}" != "${EXPECTED_PYTHON_VERSION}" ]; then
+if [[ "${PYTHON_VERSION}" != "${EXPECTED_PYTHON_VERSION}" ]]; then
   echo -e "${RED}Expected python version ${EXPECTED_PYTHON_VERSION}, got ${PYTHON_VERSION}${NC}"
-  [[ $0 == "$BASH_SOURCE" ]] && EXIT="exit" || EXIT="return"
-  $EXIT 1
+  [[ $0 == "${BASH_SOURCE[0]}" ]] && EXIT="exit" || EXIT="return"
+  ${EXIT} 1
 fi

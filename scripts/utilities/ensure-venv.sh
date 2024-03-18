@@ -11,18 +11,18 @@ VENV_PATH=${VENV_PATH:-""}
 
 if [[ -z "${VENV_PATH}" ]]; then
   echo -e "${RED}VENV_PATH is not set${NC}"
-  [[ $0 == "$BASH_SOURCE" ]] && EXIT="exit" || EXIT="return"
+  [[ $0 == "${BASH_SOURCE[0]}" ]] && EXIT="exit" || EXIT="return"
   ${EXIT} 1
 fi
 
 # Check if $VENV_PATH/bin/activate exists
 if [[ -f "${VENV_PATH}/bin/activate" ]]; then
   if source "${PROJ_PATH}/scripts/utilities/load-venv.sh"; then
-    [[ $0 == "$BASH_SOURCE" ]] && EXIT="exit" || EXIT="return"
+    [[ $0 == "${BASH_SOURCE[0]}" ]] && EXIT="exit" || EXIT="return"
     ${EXIT} 0
   else
     echo -e "${RED}Failed to load ${VENV_PATH}/bin/activate${NC}"
-    [[ $0 == "$BASH_SOURCE" ]] && EXIT="exit" || EXIT="return"
+    [[ $0 == "${BASH_SOURCE[0]}" ]] && EXIT="exit" || EXIT="return"
     ${EXIT} 1
   fi
 fi

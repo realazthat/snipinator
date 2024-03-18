@@ -12,8 +12,9 @@ export PYTHONPATH=${PYTHONPATH:-}
 export PYTHONPATH=${PYTHONPATH}:${PWD}
 
 # For each sh in snipinator/examples
-for EXAMPLE in $(find snipinator/examples -type f -name "*.sh"); do
+find snipinator/examples -type f -name "*.sh" -print0 | while IFS= read -r -d '' EXAMPLE; do
   bash "${EXAMPLE}"
+  echo -e "${GREEN}${EXAMPLE} ran successfully${NC}"
 done
 
-echo -e "${GREEN}All examples ran successfully${NC}"
+echo -e "${GREEN}${BASH_SOURCE[0]} ran successfully${NC}"

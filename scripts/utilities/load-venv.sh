@@ -11,11 +11,12 @@ VENV_PATH=${VENV_PATH:-""}
 
 if [[ -z "${VENV_PATH}" ]]; then
   echo -e "${RED}VENV_PATH is not set${NC}"
-  [[ $0 == "$BASH_SOURCE" ]] && EXIT="exit" || EXIT="return"
+  [[ $0 == "${BASH_SOURCE[0]}" ]] && EXIT="exit" || EXIT="return"
   ${EXIT} 1
 fi
 
 echo -e "${GREEN}Found ${VENV_PATH}/bin/activate${NC}"
+# trunk-ignore(shellcheck/SC1091)
 source "${VENV_PATH}/bin/activate"
 
 source "${PROJ_PATH}/scripts/utilities/ensure-py-version.sh"

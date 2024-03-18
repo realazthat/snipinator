@@ -9,7 +9,7 @@ REQS=${REQS:-""}
 
 if [[ -z "${REQS}" ]]; then
   echo -e "${RED}REQS is not set${NC}"
-  [[ $0 == "$BASH_SOURCE" ]] && EXIT="exit" || EXIT="return"
+  [[ $0 == "${BASH_SOURCE[0]}" ]] && EXIT="exit" || EXIT="return"
   ${EXIT} 1
 fi
 

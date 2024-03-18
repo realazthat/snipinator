@@ -12,6 +12,6 @@ bash scripts/generate-licenses.sh
 bash scripts/run-all-examples.sh
 bash scripts/run-all-tests.sh
 if [[ -z "${GITHUB_ACTIONS:-}" ]]; then
-  bash scripts/precommit.sh
   bash scripts/act.sh
+  bash scripts/precommit.sh
 fi

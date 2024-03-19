@@ -22,7 +22,7 @@ from typing import Generator, List, Literal, NamedTuple, Optional, Set, Union
 import markupsafe
 import pexpect  # type: ignore[import]
 from defusedxml import minidom  # type: ignore[import]
-from jinja2 import Environment, FileSystemLoader
+from jinja2 import Environment, FileSystemLoader, TemplateSyntaxError
 from rich.console import Console
 from rich.terminal_theme import MONOKAI
 from rich.text import Text
@@ -92,6 +92,13 @@ def Snipinate(template_file_name: str,
     template_ = env.from_string(template_string)
     rendered = template_.render(**template_args)
     return warning_message + rendered
+  except TemplateSyntaxError as e:
+    print(f'Error: {json.dumps(str(e))}', file=sys.stderr)
+    print('template_file_name:', template_file_name, file=sys.stderr)
+    print('e.filename', e.filename, file=sys.stderr)
+    print('e.lineno', e.lineno, file=sys.stderr)
+    print('e.name', e.name, file=sys.stderr)
+    raise
   except Exception as e:
     print(f'Error: {json.dumps(str(e))}', file=sys.stderr)
     print('template_file_name:', template_file_name, file=sys.stderr)

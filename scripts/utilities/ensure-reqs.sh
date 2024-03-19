@@ -27,6 +27,10 @@ else
 fi
 
 function is_dirty() {
+  SYNC_TOUCH_TIME=$(stat -c '%y' "${SYNC_TOUCH_FILE}")
+  TOML_TIME=$(stat -c '%y' "${TOML}")
+  echo "SYNC_TOUCH_TIME: ${SYNC_TOUCH_TIME}"
+  echo "TOML_TIME:       ${TOML_TIME}"
   if [[ ! -f "${SYNC_TOUCH_FILE}" ]]; then
     return 0
   fi
@@ -42,6 +46,7 @@ if ! is_dirty; then
   echo -e "${GREEN}Syncing is not needed${NC}"
   ${EXIT} 0
 fi
+echo -e "${BLUE}Syncing requirements${NC}"
 
 python -m pip install pip-tools
 ARGS=()

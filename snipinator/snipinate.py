@@ -549,7 +549,7 @@ def shell(args: str,
       output += '\n'
   elif (rich in ['svg', 'img+svg']
         or isinstance(rich, str) and rich.endswith('.svg')):
-    output = _ExecuteANSI(args, cwd=_ctx.cwd, rows=24, cols=rich_cols)
+    output = _ExecuteANSI(args, cwd=_ctx.cwd, rows=rich_rows, cols=rich_cols)
     svg = _GetTerminalSVG(args=args,
                           terminal_output=output,
                           cols=rich_cols,

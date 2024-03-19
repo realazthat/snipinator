@@ -17,7 +17,11 @@ python -m mdformat ./README.md.jinja2
 
 yapf -r ./snipinator -i
 yapf -r ./scripts -i
-toml-sort --in-place ./pyproject.toml
+if toml-sort "${PROJ_PATH}/pyproject.toml" --check; then
+  :
+else
+  toml-sort --in-place "${PROJ_PATH}/pyproject.toml"
+fi
 autoflake --remove-all-unused-imports --in-place --recursive ./snipinator
 isort ./snipinator
 

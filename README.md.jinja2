@@ -1,12 +1,19 @@
+<!--
+{% set last_unstable_release=shell('tomlq -r \'.["tool"]["snipinator-project-metadata"]["last_unstable_release"]\' pyproject.toml',
+                                   include_args=False) | trim %}
+{% set last_stable_release=shell('tomlq -r \'.["tool"]["snipinator-project-metadata"]["last_stable_release"]\' pyproject.toml',
+                                 include_args=False) | trim %}
+-->
+
 # Snipinator
 
 ![Top language][9] ![GitHub License][3] [![PyPI - Version][4]][5]
 [![Python Version][8]][5]
 
-|         | Status                     |                                              |
-| ------- | -------------------------- | -------------------------------------------- |
-| Master  | [![Build and Test][1]][2]  | [![since tagged][6]][10] ![last commit][7]   |
-| Develop | [![Build and Test][11]][2] | [![since tagged][12]][13] ![last commit][14] |
+|         | Status                     | Stable                    | Unstable                  |                    |
+| ------- | -------------------------- | ------------------------- | ------------------------- | ------------------ |
+| Master  | [![Build and Test][1]][2]  | [![since tagged][6]][10]  |                           | ![last commit][7]  |
+| Develop | [![Build and Test][11]][2] | [![since tagged][12]][13] | [![since tagged][15]][16] | ![last commit][14] |
 
 CLI to embed snippets from your {python,other} codebases into your `README.md`.
 
@@ -58,7 +65,7 @@ Into this (`{{ path('snipinator/examples/EXAMPLE.generated.md') }}`):
 pip install snipinator
 
 # Install from git (https://github.com/realazthat/snipinator)
-pip install git+https://github.com/realazthat/snipinator.git@v1.0.7
+pip install git+https://github.com/realazthat/snipinator.git@v{{last_stable_release}}
 ```
 
 ### Use
@@ -185,20 +192,21 @@ Main libraries used in Snipinator are:
 
 These instructions are for maintainers of the project.
 
-1. `develop` branch: Run `bash scripts/pre.sh` to ensure everything is in order.
-2. `develop` branch: Bump the version in setup.py, following semantic versioning
-   principles.
-3. `develop` branch: Change any reference to the old version (or tag) in the
-   README.md to the new version.
-4. `develop` branch: Commit these changes with a message like "Prepare release
+1. `develop` branch: Run `bash {{path('scripts/pre.sh')}}` to ensure everything
+   is in order.
+2. `develop` branch: Bump the version in `{{path('pyproject.toml')}}`, following
+   semantic versioning principles. Also modify the `last_unstable_release` and
+   `last_stable_release` in the `[tool.snipinator-project-metadata]` table as
+   appropriate.
+3. `develop` branch: Commit these changes with a message like "Prepare release
    X.Y.Z". (See the contributions section [above](#contributions)).
-5. `master` branch: Merge the `develop` branch into the `master` branch:
+4. `master` branch: Merge the `develop` branch into the `master` branch:
    `git checkout master && git merge develop --no-ff`.
-6. `master` branch: Tag the release: Create a git tag for the release with
+5. `master` branch: Tag the release: Create a git tag for the release with
    `git tag -a vX.Y.Z -m "Version X.Y.Z"`.
-7. Publish to PyPI: Publish the release to PyPI with
+6. Publish to PyPI: Publish the release to PyPI with
    `bash scripts/deploy-to-pypi.sh`.
-8. Push to GitHub: Push the commit and tags to GitHub with `git push` and
+7. Push to GitHub: Push the commit and tags to GitHub with `git push` and
    `git push --tags`.
 
 [1]:
@@ -209,15 +217,21 @@ These instructions are for maintainers of the project.
 [4]: https://img.shields.io/pypi/v/snipinator
 [5]: https://pypi.org/project/snipinator/
 [6]:
-  https://img.shields.io/github/commits-since/realazthat/snipinator/v1.0.7/master
+  https://img.shields.io/github/commits-since/realazthat/snipinator/v{{last_stable_release}}/master
 [7]: https://img.shields.io/github/last-commit/realazthat/snipinator/master
 [8]: https://img.shields.io/pypi/pyversions/snipinator
 [9]:
   https://img.shields.io/github/languages/top/realazthat/snipinator.svg?&cacheSeconds=28800
-[10]: https://github.com/realazthat/snipinator/compare/v1.0.7...master
+[10]:
+  https://github.com/realazthat/snipinator/compare/v{{last_stable_release}}...master
 [11]:
   https://github.com/realazthat/snipinator/actions/workflows/build-and-test.yml/badge.svg?branch=develop
 [12]:
-  https://img.shields.io/github/commits-since/realazthat/snipinator/v1.0.7/develop
-[13]: https://github.com/realazthat/snipinator/compare/v1.0.7...develop
+  https://img.shields.io/github/commits-since/realazthat/snipinator/v{{last_stable_release}}/develop
+[13]:
+  https://github.com/realazthat/snipinator/compare/v{{last_stable_release}}...develop
 [14]: https://img.shields.io/github/last-commit/realazthat/snipinator/develop
+[15]:
+  https://img.shields.io/github/commits-since/realazthat/snipinator/v{{last_unstable_release}}/develop
+[16]:
+  https://github.com/realazthat/snipinator/compare/v{{last_unstable_release}}...develop

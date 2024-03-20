@@ -51,6 +51,7 @@ keywords = [
 
 [project.optional-dependencies]
 dev = [
+  "argcomplete==3.2.3",
   "autoflake==2.3.1",
   "build==1.0.3",
   "certifi==2024.2.2",
@@ -117,7 +118,9 @@ dev = [
   "virtualenv==20.25.0",
   "wcwidth==0.2.13",
   "wheel==0.43.0",
+  "xmltodict==0.13.0",
   "yapf==0.40.2",
+  "yq==3.2.3",
   "zipp==3.17.0"
 ]
 
@@ -131,5 +134,9 @@ Repository = "https://github.com/realazthat/snipinator"
 
 [tool.setuptools]
 packages = ["snipinator"]
+
+[tool.snipinator-project-metadata]
+last_unstable_release = "1.0.7"
+last_stable_release = "1.0.7"
 
 [tool.tomlsort]

@@ -5,8 +5,10 @@ set -e -x -v -u -o pipefail
 SCRIPT_DIR=$(realpath "$(dirname "${BASH_SOURCE[0]}")")
 source "${SCRIPT_DIR}/utilities/common.sh"
 
-VENV_PATH="${PWD}/.venv" source "${PROJ_PATH}/scripts/utilities/ensure-venv.sh"
-TOML=${PROJ_PATH}/pyproject.toml EXTRA=prod source "${PROJ_PATH}/scripts/utilities/ensure-reqs.sh"
+# NOTE: Use dev requirements to generate the README because the README uses
+# shell() with some tools that we only want to install into dev environment.
+VENV_PATH="${PWD}/.cache/scripts/.venv" source "${PROJ_PATH}/scripts/utilities/ensure-venv.sh"
+TOML=${PROJ_PATH}/pyproject.toml EXTRA=dev source "${PROJ_PATH}/scripts/utilities/ensure-reqs.sh"
 
 PYTHONPATH=${PYTHONPATH:-}
 export PYTHONPATH="${PROJ_PATH}:${PYTHONPATH}"

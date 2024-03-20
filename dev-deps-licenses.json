@@ -30,6 +30,12 @@
     "Version": "3.3.3"
   },
   {
+    "Author": "Andrey Kislyuk",
+    "License": "Apache Software License",
+    "Name": "argcomplete",
+    "Version": "3.2.3"
+  },
+  {
     "Author": "UNKNOWN",
     "License": "MIT License",
     "Name": "autoflake",
@@ -372,10 +378,22 @@
     "Version": "20.25.0"
   },
   {
+    "Author": "Martin Blech",
+    "License": "MIT License",
+    "Name": "xmltodict",
+    "Version": "0.13.0"
+  },
+  {
     "Author": "Google Inc.",
     "License": "Apache Software License",
     "Name": "yapf",
     "Version": "0.40.2"
+  },
+  {
+    "Author": "Andrey Kislyuk",
+    "License": "Apache Software License",
+    "Name": "yq",
+    "Version": "3.2.3"
   },
   {
     "Author": "Jason R. Coombs",

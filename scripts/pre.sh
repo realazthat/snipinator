@@ -12,6 +12,7 @@ bash scripts/format.sh
 bash scripts/type-check.sh
 bash scripts/generate-readme.sh
 bash scripts/generate-licenses.sh
+bash scripts/run-wheel-smoke-test.sh
 if [[ -z "${GITHUB_ACTIONS:-}" ]]; then
   bash scripts/act.sh
   bash scripts/precommit.sh

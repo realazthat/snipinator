@@ -10,10 +10,12 @@ TOML=${PROJ_PATH}/pyproject.toml EXTRA=dev source "${PROJ_PATH}/scripts/utilitie
 
 # Must have mdformat-gfm installed, otherwise checkboxes get messed up
 # find all *.md.jinja2 paths in snipinator
-find ./snipinator -type f -name "*.md.jinja2" -print0 \
-  | xargs -0 -I {} python -m mdformat {}
+find ./snipinator -type f -name "*.md.jinja2" -print0 | while IFS= read -r -d '' MARKDOWN_TEMPLATE; do
+  MARKDOWN_TEMPLATE=$(realpath "${MARKDOWN_TEMPLATE}")
+  bash scripts/prettier.sh --parser markdown "${MARKDOWN_TEMPLATE}" --write
+done
 
-python -m mdformat ./README.md.jinja2
+bash scripts/prettier.sh --parser markdown "${PWD}/README.md.jinja2" --write
 
 yapf -r ./snipinator -i
 yapf -r ./scripts -i

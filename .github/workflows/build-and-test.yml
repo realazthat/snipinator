@@ -37,6 +37,9 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version.gh }}
+    - name: Install nvm
+      run: |
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
     - name: Set up .python-version
       run: |
         echo "${{ matrix.python-version.file }}"

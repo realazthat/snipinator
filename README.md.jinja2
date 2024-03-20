@@ -115,9 +115,9 @@ Also see Jinja2 v3
   parameter exists in the API, so that Snipinator provides the backticks, and it
   will detect if there are backticks in the snippet and use a different number
   of backticks on the entire snippet. So if the snippet contains
-  ```` ```My Snippet``` ````, Snipinator will use
-  ````` ````language ```My Snippet``` ```` ````` and this is a method that
-  Markdown uses to allow embedded backticks inside a code block.
+  ` ```My Snippet``` `, Snipinator will use
+  ` ````language ```My Snippet``` ```` ` and this is a method that Markdown uses
+  to allow embedded backticks inside a code block.
 - Formatting: The `{% raw %}{{{% endraw %}` `{% raw %}}}{% endraw %}` used to
   surround the snippet calls will unfortunately be formatted by a Markdown
   formatter and make the call invalid. Workarounds:
@@ -201,17 +201,23 @@ These instructions are for maintainers of the project.
 8. Push to GitHub: Push the commit and tags to GitHub with `git push` and
    `git push --tags`.
 
-[1]: https://github.com/realazthat/snipinator/actions/workflows/build-and-test.yml/badge.svg?branch=master
-[2]: https://github.com/realazthat/snipinator/actions/workflows/build-and-test.yml
+[1]:
+  https://github.com/realazthat/snipinator/actions/workflows/build-and-test.yml/badge.svg?branch=master
+[2]:
+  https://github.com/realazthat/snipinator/actions/workflows/build-and-test.yml
 [3]: https://img.shields.io/github/license/realazthat/snipinator
 [4]: https://img.shields.io/pypi/v/snipinator
 [5]: https://pypi.org/project/snipinator/
-[6]: https://img.shields.io/github/commits-since/realazthat/snipinator/v1.0.7/master
+[6]:
+  https://img.shields.io/github/commits-since/realazthat/snipinator/v1.0.7/master
 [7]: https://img.shields.io/github/last-commit/realazthat/snipinator/master
 [8]: https://img.shields.io/pypi/pyversions/snipinator
-[9]: https://img.shields.io/github/languages/top/realazthat/snipinator.svg?&cacheSeconds=28800
+[9]:
+  https://img.shields.io/github/languages/top/realazthat/snipinator.svg?&cacheSeconds=28800
 [10]: https://github.com/realazthat/snipinator/compare/v1.0.7...master
-[11]: https://github.com/realazthat/snipinator/actions/workflows/build-and-test.yml/badge.svg?branch=develop
-[12]: https://img.shields.io/github/commits-since/realazthat/snipinator/v1.0.7/develop
+[11]:
+  https://github.com/realazthat/snipinator/actions/workflows/build-and-test.yml/badge.svg?branch=develop
+[12]:
+  https://img.shields.io/github/commits-since/realazthat/snipinator/v1.0.7/develop
 [13]: https://github.com/realazthat/snipinator/compare/v1.0.7...develop
 [14]: https://img.shields.io/github/last-commit/realazthat/snipinator/develop

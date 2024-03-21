@@ -1,11 +1,19 @@
+<!--
+{% set last_unstable_release=shell('tomlq -r \'.["tool"]["snipinator-project-metadata"]["last_unstable_release"]\' pyproject.toml',
+                                   include_args=False) | trim %}
+{% set last_stable_release=shell('tomlq -r \'.["tool"]["snipinator-project-metadata"]["last_stable_release"]\' pyproject.toml',
+                                 include_args=False) | trim %}
+-->
+
 # Snipinator
 
 ![Top language][9] ![GitHub License][3] [![PyPI - Version][4]][5]
 [![Python Version][8]][5]
 
-|        | Status                    |                                            |
-| ------ | ------------------------- | ------------------------------------------ |
-| Master | [![Build and Test][1]][2] | [![since tagged][6]][10] ![last commit][7] |
+|         | Status                     | Stable                    | Unstable                  |                    |
+| ------- | -------------------------- | ------------------------- | ------------------------- | ------------------ |
+| Master  | [![Build and Test][1]][2]  | [![since tagged][6]][10]  |                           | ![last commit][7]  |
+| Develop | [![Build and Test][11]][2] | [![since tagged][12]][13] | [![since tagged][15]][16] | ![last commit][14] |
 
 CLI to embed snippets from your {python,other} codebases into your `README.md`.
 
@@ -40,7 +48,7 @@ Into this (`{{ path('snipinator/examples/EXAMPLE.generated.md') }}`):
 
 #### Tested on
 
-- WSL2 Ubuntu 20.04, Python 3.10.0
+- WSL2 Ubuntu 20.04, Python 3.8.0
 - Ubuntu 20.04, Python 3.8.0, 3.9.0, 3.10.0, 3.11.0, 3.12.0, tested in GitHub
   Actions workflow
   ([build-and-test.yml](./.github/workflows/build-and-test.yml)).
@@ -48,7 +56,7 @@ Into this (`{{ path('snipinator/examples/EXAMPLE.generated.md') }}`):
 **Requirements:**
 
 - Linux-like environment
-  - Why: Uses chmod, rm, and pexpect.spawn().
+  - Why: Uses pexpect.spawn().
 - Python 3.8+
   - Why: Some dev dependencies require Python 3.8+.
 
@@ -57,7 +65,7 @@ Into this (`{{ path('snipinator/examples/EXAMPLE.generated.md') }}`):
 pip install snipinator
 
 # Install from git (https://github.com/realazthat/snipinator)
-pip install git+https://github.com/realazthat/snipinator.git@v1.0.7
+pip install git+https://github.com/realazthat/snipinator.git@v{{last_stable_release}}
 ```
 
 ### Use
@@ -114,22 +122,28 @@ Also see Jinja2 v3
   parameter exists in the API, so that Snipinator provides the backticks, and it
   will detect if there are backticks in the snippet and use a different number
   of backticks on the entire snippet. So if the snippet contains
-  ```` ```My Snippet``` ````, Snipinator will use
-  ````` ````language ```My Snippet``` ```` ````` and this is a method that
-  Markdown uses to allow embedded backticks inside a code block.
+  ` ```My Snippet``` `, Snipinator will use
+  ` ````language ```My Snippet``` ```` ` and this is a method that Markdown uses
+  to allow embedded backticks inside a code block.
 - Formatting: The `{% raw %}{{{% endraw %}` `{% raw %}}}{% endraw %}` used to
   surround the snippet calls will unfortunately be formatted by a Markdown
   formatter and make the call invalid. Workarounds:
+  - **Decommentify**: Put the snippet call inside a HTML comment, then use
+    `decommentify` parameter. See
+    [`{{path('snipinator/examples/LONG-EXAMPLE.md.jinja2')}}`](./snipinator/examples/LONG-EXAMPLE.md.jinja2)
+    for examples.
+  - [prettier](https://prettier.io/) formatter is pretty good at leaving the
+    Jinja2 calls alone, especially if you don't have any spaces. This especially
+    helps for markdown "reference-style links" that have Jinja2 calls in them
+    generating part of the URL, mdformat will URL encode the Jinja2 calls,
+    and/or split them on spaces, which is not what we want. prettier will leave
+    them alone.
   - For code blocks: If you embed the snippet call in a code block, it will not
     be formatted. However, because of **Embedded Backticks** gotcha, (see
     above), this is not recommended, unless you know for sure that there are no
     embedded backticks.
   - If your formatter supports a comment that disabled formatting, you can
     surround the snippet call with that comment.
-  - New in 1.0.4: Put the snippet call inside a HTML comment, then use
-    `decommentify` parameter. See
-    [`{{path('snipinator/examples/LONG-EXAMPLE.md.jinja2')}}`](./snipinator/examples/LONG-EXAMPLE.md.jinja2)
-    for examples.
 - Editing the wrong file: When you have a template and a generated file, it is
   easy to edit the wrong file. To combat this:
   - Snipinator provides a warning at the top of the generated file to remind you
@@ -172,35 +186,58 @@ Main libraries used in Snipinator are:
 
 ## Contributions
 
-1. Fork the `master` branch.
+1. (Optionally) Fork the `develop` branch.
 2. Stage your files: `git add path/to/file.py`.
 3. `bash scripts/pre.sh`, this will format, lint, and test the code.
 4. `git status` check if anything changed (generated README for example), if so,
    `git add` the changes, and go back to the previous step.
 5. `git commit -m "..."`.
-6. Make a PR to `master`.
+6. Make a PR to `develop` (or push to develop if you have the rights).
 
 ## Release Process
 
-1. Bump the version in setup.py, following semantic versioning principles.
-2. Change any reference to the old version (or tag) in the README.md to the new
-   version.
-3. Commit changes: Commit these changes with a message like "Prepare release
+These instructions are for maintainers of the project.
+
+1. `develop` branch: Run `bash {{path('scripts/pre.sh')}}` to ensure everything
+   is in order.
+2. `develop` branch: Bump the version in `{{path('pyproject.toml')}}`, following
+   semantic versioning principles. Also modify the `last_unstable_release` and
+   `last_stable_release` in the `[tool.snipinator-project-metadata]` table as
+   appropriate.
+3. `develop` branch: Commit these changes with a message like "Prepare release
    X.Y.Z". (See the contributions section [above](#contributions)).
-4. Tag the release: Create a git tag for the release with
+4. `master` branch: Merge the `develop` branch into the `master` branch:
+   `git checkout master && git merge develop --no-ff`.
+5. `master` branch: Tag the release: Create a git tag for the release with
    `git tag -a vX.Y.Z -m "Version X.Y.Z"`.
-5. Push to GitHub: Push the commit and tags to GitHub with `git push` and
-   `git push --tags`.
 6. Publish to PyPI: Publish the release to PyPI with
    `bash scripts/deploy-to-pypi.sh`.
+7. Push to GitHub: Push the commit and tags to GitHub with `git push` and
+   `git push --tags`.
 
-[1]: https://github.com/realazthat/snipinator/actions/workflows/build-and-test.yml/badge.svg?branch=master
-[2]: https://github.com/realazthat/snipinator/actions/workflows/build-and-test.yml
+[1]:
+  https://github.com/realazthat/snipinator/actions/workflows/build-and-test.yml/badge.svg?branch=master
+[2]:
+  https://github.com/realazthat/snipinator/actions/workflows/build-and-test.yml
 [3]: https://img.shields.io/github/license/realazthat/snipinator
 [4]: https://img.shields.io/pypi/v/snipinator
 [5]: https://pypi.org/project/snipinator/
-[6]: https://img.shields.io/github/commits-since/realazthat/snipinator/v1.0.7/master
+[6]:
+  https://img.shields.io/github/commits-since/realazthat/snipinator/v{{last_stable_release}}/master
 [7]: https://img.shields.io/github/last-commit/realazthat/snipinator/master
 [8]: https://img.shields.io/pypi/pyversions/snipinator
-[9]: https://img.shields.io/github/languages/top/realazthat/snipinator.svg?&cacheSeconds=28800
-[10]: https://github.com/realazthat/snipinator/compare/v1.0.7...master
+[9]:
+  https://img.shields.io/github/languages/top/realazthat/snipinator.svg?&cacheSeconds=28800
+[10]:
+  https://github.com/realazthat/snipinator/compare/v{{last_stable_release}}...master
+[11]:
+  https://github.com/realazthat/snipinator/actions/workflows/build-and-test.yml/badge.svg?branch=develop
+[12]:
+  https://img.shields.io/github/commits-since/realazthat/snipinator/v{{last_stable_release}}/develop
+[13]:
+  https://github.com/realazthat/snipinator/compare/v{{last_stable_release}}...develop
+[14]: https://img.shields.io/github/last-commit/realazthat/snipinator/develop
+[15]:
+  https://img.shields.io/github/commits-since/realazthat/snipinator/v{{last_unstable_release}}/develop
+[16]:
+  https://github.com/realazthat/snipinator/compare/v{{last_unstable_release}}...develop

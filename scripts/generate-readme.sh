@@ -5,20 +5,19 @@ set -e -x -v -u -o pipefail
 SCRIPT_DIR=$(realpath "$(dirname "${BASH_SOURCE[0]}")")
 source "${SCRIPT_DIR}/utilities/common.sh"
 
-VENV_PATH=".venv" source "${PROJ_PATH}/scripts/utilities/ensure-venv.sh"
-REQS="${PROJ_PATH}/requirements.txt" source "${PROJ_PATH}/scripts/utilities/ensure-reqs.sh"
-
-PYTHONPATH=${PYTHONPATH:-}
-export PYTHONPATH="${PROJ_PATH}:${PYTHONPATH}"
+# NOTE: Use dev requirements to generate the README because the README uses
+# shell() with some tools that we only want to install into dev environment.
+VENV_PATH="${PWD}/.cache/scripts/.venv" source "${PROJ_PATH}/scripts/utilities/ensure-venv.sh"
+TOML=${PROJ_PATH}/pyproject.toml EXTRA=dev source "${PROJ_PATH}/scripts/utilities/ensure-reqs.sh"
 
 python -m snipinator.cli \
   -t "${PROJ_PATH}/snipinator/examples/EXAMPLE.md.jinja2" \
   --rm \
   -o "${PROJ_PATH}/snipinator/examples/EXAMPLE.generated.md" \
-  --chmod 555
+  --chmod-ro
 
 python -m snipinator.cli \
   -t "${PROJ_PATH}/README.md.jinja2" \
   --rm \
   -o "${PROJ_PATH}/README.md" \
-  --chmod 555
+  --chmod-ro

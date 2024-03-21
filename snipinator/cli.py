@@ -12,13 +12,15 @@ import shlex
 import subprocess
 import sys
 import time
+import warnings
 from pathlib import Path
-from typing import Callable, List, Optional, TextIO
+from typing import Callable, List, Optional
 
 import colorama
 from rich.console import Console
 from rich_argparse import RichHelpFormatter  # type: ignore[import]
 
+from . import _build_version
 from .snipinate import DEFAULT_WARNING, Snipinate
 
 
@@ -139,6 +141,28 @@ def _ChmodTryAll(*, path: Path, mode10: int, console: Console) -> None:
   raise ValueError(f'Failed to change mode of {path}')
 
 
+def _MakeReadonly(path: Path, console: Console) -> None:
+
+  # Get the current permissions
+  original_mode8: str = _GetPermissionOctant8(path=path)
+  original_mode10 = int(original_mode8, 8)
+  # Remove write permissions
+  wanted_mode10: int = original_mode10 & 0o555
+  path.chmod(wanted_mode10)
+  new_mode8: str = _GetPermissionOctant8(path=path)
+  new_mode10 = int(new_mode8, 8)
+  if new_mode10 != wanted_mode10:
+    raise ValueError(f'Failed to change mode of {path},'
+                     f'\n Wanted: 0o{original_mode8} => 0o{new_mode8}'
+                     f'\n Wanted: {original_mode10} => {new_mode10}'
+                     f'\n Actual: 0o{original_mode8} => 0o{new_mode8}'
+                     f'\n Actual: {original_mode10} => {new_mode10}')
+  else:
+    console.print(
+        f'Changed mode of {path} from {_OctalToRWXStr(original_mode10)} => {_OctalToRWXStr(new_mode10)}',
+        style='bold green')
+
+
 def main() -> int:
   console = Console(file=sys.stderr)
   args: Optional[argparse.Namespace] = None
@@ -151,7 +175,7 @@ def main() -> int:
                                      formatter_class=RichHelpFormatter)
     parser.add_argument('-t',
                         '--template',
-                        type=argparse.FileType('r'),
+                        type=str,
                         required=True,
                         help='Path to the template file. Use "-" for stdin.')
     parser.add_argument(
@@ -194,7 +218,7 @@ def main() -> int:
         default=False,
         help='Check if the output file is the same as the rendered text, and'
         ' exit with a non-zero status code if it is not. Does not write the'
-        ' file. Ignores options that modify the file (e.g --rm and --chmod).'
+        ' file. Ignores options that modify the file (e.g --rm and --chmod-ro).'
         ' Useful for CI pipelines. Defaults to False.')
     parser.add_argument(
         '--warning-message',
@@ -203,33 +227,60 @@ def main() -> int:
         help=
         'Warning message to include in the output file. To prevent accidentally'
         ' editing generated file. Defaults to the default warning message.')
-    parser.add_argument(
+
+    chmod_group = parser.add_mutually_exclusive_group(required=False)
+    chmod_group.add_argument(
+        '--chmod-ro',
+        action='store_true',
+        default=False,
+        help=
+        'Like chmod, but portable between linux and windows, effectively does'
+        ' `chmod a-w`. To prevent accidentally editing generated file. Defaults'
+        ' to False.')
+    chmod_group.add_argument(
         '--chmod',
         type=str,
         default=None,
         help=
-        'Change the mode (permissions) of the output file, an octant (see chmod'
+        # TODO: Remove this in the next major version (deprecated in 1.0.7).
+        'Deprecated: Use --chmod-ro.'
+        ' Change the mode (permissions) of the output file, an octant (see chmod'
         ' help for more info) e.g 444 or 555. To prevent accidentally editing'
         ' generated file. Defaults to None.')
 
+    parser.add_argument('--version',
+                        action='version',
+                        version=_build_version,
+                        help='Show the version and exit.')
     args = parser.parse_args()
 
     if args.rm and args.output == '-':
       raise ValueError('Cannot use --rm with stdout')
     if args.chmod and args.output == '-':
       raise ValueError('Cannot use --chmod with stdout')
+    if args.chmod_ro and args.output == '-':
+      raise ValueError('Cannot use --chmod-ro with stdout')
     if args.check and args.output == '-':
       raise ValueError('Cannot use --check with stdout')
 
-    template_file: TextIO = args.template
-    template_file_name = template_file.name
+    template_file_name: str = args.template
+    template_string: str
     if template_file_name != '-':
+      # If we are not dealing with stdin:
+
+      # Treat it as a path.
       template_file_path = Path(template_file_name)
       if template_file_path.is_absolute():
-        template_file_name = template_file_path.relative_to(args.cwd)
-      template_file_name = str(template_file_name)
+        # If the path is absolute, we want a relative path for the file name
+        # (which is used for debugging and error messages).
+        #
+        # TODO: Do we want this behavior?
+        template_file_name = str(template_file_path.relative_to(args.cwd))
+      template_string = template_file_path.read_text()
+    else:
+      # Template is to be read from stdin.
+      template_string = sys.stdin.read()
 
-    template_string = template_file.read()
     rendered = Snipinate(template_file_name=template_file_name,
                          template_string=template_string,
                          cwd=args.cwd,
@@ -238,7 +289,7 @@ def main() -> int:
                          warning_message=args.warning_message)
 
     if args.output == '-':
-      print(rendered)
+      sys.stdout.write(rendered)
       return 0
     output_path = Path(args.output)
 
@@ -253,7 +304,13 @@ def main() -> int:
     output_path.write_text(rendered, encoding='utf-8')
 
     ##############################################################################
+    if args.chmod_ro:
+      _MakeReadonly(output_path, console=console)
+    ##############################################################################
     if args.chmod:
+      warnings.warn('The --chmod option is deprecated, use --chmod-ro instead.',
+                    DeprecationWarning,
+                    stacklevel=2)
       mode8: str = args.chmod
       mode10: int = int(args.chmod, 8)
       _ChmodTryAll(path=output_path, mode10=mode10, console=console)

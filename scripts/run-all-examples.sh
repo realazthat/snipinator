@@ -6,14 +6,12 @@ SCRIPT_DIR=$(realpath "$(dirname "${BASH_SOURCE[0]}")")
 source "${SCRIPT_DIR}/utilities/common.sh"
 
 VENV_PATH="${PWD}/.venv" source "${PROJ_PATH}/scripts/utilities/ensure-venv.sh"
-REQS="${PROJ_PATH}/requirements.txt" source "${PROJ_PATH}/scripts/utilities/ensure-reqs.sh"
-
-export PYTHONPATH=${PYTHONPATH:-}
-export PYTHONPATH=${PYTHONPATH}:${PWD}
+TOML=${PROJ_PATH}/pyproject.toml EXTRA=prod source "${PROJ_PATH}/scripts/utilities/ensure-reqs.sh"
 
 # For each sh in snipinator/examples
-for EXAMPLE in $(find snipinator/examples -type f -name "*.sh"); do
+find snipinator/examples -type f -name "*.sh" -print0 | while IFS= read -r -d '' EXAMPLE; do
   bash "${EXAMPLE}"
+  echo -e "${GREEN}${EXAMPLE} ran successfully${NC}"
 done
 
-echo -e "${GREEN}All examples ran successfully${NC}"
+echo -e "${GREEN}${BASH_SOURCE[0]} ran successfully${NC}"

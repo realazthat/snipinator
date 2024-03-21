@@ -18,6 +18,18 @@
     "Version": "2.17.2"
   },
   {
+    "Author": "Filipe La\u00edns <lains@riseup.net>, Bern\u00e1t G\u00e1bor <gaborjbernat@gmail.com>, layday <layday@protonmail.com>, Henry Schreiner <henryschreineriii@gmail.com>",
+    "License": "MIT License",
+    "Name": "build",
+    "Version": "1.1.1"
+  },
+  {
+    "Author": "UNKNOWN",
+    "License": "BSD License",
+    "Name": "click",
+    "Version": "8.1.7"
+  },
+  {
     "Author": "Jonathan Hartley <tartley@tartley.com>",
     "License": "BSD License",
     "Name": "colorama",
@@ -28,6 +40,12 @@
     "License": "Python Software Foundation License",
     "Name": "defusedxml",
     "Version": "0.7.1"
+  },
+  {
+    "Author": "Jason R. Coombs",
+    "License": "Apache Software License",
+    "Name": "importlib_metadata",
+    "Version": "7.0.2"
   },
   {
     "Author": "Chris Sewell <chrisj_sewell@hotmail.com>",
@@ -42,16 +60,34 @@
     "Version": "0.1.2"
   },
   {
+    "Author": "Donald Stufft <donald@stufft.io>",
+    "License": "Apache Software License; BSD License",
+    "Name": "packaging",
+    "Version": "24.0"
+  },
+  {
     "Author": "Noah Spurrier; Thomas Kluyver; Jeff Quast",
     "License": "ISC License (ISCL)",
     "Name": "pexpect",
     "Version": "4.9.0"
   },
   {
+    "Author": "Vincent Driessen <me@nvie.com>",
+    "License": "BSD License",
+    "Name": "pip-tools",
+    "Version": "7.4.1"
+  },
+  {
     "Author": "Thomas Kluyver",
     "License": "ISC License (ISCL)",
     "Name": "ptyprocess",
     "Version": "0.7.0"
+  },
+  {
+    "Author": "Thomas Kluyver <thomas@kluyver.me.uk>",
+    "License": "MIT License",
+    "Name": "pyproject_hooks",
+    "Version": "1.0.0"
   },
   {
     "Author": "Will McGugan",
@@ -66,6 +102,12 @@
     "Version": "1.4.0"
   },
   {
+    "Author": "Taneli Hukkinen <hukkin@users.noreply.github.com>",
+    "License": "MIT License",
+    "Name": "tomli",
+    "Version": "2.0.1"
+  },
+  {
     "Author": "UNKNOWN",
     "License": "Apache Software License",
     "Name": "types-colorama",
@@ -76,5 +118,11 @@
     "License": "Python Software Foundation License",
     "Name": "typing_extensions",
     "Version": "4.10.0"
+  },
+  {
+    "Author": "Jason R. Coombs",
+    "License": "MIT License",
+    "Name": "zipp",
+    "Version": "3.18.1"
   }
 ]

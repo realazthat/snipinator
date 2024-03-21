@@ -20,6 +20,7 @@ import colorama
 from rich.console import Console
 from rich_argparse import RichHelpFormatter  # type: ignore[import]
 
+from . import _build_version
 from .snipinate import DEFAULT_WARNING, Snipinate
 
 
@@ -247,6 +248,10 @@ def main() -> int:
         ' help for more info) e.g 444 or 555. To prevent accidentally editing'
         ' generated file. Defaults to None.')
 
+    parser.add_argument('--version',
+                        action='version',
+                        version=_build_version,
+                        help='Show the version and exit.')
     args = parser.parse_args()
 
     if args.rm and args.output == '-':

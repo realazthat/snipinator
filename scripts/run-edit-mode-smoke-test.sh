@@ -18,8 +18,6 @@ trap cleanup EXIT
 VENV_PATH="${PWD}/.cache/scripts/.venv" \
   source "${PROJ_PATH}/scripts/utilities/ensure-venv.sh"
 ################################################################################
-# Build wheel
-cd "${TMP_PROJ_PATH}"
 
 
 # Copy everything including hidden files, but ignore errors.
@@ -32,15 +30,12 @@ cp -a "${PROJ_PATH}/." "${TMP_PROJ_PATH}" || true
 find "${TMP_PROJ_PATH}" -type f -not -path '*/.*' -exec chmod 777 {} +
 
 
-DIST="${TMP_PROJ_PATH}/dist"
-# TODO: Pin/minimum rust version, because some versions of rust fail to build
-# the wheel. Pydantic has some rust parts.
-python -m build --outdir "${DIST}" "${TMP_PROJ_PATH}"
 ################################################################################
 # Install snipinator and run smoke test
 cd "${TMP_DIR}"
 pip install virtualenv
 python -m virtualenv .venv
+pip install --upgrade pip
 cp "${PROJ_PATH}/.python-version" .
 VENV_PATH="${TMP_DIR}/.venv" source "${PROJ_PATH}/scripts/utilities/ensure-venv.sh"
 
@@ -52,7 +47,7 @@ if [[ "${EXIT_CODE}" -eq 0 ]]; then
 fi
 echo -e "${GREEN}Success: snipinator failed in a clean environment${NC}"
 
-pip install "${DIST}"/*.whl
+pip install -e "${TMP_PROJ_PATH}"
 echo -e "${GREEN}Success: snipinator installed successfully${NC}"
 
 python -m snipinator.cli --help

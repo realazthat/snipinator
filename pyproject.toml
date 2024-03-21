@@ -21,6 +21,7 @@ classifiers = [
 dependencies = [
   "colorama >=0.4,<1",
   "defusedxml >=0.7,<1",
+  'importlib-metadata; python_version < "3.8"',
   "Jinja2 >=3,<4",
   "markdown-it-py >=3,<4",
   "MarkupSafe >=2,<3",

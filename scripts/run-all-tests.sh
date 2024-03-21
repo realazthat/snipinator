@@ -8,9 +8,6 @@ source "${SCRIPT_DIR}/utilities/common.sh"
 VENV_PATH="${PWD}/.venv" source "${PROJ_PATH}/scripts/utilities/ensure-venv.sh"
 TOML=${PROJ_PATH}/pyproject.toml EXTRA=prod source "${PROJ_PATH}/scripts/utilities/ensure-reqs.sh"
 
-export PYTHONPATH=${PYTHONPATH:-}
-export PYTHONPATH=${PYTHONPATH}:${PWD}
-
 # Find all files in snipinator that end in _test.py
 find snipinator -name "*_test.py" -print0 | while IFS= read -r -d '' TEST_FILE; do
   # Turn path into a python module name, e.g path/to/file.py to path.to.file

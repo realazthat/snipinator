@@ -8,9 +8,6 @@ source "${SCRIPT_DIR}/utilities/common.sh"
 VENV_PATH="${PWD}/.venv" source "${PROJ_PATH}/scripts/utilities/ensure-venv.sh"
 TOML=${PROJ_PATH}/pyproject.toml EXTRA=prod source "${PROJ_PATH}/scripts/utilities/ensure-reqs.sh"
 
-export PYTHONPATH=${PYTHONPATH:-}
-export PYTHONPATH=${PYTHONPATH}:${PWD}
-
 # For each sh in snipinator/examples
 find snipinator/examples -type f -name "*.sh" -print0 | while IFS= read -r -d '' EXAMPLE; do
   bash "${EXAMPLE}"

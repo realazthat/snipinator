@@ -24,11 +24,12 @@ EXAMPLE_MD_JINJA2_PATH="${TMP_DIR}/EXAMPLE.md.jinja2"
 
 echo "${EXAMPLE_MD_JINJA2}" > "${EXAMPLE_MD_JINJA2_PATH}"
 
-cd "${TMP_DIR}"
+EXIT_CODE=0
 python -m snipinator.cli \
+  --cwd "${TMP_DIR}" \
   -t "${EXAMPLE_MD_JINJA2_PATH}" \
   -o "${EXAMPLE_MD_GEN_PATH}" \
-  --check || EXIT_CODE=$? || true
+  --check || EXIT_CODE=$?
 
 if [[ ${EXIT_CODE} -eq 0 ]]; then
   echo -e "${RED}Expected exit code to be non-zero${NC}"
@@ -43,6 +44,7 @@ fi
 echo -e "${GREEN}--check successfully did not generate file${NC}"
 
 python -m snipinator.cli \
+  --cwd "${TMP_DIR}" \
   -t "${EXAMPLE_MD_JINJA2_PATH}" \
   -o "${EXAMPLE_MD_GEN_PATH}"
 
@@ -53,16 +55,19 @@ fi
 echo -e "${GREEN}Successfully generated file${NC}"
 
 python -m snipinator.cli \
+  --cwd "${TMP_DIR}" \
   -t "${EXAMPLE_MD_JINJA2_PATH}" \
   -o "${EXAMPLE_MD_GEN_PATH}" \
   --check
 echo -e "${GREEN}--check successfully passed${NC}"
 
 echo "JUNK" >> "${EXAMPLE_MD_GEN_PATH}"
+EXIT_CODE=0
 python -m snipinator.cli \
+  --cwd "${TMP_DIR}" \
   -t "${EXAMPLE_MD_JINJA2_PATH}" \
   -o "${EXAMPLE_MD_GEN_PATH}" \
-  --check || EXIT_CODE=$? || true
+  --check || EXIT_CODE=$?
 if [[ ${EXIT_CODE} -eq 0 ]]; then
   echo -e "${RED}Expected exit code to be non-zero${NC}"
   exit 1

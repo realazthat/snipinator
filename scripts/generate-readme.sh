@@ -10,9 +10,6 @@ source "${SCRIPT_DIR}/utilities/common.sh"
 VENV_PATH="${PWD}/.cache/scripts/.venv" source "${PROJ_PATH}/scripts/utilities/ensure-venv.sh"
 TOML=${PROJ_PATH}/pyproject.toml EXTRA=dev source "${PROJ_PATH}/scripts/utilities/ensure-reqs.sh"
 
-PYTHONPATH=${PYTHONPATH:-}
-export PYTHONPATH="${PROJ_PATH}:${PYTHONPATH}"
-
 python -m snipinator.cli \
   -t "${PROJ_PATH}/snipinator/examples/EXAMPLE.md.jinja2" \
   --rm \

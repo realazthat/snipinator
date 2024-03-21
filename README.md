@@ -142,7 +142,6 @@ class MyClass:
     print(self.name)
 ````
 
-
 ``````
 
 CLI usage help:

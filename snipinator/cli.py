@@ -14,7 +14,7 @@ import sys
 import time
 import warnings
 from pathlib import Path
-from typing import Callable, List, Optional, TextIO
+from typing import Callable, List, Optional
 
 import colorama
 from rich.console import Console
@@ -174,7 +174,7 @@ def main() -> int:
                                      formatter_class=RichHelpFormatter)
     parser.add_argument('-t',
                         '--template',
-                        type=argparse.FileType('r'),
+                        type=str,
                         required=True,
                         help='Path to the template file. Use "-" for stdin.')
     parser.add_argument(
@@ -258,15 +258,24 @@ def main() -> int:
     if args.check and args.output == '-':
       raise ValueError('Cannot use --check with stdout')
 
-    template_file: TextIO = args.template
-    template_file_name = template_file.name
+    template_file_name: str = args.template
+    template_string: str
     if template_file_name != '-':
+      # If we are not dealing with stdin:
+
+      # Treat it as a path.
       template_file_path = Path(template_file_name)
       if template_file_path.is_absolute():
-        template_file_name = template_file_path.relative_to(args.cwd)
-      template_file_name = str(template_file_name)
+        # If the path is absolute, we want a relative path for the file name
+        # (which is used for debugging and error messages).
+        #
+        # TODO: Do we want this behavior?
+        template_file_name = str(template_file_path.relative_to(args.cwd))
+      template_string = template_file_path.read_text()
+    else:
+      # Template is to be read from stdin.
+      template_string = sys.stdin.read()
 
-    template_string = template_file.read()
     rendered = Snipinate(template_file_name=template_file_name,
                          template_string=template_string,
                          cwd=args.cwd,
@@ -275,7 +284,7 @@ def main() -> int:
                          warning_message=args.warning_message)
 
     if args.output == '-':
-      print(rendered)
+      sys.stdout.write(rendered)
       return 0
     output_path = Path(args.output)
 

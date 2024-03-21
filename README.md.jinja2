@@ -128,16 +128,22 @@ Also see Jinja2 v3
 - Formatting: The `{% raw %}{{{% endraw %}` `{% raw %}}}{% endraw %}` used to
   surround the snippet calls will unfortunately be formatted by a Markdown
   formatter and make the call invalid. Workarounds:
+  - **Decommentify**: Put the snippet call inside a HTML comment, then use
+    `decommentify` parameter. See
+    [`{{path('snipinator/examples/LONG-EXAMPLE.md.jinja2')}}`](./snipinator/examples/LONG-EXAMPLE.md.jinja2)
+    for examples.
+  - [prettier](https://prettier.io/) formatter is pretty good at leaving the
+    Jinja2 calls alone, especially if you don't have any spaces. This especially
+    helps for markdown "reference-style links" that have Jinja2 calls in them
+    generating part of the URL, mdformat will URL encode the Jinja2 calls,
+    and/or split them on spaces, which is not what we want. prettier will leave
+    them alone.
   - For code blocks: If you embed the snippet call in a code block, it will not
     be formatted. However, because of **Embedded Backticks** gotcha, (see
     above), this is not recommended, unless you know for sure that there are no
     embedded backticks.
   - If your formatter supports a comment that disabled formatting, you can
     surround the snippet call with that comment.
-  - New in 1.0.4: Put the snippet call inside a HTML comment, then use
-    `decommentify` parameter. See
-    [`{{path('snipinator/examples/LONG-EXAMPLE.md.jinja2')}}`](./snipinator/examples/LONG-EXAMPLE.md.jinja2)
-    for examples.
 - Editing the wrong file: When you have a template and a generated file, it is
   easy to edit the wrong file. To combat this:
   - Snipinator provides a warning at the top of the generated file to remind you

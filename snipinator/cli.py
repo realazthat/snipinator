@@ -185,7 +185,7 @@ def _MakeReadonly(path: Path, console: Console) -> None:
         style='bold green')
 
 
-def main() -> int:
+def main() -> None:
   console = Console(file=sys.stderr)
   args: Optional[argparse.Namespace] = None
   try:
@@ -320,14 +320,14 @@ def main() -> int:
 
     if args.output == '-':
       sys.stdout.write(rendered)
-      return 0
+      sys.exit(0)
     output_path = Path(args.output)
 
     if args.check:
       original_output: Optional[str] = None
       if output_path.exists():
         original_output = output_path.read_text(encoding='utf-8')
-      return 0 if rendered == original_output else 1
+      sys.exit(0 if rendered == original_output else 1)
 
     if output_path.exists() and args.rm:
       try:
@@ -354,7 +354,7 @@ def main() -> int:
                     style='bold green')
 
     ##############################################################################
-    return 0
+    sys.exit(0)
   except Exception:
     console.print_exception()
     if args:
@@ -363,4 +363,5 @@ def main() -> int:
     sys.exit(1)
 
 
-sys.exit(main())
+if __name__ == '__main__':
+  main()

@@ -192,21 +192,21 @@ def main() -> None:
     # Windows<10 requires this.
     colorama.init()
 
-    parser = argparse.ArgumentParser(prog=_GetProgramName(),
-                                     description=__doc__,
-                                     formatter_class=RichHelpFormatter)
-    parser.add_argument('-t',
-                        '--template',
-                        type=str,
-                        required=True,
-                        help='Path to the template file. Use "-" for stdin.')
-    parser.add_argument(
+    p = argparse.ArgumentParser(prog=_GetProgramName(),
+                                description=__doc__,
+                                formatter_class=RichHelpFormatter)
+    p.add_argument('-t',
+                   '--template',
+                   type=str,
+                   required=True,
+                   help='Path to the template file. Use "-" for stdin.')
+    p.add_argument(
         '--cwd',
         type=Path,
         default=Path.cwd(),
         help='Directory to use as the base for snippet paths in the template.'
         ' Defaults to the current working directory.')
-    parser.add_argument(
+    p.add_argument(
         '-a',
         '--args',
         type=json.loads,
@@ -215,26 +215,26 @@ def main() -> None:
         ' Any extra values the user wishes to pass to the template, e.g.'
         " `{'name': 'John'}` if they wish to render variables as Jinja2 is"
         ' capable of. Defaults to {}.')
-    parser.add_argument(
+    p.add_argument(
         '--templates-searchpath',
         type=Path,
         default=None,
         help='Path to the directory with templates for include directives etc.'
         ' Defaults to None, which means nothing can be included using Jinja2\'s'
         ' include directives, which most users won\'t be needing.')
-    parser.add_argument(
+    p.add_argument(
         '-o',
         '--output',
         type=str,
         default='-',
         help='Path to the output file. Use "-" for stdout. Defaults to "-".')
-    parser.add_argument(
+    p.add_argument(
         '--rm',
         action='store_true',
         default=False,
         help='Remove any existing file at the output path, before writing the new'
         ' one; useful if the existing file might be write protected.')
-    parser.add_argument(
+    p.add_argument(
         '-f',
         '--force',
         action='store_true',
@@ -242,7 +242,7 @@ def main() -> None:
         help='Force remove the existing file at the output path, before writing'
         ' the new one; useful if the existing file might be write protected.'
         ' Defaults to False.')
-    parser.add_argument(
+    p.add_argument(
         '--check',
         action='store_true',
         default=False,
@@ -250,7 +250,7 @@ def main() -> None:
         ' exit with a non-zero status code if it is not. Does not write the'
         ' file. Ignores options that modify the file (e.g --rm and --chmod-ro).'
         ' Useful for CI pipelines. Defaults to False.')
-    parser.add_argument(
+    p.add_argument(
         '--warning-message',
         type=str,
         default=DEFAULT_WARNING,
@@ -258,7 +258,7 @@ def main() -> None:
         'Warning message to include in the output file. To prevent accidentally'
         ' editing generated file. Defaults to the default warning message.')
 
-    chmod_group = parser.add_mutually_exclusive_group(required=False)
+    chmod_group = p.add_mutually_exclusive_group(required=False)
     chmod_group.add_argument(
         '--chmod-ro',
         action='store_true',
@@ -278,11 +278,11 @@ def main() -> None:
         ' help for more info) e.g 444 or 555. To prevent accidentally editing'
         ' generated file. Defaults to None.')
 
-    parser.add_argument('--version',
-                        action='version',
-                        version=_build_version,
-                        help='Show the version and exit.')
-    args = parser.parse_args()
+    p.add_argument('--version',
+                   action='version',
+                   version=_build_version,
+                   help='Show the version and exit.')
+    args = p.parse_args()
 
     if args.rm and args.output == '-':
       raise ValueError('Cannot use --rm with stdout')

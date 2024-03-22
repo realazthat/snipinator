@@ -13,11 +13,13 @@ TOML=${PROJ_PATH}/pyproject.toml EXTRA=dev source "${PROJ_PATH}/scripts/utilitie
 python -m snipinator.cli \
   -t "${PROJ_PATH}/snipinator/examples/EXAMPLE.md.jinja2" \
   --rm \
+  --force \
   -o "${PROJ_PATH}/snipinator/examples/EXAMPLE.generated.md" \
   --chmod-ro
 
 python -m snipinator.cli \
   -t "${PROJ_PATH}/README.md.jinja2" \
   --rm \
+  --force \
   -o "${PROJ_PATH}/README.md" \
   --chmod-ro

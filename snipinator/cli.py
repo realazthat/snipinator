@@ -141,6 +141,28 @@ def _ChmodTryAll(*, path: Path, mode10: int, console: Console) -> None:
   raise ValueError(f'Failed to change mode of {path}')
 
 
+def _MakeWritable(path: Path, console: Console) -> None:
+
+  # Get the current permissions
+  original_mode8: str = _GetPermissionOctant8(path=path)
+  original_mode10 = int(original_mode8, 8)
+  # Add write permissions
+  wanted_mode10: int = original_mode10 | 0o222
+  path.chmod(wanted_mode10)
+  new_mode8: str = _GetPermissionOctant8(path=path)
+  new_mode10 = int(new_mode8, 8)
+  if new_mode10 != wanted_mode10:
+    raise ValueError(f'Failed to change mode of {path},'
+                     f'\n Wanted: 0o{original_mode8} => 0o{new_mode8}'
+                     f'\n Wanted: {original_mode10} => {new_mode10}'
+                     f'\n Actual: 0o{original_mode8} => 0o{new_mode8}'
+                     f'\n Actual: {original_mode10} => {new_mode10}')
+  else:
+    console.print(
+        f'Changed mode of {path} from {_OctalToRWXStr(original_mode10)} => {_OctalToRWXStr(new_mode10)}',
+        style='bold green')
+
+
 def _MakeReadonly(path: Path, console: Console) -> None:
 
   # Get the current permissions
@@ -212,6 +234,14 @@ def main() -> int:
         default=False,
         help='Remove any existing file at the output path, before writing the new'
         ' one; useful if the existing file might be write protected.')
+    parser.add_argument(
+        '-f',
+        '--force',
+        action='store_true',
+        default=False,
+        help='Force remove the existing file at the output path, before writing'
+        ' the new one; useful if the existing file might be write protected.'
+        ' Defaults to False.')
     parser.add_argument(
         '--check',
         action='store_true',
@@ -300,7 +330,13 @@ def main() -> int:
       return 0 if rendered == original_output else 1
 
     if output_path.exists() and args.rm:
-      output_path.unlink()
+      try:
+        output_path.unlink()
+      except PermissionError:
+        if not args.force:
+          raise
+        _MakeWritable(output_path, console=console)
+        output_path.unlink()
     output_path.write_text(rendered, encoding='utf-8')
 
     ##############################################################################

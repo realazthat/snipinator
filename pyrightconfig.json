@@ -8,7 +8,7 @@
   "stubPath": "snipinator/stubs",
   "reportMissingImports": true,
   "reportMissingTypeStubs": false,
-  "pythonVersion": "3.10",
+  "pythonVersion": "3.8",
   "pythonPlatform": "Linux",
   "executionEnvironments": [
     {

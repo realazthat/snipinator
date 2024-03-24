@@ -390,6 +390,7 @@ def main() -> None:
         # Simple case, nothing was specified for newlines, use python defaults.
         sys.stdout.write(rendered)
         sys.exit(0)
+        return
       else:
         # Transfer the text from the rendered string to stdout, with the
         # specified newlines.
@@ -405,8 +406,7 @@ def main() -> None:
                          output_newline=output_newline,
                          buffer_io=sys.stdout.buffer)
         sys.exit(0)
-      sys.stdout.write(rendered)
-      sys.exit(0)
+        return
     ############################################################################
     output_path = Path(args.output)
     ############################################################################
@@ -416,6 +416,7 @@ def main() -> None:
         with output_path.open('r', encoding=None, newline=output_newline) as f:
           original_output = f.read()
       sys.exit(0 if rendered == original_output else 1)
+      return
     ############################################################################
     if output_path.exists() and args.rm:
       try:
@@ -451,12 +452,14 @@ def main() -> None:
 
     ############################################################################
     sys.exit(0)
+    return
   except Exception:
     console.print_exception()
     if args:
       console.print('args:', args._get_kwargs(), style='bold red')
 
     sys.exit(1)
+    return
 
 
 if __name__ == '__main__':

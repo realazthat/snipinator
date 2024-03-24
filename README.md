@@ -448,11 +448,30 @@ Main libraries used in Snipinator are:
 
 ## Contributions
 
+### Development environment: Linux-like
+
+- For running `pre.sh` (Linux-like environment).
+  - Requires `pyenv`, or an exact matching version of python as in
+    `.python-version` (which is currently
+    `3.8.0
+`).
+  - `jq`, ([installation](https://jqlang.github.io/jq/)) required for
+    [yq](https://github.com/kislyuk/yq), which is itself required for our
+    `README.md` generation, which uses `tomlq` (from the
+    [yq](https://github.com/kislyuk/yq) package) to include version strings from
+    `pyproject.toml`.
+  - `bash`, `grep`, `xxd`, `git` (for tests).
+  - Requires nodejs (for act).
+  - Requires Go (to run act).
+  - docker (for act).
+
+### Commit Process
+
 1. (Optionally) Fork the `develop` branch.
 2. Stage your files: `git add path/to/file.py`.
 3. `bash scripts/pre.sh`, this will format, lint, and test the code.
-4. `git status` check if anything changed (generated README for example), if so,
-   `git add` the changes, and go back to the previous step.
+4. `git status` check if anything changed (generated `README.md` for
+   example), if so, `git add` the changes, and go back to the previous step.
 5. `git commit -m "..."`.
 6. Make a PR to `develop` (or push to develop if you have the rights).
 
@@ -467,7 +486,7 @@ These instructions are for maintainers of the project.
    `last_stable_release` in the `[tool.snipinator-project-metadata]` table as
    appropriate.
 3. `develop` branch: Commit these changes with a message like "Prepare release
-   X.Y.Z". (See the contributions section [above](#contributions)).
+   X.Y.Z". (See the contributions section [above](#commit-process)).
 4. `master` branch: Merge the `develop` branch into the `master` branch:
    `git checkout master && git merge develop --no-ff`.
 5. `master` branch: Tag the release: Create a git tag for the release with

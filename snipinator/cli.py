@@ -7,6 +7,7 @@
 """CLI: Python code snipinator for markdown files, e.g READMEs, from actual (testable) code."""
 
 import argparse
+import io
 import json
 import shlex
 import subprocess
@@ -14,7 +15,7 @@ import sys
 import time
 import warnings
 from pathlib import Path
-from typing import Callable, List, Optional
+from typing import Any, BinaryIO, Callable, Dict, List, Optional, TextIO
 
 import colorama
 from rich.console import Console
@@ -22,6 +23,11 @@ from rich_argparse import RichHelpFormatter  # type: ignore[import]
 
 from . import _build_version
 from .snipinate import DEFAULT_WARNING, Snipinate
+
+_NEWLINE_HELP = (' See '
+                 '<https://docs.python.org/3/library/functions.html#open>'
+                 ' for more info on the behavior.'
+                 ' Defaults to auto, which means the python default is used.')
 
 
 def _GetProgramName() -> str:
@@ -185,6 +191,41 @@ def _MakeReadonly(path: Path, console: Console) -> None:
         style='bold green')
 
 
+class _NewlineAction(argparse.Action):
+
+  def __call__(self, parser, namespace, values, option_string=None):
+    if values == 'auto':
+      newline = None
+    elif values == 'lf':
+      newline = '\n'
+    elif values == 'crlf':
+      newline = '\r\n'
+    elif values == 'cr':
+      newline = '\r'
+    else:
+      raise argparse.ArgumentTypeError(
+          f'Invalid newline value: {json.dumps(values)}.'
+          ' Must be one of {auto, lf, crlf, cr}')
+    setattr(namespace, self.dest, newline)
+
+
+def _WriteToBuffer(rendered: str, template_newline: Optional[str],
+                   output_newline: Optional[str], buffer_io: BinaryIO):
+  with io.StringIO(rendered, newline=template_newline) as rendered_io:
+    with io.StringIO(newline=output_newline) as output_io:
+      for line in rendered_io:
+        output_io.write(line)
+      rendered_bytes = output_io.getvalue().encode()
+      buffer_io.write(rendered_bytes)
+
+
+def _WriteToFile(rendered: str, template_newline: Optional[str],
+                 output_io: TextIO):
+  with io.StringIO(rendered, newline=template_newline) as rendered_io:
+    for line in rendered_io:
+      output_io.write(line)
+
+
 def main() -> None:
   console = Console(file=sys.stderr)
   args: Optional[argparse.Namespace] = None
@@ -277,12 +318,27 @@ def main() -> None:
         ' Change the mode (permissions) of the output file, an octant (see chmod'
         ' help for more info) e.g 444 or 555. To prevent accidentally editing'
         ' generated file. Defaults to None.')
+    p.add_argument('--template-newline',
+                   action=_NewlineAction,
+                   metavar='{auto,lf,crlf,cr}',
+                   default=None,
+                   required=False,
+                   help=_NEWLINE_HELP)
+    p.add_argument('--output-newline',
+                   action=_NewlineAction,
+                   metavar='{auto,lf,crlf,cr}',
+                   default=None,
+                   required=False,
+                   help=_NEWLINE_HELP)
 
     p.add_argument('--version',
                    action='version',
                    version=_build_version,
                    help='Show the version and exit.')
     args = p.parse_args()
+
+    template_newline: Optional[str] = args.template_newline
+    output_newline: Optional[str] = args.output_newline
 
     if args.rm and args.output == '-':
       raise ValueError('Cannot use --rm with stdout')
@@ -292,7 +348,7 @@ def main() -> None:
       raise ValueError('Cannot use --chmod-ro with stdout')
     if args.check and args.output == '-':
       raise ValueError('Cannot use --check with stdout')
-
+    ############################################################################
     template_file_name: str = args.template
     template_string: str
     if template_file_name != '-':
@@ -306,29 +362,61 @@ def main() -> None:
         #
         # TODO: Do we want this behavior?
         template_file_name = str(template_file_path.relative_to(args.cwd))
-      template_string = template_file_path.read_text()
+      with template_file_path.open('r', encoding=None,
+                                   newline=template_newline) as f:
+        template_string = f.read()
     else:
       # Template is to be read from stdin.
-      template_string = sys.stdin.read()
-
+      if template_newline is None:
+        # Simple case, nothing was specified for newlines.
+        template_string = sys.stdin.read()
+      else:
+        template_buffer: bytes = sys.stdin.buffer.read()
+        decode_kwargs: Dict[str, Any] = {}
+        with io.StringIO(template_buffer.decode(**decode_kwargs),
+                         newline=template_newline) as template_io:
+          template_string = template_io.read()
+    ############################################################################
     rendered = Snipinate(template_file_name=template_file_name,
                          template_string=template_string,
                          cwd=args.cwd,
                          template_args=args.args,
                          templates_searchpath=args.templates_searchpath,
                          warning_message=args.warning_message)
-
+    ############################################################################
     if args.output == '-':
+      # Deal with the stdout case.
+      if output_newline is not None and template_newline is None:
+        # Simple case, nothing was specified for newlines, use python defaults.
+        sys.stdout.write(rendered)
+        sys.exit(0)
+      else:
+        # Transfer the text from the rendered string to stdout, with the
+        # specified newlines.
+        if output_newline is None:
+          _WriteToFile(rendered=rendered,
+                       template_newline=template_newline,
+                       output_io=sys.stdout)
+        else:
+          # This seems like the only clean way to write custom newlines to
+          # stdout.
+          _WriteToBuffer(rendered=rendered,
+                         template_newline=template_newline,
+                         output_newline=output_newline,
+                         buffer_io=sys.stdout.buffer)
+        sys.exit(0)
       sys.stdout.write(rendered)
       sys.exit(0)
+    ############################################################################
     output_path = Path(args.output)
-
+    ############################################################################
     if args.check:
       original_output: Optional[str] = None
       if output_path.exists():
-        original_output = output_path.read_text(encoding='utf-8')
+        with output_path.open('r', encoding=None, newline=output_newline) as f:
+          original_output = f.read()
       sys.exit(0 if rendered == original_output else 1)
-
+    ############################################################################
     if output_path.exists() and args.rm:
       try:
         output_path.unlink()
@@ -337,12 +425,20 @@ def main() -> None:
           raise
         _MakeWritable(output_path, console=console)
         output_path.unlink()
-    output_path.write_text(rendered, encoding='utf-8')
 
-    ##############################################################################
+    if template_newline is None and output_newline is None:
+      # Simple case, nothing was specified for newlines, use python defaults.
+      output_path.write_text(rendered, encoding=None)
+    else:
+      with output_path.open('w', encoding=None,
+                            newline=output_newline) as output_file:
+        _WriteToFile(rendered=rendered,
+                     template_newline=template_newline,
+                     output_io=output_file)
+    ############################################################################
     if args.chmod_ro:
       _MakeReadonly(output_path, console=console)
-    ##############################################################################
+    ############################################################################
     if args.chmod:
       warnings.warn('The --chmod option is deprecated, use --chmod-ro instead.',
                     DeprecationWarning,
@@ -353,7 +449,7 @@ def main() -> None:
       console.print(f'Changed mode of {output_path} to {mode8}',
                     style='bold green')
 
-    ##############################################################################
+    ############################################################################
     sys.exit(0)
   except Exception:
     console.print_exception()

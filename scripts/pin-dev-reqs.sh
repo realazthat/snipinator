@@ -8,19 +8,9 @@ source "${SCRIPT_DIR}/utilities/common.sh"
 VENV_PATH=".cache/scripts/.venv" source "${PROJ_PATH}/scripts/utilities/ensure-venv.sh"
 TOML=${PROJ_PATH}/pyproject.toml EXTRA=dev source "${PROJ_PATH}/scripts/utilities/ensure-reqs.sh"
 
-function is_dirty {
-  if [[ ! -f ".cache/scripts/dev-requirements.txt" ]]; then
-    return 0
-  fi
-  if [[ ".cache/scripts/dev-requirements.txt" -nt "${PROJ_PATH}/pyproject.toml" ]]; then
-    return 1
-  else
-    return 0
-  fi
-}
-
-# trunk-ignore(shellcheck/SC2310)
-if is_dirty; then
+export FILE="${PROJ_PATH}/pyproject.toml"
+export TOUCH_FILE=".cache/scripts/dev-requirements.touch"
+if bash "${PROJ_PATH}/scripts/utilities/is_dirty.sh"; then
   echo -e "${BLUE}Generating .cache/scripts/dev-requirements.txt${NC}"
 
   mkdir -p ".cache/scripts/"
@@ -33,8 +23,9 @@ else
   echo -e "${GREEN}Requirements .cache/scripts/dev-requirements.txt are up to date${NC}"
 fi
 
-# trunk-ignore(shellcheck/SC2310)
-if is_dirty; then
+export FILE="${PROJ_PATH}/pyproject.toml"
+export TOUCH_FILE=".cache/scripts/dev-requirements.touch"
+if bash "${PROJ_PATH}/scripts/utilities/is_dirty.sh"; then
   echo -e "${RED}pyproject.toml is dirty, pinning failed${NC}"
   [[ $(realpath "$0"||true) == $(realpath "${BASH_SOURCE[0]}"||true) ]] && EXIT="exit" || EXIT="return"
   ${EXIT} 1

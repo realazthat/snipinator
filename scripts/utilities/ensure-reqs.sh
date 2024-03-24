@@ -4,13 +4,13 @@ set -e -x -v -u -o pipefail
 
 SCRIPT_DIR=$(realpath "$(dirname "${BASH_SOURCE[0]}")")
 source "${SCRIPT_DIR}/common.sh"
-[[ $0 == "${BASH_SOURCE[0]}" ]] && EXIT="exit" || EXIT="return"
 
 TOML=${TOML:-""}
 EXTRA=${EXTRA:-""}
 
 if [[ -z "${TOML}" ]]; then
   echo -e "${RED}TOML is not set${NC}"
+  [[ $0 == "${BASH_SOURCE[0]}" ]] && EXIT="exit" || EXIT="return"
   ${EXIT} 1
 fi
 
@@ -23,27 +23,17 @@ elif [[ "${EXTRA}" == "prod" ]]; then
   SYNC_TOUCH_FILE="${PWD}/.cache/scripts/prod-pip-sync-touched"
 else
   echo -e "${RED}EXTRA should be either dev or prod${NC}"
+
+  [[ $0 == "${BASH_SOURCE[0]}" ]] && EXIT="exit" || EXIT="return"
   ${EXIT} 1
 fi
 
-function is_dirty() {
-  SYNC_TOUCH_TIME=$(stat -c '%y' "${SYNC_TOUCH_FILE}")
-  TOML_TIME=$(stat -c '%y' "${TOML}")
-  echo "SYNC_TOUCH_TIME: ${SYNC_TOUCH_TIME}"
-  echo "TOML_TIME:       ${TOML_TIME}"
-  if [[ ! -f "${SYNC_TOUCH_FILE}" ]]; then
-    return 0
-  fi
-  if [[ "${SYNC_TOUCH_FILE}" -nt "${TOML}" ]]; then
-    return 1
-  else
-    return 0
-  fi
-}
-
-# trunk-ignore(shellcheck/SC2310)
-if ! is_dirty; then
+export TOUCH_FILE=${SYNC_TOUCH_FILE}
+export FILE=${TOML}
+if bash "${PROJ_PATH}/scripts/utilities/is_not_dirty.sh"; then
   echo -e "${GREEN}Syncing is not needed${NC}"
+
+  [[ $0 == "${BASH_SOURCE[0]}" ]] && EXIT="exit" || EXIT="return"
   ${EXIT} 0
 fi
 echo -e "${BLUE}Syncing requirements${NC}"
@@ -61,11 +51,19 @@ python -m piptools compile \
     "${TOML}"
 
 pip-sync "${OUTPUT_REQUIREMENTS_FILE}"
-touch "${SYNC_TOUCH_FILE}"
 
-# trunk-ignore(shellcheck/SC2310)
-if is_dirty; then
+export TOUCH_FILE=${SYNC_TOUCH_FILE}
+export FILE=${TOML}
+bash "${PROJ_PATH}/scripts/utilities/mark_dirty.sh"
+
+export TOUCH_FILE=${SYNC_TOUCH_FILE}
+export FILE=${TOML}
+if bash "${PROJ_PATH}/scripts/utilities/is_not_dirty.sh"; then
+  :
+else
   echo -e "${RED}Syncing failed${NC}"
+
+  [[ $0 == "${BASH_SOURCE[0]}" ]] && EXIT="exit" || EXIT="return"
   ${EXIT} 1
 fi
 

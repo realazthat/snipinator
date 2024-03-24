@@ -46,7 +46,7 @@ jobs:
         echo "${{ matrix.python-version.file }}" > .python-version
         cat .python-version
     - name: Install Bash (Ubuntu)
-      run: sudo apt-get update && sudo apt-get install -y bash grep xxd git
+      run: sudo apt-get update && sudo apt-get install -y bash grep xxd git xxhash
     - name: Run everything
       run: |
         bash scripts/pre.sh

@@ -460,7 +460,7 @@ Main libraries used in Snipinator are:
     `README.md` generation, which uses `tomlq` (from the
     [yq](https://github.com/kislyuk/yq) package) to include version strings from
     `pyproject.toml`.
-  - `bash`, `grep`, `xxd`, `git` (for tests).
+  - `bash`, `grep`, `awk`, `sed` `xxd`, `git`, `xxhash` (for tests/workflows).
   - Requires nodejs (for act).
   - Requires Go (to run act).
   - docker (for act).

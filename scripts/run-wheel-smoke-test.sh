@@ -33,6 +33,7 @@ find "${TMP_PROJ_PATH}" -type f -not -path '*/.*' -exec chmod 777 {} +
 
 
 DIST="${TMP_PROJ_PATH}/dist"
+rm -Rf "${DIST}" || true
 # TODO: Pin/minimum rust version, because some versions of rust fail to build
 # the wheel. Pydantic has some rust parts.
 python -m build --outdir "${DIST}" "${TMP_PROJ_PATH}"

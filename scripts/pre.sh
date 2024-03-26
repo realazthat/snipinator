@@ -18,3 +18,5 @@ if [[ -z "${GITHUB_ACTIONS:-}" ]]; then
   bash scripts/act.sh
   bash scripts/precommit.sh
 fi
+
+echo -e "${GREEN}Success: pre.sh${NC}"

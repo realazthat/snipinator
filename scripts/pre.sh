@@ -7,7 +7,8 @@ source "${SCRIPT_DIR}/utilities/common.sh"
 
 bash scripts/run-all-examples.sh
 bash scripts/run-all-tests.sh
-bash scripts/pin-dev-reqs.sh
+EXTRA=dev bash scripts/pin-extra-reqs.sh
+EXTRA=prod bash scripts/pin-extra-reqs.sh
 bash scripts/format.sh
 bash scripts/type-check.sh
 bash scripts/generate-readme.sh

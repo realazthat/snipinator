@@ -8,19 +8,37 @@ source "${SCRIPT_DIR}/utilities/common.sh"
 VENV_PATH=".cache/scripts/.venv" source "${PROJ_PATH}/scripts/utilities/ensure-venv.sh"
 TOML=${PROJ_PATH}/pyproject.toml EXTRA=dev source "${PROJ_PATH}/scripts/utilities/ensure-reqs.sh"
 
+
+
+EXTRA=${EXTRA:-}
+
+if [[ "${EXTRA}" == "dev" ]]; then
+  :
+elif [[ "${EXTRA}" == "prod" ]]; then
+  :
+else
+  echo -e "${RED}EXTRA must be set to 'dev' or 'prod'${NC}"
+  [[ $(realpath "$0"||true) == $(realpath "${BASH_SOURCE[0]}"||true) ]] && EXIT="exit" || EXIT="return"
+  ${EXIT} 1
+fi
+
+PINNED_REQ_FILE="${PWD}/.cache/scripts/${EXTRA}-requirements.txt"
+
 export FILE="${PROJ_PATH}/pyproject.toml"
 export TOUCH_FILE=".cache/scripts/dev-requirements.touch"
-if bash "${PROJ_PATH}/scripts/utilities/is_dirty.sh"; then
-  echo -e "${BLUE}Generating .cache/scripts/dev-requirements.txt${NC}"
 
-  mkdir -p ".cache/scripts/"
+if bash "${PROJ_PATH}/scripts/utilities/is_dirty.sh"; then
+  echo -e "${BLUE}Generating ${PINNED_REQ_FILE}${NC}"
+
+  PINNED_REQ_DIR=$(dirname "${PINNED_REQ_FILE}")
+  mkdir -p "${PINNED_REQ_DIR}"
   python -m piptools compile --generate-hashes \
-    --extra dev \
+    --extra "${EXTRA}" \
     "${PROJ_PATH}/pyproject.toml" \
-    -o ".cache/scripts/dev-requirements.txt"
-  echo -e "${GREEN}Generated .cache/scripts/dev-requirements.txt${NC}"
+    -o "${PINNED_REQ_FILE}"
+  echo -e "${GREEN}Generated ${PINNED_REQ_FILE}${NC}"
 else
-  echo -e "${GREEN}Requirements .cache/scripts/dev-requirements.txt are up to date${NC}"
+  echo -e "${GREEN}Requirements ${PINNED_REQ_FILE} are up to date${NC}"
 fi
 
 export FILE="${PROJ_PATH}/pyproject.toml"
@@ -32,8 +50,9 @@ if bash "${PROJ_PATH}/scripts/utilities/is_dirty.sh"; then
 fi
 
 
-python scripts/pin-dev-reqs.py \
-  --reqs ".cache/scripts/dev-requirements.txt" \
+python scripts/pin-extra-reqs.py \
+  --reqs "${PINNED_REQ_FILE}" \
+  --extra "${EXTRA}" \
   --toml "${PROJ_PATH}/pyproject.toml"
 
 if toml-sort "${PROJ_PATH}/pyproject.toml" --check; then
@@ -50,4 +69,4 @@ else
   ${EXIT} 1
 fi
 
-echo -e "${GREEN}Pinned dev requirements${NC}"
+echo -e "${GREEN}Pinned ${EXTRA} requirements${NC}"

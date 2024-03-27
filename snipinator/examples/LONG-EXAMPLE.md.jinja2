@@ -37,6 +37,7 @@ Here is a terminal snippet with terminal colors (img tag external svg):
          rich='LONG-EXAMPLE.terminal-output.generated.svg',
          rich_bg_color='black',
          rich_alt='terminal output',
+         rich_term='xterm-256color',
          decomentify=True)
 }} -->
 
@@ -50,6 +51,7 @@ command included in the svg:
          rich='LONG-EXAMPLE.terminal-output-no-args.generated.svg',
          rich_bg_color='black',
          rich_alt='terminal output',
+         rich_term='xterm-256color',
          include_args=False,
          decomentify=True)
 }} -->
@@ -64,6 +66,7 @@ dimensions), without command included in the svg:
          rich='LONG-EXAMPLE.terminal-dims.generated.svg',
          rich_bg_color='black',
          rich_alt='terminal output',
+         rich_term='xterm-256color',
          rich_cols=100,
          include_args=True,
          decomentify=True)
@@ -74,7 +77,10 @@ dimensions), without command included in the svg:
 Here is a terminal snippet with terminal colors (img tag with svg data):
 
 <!--
-{{ shell('python -m snipinator.cli --help', rich='img+svg', decomentify=True) }}
+{{ shell('python -m snipinator.cli --help',
+         rich='img+svg',
+         rich_term='xterm-256color',
+         decomentify=True) }}
 -->
 
 ---
@@ -82,7 +88,10 @@ Here is a terminal snippet with terminal colors (img tag with svg data):
 Here is a terminal snippet with terminal colors (raw svg):
 
 <!--
-{{ shell('python -m snipinator.cli --help', rich='svg', decomentify=True) }}
+{{ shell('python -m snipinator.cli --help',
+         rich='svg',
+         rich_term='xterm-256color',
+         decomentify=True) }}
 -->
 
 ---

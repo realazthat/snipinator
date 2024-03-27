@@ -300,6 +300,7 @@ def shell(args: str,
                       str] = 'raw',
           rich_alt: Optional[str] = None,
           rich_bg_color: Optional[str] = None,
+          rich_term: Optional[str] = None,
           rich_rows: int = 24,
           rich_cols: int = 80,
           include_args: bool = True,
@@ -347,6 +348,8 @@ def shell(args: str,
         output. Valid colors include anything valid for SVG colors. See
         <https://developer.mozilla.org/en-US/docs/Web/CSS/color>. Defaults to
         None (fully transparent).
+      rich_term: (Optional[str], optional): Sets the TERM env var. Defaults to
+        None, which uses whatever the env vars already have.
       rich_rows (int, optional): The number of rows to use for the terminal
         output. Doesn't seem to have much effect. Defaults to 24.
       rich_cols (int, optional): The number of columns to use for the terminal

@@ -99,7 +99,7 @@ class MyClass:
 pip install snipinator
 
 # Install from git (https://github.com/realazthat/snipinator)
-pip install git+https://github.com/realazthat/snipinator.git@v1.0.9
+pip install git+https://github.com/realazthat/snipinator.git@v1.1.0
 ```
 
 ### Use
@@ -507,21 +507,21 @@ These instructions are for maintainers of the project.
 [4]: https://img.shields.io/pypi/v/snipinator
 [5]: https://pypi.org/project/snipinator/
 [6]:
-  https://img.shields.io/github/commits-since/realazthat/snipinator/v1.0.9/master
+  https://img.shields.io/github/commits-since/realazthat/snipinator/v1.1.0/master
 [7]: https://img.shields.io/github/last-commit/realazthat/snipinator/master
 [8]: https://img.shields.io/pypi/pyversions/snipinator
 [9]:
   https://img.shields.io/github/languages/top/realazthat/snipinator.svg?&cacheSeconds=28800
 [10]:
-  https://github.com/realazthat/snipinator/compare/v1.0.9...master
+  https://github.com/realazthat/snipinator/compare/v1.1.0...master
 [11]:
   https://github.com/realazthat/snipinator/actions/workflows/build-and-test.yml/badge.svg?branch=develop
 [12]:
-  https://img.shields.io/github/commits-since/realazthat/snipinator/v1.0.9/develop
+  https://img.shields.io/github/commits-since/realazthat/snipinator/v1.1.0/develop
 [13]:
-  https://github.com/realazthat/snipinator/compare/v1.0.9...develop
+  https://github.com/realazthat/snipinator/compare/v1.1.0...develop
 [14]: https://img.shields.io/github/last-commit/realazthat/snipinator/develop
 [15]:
-  https://img.shields.io/github/commits-since/realazthat/snipinator/v1.0.9/develop
+  https://img.shields.io/github/commits-since/realazthat/snipinator/v1.1.0/develop
 [16]:
-  https://github.com/realazthat/snipinator/compare/v1.0.9...develop
+  https://github.com/realazthat/snipinator/compare/v1.1.0...develop

@@ -7,6 +7,7 @@
 """CLI: Python code snipinator for markdown files, e.g READMEs, from actual (testable) code."""
 
 import argparse
+import io
 import json
 import shlex
 import subprocess
@@ -14,7 +15,8 @@ import sys
 import time
 import warnings
 from pathlib import Path
-from typing import Callable, List, Optional
+from shutil import get_terminal_size
+from typing import Any, BinaryIO, Callable, Dict, List, Optional, TextIO
 
 import colorama
 from rich.console import Console
@@ -22,6 +24,11 @@ from rich_argparse import RichHelpFormatter  # type: ignore[import]
 
 from . import _build_version
 from .snipinate import DEFAULT_WARNING, Snipinate
+
+_NEWLINE_HELP = (' See '
+                 '<https://docs.python.org/3/library/functions.html#open>'
+                 ' for more info on the behavior.'
+                 ' Defaults to auto, which means the python default is used.')
 
 
 def _GetProgramName() -> str:
@@ -141,6 +148,28 @@ def _ChmodTryAll(*, path: Path, mode10: int, console: Console) -> None:
   raise ValueError(f'Failed to change mode of {path}')
 
 
+def _MakeWritable(path: Path, console: Console) -> None:
+
+  # Get the current permissions
+  original_mode8: str = _GetPermissionOctant8(path=path)
+  original_mode10 = int(original_mode8, 8)
+  # Add write permissions
+  wanted_mode10: int = original_mode10 | 0o222
+  path.chmod(wanted_mode10)
+  new_mode8: str = _GetPermissionOctant8(path=path)
+  new_mode10 = int(new_mode8, 8)
+  if new_mode10 != wanted_mode10:
+    raise ValueError(f'Failed to change mode of {path},'
+                     f'\n Wanted: 0o{original_mode8} => 0o{new_mode8}'
+                     f'\n Wanted: {original_mode10} => {new_mode10}'
+                     f'\n Actual: 0o{original_mode8} => 0o{new_mode8}'
+                     f'\n Actual: {original_mode10} => {new_mode10}')
+  else:
+    console.print(
+        f'Changed mode of {path} from {_OctalToRWXStr(original_mode10)} => {_OctalToRWXStr(new_mode10)}',
+        style='bold green')
+
+
 def _MakeReadonly(path: Path, console: Console) -> None:
 
   # Get the current permissions
@@ -163,28 +192,81 @@ def _MakeReadonly(path: Path, console: Console) -> None:
         style='bold green')
 
 
-def main() -> int:
+class _NewlineAction(argparse.Action):
+
+  def __call__(self, parser, namespace, values, option_string=None):
+    if values == 'auto':
+      newline = None
+    elif values == 'lf':
+      newline = '\n'
+    elif values == 'crlf':
+      newline = '\r\n'
+    elif values == 'cr':
+      newline = '\r'
+    else:
+      raise argparse.ArgumentTypeError(
+          f'Invalid newline value: {json.dumps(values)}.'
+          ' Must be one of {auto, lf, crlf, cr}')
+    setattr(namespace, self.dest, newline)
+
+
+def _WriteToBuffer(rendered: str, template_newline: Optional[str],
+                   output_newline: Optional[str], buffer_io: BinaryIO):
+  with io.StringIO(rendered, newline=template_newline) as rendered_io:
+    with io.StringIO(newline=output_newline) as output_io:
+      for line in rendered_io:
+        output_io.write(line)
+      rendered_bytes = output_io.getvalue().encode()
+      buffer_io.write(rendered_bytes)
+
+
+def _WriteToFile(rendered: str, template_newline: Optional[str],
+                 output_io: TextIO):
+  with io.StringIO(rendered, newline=template_newline) as rendered_io:
+    for line in rendered_io:
+      output_io.write(line)
+
+
+class _CustomRichHelpFormatter(RichHelpFormatter):
+
+  def __init__(self, *args, **kwargs):
+    if kwargs.get('width') is None:
+      width, _ = get_terminal_size()
+      if width == 0:
+        warnings.warn('Terminal width was set to 0, using default width of 80.',
+                      RuntimeWarning,
+                      stacklevel=0)
+        # This is the default in get_terminal_size().
+        width = 80
+      # This is what HelpFormatter does to the width returned by
+      # `get_terminal_size()`.
+      width -= 2
+      kwargs['width'] = width
+    super().__init__(*args, **kwargs)
+
+
+def main() -> None:
   console = Console(file=sys.stderr)
   args: Optional[argparse.Namespace] = None
   try:
     # Windows<10 requires this.
     colorama.init()
 
-    parser = argparse.ArgumentParser(prog=_GetProgramName(),
-                                     description=__doc__,
-                                     formatter_class=RichHelpFormatter)
-    parser.add_argument('-t',
-                        '--template',
-                        type=str,
-                        required=True,
-                        help='Path to the template file. Use "-" for stdin.')
-    parser.add_argument(
+    p = argparse.ArgumentParser(prog=_GetProgramName(),
+                                description=__doc__,
+                                formatter_class=_CustomRichHelpFormatter)
+    p.add_argument('-t',
+                   '--template',
+                   type=str,
+                   required=True,
+                   help='Path to the template file. Use "-" for stdin.')
+    p.add_argument(
         '--cwd',
         type=Path,
         default=Path.cwd(),
         help='Directory to use as the base for snippet paths in the template.'
         ' Defaults to the current working directory.')
-    parser.add_argument(
+    p.add_argument(
         '-a',
         '--args',
         type=json.loads,
@@ -193,26 +275,34 @@ def main() -> int:
         ' Any extra values the user wishes to pass to the template, e.g.'
         " `{'name': 'John'}` if they wish to render variables as Jinja2 is"
         ' capable of. Defaults to {}.')
-    parser.add_argument(
+    p.add_argument(
         '--templates-searchpath',
         type=Path,
         default=None,
         help='Path to the directory with templates for include directives etc.'
         ' Defaults to None, which means nothing can be included using Jinja2\'s'
         ' include directives, which most users won\'t be needing.')
-    parser.add_argument(
+    p.add_argument(
         '-o',
         '--output',
         type=str,
         default='-',
         help='Path to the output file. Use "-" for stdout. Defaults to "-".')
-    parser.add_argument(
+    p.add_argument(
         '--rm',
         action='store_true',
         default=False,
         help='Remove any existing file at the output path, before writing the new'
         ' one; useful if the existing file might be write protected.')
-    parser.add_argument(
+    p.add_argument(
+        '-f',
+        '--force',
+        action='store_true',
+        default=False,
+        help='Force remove the existing file at the output path, before writing'
+        ' the new one; useful if the existing file might be write protected.'
+        ' Defaults to False.')
+    p.add_argument(
         '--check',
         action='store_true',
         default=False,
@@ -220,7 +310,7 @@ def main() -> int:
         ' exit with a non-zero status code if it is not. Does not write the'
         ' file. Ignores options that modify the file (e.g --rm and --chmod-ro).'
         ' Useful for CI pipelines. Defaults to False.')
-    parser.add_argument(
+    p.add_argument(
         '--warning-message',
         type=str,
         default=DEFAULT_WARNING,
@@ -228,7 +318,7 @@ def main() -> int:
         'Warning message to include in the output file. To prevent accidentally'
         ' editing generated file. Defaults to the default warning message.')
 
-    chmod_group = parser.add_mutually_exclusive_group(required=False)
+    chmod_group = p.add_mutually_exclusive_group(required=False)
     chmod_group.add_argument(
         '--chmod-ro',
         action='store_true',
@@ -247,12 +337,27 @@ def main() -> int:
         ' Change the mode (permissions) of the output file, an octant (see chmod'
         ' help for more info) e.g 444 or 555. To prevent accidentally editing'
         ' generated file. Defaults to None.')
+    p.add_argument('--template-newline',
+                   action=_NewlineAction,
+                   metavar='{auto,lf,crlf,cr}',
+                   default=None,
+                   required=False,
+                   help=_NEWLINE_HELP)
+    p.add_argument('--output-newline',
+                   action=_NewlineAction,
+                   metavar='{auto,lf,crlf,cr}',
+                   default=None,
+                   required=False,
+                   help=_NEWLINE_HELP)
 
-    parser.add_argument('--version',
-                        action='version',
-                        version=_build_version,
-                        help='Show the version and exit.')
-    args = parser.parse_args()
+    p.add_argument('--version',
+                   action='version',
+                   version=_build_version,
+                   help='Show the version and exit.')
+    args = p.parse_args()
+
+    template_newline: Optional[str] = args.template_newline
+    output_newline: Optional[str] = args.output_newline
 
     if args.rm and args.output == '-':
       raise ValueError('Cannot use --rm with stdout')
@@ -262,7 +367,7 @@ def main() -> int:
       raise ValueError('Cannot use --chmod-ro with stdout')
     if args.check and args.output == '-':
       raise ValueError('Cannot use --check with stdout')
-
+    ############################################################################
     template_file_name: str = args.template
     template_string: str
     if template_file_name != '-':
@@ -276,37 +381,84 @@ def main() -> int:
         #
         # TODO: Do we want this behavior?
         template_file_name = str(template_file_path.relative_to(args.cwd))
-      template_string = template_file_path.read_text()
+      with template_file_path.open('r', encoding=None,
+                                   newline=template_newline) as f:
+        template_string = f.read()
     else:
       # Template is to be read from stdin.
-      template_string = sys.stdin.read()
-
+      if template_newline is None:
+        # Simple case, nothing was specified for newlines.
+        template_string = sys.stdin.read()
+      else:
+        template_buffer: bytes = sys.stdin.buffer.read()
+        decode_kwargs: Dict[str, Any] = {}
+        with io.StringIO(template_buffer.decode(**decode_kwargs),
+                         newline=template_newline) as template_io:
+          template_string = template_io.read()
+    ############################################################################
     rendered = Snipinate(template_file_name=template_file_name,
                          template_string=template_string,
                          cwd=args.cwd,
                          template_args=args.args,
                          templates_searchpath=args.templates_searchpath,
                          warning_message=args.warning_message)
-
+    ############################################################################
     if args.output == '-':
-      sys.stdout.write(rendered)
-      return 0
+      # Deal with the stdout case.
+      if output_newline is not None and template_newline is None:
+        # Simple case, nothing was specified for newlines, use python defaults.
+        sys.stdout.write(rendered)
+        sys.exit(0)
+        return
+      else:
+        # Transfer the text from the rendered string to stdout, with the
+        # specified newlines.
+        if output_newline is None:
+          _WriteToFile(rendered=rendered,
+                       template_newline=template_newline,
+                       output_io=sys.stdout)
+        else:
+          # This seems like the only clean way to write custom newlines to
+          # stdout.
+          _WriteToBuffer(rendered=rendered,
+                         template_newline=template_newline,
+                         output_newline=output_newline,
+                         buffer_io=sys.stdout.buffer)
+        sys.exit(0)
+        return
+    ############################################################################
     output_path = Path(args.output)
-
+    ############################################################################
     if args.check:
       original_output: Optional[str] = None
       if output_path.exists():
-        original_output = output_path.read_text(encoding='utf-8')
-      return 0 if rendered == original_output else 1
-
+        with output_path.open('r', encoding=None, newline=output_newline) as f:
+          original_output = f.read()
+      sys.exit(0 if rendered == original_output else 1)
+      return
+    ############################################################################
     if output_path.exists() and args.rm:
-      output_path.unlink()
-    output_path.write_text(rendered, encoding='utf-8')
+      try:
+        output_path.unlink()
+      except PermissionError:
+        if not args.force:
+          raise
+        _MakeWritable(output_path, console=console)
+        output_path.unlink()
 
-    ##############################################################################
+    if template_newline is None and output_newline is None:
+      # Simple case, nothing was specified for newlines, use python defaults.
+      output_path.write_text(rendered, encoding=None)
+    else:
+      with output_path.open('w', encoding=None,
+                            newline=output_newline) as output_file:
+        _WriteToFile(rendered=rendered,
+                     template_newline=template_newline,
+                     output_io=output_file)
+    ############################################################################
     if args.chmod_ro:
       _MakeReadonly(output_path, console=console)
-    ##############################################################################
+    ############################################################################
     if args.chmod:
       warnings.warn('The --chmod option is deprecated, use --chmod-ro instead.',
                     DeprecationWarning,
@@ -317,14 +469,17 @@ def main() -> int:
       console.print(f'Changed mode of {output_path} to {mode8}',
                     style='bold green')
 
-    ##############################################################################
-    return 0
+    ############################################################################
+    sys.exit(0)
+    return
   except Exception:
     console.print_exception()
     if args:
       console.print('args:', args._get_kwargs(), style='bold red')
 
     sys.exit(1)
+    return
 
 
-sys.exit(main())
+if __name__ == '__main__':
+  main()

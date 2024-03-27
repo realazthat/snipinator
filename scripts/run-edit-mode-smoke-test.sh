@@ -15,9 +15,6 @@ function cleanup {
 trap cleanup EXIT
 
 ################################################################################
-VENV_PATH="${PWD}/.cache/scripts/.venv" \
-  source "${PROJ_PATH}/scripts/utilities/ensure-venv.sh"
-################################################################################
 
 
 # Copy everything including hidden files, but ignore errors.
@@ -33,10 +30,10 @@ find "${TMP_PROJ_PATH}" -type f -not -path '*/.*' -exec chmod 777 {} +
 ################################################################################
 # Install snipinator and run smoke test
 cd "${TMP_DIR}"
+cp "${PROJ_PATH}/.python-version" .
 pip install virtualenv
 python -m virtualenv .venv
 pip install --upgrade pip
-cp "${PROJ_PATH}/.python-version" .
 VENV_PATH="${TMP_DIR}/.venv" source "${PROJ_PATH}/scripts/utilities/ensure-venv.sh"
 
 EXIT_CODE=0

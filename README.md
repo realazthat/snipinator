@@ -99,7 +99,7 @@ class MyClass:
 pip install snipinator
 
 # Install from git (https://github.com/realazthat/snipinator)
-pip install git+https://github.com/realazthat/snipinator.git@v1.0.9
+pip install git+https://github.com/realazthat/snipinator.git@v1.1.0
 ```
 
 ### Use
@@ -300,6 +300,7 @@ def shell(args: str,
                       str] = 'raw',
           rich_alt: Optional[str] = None,
           rich_bg_color: Optional[str] = None,
+          rich_term: Optional[str] = None,
           rich_rows: int = 24,
           rich_cols: int = 80,
           include_args: bool = True,
@@ -347,6 +348,8 @@ def shell(args: str,
         output. Valid colors include anything valid for SVG colors. See
         <https://developer.mozilla.org/en-US/docs/Web/CSS/color>. Defaults to
         None (fully transparent).
+      rich_term: (Optional[str], optional): Sets the TERM env var. Defaults to
+        None, which uses whatever the env vars already have.
       rich_rows (int, optional): The number of rows to use for the terminal
         output. Doesn't seem to have much effect. Defaults to 24.
       rich_cols (int, optional): The number of columns to use for the terminal
@@ -448,11 +451,30 @@ Main libraries used in Snipinator are:
 
 ## Contributions
 
+### Development environment: Linux-like
+
+- For running `pre.sh` (Linux-like environment).
+  - Requires `pyenv`, or an exact matching version of python as in
+    `.python-version` (which is currently
+    `3.8.0
+`).
+  - `jq`, ([installation](https://jqlang.github.io/jq/)) required for
+    [yq](https://github.com/kislyuk/yq), which is itself required for our
+    `README.md` generation, which uses `tomlq` (from the
+    [yq](https://github.com/kislyuk/yq) package) to include version strings from
+    `pyproject.toml`.
+  - `bash`, `grep`, `awk`, `sed` `xxd`, `git`, `xxhash` (for tests/workflows).
+  - Requires nodejs (for act).
+  - Requires Go (to run act).
+  - docker (for act).
+
+### Commit Process
+
 1. (Optionally) Fork the `develop` branch.
 2. Stage your files: `git add path/to/file.py`.
 3. `bash scripts/pre.sh`, this will format, lint, and test the code.
-4. `git status` check if anything changed (generated README for example), if so,
-   `git add` the changes, and go back to the previous step.
+4. `git status` check if anything changed (generated `README.md` for
+   example), if so, `git add` the changes, and go back to the previous step.
 5. `git commit -m "..."`.
 6. Make a PR to `develop` (or push to develop if you have the rights).
 
@@ -467,7 +489,7 @@ These instructions are for maintainers of the project.
    `last_stable_release` in the `[tool.snipinator-project-metadata]` table as
    appropriate.
 3. `develop` branch: Commit these changes with a message like "Prepare release
-   X.Y.Z". (See the contributions section [above](#contributions)).
+   X.Y.Z". (See the contributions section [above](#commit-process)).
 4. `master` branch: Merge the `develop` branch into the `master` branch:
    `git checkout master && git merge develop --no-ff`.
 5. `master` branch: Tag the release: Create a git tag for the release with
@@ -485,21 +507,21 @@ These instructions are for maintainers of the project.
 [4]: https://img.shields.io/pypi/v/snipinator
 [5]: https://pypi.org/project/snipinator/
 [6]:
-  https://img.shields.io/github/commits-since/realazthat/snipinator/v1.0.9/master
+  https://img.shields.io/github/commits-since/realazthat/snipinator/v1.1.0/master
 [7]: https://img.shields.io/github/last-commit/realazthat/snipinator/master
 [8]: https://img.shields.io/pypi/pyversions/snipinator
 [9]:
   https://img.shields.io/github/languages/top/realazthat/snipinator.svg?&cacheSeconds=28800
 [10]:
-  https://github.com/realazthat/snipinator/compare/v1.0.9...master
+  https://github.com/realazthat/snipinator/compare/v1.1.0...master
 [11]:
   https://github.com/realazthat/snipinator/actions/workflows/build-and-test.yml/badge.svg?branch=develop
 [12]:
-  https://img.shields.io/github/commits-since/realazthat/snipinator/v1.0.9/develop
+  https://img.shields.io/github/commits-since/realazthat/snipinator/v1.1.0/develop
 [13]:
-  https://github.com/realazthat/snipinator/compare/v1.0.9...develop
+  https://github.com/realazthat/snipinator/compare/v1.1.0...develop
 [14]: https://img.shields.io/github/last-commit/realazthat/snipinator/develop
 [15]:
-  https://img.shields.io/github/commits-since/realazthat/snipinator/v1.0.9/develop
+  https://img.shields.io/github/commits-since/realazthat/snipinator/v1.1.0/develop
 [16]:
-  https://github.com/realazthat/snipinator/compare/v1.0.9...develop
+  https://github.com/realazthat/snipinator/compare/v1.1.0...develop

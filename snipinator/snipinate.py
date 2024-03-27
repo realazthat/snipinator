@@ -11,6 +11,7 @@ import base64
 import html
 import json
 import logging
+import os
 import subprocess
 import sys
 import textwrap
@@ -355,8 +356,16 @@ def path(path: str,
     return path_str
 
 
-def _ExecuteANSI(args: str, cwd: Path, rows: int, cols: int) -> str:
-  pty = pexpect.spawn(args, cwd=str(cwd), dimensions=(rows, cols))
+def _ExecuteANSI(args: str, cwd: Path, term: Optional[str], rows: int,
+                 cols: int) -> str:
+  env = os.environ.copy()
+  if term is not None:
+    env['TERM'] = term
+  pty = pexpect.spawn(
+      args,
+      cwd=str(cwd),
+      env=env,  # type: ignore
+      dimensions=(rows, cols))
   return pty.read().decode()
 
 
@@ -463,6 +472,7 @@ def shell(args: str,
                       str] = 'raw',
           rich_alt: Optional[str] = None,
           rich_bg_color: Optional[str] = None,
+          rich_term: Optional[str] = None,
           rich_rows: int = 24,
           rich_cols: int = 80,
           include_args: bool = True,
@@ -510,6 +520,8 @@ def shell(args: str,
         output. Valid colors include anything valid for SVG colors. See
         <https://developer.mozilla.org/en-US/docs/Web/CSS/color>. Defaults to
         None (fully transparent).
+      rich_term: (Optional[str], optional): Sets the TERM env var. Defaults to
+        None, which uses whatever the env vars already have.
       rich_rows (int, optional): The number of rows to use for the terminal
         output. Doesn't seem to have much effect. Defaults to 24.
       rich_cols (int, optional): The number of columns to use for the terminal
@@ -549,7 +561,11 @@ def shell(args: str,
       output += '\n'
   elif (rich in ['svg', 'img+svg']
         or isinstance(rich, str) and rich.endswith('.svg')):
-    output = _ExecuteANSI(args, cwd=_ctx.cwd, rows=rich_rows, cols=rich_cols)
+    output = _ExecuteANSI(args,
+                          cwd=_ctx.cwd,
+                          term=rich_term,
+                          rows=rich_rows,
+                          cols=rich_cols)
     svg = _GetTerminalSVG(args=args,
                           terminal_output=output,
                           cols=rich_cols,

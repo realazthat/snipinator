@@ -45,7 +45,7 @@
     "Author": "Jason R. Coombs",
     "License": "Apache Software License",
     "Name": "importlib_metadata",
-    "Version": "7.0.2"
+    "Version": "7.1.0"
   },
   {
     "Author": "Chris Sewell <chrisj_sewell@hotmail.com>",

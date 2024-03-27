@@ -7,64 +7,85 @@ source "${SCRIPT_DIR}/common.sh"
 
 TOML=${TOML:-""}
 EXTRA=${EXTRA:-""}
+DEV_VENV_PATH=${DEV_VENV_PATH:-}
+TARGET_VENV_PATH=${TARGET_VENV_PATH:-}
 
+if [[ $(realpath "$0"||true) == $(realpath "${BASH_SOURCE[0]}"||true) ]]; then
+  :
+else
+  echo -e "${RED}This script should NOT be sourced, execute it like a normal script.${NC}"
+  return 1
+fi
 if [[ -z "${TOML}" ]]; then
   echo -e "${RED}TOML is not set${NC}"
-  [[ $0 == "${BASH_SOURCE[0]}" ]] && EXIT="exit" || EXIT="return"
+  [[ $(realpath "$0"||true) == $(realpath "${BASH_SOURCE[0]}"||true) ]] && EXIT="exit" || EXIT="return"
   ${EXIT} 1
 fi
-
 
 if [[ "${EXTRA}" == "dev" ]]; then
-  OUTPUT_REQUIREMENTS_FILE="${PWD}/.cache/scripts/dev-requirements.txt"
-  SYNC_TOUCH_FILE="${PWD}/.cache/scripts/dev-pip-sync-touched"
+  :
 elif [[ "${EXTRA}" == "prod" ]]; then
-  OUTPUT_REQUIREMENTS_FILE="${PWD}/.cache/scripts/prod-requirements.txt"
-  SYNC_TOUCH_FILE="${PWD}/.cache/scripts/prod-pip-sync-touched"
+  :
 else
   echo -e "${RED}EXTRA should be either dev or prod${NC}"
-
-  [[ $0 == "${BASH_SOURCE[0]}" ]] && EXIT="exit" || EXIT="return"
+  [[ $(realpath "$0"||true) == $(realpath "${BASH_SOURCE[0]}"||true) ]] && EXIT="exit" || EXIT="return"
   ${EXIT} 1
 fi
+if [[ -z "${DEV_VENV_PATH}" ]]; then
+  echo -e "${RED}DEV_VENV_PATH is not set${NC}"
+  [[ $(realpath "$0"||true) == $(realpath "${BASH_SOURCE[0]}"||true) ]] && EXIT="exit" || EXIT="return"
+  ${EXIT} 1
+fi
+if [[ -z "${TARGET_VENV_PATH}" ]]; then
+  echo -e "${RED}TARGET_VENV_PATH is not set${NC}"
+  [[ $(realpath "$0"||true) == $(realpath "${BASH_SOURCE[0]}"||true) ]] && EXIT="exit" || EXIT="return"
+  ${EXIT} 1
+fi
+################################################################################
+# Get the target python executable, where we want to install all the
+# requirements to.
+VENV_PATH=${TARGET_VENV_PATH} source "${PROJ_PATH}/scripts/utilities/ensure-venv.sh"
+PYTHON_EXECUTABLE=$(command -v python)
+################################################################################
+# Activate the dev venv to install pip-tools to etc.
+VENV_PATH=${DEV_VENV_PATH} source "${PROJ_PATH}/scripts/utilities/ensure-venv.sh"
+################################################################################
 
-export TOUCH_FILE=${SYNC_TOUCH_FILE}
+SYNC_TOUCH_FILE="${PWD}/.cache/scripts/${EXTRA}-requirements.touch"
+OUTPUT_REQUIREMENTS_FILE="${PWD}/.cache/scripts/${EXTRA}-requirements.txt"
+
 export FILE=${TOML}
+export TOUCH_FILE=${SYNC_TOUCH_FILE}
 if bash "${PROJ_PATH}/scripts/utilities/is_not_dirty.sh"; then
   echo -e "${GREEN}Syncing is not needed${NC}"
-
-  [[ $0 == "${BASH_SOURCE[0]}" ]] && EXIT="exit" || EXIT="return"
+  [[ $(realpath "$0"||true) == $(realpath "${BASH_SOURCE[0]}"||true) ]] && EXIT="exit" || EXIT="return"
   ${EXIT} 0
 fi
 echo -e "${BLUE}Syncing requirements${NC}"
 
 python -m pip install pip-tools
-ARGS=()
-if [[ "${EXTRA}" == "dev" ]]; then
-  ARGS+=("--extra" "dev")
-fi
 
 mkdir -p "$(dirname "${OUTPUT_REQUIREMENTS_FILE}")"
 python -m piptools compile \
-    "${ARGS[@]}" \
+    --extra "${EXTRA}" \
     -o "${OUTPUT_REQUIREMENTS_FILE}" \
     "${TOML}"
 
-pip-sync "${OUTPUT_REQUIREMENTS_FILE}"
+python -m piptools sync "${OUTPUT_REQUIREMENTS_FILE}" \
+  --python-executable "${PYTHON_EXECUTABLE}"
 
-export TOUCH_FILE=${SYNC_TOUCH_FILE}
 export FILE=${TOML}
+export TOUCH_FILE=${SYNC_TOUCH_FILE}
 bash "${PROJ_PATH}/scripts/utilities/mark_dirty.sh"
 
-export TOUCH_FILE=${SYNC_TOUCH_FILE}
 export FILE=${TOML}
+export TOUCH_FILE=${SYNC_TOUCH_FILE}
 if bash "${PROJ_PATH}/scripts/utilities/is_not_dirty.sh"; then
   :
 else
   echo -e "${RED}Syncing failed${NC}"
-
-  [[ $0 == "${BASH_SOURCE[0]}" ]] && EXIT="exit" || EXIT="return"
+  [[ $(realpath "$0"||true) == $(realpath "${BASH_SOURCE[0]}"||true) ]] && EXIT="exit" || EXIT="return"
   ${EXIT} 1
 fi
 
-echo -e "${GREEN}Synced requirements${NC}"
+echo -e "${GREEN}Synced requirements for ${EXTRA}, using ${OUTPUT_REQUIREMENTS_FILE}${NC}"

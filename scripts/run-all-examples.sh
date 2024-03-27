@@ -6,7 +6,10 @@ SCRIPT_DIR=$(realpath "$(dirname "${BASH_SOURCE[0]}")")
 source "${SCRIPT_DIR}/utilities/common.sh"
 
 VENV_PATH="${PWD}/.venv" source "${PROJ_PATH}/scripts/utilities/ensure-venv.sh"
-TOML=${PROJ_PATH}/pyproject.toml EXTRA=prod source "${PROJ_PATH}/scripts/utilities/ensure-reqs.sh"
+TOML=${PROJ_PATH}/pyproject.toml EXTRA=prod \
+  DEV_VENV_PATH="${PWD}/.cache/scripts/.venv" \
+  TARGET_VENV_PATH="${PWD}/.venv" \
+  bash "${PROJ_PATH}/scripts/utilities/ensure-reqs.sh"
 
 # For each sh in snipinator/examples
 find snipinator/examples -type f -name "*.sh" -print0 | while IFS= read -r -d '' EXAMPLE; do

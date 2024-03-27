@@ -13,12 +13,6 @@ if [[ -z "${TOUCH_FILE:-}" ]]; then
   ${EXIT} 1
 fi
 
-if [[ -z "${TOUCH_FILE:-}" ]]; then
-  echo -e "${RED}TOUCH_FILE is not set${NC}"
-  [[ $0 == "${BASH_SOURCE[0]}" ]] && EXIT="exit" || EXIT="return"
-  ${EXIT} 1
-fi
-
 if [[ -z "${FILE:-}" ]]; then
   echo -e "${RED}FILE is not set${NC}"
   [[ $0 == "${BASH_SOURCE[0]}" ]] && EXIT="exit" || EXIT="return"

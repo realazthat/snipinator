@@ -17,6 +17,10 @@ trap cleanup EXIT
 ################################################################################
 VENV_PATH="${PWD}/.cache/scripts/.venv" \
   source "${PROJ_PATH}/scripts/utilities/ensure-venv.sh"
+TOML=${PROJ_PATH}/pyproject.toml EXTRA=dev \
+  DEV_VENV_PATH="${PWD}/.cache/scripts/.venv" \
+  TARGET_VENV_PATH="${PWD}/.cache/scripts/.venv" \
+  bash "${PROJ_PATH}/scripts/utilities/ensure-reqs.sh"
 ################################################################################
 # Build wheel
 cd "${TMP_PROJ_PATH}"
@@ -40,9 +44,9 @@ python -m build --outdir "${DIST}" "${TMP_PROJ_PATH}"
 ################################################################################
 # Install snipinator and run smoke test
 cd "${TMP_DIR}"
+cp "${PROJ_PATH}/.python-version" .
 pip install virtualenv
 python -m virtualenv .venv
-cp "${PROJ_PATH}/.python-version" .
 VENV_PATH="${TMP_DIR}/.venv" source "${PROJ_PATH}/scripts/utilities/ensure-venv.sh"
 
 EXIT_CODE=0

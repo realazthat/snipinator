@@ -15,6 +15,7 @@ import sys
 import time
 import warnings
 from pathlib import Path
+from shutil import get_terminal_size
 from typing import Any, BinaryIO, Callable, Dict, List, Optional, TextIO
 
 import colorama
@@ -226,6 +227,24 @@ def _WriteToFile(rendered: str, template_newline: Optional[str],
       output_io.write(line)
 
 
+class _CustomRichHelpFormatter(RichHelpFormatter):
+
+  def __init__(self, *args, **kwargs):
+    if kwargs.get('width') is None:
+      width, _ = get_terminal_size()
+      if width == 0:
+        warnings.warn('Terminal width was set to 0, using default width of 80.',
+                      RuntimeWarning,
+                      stacklevel=0)
+        # This is the default in get_terminal_size().
+        width = 80
+      # This is what HelpFormatter does to the width returned by
+      # `get_terminal_size()`.
+      width -= 2
+      kwargs['width'] = width
+    super().__init__(*args, **kwargs)
+
+
 def main() -> None:
   console = Console(file=sys.stderr)
   args: Optional[argparse.Namespace] = None
@@ -235,7 +254,7 @@ def main() -> None:
 
     p = argparse.ArgumentParser(prog=_GetProgramName(),
                                 description=__doc__,
-                                formatter_class=RichHelpFormatter)
+                                formatter_class=_CustomRichHelpFormatter)
     p.add_argument('-t',
                    '--template',
                    type=str,

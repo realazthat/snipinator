@@ -482,22 +482,27 @@ Main libraries used in Snipinator are:
 
 These instructions are for maintainers of the project.
 
-1. `develop` branch: Run `bash scripts/pre.sh` to ensure everything
-   is in order.
-2. `develop` branch: Bump the version in `pyproject.toml`, following
-   semantic versioning principles. Also modify the `last_unstable_release` and
-   `last_stable_release` in the `[tool.snipinator-project-metadata]` table as
-   appropriate.
-3. `develop` branch: Commit these changes with a message like "Prepare release
-   X.Y.Z". (See the contributions section [above](#commit-process)).
-4. `master` branch: Merge the `develop` branch into the `master` branch:
+1. In the `develop` branch, run `bash scripts/pre.sh` to ensure
+   everything is in order.
+2. In the `develop` branch, bump the version in `pyproject.toml`,
+   following semantic versioning principles. Also modify the
+   `last_unstable_release` and `last_stable_release` in the
+   `[tool.changeguard-project-metadata]` table as appropriate.
+3. In the `develop` branch, commit these changes with a message like
+   `"Prepare release X.Y.Z"`. (See the contributions section
+   [above](#commit-process)).
+4. Merge the `develop` branch into the `master` branch:
    `git checkout master && git merge develop --no-ff`.
 5. `master` branch: Tag the release: Create a git tag for the release with
    `git tag -a vX.Y.Z -m "Version X.Y.Z"`.
 6. Publish to PyPI: Publish the release to PyPI with
    `bash scripts/deploy-to-pypi.sh`.
-7. Push to GitHub: Push the commit and tags to GitHub with `git push` and
-   `git push --tags`.
+7. Push to GitHub: Push the commit and tags to GitHub with
+   `git push && git push --tags`.
+8. The `--no-ff` option adds a commit to the master branch for the merge, so
+   refork the develop branch from the master branch:
+   `git checkout develop && git merge master`.
+9. Push the develop branch to GitHub: `git push origin develop`.
 
 [1]:
   https://github.com/realazthat/snipinator/actions/workflows/build-and-test.yml/badge.svg?branch=master

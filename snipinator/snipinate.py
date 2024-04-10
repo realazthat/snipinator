@@ -625,9 +625,12 @@ def shell(args: str,
 
 def _is_relative_to(path: Path, other: Path) -> bool:
   """Backport of Path.is_relative_to for Python < 3.9."""
-  absolute_path = path.resolve()
-  other_absolute = other.resolve()
-  return str(absolute_path).startswith(str(other_absolute))
+  if sys.version_info < (3, 9):
+    absolute_path = path.resolve()
+    other_absolute = other.resolve()
+    return str(absolute_path).startswith(str(other_absolute))
+  else:
+    return path.is_relative_to(other)
 
 
 def _CheckPath(*, path: str, cwd: Path) -> Path:

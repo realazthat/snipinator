@@ -608,11 +608,13 @@ def shell(args: str,
 
       output = f'<img src="{str(template_rel_svg_path)}" {alt_attr}/>'
     else:
-      raise ValueError(f'Unsupported rich format: {json.dumps(rich)}')
+      raise ValueError(
+          f'Unsupported rich format: {json.dumps(rich)} it should'
+          ' be "raw", "svg", or "img+svg", or a file path ending with ".svg"')
   else:
     raise ValueError(
-        f'Unsupported rich format: {json.dumps(rich)}, it should be "raw", "svg", or "img+svg", or a file path ending with ".svg"'
-    )
+        f'Unsupported rich format: {json.dumps(rich)}, it should be "raw",'
+        ' "svg", or "img+svg", or a file path ending with ".svg"')
 
   output = _Backtickify(output, backtickify=backtickify)
   output = _Indent(output, indent=indent)

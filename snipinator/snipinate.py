@@ -123,7 +123,7 @@ def pysignature(path: str,
                 escape: bool = False,
                 indent: Union[str, int, None] = None,
                 backtickify: Union[bool, str] = False,
-                decomentify: bool = False,
+                decomentify: Union[bool, Literal['nl']] = False,
                 _ctx: _Context) -> str:
   """Return the signature of a class or function in a python file.
 
@@ -134,15 +134,16 @@ def pysignature(path: str,
       symbol (str): The symbol to extract.
       escape (bool, optional): Should use HTML entities escaping? Defaults to
         False.
-      indent (Union[str, int, None], optional): Should indent? By how much, or with
-        what prefix? Defaults to None.
-      backtickify (Union[bool, str], optional): Should surround with backticks? With
-        what language? Defaults to False.
-      decomentify (bool, optional): Assuming that you will be using HTML
-        comments around this call, setting this to true will add corresponding
-        comments to uncomment the output. This allows you to have the Jinja2
-        call unmolested by markdown formatters, because they will be inside of
-        a comment section. Defaults to False.
+      indent (Union[str, int, None], optional): Should indent? By how much, or
+        with what prefix? Defaults to None.
+      backtickify (Union[bool, str], optional): Should surround with backticks?
+        With what language? Defaults to False.
+      decomentify (Union[bool, Literal['nl']]): Assuming that you will be using
+        HTML comments around this call, setting this to true will add
+        correspondingcomments to uncomment the output. This allows you to have
+        the Jinja2 call unmolested by markdown formatters, because they will be
+        inside of a comment section. "nl" adds additional newlines after the
+        newline delimiters. Defaults to False.
       _ctx (_Context): This is used by the system and is not available as an
         argument.
 
@@ -168,7 +169,7 @@ def pysnippet(path: str,
               escape: bool = False,
               indent: Union[str, int, None] = None,
               backtickify: Union[bool, str] = False,
-              decomentify: bool = False,
+              decomentify: Union[bool, Literal['nl']] = False,
               _ctx: _Context) -> Union[str, markupsafe.Markup]:
   """Return a python snippet, allowing you to specify a class or function.
 
@@ -178,15 +179,16 @@ def pysnippet(path: str,
         returned. Defaults to None.
       escape (bool, optional): Should use HTML entities escaping? Defaults to
         False.
-      indent (Union[str, int, None], optional): Should indent? By how much, or with
-        what prefix? Defaults to None.
-      backtickify (Union[bool, str], optional): Should surround with backticks? With
-        what language? Defaults to False.
-      decomentify (bool, optional): Assuming that you will be using HTML
-        comments around this call, setting this to true will add corresponding
-        comments to uncomment the output. This allows you to have the Jinja2
-        call unmolested by markdown formatters, because they will be inside of
-        a comment section. Defaults to False.
+      indent (Union[str, int, None], optional): Should indent? By how much, or
+        with what prefix? Defaults to None.
+      backtickify (Union[bool, str], optional): Should surround with backticks?
+        With what language? Defaults to False.
+      decomentify (Union[bool, Literal['nl']]): Assuming that you will be using
+        HTML comments around this call, setting this to true will add
+        correspondingcomments to uncomment the output. This allows you to have
+        the Jinja2 call unmolested by markdown formatters, because they will be
+        inside of a comment section. "nl" adds additional newlines after the
+        newline delimiters. Defaults to False.
       _ctx (_Context): This is used by the system and is not available as an
         argument.
 
@@ -214,7 +216,7 @@ def rawsnippet(path: str,
                escape: bool = False,
                indent: Union[str, int, None] = None,
                backtickify: Union[bool, str] = False,
-               decomentify: bool = False,
+               decomentify: Union[bool, Literal['nl']] = False,
                _ctx: _Context) -> Union[str, markupsafe.Markup]:
   """Return an entire file as a snippet.
 
@@ -222,15 +224,16 @@ def rawsnippet(path: str,
       path (str): The path to the file.
       escape (bool, optional): Should use HTML entities escaping? Defaults to
         False.
-      indent (Union[str, int, None], optional): Should indent? By how much, or with
-        what prefix? Defaults to None.
-      backtickify (Union[bool, str], optional): Should surround with backticks? With
-        what language? Defaults to False.
-      decomentify (bool, optional): Assuming that you will be using HTML
-        comments around this call, setting this to true will add corresponding
-        comments to uncomment the output. This allows you to have the Jinja2
-        call unmolested by markdown formatters, because they will be inside of
-        a comment section. Defaults to False.
+      indent (Union[str, int, None], optional): Should indent? By how much, or
+        with what prefix? Defaults to None.
+      backtickify (Union[bool, str], optional): Should surround with backticks?
+        With what language? Defaults to False.
+      decomentify (Union[bool, Literal['nl']]): Assuming that you will be using
+        HTML comments around this call, setting this to true will add
+        correspondingcomments to uncomment the output. This allows you to have
+        the Jinja2 call unmolested by markdown formatters, because they will be
+        inside of a comment section. "nl" adds additional newlines after the
+        newline delimiters. Defaults to False.
       _ctx (_Context): This is used by the system and is not available as an
         argument.
 
@@ -256,7 +259,7 @@ def snippet(path: str,
             escape: bool = False,
             indent: Union[str, int, None] = None,
             backtickify: Union[bool, str] = False,
-            decomentify: bool = False,
+            decomentify: Union[bool, Literal['nl']] = False,
             _ctx: _Context) -> Union[str, markupsafe.Markup]:
   """Returns a _delimited_ snippet from a file.
 
@@ -268,15 +271,16 @@ def snippet(path: str,
       end (str): A string that indicates the end of the snippet.
       escape (bool, optional): Should use HTML entities escaping? Defaults to
         False.
-      indent (Union[str, int, None], optional): Should indent? By how much, or with
-        what prefix? Defaults to None.
-      backtickify (Union[bool, str], optional): Should surround with backticks? With
-        what language? Defaults to False.
-      decomentify (bool, optional): Assuming that you will be using HTML
-        comments around this call, setting this to true will add corresponding
-        comments to uncomment the output. This allows you to have the Jinja2
-        call unmolested by markdown formatters, because they will be inside of
-        a comment section. Defaults to False.
+      indent (Union[str, int, None], optional): Should indent? By how much, or
+        with what prefix? Defaults to None.
+      backtickify (Union[bool, str], optional): Should surround with backticks?
+        With what language? Defaults to False.
+      decomentify (Union[bool, Literal['nl']]): Assuming that you will be using
+        HTML comments around this call, setting this to true will add
+        correspondingcomments to uncomment the output. This allows you to have
+        the Jinja2 call unmolested by markdown formatters, because they will be
+        inside of a comment section. "nl" adds additional newlines after the
+        newline delimiters. Defaults to False.
       _ctx (_Context): This is used by the system and is not available as an
         argument.
 
@@ -313,7 +317,7 @@ def path(path: str,
          escape: bool = False,
          indent: Union[str, int, None] = None,
          backtickify: Union[bool, str] = False,
-         decomentify: bool = False,
+         decomentify: Union[bool, Literal['nl']] = False,
          _ctx: _Context) -> Union[str, markupsafe.Markup]:
   """Verifies that `path` exists, and just returns `path`.
 
@@ -325,15 +329,16 @@ def path(path: str,
       path (str): The path to verify.
       escape (bool, optional): Should use HTML entities escaping? Defaults to
         False.
-      indent (Union[str, int, None], optional): Should indent? By how much, or with
-        what prefix? Defaults to None.
-      backtickify (Union[bool, str], optional): Should surround with backticks? With
-        what language? Defaults to False.
-      decomentify (bool, optional): Assuming that you will be using HTML
-        comments around this call, setting this to true will add corresponding
-        comments to uncomment the output. This allows you to have the Jinja2
-        call unmolested by markdown formatters, because they will be inside of
-        a comment section. Defaults to False.
+      indent (Union[str, int, None], optional): Should indent? By how much, or
+        with what prefix? Defaults to None.
+      backtickify (Union[bool, str], optional): Should surround with backticks?
+        With what language? Defaults to False.
+      decomentify (Union[bool, Literal['nl']]): Assuming that you will be using
+        HTML comments around this call, setting this to true will add
+        correspondingcomments to uncomment the output. This allows you to have
+        the Jinja2 call unmolested by markdown formatters, because they will be
+        inside of a comment section. "nl" adds additional newlines after the
+        newline delimiters. Defaults to False.
       _ctx (_Context): This is used by the system and is not available as an
         argument.
 
@@ -467,7 +472,7 @@ def shell(args: str,
           escape: bool = False,
           indent: Union[str, int, None] = None,
           backtickify: Union[bool, str] = False,
-          decomentify: bool = False,
+          decomentify: Union[bool, Literal['nl']] = False,
           rich: Union[Literal['svg'], Literal['img+b64+svg'], Literal['raw'],
                       str] = 'raw',
           rich_alt: Optional[str] = None,
@@ -608,11 +613,13 @@ def shell(args: str,
 
       output = f'<img src="{str(template_rel_svg_path)}" {alt_attr}/>'
     else:
-      raise ValueError(f'Unsupported rich format: {json.dumps(rich)}')
+      raise ValueError(
+          f'Unsupported rich format: {json.dumps(rich)} it should'
+          ' be "raw", "svg", or "img+svg", or a file path ending with ".svg"')
   else:
     raise ValueError(
-        f'Unsupported rich format: {json.dumps(rich)}, it should be "raw", "svg", or "img+svg", or a file path ending with ".svg"'
-    )
+        f'Unsupported rich format: {json.dumps(rich)}, it should be "raw",'
+        ' "svg", or "img+svg", or a file path ending with ".svg"')
 
   output = _Backtickify(output, backtickify=backtickify)
   output = _Indent(output, indent=indent)
@@ -625,9 +632,12 @@ def shell(args: str,
 
 def _is_relative_to(path: Path, other: Path) -> bool:
   """Backport of Path.is_relative_to for Python < 3.9."""
-  absolute_path = path.resolve()
-  other_absolute = other.resolve()
-  return str(absolute_path).startswith(str(other_absolute))
+  if sys.version_info < (3, 9):
+    absolute_path = path.resolve()
+    other_absolute = other.resolve()
+    return str(absolute_path).startswith(str(other_absolute))
+  else:
+    return path.is_relative_to(other)
 
 
 def _CheckPath(*, path: str, cwd: Path) -> Path:
@@ -823,8 +833,9 @@ def _Backtickify(text: str, *, backtickify: Union[bool, str]) -> str:
     return text
 
 
-def _Decomentify(text: str, *, decomentify: bool) -> str:
-  if decomentify:
-    return '-->' + text + '<!--'
-  else:
+def _Decomentify(text: str, *, decomentify: Union[bool, Literal['nl']]) -> str:
+  if decomentify is False:
     return text
+  if decomentify == 'nl':
+    text = f'\n{text}\n'
+  return '-->' + text + '<!--'

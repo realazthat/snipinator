@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "snipinator"
-version = "1.1.0"
+version = "1.2.0"
 description = "Python code snippets for markdown files, e.g READMEs, from actual (testable) code."
 authors = [{name = "AYF", email = "realazthat@gmail.com"}]
 license = {file = "LICENSE.md"}
@@ -81,6 +81,7 @@ dev = [
   "certifi==2024.2.2",
   "cffi==1.16.0",
   "cfgv==3.4.0",
+  "changeguard==0.3.1",
   "charset-normalizer==3.3.2",
   "click==8.1.7",
   "colorama==0.4.6",
@@ -111,6 +112,7 @@ dev = [
   "nh3==0.2.15",
   "nodeenv==1.8.0",
   "packaging==23.2",
+  "pathspec==0.12.1",
   "pexpect==4.9.0",
   "pip-licenses==4.3.4",
   "pip-tools==7.3.0",
@@ -133,10 +135,11 @@ dev = [
   "rich-argparse==1.4.0",
   "secretstorage==3.3.3",
   "toml-sort==0.23.1",
-  "tomli==2.0.1 ; python_version < \"3.11\"",
+  "tomli==2.0.1",
   "tomlkit==0.12.4",
   "twine==5.0.0",
   "types-colorama==0.4.15.20240311",
+  "types-pyyaml==6.0.12.20240311",
   "typing-extensions==4.10.0",
   "urllib3==2.2.1",
   "virtualenv==20.25.0",
@@ -160,7 +163,7 @@ Repository = "https://github.com/realazthat/snipinator"
 packages = ["snipinator"]
 
 [tool.snipinator-project-metadata]
-last_unstable_release = "1.1.0"
-last_stable_release = "1.1.0"
+last_unstable_release = "1.2.0"
+last_stable_release = "1.2.0"
 
 [tool.tomlsort]

@@ -2,11 +2,12 @@
 import argparse
 from pathlib import Path
 from typing import List, Tuple
+
 # tomlkit is used, so that everything is preserved, e.g comments etc.
 import tomlkit
-from tomlkit.toml_document import TOMLDocument
 import tomlkit.container
 import tomlkit.items
+from tomlkit.toml_document import TOMLDocument
 
 _VALID_EXTRA_NAMES = ['dev', 'prod']
 

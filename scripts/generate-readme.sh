@@ -15,6 +15,7 @@ TOML=${PROJ_PATH}/pyproject.toml EXTRA=dev \
 
 bash scripts/format.sh
 
+touch "${PROJ_PATH}/snipinator/examples/EXAMPLE.generated.md"
 python -m snipinator.cli \
   -t "${PROJ_PATH}/snipinator/examples/EXAMPLE.md.jinja2" \
   --rm \
@@ -22,6 +23,7 @@ python -m snipinator.cli \
   -o "${PROJ_PATH}/snipinator/examples/EXAMPLE.generated.md" \
   --chmod-ro
 
+touch README.md
 python -m snipinator.cli \
   -t "${PROJ_PATH}/README.md.jinja2" \
   --rm \

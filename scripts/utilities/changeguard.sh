@@ -45,7 +45,7 @@ if [[ "${STEP}" == "pre" ]]; then
 elif [[ "${STEP}" == "post" ]]; then
   # trunk-ignore(shellcheck/SC2310)
   if do_audit; then
-    echo -e "${GREEN}No changes occurred${NC}"
+    echo -e "${GREEN}No changes occurred during the workflow${NC}"
   else
     echo -e "${RED}Error auditing files.${NC}"
     echo -e "${RED}If a post-stage change occurred, you can ignore it by adding it to ${PROJ_PATH}/.gitignore or ${PROJ_PATH}/.changeguard-gitignore.${NC}"

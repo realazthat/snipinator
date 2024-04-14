@@ -5,17 +5,36 @@
                                  include_args=False) | trim %}
 -->
 
-# Snipinator
+# <center>![Snipinator](./.github/logo-exported.svg)</center>
+
+<div align="center">
+
+![**Audience:** Developers](https://img.shields.io/badge/Audience-Developers-8A2BE2?style=plastic&logo=simple-icons)
+
+</div>
+
+<p align="center">
+  <a href="#features">Features</a> &nbsp;&bull;&nbsp;
+  <a href="#installation">Installation</a> &nbsp;&bull;&nbsp;
+  <a href="#usage-research">Usage</a> &nbsp;&bull;&nbsp;
+  <a href="#examples">Examples</a> &nbsp;&bull;&nbsp;
+  <a href="#command-line-options">CLI</a>
+</p>
+
+<div align="center">
 
 ![Top language][9] ![GitHub License][3] [![PyPI - Version][4]][5]
 [![Python Version][8]][5]
+
+</div>
 
 |         | Status                     | Stable                    | Unstable                  |                    |
 | ------- | -------------------------- | ------------------------- | ------------------------- | ------------------ |
 | Master  | [![Build and Test][1]][2]  | [![since tagged][6]][10]  |                           | ![last commit][7]  |
 | Develop | [![Build and Test][11]][2] | [![since tagged][12]][13] | [![since tagged][15]][16] | ![last commit][14] |
 
-CLI to embed snippets from your {python,other} codebases into your `README.md`.
+CLI to embed (testable) snippets from your {python,other} codebases into your
+`README.md`.
 
 ## What
 
@@ -24,11 +43,11 @@ your (working and tested) python codebase.
 
 Turn this (`{{ path('snipinator/examples/EXAMPLE.md.jinja2') }}`):
 
-`{{ rawsnippet('snipinator/examples/EXAMPLE.md.jinja2', backtickify='md') }}`
+<!--{{ rawsnippet('snipinator/examples/EXAMPLE.md.jinja2', backtickify='md', decomentify='nl') }}-->
 
 Into this (`{{ path('snipinator/examples/EXAMPLE.generated.md') }}`):
 
-`{{ rawsnippet('snipinator/examples/EXAMPLE.generated.md', backtickify='md') }}`
+<!--{{ rawsnippet('snipinator/examples/EXAMPLE.generated.md', backtickify='md', decomentify='nl') }}-->
 
 ## Features
 
@@ -37,28 +56,13 @@ Into this (`{{ path('snipinator/examples/EXAMPLE.generated.md') }}`):
   - Can include python function signatures, docstrings, entire function source
     code, classes.
 - Supports any language.
-  - With delimiter markers, or entire inclusion of the entire file.
-- First class support for markdown output (with backtickify, decomentify).
+  - With delimiter markers, or inclusion of the entire file.
 - Can include shell output.
   - Supports ANSI colors with SVG output.
+- More robust references/links to local files using `path()`.
+- First class support for markdown output (with backtickify, decomentify).
 
-## Getting Started
-
-### Install
-
-#### Tested on
-
-- WSL2 Ubuntu 20.04, Python 3.8.0
-- Ubuntu 20.04, Python 3.8.0, 3.9.0, 3.10.0, 3.11.0, 3.12.0, tested in GitHub
-  Actions workflow
-  ([build-and-test.yml](./.github/workflows/build-and-test.yml)).
-
-**Requirements:**
-
-- Linux-like environment
-  - Why: Uses pexpect.spawn().
-- Python 3.8+
-  - Why: Some dev dependencies require Python 3.8+.
+## Installation
 
 ```bash
 # Install from pypi (https://pypi.org/project/snipinator/)
@@ -68,18 +72,32 @@ pip install snipinator
 pip install git+https://github.com/realazthat/snipinator.git@v{{last_stable_release}}
 ```
 
-### Use
+## Usage
 
-Example tempalte README:
+Example template README:
 [`{{path('snipinator/examples/EXAMPLE.md.jinja2')}}`](./snipinator/examples/EXAMPLE.md.jinja2):
 
-`{{ rawsnippet('snipinator/examples/EXAMPLE.md.jinja2', backtickify='md') }}`
+<!--{{ rawsnippet('snipinator/examples/EXAMPLE.md.jinja2', backtickify='md', decomentify='nl') }}-->
 
 Generating the README:
 
-`{{ shell('python -m snipinator.cli -t snipinator/examples/EXAMPLE.md.jinja2', backtickify='bash') }}`
+<!--{{ shell('python -m snipinator.cli -t snipinator/examples/EXAMPLE.md.jinja2', backtickify='bash', decomentify='nl') }}-->
 
-CLI usage help:
+## Requirements
+
+- Linux-like environment
+  - Why: Uses pexpect.spawn().
+- Python 3.8+
+  - Why: Some dev dependencies require Python 3.8+.
+
+## Tested on
+
+- WSL2 Ubuntu 20.04, Python 3.8.0
+- Ubuntu 20.04, Python 3.8.0, 3.9.0, 3.10.0, 3.11.0, 3.12.0, tested in GitHub
+  Actions workflow
+  ([build-and-test.yml](./.github/workflows/build-and-test.yml)).
+
+## Command Line Options
 
 <!--{{ shell('python -m snipinator.cli --help',
              rich='README.help.generated.svg',
@@ -87,24 +105,60 @@ CLI usage help:
              rich_bg_color='black',
              rich_term='xterm-256color',
              rich_cols=160,
-             decomentify=True) }}-->
+             decomentify='nl') }}-->
 
-## Available Functions in Jinja2
+## Examples
 
-`{{ pysignature(path='snipinator/snipinate.py', symbol='pysnippet', backtickify='py') }}`
+- Snipinator's own `README` at
+  [`{{path('./README.md.jinja2')}}`](./README.md.jinja2).
+  - Generated: [`{{path('./README.md')}}`](./README.md).
+  - Generation script:
+    [`{{path('./scripts/generate-readme.sh')}}`](./scripts/generate-readme.sh).
+- [`{{path('snipinator/examples/EXAMPLE.md.jinja2')}}`](./snipinator/examples/EXAMPLE.md.jinja2).
+  - Generated:
+    [`{{path('snipinator/examples/EXAMPLE.generated.md')}}`](./snipinator/examples/EXAMPLE.generated.md).
+  - Generation script:
+    [`{{path('./snipinator/examples/example.sh')}}`](./snipinator/examples/example.sh).
+- [`{{path('snipinator/examples/LONG-EXAMPLE.md.jinja2')}}`](./snipinator/examples/LONG-EXAMPLE.md.jinja2).
+  - Generated:
+    [`{{path('snipinator/examples/LONG-EXAMPLE.generated.md')}}`](./snipinator/examples/LONG-EXAMPLE.generated.md).
+  - Generation script:
+    [`{{path('./snipinator/examples/long-example.sh')}}`](./snipinator/examples/long-example.sh).
+- Projects using Snipinator
+  - [github.com/realazthat/snipinator](https://github.com/realazthat/snipinator),
+    See
+    [`snipinator/README.md.jinja2`](https://github.com/realazthat/snipinator/blob/61cb88593baa099dc375cf5fd40679e4be673fc5/README.md.jinja2).
+  - [github.com/realazthat/changeguard](https://github.com/realazthat/changeguard),
+    See
+    [`changeguard/README.md.jinja2`](https://github.com/realazthat/changeguard/blob/87d5104b52e651bb9195a3d46dd7f050acbcb534/README.md.jinja2).
+  - [github.com/realazthat/comfy-catapult](https://github.com/realazthat/comfy-catapult),
+    See
+    [`comfy-catapult/README.md.jinja2`](https://github.com/realazthat/comfy-catapult/blob/ff353d48b25fa7b9c35fa11b31d5f2b3039c41c8/README.md.jinja2).
+  - [github.com/realazthat/comfylowda](https://github.com/realazthat/comfylowda),
+    See
+    [`comfylowda/README.md.jinja2`](https://github.com/realazthat/comfylowda/blob/e01a32c38107aa0b89ccea21c4678d193a186a78/README.md.jinja2).
+  - [github.com/realazthat/excalidraw-brute-export-cli](https://github.com/realazthat/excalidraw-brute-export-cli),
+    See
+    [`excalidraw-brute-export-cli/README.md.jinja2`](https://github.com/realazthat/excalidraw-brute-export-cli/blob/54a3b5b08b644e61c721ab565c576094234c5cc7/README.md.jinja2).
 
-`{{ pysignature(path='snipinator/snipinate.py', symbol='pysignature', backtickify='py') }}`
+## API: Available Functions in Jinja2
 
-`{{ pysignature(path='snipinator/snipinate.py', symbol='rawsnippet', backtickify='py') }}`
+<!--{{ pysignature(path='snipinator/snipinate.py', symbol='pysnippet', backtickify='py', decomentify='nl') }}-->
 
-`{{ pysignature(path='snipinator/snipinate.py', symbol='snippet', backtickify='py') }}`
+<!--{{ pysignature(path='snipinator/snipinate.py', symbol='pysignature', backtickify='py', decomentify='nl') }}-->
 
-`{{ pysignature(path='snipinator/snipinate.py', symbol='shell', backtickify='py') }}`
+<!--{{ pysignature(path='snipinator/snipinate.py', symbol='rawsnippet', backtickify='py', decomentify='nl') }}-->
+
+<!--{{ pysignature(path='snipinator/snipinate.py', symbol='snippet', backtickify='py', decomentify='nl') }}-->
+
+<!--{{ pysignature(path='snipinator/snipinate.py', symbol='shell', backtickify='py', decomentify='nl') }}-->
+
+<!--{{ pysignature(path='snipinator/snipinate.py', symbol='path', backtickify='py', decomentify='nl') }}-->
 
 Also see Jinja2 v3
 [Template Designer Documentation](https://jinja.palletsprojects.com/en/3.1.x/templates/).
 
-## Gotchas
+## Gotchas and Limitations
 
 - **Security:** This tool is NOT designed to be used with untrusted input. It is
   designed to be used with your own codebase. Even when using your own input, be
@@ -157,23 +211,10 @@ Also see Jinja2 v3
   it, it will run backtickify first, then indent everything including the
   backticks.
 
-## Examples
+## License
 
-- Snipinator's own `README` at
-  [`{{path('./README.md.jinja2')}}`](./README.md.jinja2).
-  - Generated: [`{{path('./README.md')}}`](./README.md).
-  - Generation script:
-    [`{{path('./scripts/generate-readme.sh')}}`](./scripts/generate-readme.sh).
-- [`{{path('snipinator/examples/EXAMPLE.md.jinja2')}}`](./snipinator/examples/EXAMPLE.md.jinja2).
-  - Generated:
-    [`{{path('snipinator/examples/EXAMPLE.generated.md')}}`](./snipinator/examples/EXAMPLE.generated.md).
-  - Generation script:
-    [`{{path('./snipinator/examples/example.sh')}}`](./snipinator/examples/example.sh).
-- [`{{path('snipinator/examples/LONG-EXAMPLE.md.jinja2')}}`](./snipinator/examples/LONG-EXAMPLE.md.jinja2).
-  - Generated:
-    [`{{path('snipinator/examples/LONG-EXAMPLE.generated.md')}}`](./snipinator/examples/LONG-EXAMPLE.generated.md).
-  - Generation script:
-    [`{{path('./snipinator/examples/long-example.sh')}}`](./snipinator/examples/long-example.sh).
+This project is licensed under the MIT License - see the [`LICENSE`](./LICENSE)
+file for details.
 
 ## Thanks
 
@@ -185,6 +226,15 @@ Main libraries used in Snipinator are:
 - ANSI coloring shell output:
   {[pexpect](https://pexpect.readthedocs.io/en/stable/),
   [rich](https://github.com/Textualize/rich)}.
+
+## Related Projects
+
+- [ARMmbed/snippet](https://github.com/ARMmbed/snippet) "A Python3 tool to
+  extract code snippets from source files".
+- [SimonCropp/MarkdownSnippets](https://github.com/SimonCropp/MarkdownSnippets)
+  "Extracts snippets from code files and merges them into markdown documents".
+- [shiftkey/scribble](https://github.com/shiftkey/scribble) "Making
+  documentation for .NET projects easy and fun".
 
 ## Contributions
 
@@ -245,25 +295,27 @@ These instructions are for maintainers of the project.
   https://github.com/realazthat/snipinator/actions/workflows/build-and-test.yml/badge.svg?branch=master
 [2]:
   https://github.com/realazthat/snipinator/actions/workflows/build-and-test.yml
-[3]: https://img.shields.io/github/license/realazthat/snipinator
-[4]: https://img.shields.io/pypi/v/snipinator
+[3]: https://img.shields.io/github/license/realazthat/snipinator?style=plastic
+[4]: https://img.shields.io/pypi/v/snipinator?style=plastic
 [5]: https://pypi.org/project/snipinator/
 [6]:
-  https://img.shields.io/github/commits-since/realazthat/snipinator/v{{last_stable_release}}/master
-[7]: https://img.shields.io/github/last-commit/realazthat/snipinator/master
-[8]: https://img.shields.io/pypi/pyversions/snipinator
+  https://img.shields.io/github/commits-since/realazthat/snipinator/v{{last_stable_release}}/master?style=plastic
+[7]:
+  https://img.shields.io/github/last-commit/realazthat/snipinator/master?style=plastic
+[8]: https://img.shields.io/pypi/pyversions/snipinator?style=plastic
 [9]:
-  https://img.shields.io/github/languages/top/realazthat/snipinator.svg?&cacheSeconds=28800
+  https://img.shields.io/github/languages/top/realazthat/snipinator.svg?&cacheSeconds=28800&style=plastic
 [10]:
   https://github.com/realazthat/snipinator/compare/v{{last_stable_release}}...master
 [11]:
   https://github.com/realazthat/snipinator/actions/workflows/build-and-test.yml/badge.svg?branch=develop
 [12]:
-  https://img.shields.io/github/commits-since/realazthat/snipinator/v{{last_stable_release}}/develop
+  https://img.shields.io/github/commits-since/realazthat/snipinator/v{{last_stable_release}}/develop?style=plastic
 [13]:
   https://github.com/realazthat/snipinator/compare/v{{last_stable_release}}...develop
-[14]: https://img.shields.io/github/last-commit/realazthat/snipinator/develop
+[14]:
+  https://img.shields.io/github/last-commit/realazthat/snipinator/develop?style=plastic
 [15]:
-  https://img.shields.io/github/commits-since/realazthat/snipinator/v{{last_unstable_release}}/develop
+  https://img.shields.io/github/commits-since/realazthat/snipinator/v{{last_unstable_release}}/develop?style=plastic
 [16]:
   https://github.com/realazthat/snipinator/compare/v{{last_unstable_release}}...develop

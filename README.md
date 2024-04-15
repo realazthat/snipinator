@@ -34,10 +34,16 @@ SOURCE: `README.md.jinja2`.
 
 </div>
 
+---
+
+<div align="center">
+
 |               | Status                     | Stable                    | Unstable                  |                    |
 | ------------- | -------------------------- | ------------------------- | ------------------------- | ------------------ |
 | [Master][17]  | [![Build and Test][1]][2]  | [![since tagged][6]][10]  |                           | ![last commit][7]  |
 | [Develop][18] | [![Build and Test][11]][2] | [![since tagged][12]][13] | [![since tagged][15]][16] | ![last commit][14] |
+
+</div>
 
 ## What
 

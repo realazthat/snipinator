@@ -17,10 +17,10 @@ bash scripts/format.sh
 
 bash scripts/run-all-examples.sh
 
-touch README.md
 python -m snipinator.cli \
   -t "${PROJ_PATH}/README.md.jinja2" \
   --rm \
   --force \
+  --create \
   -o "${PROJ_PATH}/README.md" \
   --chmod-ro

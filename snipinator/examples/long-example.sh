@@ -9,5 +9,6 @@ python -m snipinator.cli \
   -t "snipinator/examples/LONG-EXAMPLE.md.jinja2" \
   --rm \
   --force \
+  --create \
   -o "snipinator/examples/LONG-EXAMPLE.generated.md" \
   --chmod-ro

@@ -24,14 +24,14 @@ SOURCE: `README.md.jinja2`.
 
 <p align="center">
   <strong>
-    <a href="#features">🎇Features</a> &nbsp;&bull;&nbsp;
-    <a href="#installation">🛠️Installation</a> &nbsp;&bull;&nbsp;
-    <a href="#usage">🔧Usage</a> &nbsp;&bull;&nbsp;
-    <a href="#cli">💻CLI</a> &nbsp;&bull;&nbsp;
-    <a href="#examples">💡Examples</a> &nbsp;&bull;&nbsp;
-    <a href="#api">🤖API</a> &nbsp;&bull;&nbsp;
-    <a href="#requirements">✅Requirements</a> &nbsp;&bull;&nbsp;
-    <a href="#gotchas-and-limitations">🚸Gotchas</a>
+    <a href="#-features">🎇Features</a> &nbsp;&bull;&nbsp;
+    <a href="#-installation">🛠️Installation</a> &nbsp;&bull;&nbsp;
+    <a href="#-usage">🔧Usage</a> &nbsp;&bull;&nbsp;
+    <a href="#-command-line-options">💻CLI</a> &nbsp;&bull;&nbsp;
+    <a href="#-examples">💡Examples</a> &nbsp;&bull;&nbsp;
+    <a href="#-api">🤖API</a> &nbsp;&bull;&nbsp;
+    <a href="#-requirements">✅Requirements</a> &nbsp;&bull;&nbsp;
+    <a href="#-gotchas-and-limitations">🚸Gotchas</a>
   </strong>
 </p>
 
@@ -108,7 +108,7 @@ Note that `code.py` has a test:
 `````
 <!---->
 
-## 🎇 Features {#features}
+## 🎇 Features
 
 - 📦✅🪄 Supports anything **[Jinja2](https://github.com/pallets/jinja)**
   supports.
@@ -125,7 +125,7 @@ Note that `code.py` has a test:
     :camera:.
 - ⚙️🔗🗃️ More robust **references/links** to local files using [path()](#path).
 
-## 🛠️ Installation {#installation}
+## 🛠️ Installation
 
 ```bash
 # Install from pypi (https://pypi.org/project/snipinator/)
@@ -135,7 +135,7 @@ pip install snipinator
 pip install git+https://github.com/realazthat/snipinator.git@v1.2.0
 ```
 
-## 🔧 Usage {#usage}
+## 🔧 Usage
 
 Example template README:
 ([./snipinator/examples/EXAMPLE.md.jinja2](./snipinator/examples/EXAMPLE.md.jinja2)):
@@ -187,13 +187,13 @@ Note that `code.py` has a test:
 `````
 <!---->
 
-## 💻 Command Line Options {#cli}
+## 💻 Command Line Options
 
 <!---->
 <img src="README.help.generated.svg" alt="Output of `python -m snipinator.cli --help`" />
 <!---->
 
-## 💡 Examples {#examples}
+## 💡 Examples
 
 - Snipinator's own `README`:
   - Template: [./README.md.jinja2](./README.md.jinja2).
@@ -231,7 +231,7 @@ Note that `code.py` has a test:
     See
     [excalidraw-brute-export-cli/README.md.jinja2](https://github.com/realazthat/excalidraw-brute-export-cli/blob/54a3b5b08b644e61c721ab565c576094234c5cc7/README.md.jinja2).
 
-## 🤖 API {#api}
+## 🤖 API
 
 (Jinja2) Functions made available:
 
@@ -543,7 +543,7 @@ def path(path: str,
 Also see Jinja2 v3
 [Template Designer Documentation](https://jinja.palletsprojects.com/en/3.1.x/templates/).
 
-## ✅ Requirements {#requirements}
+## ✅ Requirements
 
 - Linux-like environment
   - Why: Uses pexpect.spawn().
@@ -557,7 +557,7 @@ Also see Jinja2 v3
   Actions workflow
   ([build-and-test.yml](./.github/workflows/build-and-test.yml)).
 
-## 🚸 Gotchas and Limitations {#gotchas-and-limitations}
+## 🚸 Gotchas and Limitations
 
 - **Security:** This tool is NOT designed to be used with untrusted input. It is
   designed to be used with your own codebase. Even when using your own input, be
@@ -610,12 +610,12 @@ Also see Jinja2 v3
   it, it will run backtickify first, then indent everything including the
   backticks.
 
-## 🔑 License {#license}
+## 🔑 License
 
 This project is licensed under the MIT License - see the
 [./LICENSE.md](./LICENSE.md) file for details.
 
-## 🙏 Thanks {#thanks}
+## 🙏 Thanks
 
 Main libraries used in Snipinator are:
 

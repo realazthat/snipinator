@@ -20,14 +20,14 @@
 
 <p align="center">
   <strong>
-    <a href="#features">🎇Features</a> &nbsp;&bull;&nbsp;
-    <a href="#installation">🛠️Installation</a> &nbsp;&bull;&nbsp;
-    <a href="#usage">🔧Usage</a> &nbsp;&bull;&nbsp;
-    <a href="#cli">💻CLI</a> &nbsp;&bull;&nbsp;
-    <a href="#examples">💡Examples</a> &nbsp;&bull;&nbsp;
-    <a href="#api">🤖API</a> &nbsp;&bull;&nbsp;
-    <a href="#requirements">✅Requirements</a> &nbsp;&bull;&nbsp;
-    <a href="#gotchas-and-limitations">🚸Gotchas</a>
+    <a href="#-features">🎇Features</a> &nbsp;&bull;&nbsp;
+    <a href="#-installation">🛠️Installation</a> &nbsp;&bull;&nbsp;
+    <a href="#-usage">🔧Usage</a> &nbsp;&bull;&nbsp;
+    <a href="#-command-line-options">💻CLI</a> &nbsp;&bull;&nbsp;
+    <a href="#-examples">💡Examples</a> &nbsp;&bull;&nbsp;
+    <a href="#-api">🤖API</a> &nbsp;&bull;&nbsp;
+    <a href="#-requirements">✅Requirements</a> &nbsp;&bull;&nbsp;
+    <a href="#-gotchas-and-limitations">🚸Gotchas</a>
   </strong>
 </p>
 
@@ -64,7 +64,7 @@ Into this (`{{ path('./snipinator/examples/EXAMPLE.generated.md') }}`):
 
 <!--{{ rawsnippet('snipinator/examples/EXAMPLE.generated.md', backtickify='md', decomentify='nl') }}-->
 
-## 🎇 Features {%raw%}{#features}{%endraw%}
+## 🎇 Features
 
 - 📦✅🪄 Supports anything **[Jinja2](https://github.com/pallets/jinja)**
   supports.
@@ -81,7 +81,7 @@ Into this (`{{ path('./snipinator/examples/EXAMPLE.generated.md') }}`):
     :camera:.
 - ⚙️🔗🗃️ More robust **references/links** to local files using [path()](#path).
 
-## 🛠️ Installation {%raw%}{#installation}{%endraw%}
+## 🛠️ Installation
 
 ```bash
 # Install from pypi (https://pypi.org/project/snipinator/)
@@ -91,7 +91,7 @@ pip install snipinator
 pip install git+https://github.com/realazthat/snipinator.git@v{{last_stable_release}}
 ```
 
-## 🔧 Usage {%raw%}{#usage}{%endraw%}
+## 🔧 Usage
 
 Example template README:
 ([{{path('./snipinator/examples/EXAMPLE.md.jinja2')}}](./snipinator/examples/EXAMPLE.md.jinja2)):
@@ -102,7 +102,7 @@ Generating the README:
 
 <!--{{ shell('python -m snipinator.cli -t snipinator/examples/EXAMPLE.md.jinja2', backtickify='bash', decomentify='nl') }}-->
 
-## 💻 Command Line Options {%raw%}{#cli}{%endraw%}
+## 💻 Command Line Options
 
 <!--{{ shell('python -m snipinator.cli --help',
              rich='README.help.generated.svg',
@@ -112,7 +112,7 @@ Generating the README:
              rich_cols=160,
              decomentify='nl') }}-->
 
-## 💡 Examples {%raw%}{#examples}{%endraw%}
+## 💡 Examples
 
 - Snipinator's own `README`:
   - Template: [{{path('./README.md.jinja2')}}](./README.md.jinja2).
@@ -150,7 +150,7 @@ Generating the README:
     See
     [excalidraw-brute-export-cli/README.md.jinja2](https://github.com/realazthat/excalidraw-brute-export-cli/blob/54a3b5b08b644e61c721ab565c576094234c5cc7/README.md.jinja2).
 
-## 🤖 API {%raw%}{#api}{%endraw%}
+## 🤖 API
 
 (Jinja2) Functions made available:
 
@@ -207,7 +207,7 @@ Documentation:
 Also see Jinja2 v3
 [Template Designer Documentation](https://jinja.palletsprojects.com/en/3.1.x/templates/).
 
-## ✅ Requirements {%raw%}{#requirements}{%endraw%}
+## ✅ Requirements
 
 - Linux-like environment
   - Why: Uses pexpect.spawn().
@@ -221,7 +221,7 @@ Also see Jinja2 v3
   Actions workflow
   ([build-and-test.yml](./.github/workflows/build-and-test.yml)).
 
-## 🚸 Gotchas and Limitations {%raw%}{#gotchas-and-limitations}{%endraw%}
+## 🚸 Gotchas and Limitations
 
 - **Security:** This tool is NOT designed to be used with untrusted input. It is
   designed to be used with your own codebase. Even when using your own input, be
@@ -274,12 +274,12 @@ Also see Jinja2 v3
   it, it will run backtickify first, then indent everything including the
   backticks.
 
-## 🔑 License {%raw%}{#license}{%endraw%}
+## 🔑 License
 
 This project is licensed under the MIT License - see the
 [{{path('./LICENSE.md')}}](./LICENSE.md) file for details.
 
-## 🙏 Thanks {%raw%}{#thanks}{%endraw%}
+## 🙏 Thanks
 
 Main libraries used in Snipinator are:
 

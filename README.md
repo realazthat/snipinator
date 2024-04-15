@@ -629,7 +629,7 @@ These instructions are for maintainers of the project.
 [4]: https://img.shields.io/pypi/v/snipinator?style=plastic
 [5]: https://pypi.org/project/snipinator/
 [6]:
-  https://img.shields.io/github/commits-since/realazthat/snipinator/v1.2.0/master?style=plastic&style=plastic
+  https://img.shields.io/github/commits-since/realazthat/snipinator/v1.2.0/master?style=plastic
 [7]:
   https://img.shields.io/github/last-commit/realazthat/snipinator/master?style=plastic
 [8]: https://img.shields.io/pypi/pyversions/snipinator?style=plastic

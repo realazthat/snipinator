@@ -30,15 +30,14 @@ SOURCE: `README.md.jinja2`.
 ![Top language][9] ![GitHub License][3] [![PyPI - Version][4]][5]
 [![Python Version][8]][5]
 
+**CLI to embed (testable) snippets from your codebase into your README**
+
 </div>
 
 |               | Status                     | Stable                    | Unstable                  |                    |
 | ------------- | -------------------------- | ------------------------- | ------------------------- | ------------------ |
 | [Master][17]  | [![Build and Test][1]][2]  | [![since tagged][6]][10]  |                           | ![last commit][7]  |
 | [Develop][18] | [![Build and Test][11]][2] | [![since tagged][12]][13] | [![since tagged][15]][16] | ![last commit][14] |
-
-CLI to embed (testable) snippets from your {python,other} codebases into your
-`README.md`.
 
 ## What
 

@@ -24,14 +24,14 @@ SOURCE: `README.md.jinja2`.
 
 <p align="center">
   <strong>
-    <a href="#features">Features</a> &nbsp;&bull;&nbsp;
-    <a href="#installation">Installation</a> &nbsp;&bull;&nbsp;
-    <a href="#usage">Usage</a> &nbsp;&bull;&nbsp;
-    <a href="#command-line-options">CLI</a> &nbsp;&bull;&nbsp;
-    <a href="#examples">Examples</a> &nbsp;&bull;&nbsp;
-    <a href="#api">API</a> &nbsp;&bull;&nbsp;
-    <a href="#requirements">Requirements</a> &nbsp;&bull;&nbsp;
-    <a href="#gotchas-and-limitations">Gotchas</a>
+    <a href="#features">🎇Features</a> &nbsp;&bull;&nbsp;
+    <a href="#installation">🛠️Installation</a> &nbsp;&bull;&nbsp;
+    <a href="#usage">🔧Usage</a> &nbsp;&bull;&nbsp;
+    <a href="#cli">💻CLI</a> &nbsp;&bull;&nbsp;
+    <a href="#examples">💡Examples</a> &nbsp;&bull;&nbsp;
+    <a href="#api">🤖API</a> &nbsp;&bull;&nbsp;
+    <a href="#requirements">✅Requirements</a> &nbsp;&bull;&nbsp;
+    <a href="#gotchas-and-limitations">🚸Gotchas</a>
   </strong>
 </p>
 
@@ -108,23 +108,24 @@ Note that `code.py` has a test:
 `````
 <!---->
 
-## Features
+## 🎇 Features {#features}
 
-- Supports anything [Jinja2](https://github.com/pallets/jinja) supports.
-- First class support for python source code.
+- 📦✅🪄 Supports anything **[Jinja2](https://github.com/pallets/jinja)**
+  supports.
+- 🥇🐍📜 First-class support for **python** source code.
   - Can include python function signatures, docstrings, entire function source
     code, classes.
-- Snip from any source code .
+- ✂🌐🗂️ Snip from **any source code language**.
   - Put delimiter markers into the code (e.g `# START_SNIPPET`,
     `# END_TEMPLATE`), and use [snippet()](#snippet).
-- First-class support for Markdown templates.
-- Can include [shell](#shell) output.
+- 🥇🔖📜 First-class support for **Markdown** templates (with backtickify,
+  decomentify).
+- 📦🐚🖨️ Can include **[shell](#shell) output**.
   - Supports ANSI colors :heart: :green_heart: :blue_heart: with SVG output
     :camera:.
-- More robust references/links to local files using [path()](#path).
-- First class support for markdown output (with backtickify, decomentify).
+- ⚙️🔗🗃️ More robust **references/links** to local files using [path()](#path).
 
-## Installation
+## 🛠️ Installation {#installation}
 
 ```bash
 # Install from pypi (https://pypi.org/project/snipinator/)
@@ -134,7 +135,7 @@ pip install snipinator
 pip install git+https://github.com/realazthat/snipinator.git@v1.2.0
 ```
 
-## Usage
+## 🔧 Usage {#usage}
 
 Example template README:
 ([./snipinator/examples/EXAMPLE.md.jinja2](./snipinator/examples/EXAMPLE.md.jinja2)):
@@ -186,13 +187,13 @@ Note that `code.py` has a test:
 `````
 <!---->
 
-## Command Line Options
+## 💻 Command Line Options {#cli}
 
 <!---->
 <img src="README.help.generated.svg" alt="Output of `python -m snipinator.cli --help`" />
 <!---->
 
-## Examples
+## 💡 Examples {#examples}
 
 - Snipinator's own `README`:
   - Template: [./README.md.jinja2](./README.md.jinja2).
@@ -213,7 +214,7 @@ Note that `code.py` has a test:
     [./snipinator/examples/LONG-EXAMPLE.generated.md](./snipinator/examples/LONG-EXAMPLE.generated.md).
   - Generation script:
     [./snipinator/examples/long-example.sh](./snipinator/examples/long-example.sh).
-- Projects using Snipinator
+- Projects using Snipinator:
   - [github.com/realazthat/snipinator](https://github.com/realazthat/snipinator),
     See
     [snipinator/README.md.jinja2](https://github.com/realazthat/snipinator/blob/61cb88593baa099dc375cf5fd40679e4be673fc5/README.md.jinja2).
@@ -230,7 +231,7 @@ Note that `code.py` has a test:
     See
     [excalidraw-brute-export-cli/README.md.jinja2](https://github.com/realazthat/excalidraw-brute-export-cli/blob/54a3b5b08b644e61c721ab565c576094234c5cc7/README.md.jinja2).
 
-## API
+## 🤖 API {#api}
 
 (Jinja2) Functions made available:
 
@@ -542,7 +543,7 @@ def path(path: str,
 Also see Jinja2 v3
 [Template Designer Documentation](https://jinja.palletsprojects.com/en/3.1.x/templates/).
 
-## Requirements
+## ✅ Requirements {#requirements}
 
 - Linux-like environment
   - Why: Uses pexpect.spawn().
@@ -556,7 +557,7 @@ Also see Jinja2 v3
   Actions workflow
   ([build-and-test.yml](./.github/workflows/build-and-test.yml)).
 
-## Gotchas and Limitations
+## 🚸 Gotchas and Limitations {#gotchas-and-limitations}
 
 - **Security:** This tool is NOT designed to be used with untrusted input. It is
   designed to be used with your own codebase. Even when using your own input, be
@@ -609,12 +610,12 @@ Also see Jinja2 v3
   it, it will run backtickify first, then indent everything including the
   backticks.
 
-## :copyright: License
+## 🔑 License {#license}
 
 This project is licensed under the MIT License - see the
 [./LICENSE.md](./LICENSE.md) file for details.
 
-## :pray: Thanks
+## 🙏 Thanks {#thanks}
 
 Main libraries used in Snipinator are:
 
@@ -625,7 +626,7 @@ Main libraries used in Snipinator are:
   {[pexpect](https://pexpect.readthedocs.io/en/stable/),
   [rich](https://github.com/Textualize/rich)}.
 
-## Related Projects
+## Related Projects {#thanks}
 
 - [ARMmbed/snippet](https://github.com/ARMmbed/snippet) "A Python3 tool to
   extract code snippets from source files".
@@ -634,7 +635,7 @@ Main libraries used in Snipinator are:
 - [shiftkey/scribble](https://github.com/shiftkey/scribble) "Making
   documentation for .NET projects easy and fun".
 
-## Contributions
+## 🫡Contributions
 
 ### Development environment: Linux-like
 
@@ -663,7 +664,7 @@ Main libraries used in Snipinator are:
 5. `git commit -m "..."`.
 6. Make a PR to `develop` (or push to develop if you have the rights).
 
-## Release Process
+## ⛙ Release Process
 
 These instructions are for maintainers of the project.
 

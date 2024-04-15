@@ -263,7 +263,7 @@ def snippet(path: str,
             _ctx: _Context) -> Union[str, markupsafe.Markup]:
   """Returns a _delimited_ snippet from a file.
 
-  Does not return the delimeters themselves.
+  Does not return the delimiters themselves.
 
   Args:
       path (str): The path to the file.

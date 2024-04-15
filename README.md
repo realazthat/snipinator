@@ -11,7 +11,7 @@ SOURCE: `README.md.jinja2`.
 
 -->
 
-# <div align="center">![Snipinator](./.github/logo-exported.svg)</div>
+# <div align="center">![Snipinator][22]</div>
 
 <div align="center">
 
@@ -26,15 +26,18 @@ SOURCE: `README.md.jinja2`.
   <strong>
     <a href="#features">Features</a> &nbsp;&bull;&nbsp;
     <a href="#installation">Installation</a> &nbsp;&bull;&nbsp;
-    <a href="#usage-research">Usage</a> &nbsp;&bull;&nbsp;
+    <a href="#usage">Usage</a> &nbsp;&bull;&nbsp;
+    <a href="#command-line-options">CLI</a> &nbsp;&bull;&nbsp;
     <a href="#examples">Examples</a> &nbsp;&bull;&nbsp;
-    <a href="#command-line-options">CLI</a>
+    <a href="#api">API</a> &nbsp;&bull;&nbsp;
+    <a href="#requirements">Requirements</a> &nbsp;&bull;&nbsp;
+    <a href="#gotchas-and-limitations">Gotchas</a>
   </strong>
 </p>
 
 <div align="center">
 
-![Top language][9] ![GitHub License][3] [![PyPI - Version][4]][5]
+![Top language][9] [![GitHub License][3]][21] [![PyPI - Version][4]][5]
 [![Python Version][8]][5]
 
 **CLI to embed (testable) snippets from your codebase into your README**
@@ -57,7 +60,7 @@ SOURCE: `README.md.jinja2`.
 What it does: **Snipinator** lets you take a `EXAMPLE.md` template and include
 snippets from your (working and tested) codebase.
 
-Turn this (`snipinator/examples/EXAMPLE.md.jinja2`):
+Turn this (`./snipinator/examples/EXAMPLE.md.jinja2`):
 
 <!---->
 ```md
@@ -67,10 +70,13 @@ Here is a code snippet:
 
 `{{ pysnippet(path='snipinator/examples/code.py', symbol='MyClass', backtickify='py') }}`
 
+Note that `code.py` has a test:
+[{{path('./snipinator/examples/code_test.py')}}](./snipinator/examples/code_test.py)
+
 ```
 <!---->
 
-Into this (`snipinator/examples/EXAMPLE.generated.md`):
+Into this (`./snipinator/examples/EXAMPLE.generated.md`):
 
 <!---->
 `````md
@@ -96,6 +102,9 @@ class MyClass:
     print(self.name)
 ````
 
+Note that `code.py` has a test:
+[./snipinator/examples/code_test.py](./snipinator/examples/code_test.py)
+
 `````
 <!---->
 
@@ -107,12 +116,12 @@ class MyClass:
     code, classes.
 - Snip from any source code .
   - Put delimiter markers into the code (e.g `# START_SNIPPET`,
-    `# END_TEMPLATE`), and use [`snippet()`](#snippet).
+    `# END_TEMPLATE`), and use [snippet()](#snippet).
 - First-class support for Markdown templates.
 - Can include [shell](#shell) output.
   - Supports ANSI colors :heart: :green_heart: :blue_heart: with SVG output
     :camera:.
-- More robust references/links to local files using `path()`.
+- More robust references/links to local files using [path()](#path).
 - First class support for markdown output (with backtickify, decomentify).
 
 ## Installation
@@ -128,7 +137,7 @@ pip install git+https://github.com/realazthat/snipinator.git@v1.2.0
 ## Usage
 
 Example template README:
-[`snipinator/examples/EXAMPLE.md.jinja2`](./snipinator/examples/EXAMPLE.md.jinja2):
+([./snipinator/examples/EXAMPLE.md.jinja2](./snipinator/examples/EXAMPLE.md.jinja2)):
 
 <!---->
 ```md
@@ -137,6 +146,9 @@ Example template README:
 Here is a code snippet:
 
 `{{ pysnippet(path='snipinator/examples/code.py', symbol='MyClass', backtickify='py') }}`
+
+Note that `code.py` has a test:
+[{{path('./snipinator/examples/code_test.py')}}](./snipinator/examples/code_test.py)
 
 ```
 <!---->
@@ -168,22 +180,11 @@ class MyClass:
     print(self.name)
 ````
 
+Note that `code.py` has a test:
+[./snipinator/examples/code_test.py](./snipinator/examples/code_test.py)
+
 `````
 <!---->
-
-## Requirements
-
-- Linux-like environment
-  - Why: Uses pexpect.spawn().
-- Python 3.8+
-  - Why: Some dev dependencies require Python 3.8+.
-
-## Tested on
-
-- WSL2 Ubuntu 20.04, Python 3.8.0
-- Ubuntu 20.04, Python 3.8.0, 3.9.0, 3.10.0, 3.11.0, 3.12.0, tested in GitHub
-  Actions workflow
-  ([build-and-test.yml](./.github/workflows/build-and-test.yml)).
 
 ## Command Line Options
 
@@ -193,41 +194,52 @@ class MyClass:
 
 ## Examples
 
-- Snipinator's own `README` at
-  [`./README.md.jinja2`](./README.md.jinja2).
-  - Generated: [`./README.md`](./README.md).
+- Snipinator's own `README`:
+  - Template: [./README.md.jinja2](./README.md.jinja2).
+  - Generated: [./README.md](./README.md).
   - Generation script:
-    [`./scripts/generate-readme.sh`](./scripts/generate-readme.sh).
-- [`snipinator/examples/EXAMPLE.md.jinja2`](./snipinator/examples/EXAMPLE.md.jinja2).
+    [./scripts/generate-readme.sh](./scripts/generate-readme.sh).
+- Example:
+  - Template:
+    [./snipinator/examples/EXAMPLE.md.jinja2](./snipinator/examples/EXAMPLE.md.jinja2).
   - Generated:
-    [`snipinator/examples/EXAMPLE.generated.md`](./snipinator/examples/EXAMPLE.generated.md).
+    [./snipinator/examples/EXAMPLE.generated.md](./snipinator/examples/EXAMPLE.generated.md).
   - Generation script:
-    [`./snipinator/examples/example.sh`](./snipinator/examples/example.sh).
-- [`snipinator/examples/LONG-EXAMPLE.md.jinja2`](./snipinator/examples/LONG-EXAMPLE.md.jinja2).
+    [./snipinator/examples/example.sh](./snipinator/examples/example.sh).
+- Long example of many features:
+  - Template:
+    [./snipinator/examples/LONG-EXAMPLE.md.jinja2](./snipinator/examples/LONG-EXAMPLE.md.jinja2).
   - Generated:
-    [`snipinator/examples/LONG-EXAMPLE.generated.md`](./snipinator/examples/LONG-EXAMPLE.generated.md).
+    [./snipinator/examples/LONG-EXAMPLE.generated.md](./snipinator/examples/LONG-EXAMPLE.generated.md).
   - Generation script:
-    [`./snipinator/examples/long-example.sh`](./snipinator/examples/long-example.sh).
+    [./snipinator/examples/long-example.sh](./snipinator/examples/long-example.sh).
 - Projects using Snipinator
   - [github.com/realazthat/snipinator](https://github.com/realazthat/snipinator),
     See
-    [`snipinator/README.md.jinja2`](https://github.com/realazthat/snipinator/blob/61cb88593baa099dc375cf5fd40679e4be673fc5/README.md.jinja2).
+    [snipinator/README.md.jinja2](https://github.com/realazthat/snipinator/blob/61cb88593baa099dc375cf5fd40679e4be673fc5/README.md.jinja2).
   - [github.com/realazthat/changeguard](https://github.com/realazthat/changeguard),
     See
-    [`changeguard/README.md.jinja2`](https://github.com/realazthat/changeguard/blob/87d5104b52e651bb9195a3d46dd7f050acbcb534/README.md.jinja2).
+    [changeguard/README.md.jinja2](https://github.com/realazthat/changeguard/blob/87d5104b52e651bb9195a3d46dd7f050acbcb534/README.md.jinja2).
   - [github.com/realazthat/comfy-catapult](https://github.com/realazthat/comfy-catapult),
     See
-    [`comfy-catapult/README.md.jinja2`](https://github.com/realazthat/comfy-catapult/blob/ff353d48b25fa7b9c35fa11b31d5f2b3039c41c8/README.md.jinja2).
+    [comfy-catapult/README.md.jinja2](https://github.com/realazthat/comfy-catapult/blob/ff353d48b25fa7b9c35fa11b31d5f2b3039c41c8/README.md.jinja2).
   - [github.com/realazthat/comfylowda](https://github.com/realazthat/comfylowda),
     See
-    [`comfylowda/README.md.jinja2`](https://github.com/realazthat/comfylowda/blob/e01a32c38107aa0b89ccea21c4678d193a186a78/README.md.jinja2).
+    [comfylowda/README.md.jinja2](https://github.com/realazthat/comfylowda/blob/e01a32c38107aa0b89ccea21c4678d193a186a78/README.md.jinja2).
   - [github.com/realazthat/excalidraw-brute-export-cli](https://github.com/realazthat/excalidraw-brute-export-cli),
     See
-    [`excalidraw-brute-export-cli/README.md.jinja2`](https://github.com/realazthat/excalidraw-brute-export-cli/blob/54a3b5b08b644e61c721ab565c576094234c5cc7/README.md.jinja2).
+    [excalidraw-brute-export-cli/README.md.jinja2](https://github.com/realazthat/excalidraw-brute-export-cli/blob/54a3b5b08b644e61c721ab565c576094234c5cc7/README.md.jinja2).
 
-## API: Available Functions in Jinja2
+## API
+
+(Jinja2) Functions made available:
 
 ### pysnippet
+
+Used several times in
+[./snipinator/examples/LONG-EXAMPLE.md.jinja2](./snipinator/examples/LONG-EXAMPLE.md.jinja2).
+
+Documentation:
 
 <!---->
 ```py
@@ -267,6 +279,10 @@ def pysnippet(path: str,
 <!---->
 
 ### pysignature
+
+Used several times in [./README.md.jinja2](./README.md.jinja2).
+
+Documentation:
 
 <!---->
 ```py
@@ -308,6 +324,10 @@ def pysignature(path: str,
 
 ### rawsnippet
 
+Used several times in [./README.md.jinja2](./README.md.jinja2).
+
+Documentation:
+
 <!---->
 ```py
 def rawsnippet(path: str,
@@ -345,6 +365,11 @@ def rawsnippet(path: str,
 
 ### snippet
 
+Example in
+[./snipinator/examples/LONG-EXAMPLE.md.jinja2](./README.md.jinja2).
+
+Documentation:
+
 <!---->
 ```py
 def snippet(path: str,
@@ -358,7 +383,7 @@ def snippet(path: str,
             _ctx: _Context) -> Union[str, markupsafe.Markup]:
   """Returns a _delimited_ snippet from a file.
 
-  Does not return the delimeters themselves.
+  Does not return the delimiters themselves.
 
   Args:
       path (str): The path to the file.
@@ -387,6 +412,10 @@ def snippet(path: str,
 <!---->
 
 ### shell
+
+Used several times in [./README.md.jinja2](./README.md.jinja2).
+
+Documentation:
 
 <!---->
 ```py
@@ -467,6 +496,10 @@ def shell(args: str,
 
 ### path
 
+Used several times in [./README.md.jinja2](./README.md.jinja2).
+
+Documentation:
+
 <!---->
 ```py
 def path(path: str,
@@ -509,6 +542,20 @@ def path(path: str,
 Also see Jinja2 v3
 [Template Designer Documentation](https://jinja.palletsprojects.com/en/3.1.x/templates/).
 
+## Requirements
+
+- Linux-like environment
+  - Why: Uses pexpect.spawn().
+- Python 3.8+
+  - Why: Some dev dependencies require Python 3.8+.
+
+### Tested on
+
+- WSL2 Ubuntu 20.04, Python 3.8.0
+- Ubuntu 20.04, Python 3.8.0, 3.9.0, 3.10.0, 3.11.0, 3.12.0, tested in GitHub
+  Actions workflow
+  ([build-and-test.yml](./.github/workflows/build-and-test.yml)).
+
 ## Gotchas and Limitations
 
 - **Security:** This tool is NOT designed to be used with untrusted input. It is
@@ -537,7 +584,7 @@ Also see Jinja2 v3
   formatter and make the call invalid. Workarounds:
   - **Decommentify**: Put the snippet call inside a HTML comment, then use
     `decommentify` parameter. See
-    [`snipinator/examples/LONG-EXAMPLE.md.jinja2`](./snipinator/examples/LONG-EXAMPLE.md.jinja2)
+    [./snipinator/examples/LONG-EXAMPLE.md.jinja2](./snipinator/examples/LONG-EXAMPLE.md.jinja2)
     for examples.
   - [prettier](https://prettier.io/) formatter is pretty good at leaving the
     Jinja2 calls alone, especially if you don't have any spaces. This especially
@@ -564,8 +611,8 @@ Also see Jinja2 v3
 
 ## License
 
-This project is licensed under the MIT License - see the [`LICENSE`](./LICENSE)
-file for details.
+This project is licensed under the MIT License - see the
+[./LICENSE.md](./LICENSE.md) file for details.
 
 ## Thanks
 
@@ -598,9 +645,9 @@ Main libraries used in Snipinator are:
 `).
   - `jq`, ([installation](https://jqlang.github.io/jq/)) required for
     [yq](https://github.com/kislyuk/yq), which is itself required for our
-    `README.md` generation, which uses `tomlq` (from the
+    `./README.md` generation, which uses `tomlq` (from the
     [yq](https://github.com/kislyuk/yq) package) to include version strings from
-    `pyproject.toml`.
+    `./pyproject.toml`.
   - `bash`, `grep`, `awk`, `sed` `xxd`, `git`, `xxhash` (for tests/workflows).
   - Requires nodejs (for act).
   - Requires Go (to run act).
@@ -611,8 +658,8 @@ Main libraries used in Snipinator are:
 1. (Optionally) Fork the `develop` branch.
 2. Stage your files: `git add path/to/file.py`.
 3. `bash scripts/pre.sh`, this will format, lint, and test the code.
-4. `git status` check if anything changed (generated `README.md` for
-   example), if so, `git add` the changes, and go back to the previous step.
+4. `git status` check if anything changed (generated `./README.md`
+   for example), if so, `git add` the changes, and go back to the previous step.
 5. `git commit -m "..."`.
 6. Make a PR to `develop` (or push to develop if you have the rights).
 
@@ -620,9 +667,9 @@ Main libraries used in Snipinator are:
 
 These instructions are for maintainers of the project.
 
-1. In the `develop` branch, run `bash scripts/pre.sh` to ensure
+1. In the `develop` branch, run `bash ./scripts/pre.sh` to ensure
    everything is in order.
-2. In the `develop` branch, bump the version in `pyproject.toml`,
+2. In the `develop` branch, bump the version in `./pyproject.toml`,
    following semantic versioning principles. Also modify the
    `last_unstable_release` and `last_stable_release` in the
    `[tool.changeguard-project-metadata]` table as appropriate. Run
@@ -686,3 +733,5 @@ These instructions are for maintainers of the project.
 
 [20]:
   https://img.shields.io/badge/Platform-Linux-0A1E1E?style=plastic&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWxhcHRvcC1taW5pbWFsIj48cmVjdCB3aWR0aD0iMTgiIGhlaWdodD0iMTIiIHg9IjMiIHk9IjQiIHJ4PSIyIiByeT0iMiIvPjxsaW5lIHgxPSIyIiB4Mj0iMjIiIHkxPSIyMCIgeTI9IjIwIi8+PC9zdmc+
+[21]: ./LICENSE.md
+[22]: ./.github/logo-exported.svg

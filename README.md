@@ -55,7 +55,7 @@ SOURCE: `README.md.jinja2`.
 
 </div>
 
-## What
+## ❔ What
 
 What it does: **Snipinator** lets you take a `EXAMPLE.md` template and include
 snippets from your (working and tested) codebase.

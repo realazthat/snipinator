@@ -7,22 +7,29 @@ SOURCE: `README.md.jinja2`.
 <!--
 
 
+
+
 -->
 
 # <div align="center">![Snipinator](./.github/logo-exported.svg)</div>
 
 <div align="center">
 
-![**Audience:** Developers](https://img.shields.io/badge/Audience-Developers-8A2BE2?style=plastic&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXVzZXJzIj48cGF0aCBkPSJNMTYgMjF2LTJhNCA0IDAgMCAwLTQtNEg2YTQgNCAwIDAgMC00IDR2MiIvPjxjaXJjbGUgY3g9IjkiIGN5PSI3IiByPSI0Ii8+PHBhdGggZD0iTTIyIDIxdi0yYTQgNCAwIDAgMC0zLTMuODciLz48cGF0aCBkPSJNMTYgMy4xM2E0IDQgMCAwIDEgMCA3Ljc1Ii8+PC9zdmc+)
+<!-- Icons from https://lucide.dev/icons/users -->
+<!-- Icons from https://lucide.dev/icons/laptop-minimal -->
+
+![**Audience:** Developers][19] ![**Platform:** Linux][20]
 
 </div>
 
 <p align="center">
-  <a href="#features">Features</a> &nbsp;&bull;&nbsp;
-  <a href="#installation">Installation</a> &nbsp;&bull;&nbsp;
-  <a href="#usage-research">Usage</a> &nbsp;&bull;&nbsp;
-  <a href="#examples">Examples</a> &nbsp;&bull;&nbsp;
-  <a href="#command-line-options">CLI</a>
+  <strong>
+    <a href="#features">Features</a> &nbsp;&bull;&nbsp;
+    <a href="#installation">Installation</a> &nbsp;&bull;&nbsp;
+    <a href="#usage-research">Usage</a> &nbsp;&bull;&nbsp;
+    <a href="#examples">Examples</a> &nbsp;&bull;&nbsp;
+    <a href="#command-line-options">CLI</a>
+  </strong>
 </p>
 
 <div align="center">
@@ -38,17 +45,17 @@ SOURCE: `README.md.jinja2`.
 
 <div align="center">
 
-|               | Status                     | Stable                    | Unstable                  |                    |
-| ------------- | -------------------------- | ------------------------- | ------------------------- | ------------------ |
-| [Master][17]  | [![Build and Test][1]][2]  | [![since tagged][6]][10]  |                           | ![last commit][7]  |
-| [Develop][18] | [![Build and Test][11]][2] | [![since tagged][12]][13] | [![since tagged][15]][16] | ![last commit][14] |
+|                   | Status                     | Stable                    | Unstable                  |                    |
+| ----------------- | -------------------------- | ------------------------- | ------------------------- | ------------------ |
+| **[Master][17]**  | [![Build and Test][1]][2]  | [![since tagged][6]][10]  |                           | ![last commit][7]  |
+| **[Develop][18]** | [![Build and Test][11]][2] | [![since tagged][12]][13] | [![since tagged][15]][16] | ![last commit][14] |
 
 </div>
 
 ## What
 
-What it does: Lets you make a `EXAMPLE.md` template and include snippets from
-your (working and tested) python codebase.
+What it does: **Snipinator** lets you take a `EXAMPLE.md` template and include
+snippets from your (working and tested) codebase.
 
 Turn this (`snipinator/examples/EXAMPLE.md.jinja2`):
 
@@ -94,14 +101,17 @@ class MyClass:
 
 ## Features
 
-- Supports anything Jinja2 supports.
+- Supports anything [Jinja2](https://github.com/pallets/jinja) supports.
 - First class support for python source code.
   - Can include python function signatures, docstrings, entire function source
     code, classes.
-- Supports any language.
-  - With delimiter markers, or inclusion of the entire file.
-- Can include shell output.
-  - Supports ANSI colors with SVG output.
+- Snip from any source code .
+  - Put delimiter markers into the code (e.g `# START_SNIPPET`,
+    `# END_TEMPLATE`), and use [`snippet()`](#snippet).
+- First-class support for Markdown templates.
+- Can include [shell](#shell) output.
+  - Supports ANSI colors :heart: :green_heart: :blue_heart: with SVG output
+    :camera:.
 - More robust references/links to local files using `path()`.
 - First class support for markdown output (with backtickify, decomentify).
 
@@ -217,6 +227,8 @@ class MyClass:
 
 ## API: Available Functions in Jinja2
 
+### pysnippet
+
 <!---->
 ```py
 def pysnippet(path: str,
@@ -253,6 +265,8 @@ def pysnippet(path: str,
   """
 ```
 <!---->
+
+### pysignature
 
 <!---->
 ```py
@@ -292,6 +306,8 @@ def pysignature(path: str,
 ```
 <!---->
 
+### rawsnippet
+
 <!---->
 ```py
 def rawsnippet(path: str,
@@ -326,6 +342,8 @@ def rawsnippet(path: str,
 
 ```
 <!---->
+
+### snippet
 
 <!---->
 ```py
@@ -367,6 +385,8 @@ def snippet(path: str,
 
 ```
 <!---->
+
+### shell
 
 <!---->
 ```py
@@ -444,6 +464,8 @@ def shell(args: str,
   """
 ```
 <!---->
+
+### path
 
 <!---->
 ```py
@@ -625,16 +647,19 @@ These instructions are for maintainers of the project.
   https://img.shields.io/github/actions/workflow/status/realazthat/snipinator/build-and-test.yml?branch=master&style=plastic
 [2]:
   https://github.com/realazthat/snipinator/actions/workflows/build-and-test.yml
-[3]: https://img.shields.io/github/license/realazthat/snipinator?style=plastic
-[4]: https://img.shields.io/pypi/v/snipinator?style=plastic
+[3]:
+  https://img.shields.io/github/license/realazthat/snipinator?style=plastic&color=0A1E1E
+[4]:
+  https://img.shields.io/pypi/v/snipinator?style=plastic&color=0A1E1E
 [5]: https://pypi.org/project/snipinator/
 [6]:
   https://img.shields.io/github/commits-since/realazthat/snipinator/v1.2.0/master?style=plastic
 [7]:
   https://img.shields.io/github/last-commit/realazthat/snipinator/master?style=plastic
-[8]: https://img.shields.io/pypi/pyversions/snipinator?style=plastic
+[8]:
+  https://img.shields.io/pypi/pyversions/snipinator?style=plastic&color=0A1E1E
 [9]:
-  https://img.shields.io/github/languages/top/realazthat/snipinator.svg?&cacheSeconds=28800&style=plastic
+  https://img.shields.io/github/languages/top/realazthat/snipinator.svg?&cacheSeconds=28800&style=plastic&color=0A1E1E
 [10]:
   https://github.com/realazthat/snipinator/compare/v1.2.0...master
 [11]:
@@ -651,3 +676,13 @@ These instructions are for maintainers of the project.
   https://github.com/realazthat/snipinator/compare/v1.2.0...develop
 [17]: https://github.com/realazthat/snipinator/tree/master
 [18]: https://github.com/realazthat/snipinator/tree/develop
+
+<!-- Logo from https://lucide.dev/icons/users -->
+
+[19]:
+  https://img.shields.io/badge/Audience-Developers-0A1E1E?style=plastic&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXVzZXJzIj48cGF0aCBkPSJNMTYgMjF2LTJhNCA0IDAgMCAwLTQtNEg2YTQgNCAwIDAgMC00IDR2MiIvPjxjaXJjbGUgY3g9IjkiIGN5PSI3IiByPSI0Ii8+PHBhdGggZD0iTTIyIDIxdi0yYTQgNCAwIDAgMC0zLTMuODciLz48cGF0aCBkPSJNMTYgMy4xM2E0IDQgMCAwIDEgMCA3Ljc1Ii8+PC9zdmc+
+
+<!-- Logo from https://lucide.dev/icons/laptop-minimal -->
+
+[20]:
+  https://img.shields.io/badge/Platform-Linux-0A1E1E?style=plastic&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWxhcHRvcC1taW5pbWFsIj48cmVjdCB3aWR0aD0iMTgiIGhlaWdodD0iMTIiIHg9IjMiIHk9IjQiIHJ4PSIyIiByeT0iMiIvPjxsaW5lIHgxPSIyIiB4Mj0iMjIiIHkxPSIyMCIgeTI9IjIwIi8+PC9zdmc+

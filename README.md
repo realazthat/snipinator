@@ -132,7 +132,7 @@ Note that `code.py` has a test:
 pip install snipinator
 
 # Install from git (https://github.com/realazthat/snipinator)
-pip install git+https://github.com/realazthat/snipinator.git@v1.2.0
+pip install git+https://github.com/realazthat/snipinator.git@v1.3.0
 ```
 
 ## 🔧 Usage
@@ -701,7 +701,7 @@ These instructions are for maintainers of the project.
   https://img.shields.io/pypi/v/snipinator?style=plastic&color=0A1E1E
 [5]: https://pypi.org/project/snipinator/
 [6]:
-  https://img.shields.io/github/commits-since/realazthat/snipinator/v1.2.0/master?style=plastic
+  https://img.shields.io/github/commits-since/realazthat/snipinator/v1.3.0/master?style=plastic
 [7]:
   https://img.shields.io/github/last-commit/realazthat/snipinator/master?style=plastic
 [8]:
@@ -709,19 +709,19 @@ These instructions are for maintainers of the project.
 [9]:
   https://img.shields.io/github/languages/top/realazthat/snipinator.svg?&cacheSeconds=28800&style=plastic&color=0A1E1E
 [10]:
-  https://github.com/realazthat/snipinator/compare/v1.2.0...master
+  https://github.com/realazthat/snipinator/compare/v1.3.0...master
 [11]:
   https://img.shields.io/github/actions/workflow/status/realazthat/snipinator/build-and-test.yml?branch=develop&style=plastic
 [12]:
-  https://img.shields.io/github/commits-since/realazthat/snipinator/v1.2.0/develop?style=plastic
+  https://img.shields.io/github/commits-since/realazthat/snipinator/v1.3.0/develop?style=plastic
 [13]:
-  https://github.com/realazthat/snipinator/compare/v1.2.0...develop
+  https://github.com/realazthat/snipinator/compare/v1.3.0...develop
 [14]:
   https://img.shields.io/github/last-commit/realazthat/snipinator/develop?style=plastic
 [15]:
-  https://img.shields.io/github/commits-since/realazthat/snipinator/v1.2.0/develop?style=plastic
+  https://img.shields.io/github/commits-since/realazthat/snipinator/v1.3.0/develop?style=plastic
 [16]:
-  https://github.com/realazthat/snipinator/compare/v1.2.0...develop
+  https://github.com/realazthat/snipinator/compare/v1.3.0...develop
 [17]: https://github.com/realazthat/snipinator/tree/master
 [18]: https://github.com/realazthat/snipinator/tree/develop
 

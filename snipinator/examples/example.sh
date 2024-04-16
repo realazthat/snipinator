@@ -3,15 +3,12 @@
 set -e -x -v -u -o pipefail
 
 
-# HELP START
 python -m snipinator.cli --help
-# HELP END
 
-# EXAMPLE START
 python -m snipinator.cli \
   -t "snipinator/examples/EXAMPLE.md.jinja2" \
   --rm \
   --force \
+  --create \
   -o "snipinator/examples/EXAMPLE.generated.md" \
   --chmod-ro
-# EXAMPLE END

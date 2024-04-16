@@ -13,16 +13,14 @@ TOML=${PROJ_PATH}/pyproject.toml EXTRA=dev \
   TARGET_VENV_PATH="${PWD}/.cache/scripts/.venv" \
   bash "${PROJ_PATH}/scripts/utilities/ensure-reqs.sh"
 
-python -m snipinator.cli \
-  -t "${PROJ_PATH}/snipinator/examples/EXAMPLE.md.jinja2" \
-  --rm \
-  --force \
-  -o "${PROJ_PATH}/snipinator/examples/EXAMPLE.generated.md" \
-  --chmod-ro
+bash scripts/format.sh
+
+bash scripts/run-all-examples.sh
 
 python -m snipinator.cli \
   -t "${PROJ_PATH}/README.md.jinja2" \
   --rm \
   --force \
+  --create \
   -o "${PROJ_PATH}/README.md" \
   --chmod-ro

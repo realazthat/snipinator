@@ -303,6 +303,13 @@ def main() -> None:
         ' the new one; useful if the existing file might be write protected.'
         ' Defaults to False.')
     p.add_argument(
+        '--create',
+        action='store_true',
+        default=False,
+        help='Create an empty file at the destination if it does not exist.'
+        ' Useful if the file references itself via path() etc. and so therefore'
+        ' must exist during rendering. Defaults to False.')
+    p.add_argument(
         '--check',
         action='store_true',
         default=False,
@@ -365,6 +372,8 @@ def main() -> None:
       raise ValueError('Cannot use --chmod with stdout')
     if args.chmod_ro and args.output == '-':
       raise ValueError('Cannot use --chmod-ro with stdout')
+    if args.create and args.output == '-':
+      raise ValueError('Cannot use --create with stdout')
     if args.check and args.output == '-':
       raise ValueError('Cannot use --check with stdout')
     ############################################################################
@@ -395,6 +404,13 @@ def main() -> None:
         with io.StringIO(template_buffer.decode(**decode_kwargs),
                          newline=template_newline) as template_io:
           template_string = template_io.read()
+    ############################################################################
+    if args.create:
+      if args.output == '-':
+        raise ValueError('Cannot use --create with stdout')
+      output_path = Path(args.output)
+      if not output_path.exists():
+        output_path.touch()
     ############################################################################
     rendered = Snipinate(template_file_name=template_file_name,
                          template_string=template_string,

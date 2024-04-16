@@ -1,36 +1,47 @@
 # A README
 
-Here is a code snippet (global class):
+If you are viewing a rendered version of this page, you probably want to see the
+source code to see how it's done.
+
+## pysnippet: global class
 
 `{{ pysnippet(path='snipinator/examples/code.py', symbol='MyClass', backtickify='py') }}`
 
----
+## pysnippet: global method
 
-Here is a code snippet (class member method):
+`{{ pysnippet(path='snipinator/examples/code.py', symbol='GlobalMethod', backtickify='py') }}`
+
+## pysnippet: class member method
 
 `{{ pysnippet(path='snipinator/examples/code.py', symbol='MyClass.MyClassMethod', backtickify='py') }}`
 
----
+## pysignature: class member method
 
 Same thing but just the signature:
 
 `{{ pysignature(path='snipinator/examples/code.py', symbol='MyClass.MyClassMethod', backtickify='py') }}`
 
----
+## snippet
 
-Here is a code snippet (global method):
+<!--
+{{ snippet(path='snipinator/examples/code.py',
+           start='  # DELIM_TEST_START',
+           end='  # DELIM_TEST_END',
+           backtickify='py',
+           decomentify='nl') }}
+-->
 
-`{{ pysnippet(path='snipinator/examples/code.py', symbol='GlobalMethod', backtickify='py') }}`
+## self referencing path
 
----
+<!--
+{{ path('snipinator/examples/LONG-EXAMPLE.generated.md') }}
+-->
 
-Here is a terminal snippet:
+## shell, no terminal colors
 
 `{{ shell('python -m snipinator.cli --help', backtickify='console') }}`
 
----
-
-Here is a terminal snippet with terminal colors (img tag external svg):
+## shell: terminal colors, img tag, external svg
 
 <!--
 {{ shell('python -m snipinator.cli --help',
@@ -41,7 +52,7 @@ Here is a terminal snippet with terminal colors (img tag external svg):
          decomentify=True)
 }} -->
 
----
+## shell: terminal colors, img tag, external svg, no command in output
 
 Here is a terminal snippet with terminal colors (img tag external svg), without
 command included in the svg:
@@ -56,10 +67,10 @@ command included in the svg:
          decomentify=True)
 }} -->
 
----
+## shell: terminal colors, img tag, external svg, custom dimensions
 
 Here is a terminal snippet with terminal colors (img tag external svg, custom
-dimensions), without command included in the svg:
+dimensions), _with_ command included in the svg:
 
 <!--
 {{ shell('python -m snipinator.cli --help',
@@ -72,7 +83,9 @@ dimensions), without command included in the svg:
          decomentify=True)
 }} -->
 
----
+## shell: terminal colors, img tag, svg data uri
+
+**Warning: This breaks on GitHub.**
 
 Here is a terminal snippet with terminal colors (img tag with svg data):
 
@@ -83,7 +96,9 @@ Here is a terminal snippet with terminal colors (img tag with svg data):
          decomentify=True) }}
 -->
 
----
+## shell: terminal colors, raw svg
+
+**Warning: This breaks on GitHub.**
 
 Here is a terminal snippet with terminal colors (raw svg):
 
@@ -93,5 +108,3 @@ Here is a terminal snippet with terminal colors (raw svg):
          rich_term='xterm-256color',
          decomentify=True) }}
 -->
-
----

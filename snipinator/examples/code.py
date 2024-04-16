@@ -20,3 +20,12 @@ class MyClass:
 async def GlobalMethod():
   """This is a global method"""
   print('Hello')
+
+
+async def MethodForDelimiterTest():
+  """This is a method in a delimiter"""
+  print('This is a method in a delimiter')
+  # DELIM_TEST_START
+  i = 5
+  print(i)
+  # DELIM_TEST_END

@@ -626,7 +626,7 @@ Main libraries used in Snipinator are:
   {[pexpect](https://pexpect.readthedocs.io/en/stable/),
   [rich](https://github.com/Textualize/rich)}.
 
-## Related Projects {#thanks}
+## Related Projects
 
 - [ARMmbed/snippet](https://github.com/ARMmbed/snippet) "A Python3 tool to
   extract code snippets from source files".

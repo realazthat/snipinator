@@ -60,7 +60,7 @@ SOURCE: `README.md.jinja2`.
 What it does: **Snipinator** lets you take a `EXAMPLE.md` template and include
 snippets from your (working and tested) codebase.
 
-Turn this (`./snipinator/examples/EXAMPLE.md.jinja2`):
+Turn this ([./snipinator/examples/EXAMPLE.md.jinja2](./snipinator/examples/EXAMPLE.md.jinja2)):
 
 <!---->
 ```md
@@ -76,7 +76,7 @@ Note that `code.py` has a test:
 ```
 <!---->
 
-Into this (`./snipinator/examples/EXAMPLE.generated.md`):
+Into this ([./snipinator/examples/EXAMPLE.generated.md](./snipinator/examples/EXAMPLE.generated.md)):
 
 <!---->
 `````md
@@ -198,15 +198,12 @@ Note that `code.py` has a test:
 - Snipinator's own `README`:
   - Template: [./README.md.jinja2](./README.md.jinja2).
   - Generated: [./README.md](./README.md).
-  - Generation script:
-    [./scripts/generate-readme.sh](./scripts/generate-readme.sh).
+  - Generation script: [./scripts/generate-readme.sh](./scripts/generate-readme.sh).
 - Example:
-  - Template:
-    [./snipinator/examples/EXAMPLE.md.jinja2](./snipinator/examples/EXAMPLE.md.jinja2).
+  - Template: [./snipinator/examples/EXAMPLE.md.jinja2](./snipinator/examples/EXAMPLE.md.jinja2).
   - Generated:
     [./snipinator/examples/EXAMPLE.generated.md](./snipinator/examples/EXAMPLE.generated.md).
-  - Generation script:
-    [./snipinator/examples/example.sh](./snipinator/examples/example.sh).
+  - Generation script: [./snipinator/examples/example.sh](./snipinator/examples/example.sh).
 - Long example of many features:
   - Template:
     [./snipinator/examples/LONG-EXAMPLE.md.jinja2](./snipinator/examples/LONG-EXAMPLE.md.jinja2).
@@ -366,8 +363,7 @@ def rawsnippet(path: str,
 
 ### snippet
 
-Example in
-[./snipinator/examples/LONG-EXAMPLE.md.jinja2](./README.md.jinja2).
+Example in [./snipinator/examples/LONG-EXAMPLE.md.jinja2](./snipinator/examples/LONG-EXAMPLE.md.jinja2).
 
 Documentation:
 
@@ -509,6 +505,8 @@ def path(path: str,
          indent: Union[str, int, None] = None,
          backtickify: Union[bool, str] = False,
          decomentify: Union[bool, Literal['nl']] = False,
+         link: Optional[Literal['md', 'html']] = None,
+         text: Optional[str] = None,
          _ctx: _Context) -> Union[str, markupsafe.Markup]:
   """Verifies that `path` exists, and just returns `path`.
 
@@ -530,6 +528,11 @@ def path(path: str,
         the Jinja2 call unmolested by markdown formatters, because they will be
         inside of a comment section. "nl" adds additional newlines after the
         newline delimiters. Defaults to False.
+      link (Optional[Literal['md', 'html']], optional): If specified, will
+        return a markdown or html link to the path. Defaults to None.
+      text (Optional[str], optional): If specified, will use this text as the
+        return value instead of the path. If used with link, will return this
+        text as the link text instead of the path. Defaults to None.
       _ctx (_Context): This is used by the system and is not available as an
         argument.
 
@@ -585,8 +588,8 @@ Also see Jinja2 v3
   formatter and make the call invalid. Workarounds:
   - **Decommentify**: Put the snippet call inside a HTML comment, then use
     `decommentify` parameter. See
-    [./snipinator/examples/LONG-EXAMPLE.md.jinja2](./snipinator/examples/LONG-EXAMPLE.md.jinja2)
-    for examples.
+    [./snipinator/examples/LONG-EXAMPLE.md.jinja2](./snipinator/examples/LONG-EXAMPLE.md.jinja2) for
+    examples.
   - [prettier](https://prettier.io/) formatter is pretty good at leaving the
     Jinja2 calls alone, especially if you don't have any spaces. This especially
     helps for markdown "reference-style links" that have Jinja2 calls in them

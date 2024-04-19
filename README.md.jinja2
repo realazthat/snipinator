@@ -56,11 +56,11 @@
 What it does: **Snipinator** lets you take a `EXAMPLE.md` template and include
 snippets from your (working and tested) codebase.
 
-Turn this (`{{ path('./snipinator/examples/EXAMPLE.md.jinja2') }}`):
+Turn this ({{ path('./snipinator/examples/EXAMPLE.md.jinja2', link='md') }}):
 
 <!--{{ rawsnippet('snipinator/examples/EXAMPLE.md.jinja2', backtickify='md', decomentify='nl') }}-->
 
-Into this (`{{ path('./snipinator/examples/EXAMPLE.generated.md') }}`):
+Into this ({{ path('./snipinator/examples/EXAMPLE.generated.md', link='md') }}):
 
 <!--{{ rawsnippet('snipinator/examples/EXAMPLE.generated.md', backtickify='md', decomentify='nl') }}-->
 
@@ -94,7 +94,7 @@ pip install git+https://github.com/realazthat/snipinator.git@v{{last_stable_rele
 ## 🔧 Usage
 
 Example template README:
-([{{path('./snipinator/examples/EXAMPLE.md.jinja2')}}](./snipinator/examples/EXAMPLE.md.jinja2)):
+({{path('./snipinator/examples/EXAMPLE.md.jinja2', link='md')}}):
 
 <!--{{ rawsnippet('snipinator/examples/EXAMPLE.md.jinja2', backtickify='md', decomentify='nl') }}-->
 
@@ -115,24 +115,21 @@ Generating the README:
 ## 💡 Examples
 
 - Snipinator's own `README`:
-  - Template: [{{path('./README.md.jinja2')}}](./README.md.jinja2).
-  - Generated: [{{path('./README.md')}}](./README.md).
-  - Generation script:
-    [{{path('./scripts/generate-readme.sh')}}](./scripts/generate-readme.sh).
+  - Template: {{path('./README.md.jinja2', link='md')}}.
+  - Generated: {{path('./README.md', link='md')}}.
+  - Generation script: {{path('./scripts/generate-readme.sh', link='md')}}.
 - Example:
-  - Template:
-    [{{path('./snipinator/examples/EXAMPLE.md.jinja2')}}](./snipinator/examples/EXAMPLE.md.jinja2).
+  - Template: {{path('./snipinator/examples/EXAMPLE.md.jinja2', link='md')}}.
   - Generated:
-    [{{path('./snipinator/examples/EXAMPLE.generated.md')}}](./snipinator/examples/EXAMPLE.generated.md).
-  - Generation script:
-    [{{path('./snipinator/examples/example.sh')}}](./snipinator/examples/example.sh).
+    {{path('./snipinator/examples/EXAMPLE.generated.md', link='md')}}.
+  - Generation script: {{path('./snipinator/examples/example.sh', link='md')}}.
 - Long example of many features:
   - Template:
-    [{{path('./snipinator/examples/LONG-EXAMPLE.md.jinja2')}}](./snipinator/examples/LONG-EXAMPLE.md.jinja2).
+    {{path('./snipinator/examples/LONG-EXAMPLE.md.jinja2', link='md')}}.
   - Generated:
-    [{{path('./snipinator/examples/LONG-EXAMPLE.generated.md')}}](./snipinator/examples/LONG-EXAMPLE.generated.md).
+    {{path('./snipinator/examples/LONG-EXAMPLE.generated.md', link='md')}}.
   - Generation script:
-    [{{path('./snipinator/examples/long-example.sh')}}](./snipinator/examples/long-example.sh).
+    {{path('./snipinator/examples/long-example.sh', link='md')}}.
 - Projects using Snipinator:
   - [github.com/realazthat/snipinator](https://github.com/realazthat/snipinator),
     See
@@ -157,7 +154,7 @@ Generating the README:
 ### pysnippet
 
 Used several times in
-[{{path('./snipinator/examples/LONG-EXAMPLE.md.jinja2')}}](./snipinator/examples/LONG-EXAMPLE.md.jinja2).
+{{path('./snipinator/examples/LONG-EXAMPLE.md.jinja2', link='md')}}.
 
 Documentation:
 
@@ -165,7 +162,7 @@ Documentation:
 
 ### pysignature
 
-Used several times in [{{path('./README.md.jinja2')}}](./README.md.jinja2).
+Used several times in {{path('./README.md.jinja2', link='md')}}.
 
 Documentation:
 
@@ -173,7 +170,7 @@ Documentation:
 
 ### rawsnippet
 
-Used several times in [{{path('./README.md.jinja2')}}](./README.md.jinja2).
+Used several times in {{path('./README.md.jinja2', link='md')}}.
 
 Documentation:
 
@@ -181,8 +178,7 @@ Documentation:
 
 ### snippet
 
-Example in
-[{{path('./snipinator/examples/LONG-EXAMPLE.md.jinja2')}}](./README.md.jinja2).
+Example in {{path('./snipinator/examples/LONG-EXAMPLE.md.jinja2', link='md')}}.
 
 Documentation:
 
@@ -190,7 +186,7 @@ Documentation:
 
 ### shell
 
-Used several times in [{{path('./README.md.jinja2')}}](./README.md.jinja2).
+Used several times in {{path('./README.md.jinja2', link='md')}}.
 
 Documentation:
 
@@ -198,7 +194,7 @@ Documentation:
 
 ### path
 
-Used several times in [{{path('./README.md.jinja2')}}](./README.md.jinja2).
+Used several times in {{path('./README.md.jinja2', link='md')}}.
 
 Documentation:
 
@@ -249,8 +245,8 @@ Also see Jinja2 v3
   formatter and make the call invalid. Workarounds:
   - **Decommentify**: Put the snippet call inside a HTML comment, then use
     `decommentify` parameter. See
-    [{{path('./snipinator/examples/LONG-EXAMPLE.md.jinja2')}}](./snipinator/examples/LONG-EXAMPLE.md.jinja2)
-    for examples.
+    {{path('./snipinator/examples/LONG-EXAMPLE.md.jinja2', link='md')}} for
+    examples.
   - [prettier](https://prettier.io/) formatter is pretty good at leaving the
     Jinja2 calls alone, especially if you don't have any spaces. This especially
     helps for markdown "reference-style links" that have Jinja2 calls in them
@@ -277,7 +273,7 @@ Also see Jinja2 v3
 ## 🔑 License
 
 This project is licensed under the MIT License - see the
-[{{path('./LICENSE.md')}}](./LICENSE.md) file for details.
+{{path('./LICENSE.md', link='md')}} file for details.
 
 ## 🙏 Thanks
 

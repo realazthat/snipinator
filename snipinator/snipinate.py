@@ -318,6 +318,8 @@ def path(path: str,
          indent: Union[str, int, None] = None,
          backtickify: Union[bool, str] = False,
          decomentify: Union[bool, Literal['nl']] = False,
+         link: Optional[Literal['md', 'html']] = None,
+         text: Optional[str] = None,
          _ctx: _Context) -> Union[str, markupsafe.Markup]:
   """Verifies that `path` exists, and just returns `path`.
 
@@ -339,6 +341,11 @@ def path(path: str,
         the Jinja2 call unmolested by markdown formatters, because they will be
         inside of a comment section. "nl" adds additional newlines after the
         newline delimiters. Defaults to False.
+      link (Optional[Literal['md', 'html']], optional): If specified, will
+        return a markdown or html link to the path. Defaults to None.
+      text (Optional[str], optional): If specified, will use this text as the
+        return value instead of the path. If used with link, will return this
+        text as the link text instead of the path. Defaults to None.
       _ctx (_Context): This is used by the system and is not available as an
         argument.
 
@@ -351,14 +358,25 @@ def path(path: str,
   if not Path(path).exists():
     raise FileNotFoundError(f'File not found: {json.dumps(path)}')
 
-  path_str = path
-  path_str = _Backtickify(path_str, backtickify=backtickify)
-  path_str = _Indent(path_str, indent=indent)
-  path_str = _Decomentify(path_str, decomentify=decomentify)
+  text_str: str = path if text is None else text
+  output: str = text_str
+
+  if link == 'md':
+    # TODO: escape text_str for markdown?
+    # TODO: urllib.quote() the URL?
+    output = f'[{html.escape(text_str, quote=True)}]({html.escape(path, quote=True)})'
+  elif link == 'html':
+    # TODO: urllib.quote() the URL?
+    output = f'<a href="{html.escape(path, quote=True)}">{html.escape(text_str, quote=True)}</a>'
+  elif link is None:
+    output = text_str
+  output = _Backtickify(output, backtickify=backtickify)
+  output = _Indent(output, indent=indent)
+  output = _Decomentify(output, decomentify=decomentify)
   if not escape:
-    return markupsafe.Markup(path_str)
+    return markupsafe.Markup(output)
   else:
-    return path_str
+    return output
 
 
 def _ExecuteANSI(args: str, cwd: Path, term: Optional[str], rows: int,

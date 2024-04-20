@@ -8,7 +8,8 @@ SOURCE: `snipinator/examples/EXAMPLE.md.jinja2`.
 
 Here is a code snippet:
 
-````py
+<!---->
+```py
 class MyClass:
   """This is a global class"""
 
@@ -18,7 +19,8 @@ class MyClass:
   def MyClassMethod(self):
     """This is a method of MyClass"""
     print(self.name)
-````
+```
+<!---->
 
 Note that `code.py` has a test:
-[./snipinator/examples/code_test.py](./snipinator/examples/code_test.py)
+[./snipinator/examples/code_test.py](./snipinator/examples/code_test.py).

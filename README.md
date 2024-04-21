@@ -617,6 +617,11 @@ Also see Jinja2 v3
   it, it will run backtickify first, then indent everything including the
   backticks.
 
+## Versioning
+
+We use SemVer for versioning. For the versions available, see the tags on this
+repository.
+
 ## 🔑 License
 
 This project is licensed under the MIT License - see the

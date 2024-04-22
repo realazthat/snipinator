@@ -55,6 +55,8 @@ SOURCE: `README.md.jinja2`.
 
 </div>
 
+<img src=".github/demo.gif" alt="Demo" width="100%">
+
 ## ❔ What
 
 What it does: **Snipinator** lets you take a `EXAMPLE.md` template and include

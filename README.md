@@ -25,8 +25,8 @@ SOURCE: `README.md.jinja2`.
 <p align="center">
   <strong>
     <a href="#-features">🎇Features</a> &nbsp;&bull;&nbsp;
-    <a href="#-installation">🛠️Installation</a> &nbsp;&bull;&nbsp;
-    <a href="#-usage">🔧Usage</a> &nbsp;&bull;&nbsp;
+    <a href="#-installation">🏠Installation</a> &nbsp;&bull;&nbsp;
+    <a href="#-usage">🚜Usage</a> &nbsp;&bull;&nbsp;
     <a href="#-command-line-options">💻CLI</a> &nbsp;&bull;&nbsp;
     <a href="#-examples">💡Examples</a> &nbsp;&bull;&nbsp;
     <a href="#-api">🤖API</a> &nbsp;&bull;&nbsp;
@@ -129,7 +129,7 @@ Note that `code.py` has a test:
     :camera:.
 - ⚙️🔗🗃️ More robust **references/links** to local files using [path()](#path).
 
-## 🛠️ Installation
+## 🏠 Installation
 
 ```bash
 # Install from pypi (https://pypi.org/project/snipinator/)
@@ -139,7 +139,7 @@ pip install snipinator
 pip install git+https://github.com/realazthat/snipinator.git@v1.3.1
 ```
 
-## 🔧 Usage
+## 🚜 Usage
 
 Example template README:
 ([./snipinator/examples/EXAMPLE.md.jinja2](./snipinator/examples/EXAMPLE.md.jinja2)):

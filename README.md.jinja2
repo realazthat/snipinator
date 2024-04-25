@@ -153,7 +153,7 @@ Generating the README:
 
 (Jinja2) Functions made available:
 
-### pysnippet
+### 🐍✂ pysnippet
 
 Used several times in
 {{path('./snipinator/examples/LONG-EXAMPLE.md.jinja2', link='md')}}.
@@ -162,7 +162,7 @@ Documentation:
 
 <!--{{ pysignature(path='snipinator/snipinate.py', symbol='pysnippet', backtickify='py', decomentify='nl') }}-->
 
-### pysignature
+### 🐍📖 pysignature
 
 Used several times in {{path('./README.md.jinja2', link='md')}}.
 
@@ -170,7 +170,7 @@ Documentation:
 
 <!--{{ pysignature(path='snipinator/snipinate.py', symbol='pysignature', backtickify='py', decomentify='nl') }}-->
 
-### rawsnippet
+### ✂ rawsnippet
 
 Used several times in {{path('./README.md.jinja2', link='md')}}.
 
@@ -178,7 +178,7 @@ Documentation:
 
 <!--{{ pysignature(path='snipinator/snipinate.py', symbol='rawsnippet', backtickify='py', decomentify='nl') }}-->
 
-### snippet
+### ✂ snippet
 
 Example in {{path('./snipinator/examples/LONG-EXAMPLE.md.jinja2', link='md')}}.
 
@@ -186,7 +186,7 @@ Documentation:
 
 <!--{{ pysignature(path='snipinator/snipinate.py', symbol='snippet', backtickify='py', decomentify='nl') }}-->
 
-### shell
+### 🐚 shell
 
 Used several times in {{path('./README.md.jinja2', link='md')}}.
 
@@ -194,7 +194,7 @@ Documentation:
 
 <!--{{ pysignature(path='snipinator/snipinate.py', symbol='shell', backtickify='py', decomentify='nl') }}-->
 
-### path
+### 🌀 path
 
 Used several times in {{path('./README.md.jinja2', link='md')}}.
 
@@ -272,7 +272,7 @@ Also see Jinja2 v3
   it, it will run backtickify first, then indent everything including the
   backticks.
 
-## Versioning
+## 🤏 Versioning
 
 We use SemVer for versioning. For the versions available, see the tags on this
 repository.
@@ -293,16 +293,40 @@ Main libraries used in Snipinator are:
   {[pexpect](https://pexpect.readthedocs.io/en/stable/),
   [rich](https://github.com/Textualize/rich)}.
 
-## Related Projects
+## 🤝 Related Projects
 
-- [markdown-code-example-inserter](https://github.com/electrovir/markdown-code-example-inserter)
-  "Syncs code examples with markdown documentation."
-- [ARMmbed/snippet](https://github.com/ARMmbed/snippet) "A Python3 tool to
-  extract code snippets from source files".
-- [SimonCropp/MarkdownSnippets](https://github.com/SimonCropp/MarkdownSnippets)
-  "Extracts snippets from code files and merges them into markdown documents".
-- [shiftkey/scribble](https://github.com/shiftkey/scribble) "Making
-  documentation for .NET projects easy and fun".
+Not complete, and not necessarily up to date. Make a PR
+([contributions](#-contributions)) to insert/modify.
+
+| Project                                                           | Stars     | Last Update  | Language   | Platform         | Similarity X Obviousness |
+| ----------------------------------------------------------------- | --------- | ------------ | ---------- | ---------------- | ------------------------ |
+| [zakhenry/embedme][24]                                            | 222       | `2023/11/08` | JS         | N/A              | ⭐⭐⭐⭐⭐               |
+| [GitHub Docs: Creating a permanent link to a code snippet][23]    | N/A       | N/A          | N/A        | N/A              | ⭐                       |
+| [electrovir/markdown-code-example-inserter][25]                   | 1         | `2024/02/19` | JS         | N/A              | ⭐⭐⭐⭐⭐               |
+| [dineshsonachalam/markdown-autodocs][26]                          | 176       | `2022/09/19` | JS         | GH Action        | ⭐⭐⭐⭐                 |
+| [romnn/embedme][27]                                               | 0         | `2024/04/18` | Go         | N/A              | ?                        |
+| [drewavis/markdowninclude][28]                                    | 1         | `2024/04/06` | JS         | VSCode Extension | ?                        |
+| [tokusumi/markdown-embed-code][29]                                | 28        | `2022/01/05` | Python     | VSCode Extension | ⭐⭐⭐⭐                 |
+| [ARMmbed/snippet][30]                                             | 6         | `2021/08/05` | Python     | N/A              | ?                        |
+| [SimonCropp/MarkdownSnippets][31]                                 | 23        | `2024/04/23` | .NET       | N/A              | ⭐⭐⭐⭐⭐               |
+| [shiftkey/scribble][32] ([docs][33])                              | 40        | `2013/08/08` | .NET       | N/A              | ⭐⭐                     |
+| [JulianCataldo/remark-embed][34]                                  | 2         | `2022/09/22` | JS         | N/A              | ⭐⭐⭐⭐⭐               |
+| [calebpeterson/jest-transformer-test-md][35]                      | 2         | `2020/08/21` | JS         | Jest Tests       | ⭐⭐                     |
+| [ildar-shaimordanov/git-markdown-snippet][36]                     | 0         | `2021/09/14` | Perl       | N/A              | ⭐⭐⭐⭐⭐               |
+| [sammndhr/gridsome-remark-embed-snippet][37]                      | 2         | `2021/06/14` | JS         | [Gridsome][38]   | ⭐⭐⭐⭐                 |
+| [gatsby-remark-embed-snippet][39]                                 | N/A (55k) | `2024/01/23` | JS         | [Gatsby][40]     | ⭐                       |
+| [endocode/snippetextractor][41]                                   | 4         | `2014/08/16` | C++        | N/A              | ⭐⭐⭐⭐⭐               |
+| [javierfernandes/markdown-exercises][42]                          | 1         | `2017/05/01` | JS         | N/A              | ⭐                       |
+| [devincornell/pymddoc][43]                                        | 0         | `2023/12/01` | Python     | Python           | ⭐⭐⭐                   |
+| [NativeScript/markdown-snippet-injector][44]                      | 4         | `2019/01/24` | JS         | N/A              | ⭐⭐⭐⭐                 |
+| [polywrap/doc-snippets][45]                                       | 3         | `2023/09/26` | JS         | N/A              | ⭐⭐⭐⭐⭐               |
+| [andersfischernielsen/Simple-Embedded-Markdown-Code-Snippets][46] | 1         | `2021/02/12` | JS         | ⭐⭐⭐⭐⭐       |
+| [xrd/oreilly-snippets][47]                                        | 2         | `2015/10/15` | Ruby       | N/A              | ⭐⭐⭐⭐⭐               |
+| [DamonOehlman/injectcode][48]                                     | 1         | `2021/08/01` | JS         | N/A              | ⭐⭐⭐⭐⭐               |
+| [fuxingloh/remark-code-import-replace][49]                        | 0         | `2022/12/21` | JS         | Remark?          | ⭐⭐⭐⭐                 |
+| [teyc/markdown-snippet][50]                                       | 0         |              | Powershell | N/A              | ⭐⭐⭐⭐⭐               |
+| [marc-bouvier-graveyard/baldir_markdown][51]                      | 0         | `2020/06/15` | Python     | N/A              | ⭐⭐⭐⭐⭐               |
+| [https://github.com/tjstankus/commitate][52]                      | 0         | `2014/05/29` | Ruby       | N/A              | ⭐                       |
 
 ## 🫡 Contributions
 
@@ -332,7 +356,7 @@ Main libraries used in Snipinator are:
 5. `git commit -m "..."`.
 6. Make a PR to `develop` (or push to develop if you have the rights).
 
-## ⛙ Release Process
+## 🔄🚀 Release Process
 
 These instructions are for maintainers of the project.
 
@@ -404,3 +428,37 @@ These instructions are for maintainers of the project.
   https://img.shields.io/badge/Platform-Linux-{{badge_color}}?style=plastic&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWxhcHRvcC1taW5pbWFsIj48cmVjdCB3aWR0aD0iMTgiIGhlaWdodD0iMTIiIHg9IjMiIHk9IjQiIHJ4PSIyIiByeT0iMiIvPjxsaW5lIHgxPSIyIiB4Mj0iMjIiIHkxPSIyMCIgeTI9IjIwIi8+PC9zdmc+
 [21]: ./LICENSE.md
 [22]: ./.github/logo-exported.svg
+[23]:
+  https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-a-permanent-link-to-a-code-snippet
+[24]: https://github.com/zakhenry/embedme
+[25]: https://github.com/electrovir/markdown-code-example-inserter
+[26]: https://github.com/dineshsonachalam/markdown-autodocs
+[27]: https://github.com/romnn/embedme
+[28]: https://github.com/drewavis/markdowninclude
+[29]: https://github.com/tokusumi/markdown-embed-code
+[30]: https://github.com/ARMmbed/snippet
+[31]: https://github.com/SimonCropp/MarkdownSnippets
+[32]: https://github.com/shiftkey/scribble
+[33]:
+  https://github.com/shiftkey/scribble/blob/master/docs/features/code-snippets.md
+[34]: https://github.com/JulianCataldo/remark-embed
+[35]: https://github.com/calebpeterson/jest-transformer-test-md
+[36]: https://github.com/ildar-shaimordanov/git-markdown-snippet
+[37]: https://github.com/sammndhr/gridsome-remark-embed-snippet
+[38]: https://gridsome.org/
+[39]:
+  https://github.com/gatsbyjs/gatsby/tree/master/packages/gatsby-remark-embed-snippet
+[40]: https://github.com/gatsbyjs/gatsby
+[41]: https://github.com/endocode/snippetextractor
+[42]: https://github.com/javierfernandes/markdown-exercises
+[43]: https://github.com/devincornell/pymddoc
+[44]: https://github.com/NativeScript/markdown-snippet-injector
+[45]: https://github.com/polywrap/doc-snippets
+[46]:
+  https://github.com/andersfischernielsen/Simple-Embedded-Markdown-Code-Snippets
+[47]: https://github.com/xrd/oreilly-snippets
+[48]: https://github.com/DamonOehlman/injectcode
+[49]: https://github.com/fuxingloh/remark-code-import-replace
+[50]: https://github.com/teyc/markdown-snippet
+[51]: https://github.com/marc-bouvier-graveyard/baldir_markdown
+[52]: https://github.com/tjstankus/commitate

@@ -218,19 +218,16 @@ Note that `code.py` has a test:
   - Generation script:
     [./snipinator/examples/long-example.sh](./snipinator/examples/long-example.sh).
 - Projects using Snipinator:
-  - [github.com/realazthat/snipinator](https://github.com/realazthat/snipinator),
-    See
+  - [realazthat/snipinator](https://github.com/realazthat/snipinator), See
     [snipinator/README.md.jinja2](https://github.com/realazthat/snipinator/blob/61cb88593baa099dc375cf5fd40679e4be673fc5/README.md.jinja2).
-  - [github.com/realazthat/changeguard](https://github.com/realazthat/changeguard),
-    See
+  - [realazthat/changeguard](https://github.com/realazthat/changeguard), See
     [changeguard/README.md.jinja2](https://github.com/realazthat/changeguard/blob/87d5104b52e651bb9195a3d46dd7f050acbcb534/README.md.jinja2).
-  - [github.com/realazthat/comfy-catapult](https://github.com/realazthat/comfy-catapult),
+  - [realazthat/comfy-catapult](https://github.com/realazthat/comfy-catapult),
     See
     [comfy-catapult/README.md.jinja2](https://github.com/realazthat/comfy-catapult/blob/ff353d48b25fa7b9c35fa11b31d5f2b3039c41c8/README.md.jinja2).
-  - [github.com/realazthat/comfylowda](https://github.com/realazthat/comfylowda),
-    See
+  - [realazthat/comfylowda](https://github.com/realazthat/comfylowda), See
     [comfylowda/README.md.jinja2](https://github.com/realazthat/comfylowda/blob/e01a32c38107aa0b89ccea21c4678d193a186a78/README.md.jinja2).
-  - [github.com/realazthat/excalidraw-brute-export-cli](https://github.com/realazthat/excalidraw-brute-export-cli),
+  - [realazthat/excalidraw-brute-export-cli](https://github.com/realazthat/excalidraw-brute-export-cli),
     See
     [excalidraw-brute-export-cli/README.md.jinja2](https://github.com/realazthat/excalidraw-brute-export-cli/blob/54a3b5b08b644e61c721ab565c576094234c5cc7/README.md.jinja2).
 
@@ -560,6 +557,8 @@ Also see Jinja2 v3
   - Why: Some dev dependencies require Python 3.8+.
 
 ### Tested on
+
+<!-- TODO: Get this from the GH action workflow -->
 
 - WSL2 Ubuntu 20.04, Python 3.8.0
 - Ubuntu 20.04, Python 3.8.0, 3.9.0, 3.10.0, 3.11.0, 3.12.0, tested in GitHub

@@ -46,7 +46,19 @@ jobs:
         echo "${{ matrix.python-version.file }}" > .python-version
         cat .python-version
     - name: Install Bash (Ubuntu)
-      run: sudo apt-get update && sudo apt-get install -y bash grep xxd git xxhash
+      # * bash: scripts.
+      # * xxd: tests.
+      # * git: scripts, tests.
+      # * xxhash: changeguard.
+      # * rsync: out-of-directory test.
+      # * grep: tests.
+      # * expect: for `unbuffer`, useful to grab and compare ansi color symbols.
+      # * jq: dependency for [yq](https://github.com/kislyuk/yq), which is used
+      #   to generate the README.
+      # * rsync: tests.
+      run: |
+        sudo apt-get update && sudo apt-get install -y bash grep xxd git \
+          xxhash rsync expect jq
     - name: Run everything
       run: |
         bash scripts/pre.sh

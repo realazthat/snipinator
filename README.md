@@ -9,6 +9,9 @@ SOURCE: `README.md.jinja2`.
 
 
 
+
+
+
 -->
 
 # <div align="center">![Snipinator][22]</div>
@@ -24,13 +27,20 @@ SOURCE: `README.md.jinja2`.
 
 <p align="center">
   <strong>
-    <a href="#-features">🎇Features</a> &nbsp;&bull;&nbsp;
-    <a href="#-installation">🏠Installation</a> &nbsp;&bull;&nbsp;
-    <a href="#-usage">🚜Usage</a> &nbsp;&bull;&nbsp;
-    <a href="#-command-line-options">💻CLI</a> &nbsp;&bull;&nbsp;
-    <a href="#-examples">💡Examples</a> &nbsp;&bull;&nbsp;
-    <a href="#-api">🤖API</a> &nbsp;&bull;&nbsp;
-    <a href="#-requirements">✅Requirements</a> &nbsp;&bull;&nbsp;
+    <a href="#-features">🎇Features</a>
+    &nbsp;&bull;&nbsp;
+    <a href="#-installation">🏠Installation</a>
+    &nbsp;&bull;&nbsp;
+    <a href="#-usage">🚜Usage</a>
+    &nbsp;&bull;&nbsp;
+    <a href="#-command-line-options">💻CLI</a>
+    &nbsp;&bull;&nbsp;
+    <a href="#-examples">💡Examples</a>
+    &nbsp;&bull;&nbsp;
+    <a href="#-jinja2-api">🤖Jinja2 API</a>
+    &nbsp;&bull;&nbsp;
+    <a href="#-requirements">✅Requirements</a>
+    &nbsp;&bull;&nbsp;
     <a href="#-gotchas-and-limitations">🚸Gotchas</a>
   </strong>
 </p>
@@ -59,8 +69,8 @@ SOURCE: `README.md.jinja2`.
 
 ## ❔ What
 
-What it does: **Snipinator** lets you take a `EXAMPLE.md` template and include
-snippets from your (working and tested) codebase.
+What it does: **Snipinator** lets you take a `EXAMPLE.md` template
+and include snippets from your (working and tested) codebase.
 
 Turn this ([./snipinator/examples/EXAMPLE.md.jinja2](./snipinator/examples/EXAMPLE.md.jinja2)):
 
@@ -231,9 +241,12 @@ Note that `code.py` has a test:
     See
     [excalidraw-brute-export-cli/README.md.jinja2](https://github.com/realazthat/excalidraw-brute-export-cli/blob/54a3b5b08b644e61c721ab565c576094234c5cc7/README.md.jinja2).
 
-## 🤖 API
+## 🤖 Jinja2 API
 
-(Jinja2) Functions made available:
+The regular Jinja2 v3 template syntax is supported. For more information, see
+[Template Designer Documentation](https://jinja.palletsprojects.com/en/3.1.x/templates/).
+
+Additional (Jinja2) functions made available:
 
 ### 🐍✂ pysnippet
 
@@ -249,6 +262,7 @@ def pysnippet(path: str,
               *,
               escape: bool = False,
               indent: Union[str, int, None] = None,
+              indented: Union[str, int, None] = None,
               backtickify: Union[bool, str] = False,
               decomentify: Union[bool, Literal['nl']] = False,
               _ctx: _Context) -> Union[str, markupsafe.Markup]:
@@ -262,6 +276,8 @@ def pysnippet(path: str,
         False.
       indent (Union[str, int, None], optional): Should indent? By how much, or
         with what prefix? Defaults to None.
+      indented (Union[str, int, None], optional): Indents every line except the
+        first. By how much, or with what prefix? Defaults to None.
       backtickify (Union[bool, str], optional): Should surround with backticks?
         With what language? Defaults to False.
       decomentify (Union[bool, Literal['nl']]): Assuming that you will be using
@@ -292,6 +308,7 @@ def pysignature(path: str,
                 *,
                 escape: bool = False,
                 indent: Union[str, int, None] = None,
+                indented: Union[str, int, None] = None,
                 backtickify: Union[bool, str] = False,
                 decomentify: Union[bool, Literal['nl']] = False,
                 _ctx: _Context) -> str:
@@ -306,6 +323,8 @@ def pysignature(path: str,
         False.
       indent (Union[str, int, None], optional): Should indent? By how much, or
         with what prefix? Defaults to None.
+      indented (Union[str, int, None], optional): Indents every line except the
+        first. By how much, or with what prefix? Defaults to None.
       backtickify (Union[bool, str], optional): Should surround with backticks?
         With what language? Defaults to False.
       decomentify (Union[bool, Literal['nl']]): Assuming that you will be using
@@ -335,6 +354,7 @@ def rawsnippet(path: str,
                *,
                escape: bool = False,
                indent: Union[str, int, None] = None,
+               indented: Union[str, int, None] = None,
                backtickify: Union[bool, str] = False,
                decomentify: Union[bool, Literal['nl']] = False,
                _ctx: _Context) -> Union[str, markupsafe.Markup]:
@@ -346,6 +366,8 @@ def rawsnippet(path: str,
         False.
       indent (Union[str, int, None], optional): Should indent? By how much, or
         with what prefix? Defaults to None.
+      indented (Union[str, int, None], optional): Indents every line except the
+        first. By how much, or with what prefix? Defaults to None.
       backtickify (Union[bool, str], optional): Should surround with backticks?
         With what language? Defaults to False.
       decomentify (Union[bool, Literal['nl']]): Assuming that you will be using
@@ -378,6 +400,7 @@ def snippet(path: str,
             *,
             escape: bool = False,
             indent: Union[str, int, None] = None,
+            indented: Union[str, int, None] = None,
             backtickify: Union[bool, str] = False,
             decomentify: Union[bool, Literal['nl']] = False,
             _ctx: _Context) -> Union[str, markupsafe.Markup]:
@@ -393,6 +416,8 @@ def snippet(path: str,
         False.
       indent (Union[str, int, None], optional): Should indent? By how much, or
         with what prefix? Defaults to None.
+      indented (Union[str, int, None], optional): Indents every line except the
+        first. By how much, or with what prefix? Defaults to None.
       backtickify (Union[bool, str], optional): Should surround with backticks?
         With what language? Defaults to False.
       decomentify (Union[bool, Literal['nl']]): Assuming that you will be using
@@ -423,6 +448,7 @@ def shell(args: str,
           *,
           escape: bool = False,
           indent: Union[str, int, None] = None,
+          indented: Union[str, int, None] = None,
           backtickify: Union[bool, str] = False,
           decomentify: Union[bool, Literal['nl']] = False,
           rich: Union[Literal['svg'], Literal['img+b64+svg'], Literal['raw'],
@@ -442,14 +468,26 @@ def shell(args: str,
   access. If an adversary can control the `args` parameter, they can execute
   arbitrary commands on your system.
 
+  Note: On persistent output colors:
+
+  * I found that the environment variables TERM, COLORTERM and FORCE_COLOR,
+    CLI_WIDTH, COLUMNS also influence the outputs for some applications.
+  * Also various library versions used in various programs, e.g colorama,
+    rich-argparse, Pygments might influence the output.
+  * I had to pin all my python packages, and explicitly set TERM, COLORTERM and
+    FORCE_COLOR, CLI_WIDTH, COLUMNS to get the output to be consistent across
+    two different systems, both using Ubuntu, for a single program.
+
   Args:
       args (str): The command to run.
       escape (bool, optional): Should use HTML entities escaping? Defaults to
         False.
-      indent (Union[str, int, None], optional): Should indent? By how much, or with
-        what prefix? Defaults to None.
-      backtickify (Union[bool, str], optional): Should surround with backticks? With
-        what language? Defaults to False.
+      indent (Union[str, int, None], optional): Should indent? By how much, or
+        with what prefix? Defaults to None.
+      indented (Union[str, int, None], optional): Indents every line except the
+        first. By how much, or with what prefix? Defaults to None.
+      backtickify (Union[bool, str], optional): Should surround with backticks?
+        With what language? Defaults to False.
       decomentify (bool, optional): Assuming that you will be using HTML
         comments around this call, setting this to true will add corresponding
         uncomments to uncomment the output. This allows you to have the Jinja2
@@ -473,8 +511,8 @@ def shell(args: str,
         * Defaults to 'raw.
       rich_alt (Optional[str], optional): The alt text for the img tag. Defaults
         to None.
-      rich_bg_color (Optional[str], optional): The background color for the terminal
-        output. Valid colors include anything valid for SVG colors. See
+      rich_bg_color (Optional[str], optional): The background color for the
+        terminal output. Valid colors include anything valid for SVG colors. See
         <https://developer.mozilla.org/en-US/docs/Web/CSS/color>. Defaults to
         None (fully transparent).
       rich_term: (Optional[str], optional): Sets the TERM env var. Defaults to
@@ -506,6 +544,7 @@ def path(path: str,
          *,
          escape: bool = False,
          indent: Union[str, int, None] = None,
+         indented: Union[str, int, None] = None,
          backtickify: Union[bool, str] = False,
          decomentify: Union[bool, Literal['nl']] = False,
          link: Optional[Literal['md', 'html']] = None,
@@ -523,6 +562,8 @@ def path(path: str,
         False.
       indent (Union[str, int, None], optional): Should indent? By how much, or
         with what prefix? Defaults to None.
+      indented (Union[str, int, None], optional): Indents every line except the
+        first. By how much, or with what prefix? Defaults to None.
       backtickify (Union[bool, str], optional): Should surround with backticks?
         With what language? Defaults to False.
       decomentify (Union[bool, Literal['nl']]): Assuming that you will be using
@@ -546,9 +587,6 @@ def path(path: str,
 ```
 <!---->
 
-Also see Jinja2 v3
-[Template Designer Documentation](https://jinja.palletsprojects.com/en/3.1.x/templates/).
-
 ## ✅ Requirements
 
 - Linux-like environment
@@ -556,14 +594,11 @@ Also see Jinja2 v3
 - Python 3.8+
   - Why: Some dev dependencies require Python 3.8+.
 
-### Tested on
+### Tested Platforms
 
-<!-- TODO: Get this from the GH action workflow -->
-
-- WSL2 Ubuntu 20.04, Python 3.8.0
-- Ubuntu 20.04, Python 3.8.0, 3.9.0, 3.10.0, 3.11.0, 3.12.0, tested in GitHub
-  Actions workflow
-  ([build-and-test.yml](./.github/workflows/build-and-test.yml)).
+- WSL2 Ubuntu 20.04, Python `3.8.0`.
+- Ubuntu 20.04, Python `3.8.0, 3.9.0, 3.10.0, 3.11.0, 3.12.0`, tested in GitHub Actions
+  workflow ([build-and-test.yml](./.github/workflows/build-and-test.yml)).
 
 ## 🚸 Gotchas and Limitations
 
@@ -576,16 +611,16 @@ Also see Jinja2 v3
   is sensitive to, in the templates. You'll have to escape it properly for
   jinja2, which involves using `{% raw %}` and
   `{% endraw %}` tags.
-- Recursion: Snipinator doesn't directly support recursive inclusion of
-  generated content. You can generate the contents of one file first, and
-  include that generated content into another template. This would mean that you
-  have to worry about order of generation.
+- Recursion: Snipinator doesn't directly support recursive
+  inclusion of generated content. You can generate the contents of one file
+  first, and include that generated content into another template. This would
+  mean that you have to worry about order of generation.
 - Embedded Backticks: If there are backticks in the included snippet, it might
   ruin the backticks you have in your markdown. This is why `backtickify`
-  parameter exists in the API, so that Snipinator provides the backticks, and it
-  will detect if there are backticks in the snippet and use a different number
-  of backticks on the entire snippet. So if the snippet contains
-  ` ```My Snippet``` `, Snipinator will use
+  parameter exists in the API, so that Snipinator provides the
+  backticks, and it will detect if there are backticks in the snippet and use a
+  different number of backticks on the entire snippet. So if the snippet
+  contains ` ```My Snippet``` `, Snipinator will use
   ` ````language ```My Snippet``` ```` ` and this is a method that Markdown uses
   to allow embedded backticks inside a code block.
 - Formatting: The `{{` `}}` used to
@@ -609,9 +644,10 @@ Also see Jinja2 v3
     surround the snippet call with that comment.
 - Editing the wrong file: When you have a template and a generated file, it is
   easy to edit the wrong file. To combat this:
-  - Snipinator provides a warning at the top of the generated file to remind you
-    that it is auto-generated.
-  - Snipinator will optionally chmod the file for you to make it read-only.
+  - Snipinator provides a warning at the top of the generated file
+    to remind you that it is auto-generated.
+  - Snipinator will optionally chmod the file for you to make it
+    read-only.
 - Newlines: This program assumes LF newlines. I don't know if it will work for
   anything else.
 - Combining `backtickify` and `indent`: Doesn't make much sense, but if you do
@@ -646,54 +682,70 @@ Not complete, and not necessarily up to date. Make a PR
 
 | Project                                                           | Stars     | Last Update  | Language   | Platform         | Similarity X Obviousness |
 | ----------------------------------------------------------------- | --------- | ------------ | ---------- | ---------------- | ------------------------ |
+| [mdx-js/mdx][54]                                                  | 16.8k     | `2024/04/17` | JS         | N/A              | ⭐⭐⭐⭐⭐               |
 | [zakhenry/embedme][24]                                            | 222       | `2023/11/08` | JS         | N/A              | ⭐⭐⭐⭐⭐               |
-| [GitHub Docs: Creating a permanent link to a code snippet][23]    | N/A       | N/A          | N/A        | N/A              | ⭐                       |
-| [electrovir/markdown-code-example-inserter][25]                   | 1         | `2024/02/19` | JS         | N/A              | ⭐⭐⭐⭐⭐               |
-| [dineshsonachalam/markdown-autodocs][26]                          | 176       | `2022/09/19` | JS         | GH Action        | ⭐⭐⭐⭐                 |
-| [romnn/embedme][27]                                               | 0         | `2024/04/18` | Go         | N/A              | ?                        |
-| [drewavis/markdowninclude][28]                                    | 1         | `2024/04/06` | JS         | VSCode Extension | ?                        |
-| [tokusumi/markdown-embed-code][29]                                | 28        | `2022/01/05` | Python     | VSCode Extension | ⭐⭐⭐⭐                 |
-| [ARMmbed/snippet][30]                                             | 6         | `2021/08/05` | Python     | N/A              | ?                        |
+| [cmacmackin/markdown-include][53]                                 | 95        | `2023/02/07` | Python     | N/A              | ⭐⭐⭐⭐⭐               |
 | [SimonCropp/MarkdownSnippets][31]                                 | 23        | `2024/04/23` | .NET       | N/A              | ⭐⭐⭐⭐⭐               |
-| [shiftkey/scribble][32] ([docs][33])                              | 40        | `2013/08/08` | .NET       | N/A              | ⭐⭐                     |
-| [JulianCataldo/remark-embed][34]                                  | 2         | `2022/09/22` | JS         | N/A              | ⭐⭐⭐⭐⭐               |
-| [calebpeterson/jest-transformer-test-md][35]                      | 2         | `2020/08/21` | JS         | Jest Tests       | ⭐⭐                     |
-| [ildar-shaimordanov/git-markdown-snippet][36]                     | 0         | `2021/09/14` | Perl       | N/A              | ⭐⭐⭐⭐⭐               |
-| [sammndhr/gridsome-remark-embed-snippet][37]                      | 2         | `2021/06/14` | JS         | [Gridsome][38]   | ⭐⭐⭐⭐                 |
-| [gatsby-remark-embed-snippet][39]                                 | N/A (55k) | `2024/01/23` | JS         | [Gatsby][40]     | ⭐                       |
 | [endocode/snippetextractor][41]                                   | 4         | `2014/08/16` | C++        | N/A              | ⭐⭐⭐⭐⭐               |
-| [javierfernandes/markdown-exercises][42]                          | 1         | `2017/05/01` | JS         | N/A              | ⭐                       |
-| [devincornell/pymddoc][43]                                        | 0         | `2023/12/01` | Python     | Python           | ⭐⭐⭐                   |
-| [NativeScript/markdown-snippet-injector][44]                      | 4         | `2019/01/24` | JS         | N/A              | ⭐⭐⭐⭐                 |
 | [polywrap/doc-snippets][45]                                       | 3         | `2023/09/26` | JS         | N/A              | ⭐⭐⭐⭐⭐               |
-| [andersfischernielsen/Simple-Embedded-Markdown-Code-Snippets][46] | 1         | `2021/02/12` | JS         | ⭐⭐⭐⭐⭐       |
+| [JulianCataldo/remark-embed][34]                                  | 2         | `2022/09/22` | JS         | N/A              | ⭐⭐⭐⭐⭐               |
 | [xrd/oreilly-snippets][47]                                        | 2         | `2015/10/15` | Ruby       | N/A              | ⭐⭐⭐⭐⭐               |
 | [DamonOehlman/injectcode][48]                                     | 1         | `2021/08/01` | JS         | N/A              | ⭐⭐⭐⭐⭐               |
-| [fuxingloh/remark-code-import-replace][49]                        | 0         | `2022/12/21` | JS         | Remark?          | ⭐⭐⭐⭐                 |
-| [teyc/markdown-snippet][50]                                       | 0         |              | Powershell | N/A              | ⭐⭐⭐⭐⭐               |
+| [electrovir/markdown-code-example-inserter][25]                   | 1         | `2024/02/19` | JS         | N/A              | ⭐⭐⭐⭐⭐               |
+| [andersfischernielsen/Simple-Embedded-Markdown-Code-Snippets][46] | 1         | `2021/02/12` | JS         | N/A              | ⭐⭐⭐⭐⭐               |
+| [ildar-shaimordanov/git-markdown-snippet][36]                     | 0         | `2021/09/14` | Perl       | N/A              | ⭐⭐⭐⭐⭐               |
+| [teyc/markdown-snippet][50]                                       | 0         | `2024/01/22` | Powershell | N/A              | ⭐⭐⭐⭐⭐               |
 | [marc-bouvier-graveyard/baldir_markdown][51]                      | 0         | `2020/06/15` | Python     | N/A              | ⭐⭐⭐⭐⭐               |
+| [dineshsonachalam/markdown-autodocs][26]                          | 176       | `2022/09/19` | JS         | GH Action        | ⭐⭐⭐⭐                 |
+| [tokusumi/markdown-embed-code][29]                                | 28        | `2022/01/05` | Python     | VSCode Extension | ⭐⭐⭐⭐                 |
+| [sammndhr/gridsome-remark-embed-snippet][37]                      | 2         | `2021/06/14` | JS         | [Gridsome][38]   | ⭐⭐⭐⭐                 |
+| [NativeScript/markdown-snippet-injector][44]                      | 4         | `2019/01/24` | JS         | N/A              | ⭐⭐⭐⭐                 |
+| [fuxingloh/remark-code-import-replace][49]                        | 0         | `2022/12/21` | JS         | Remark?          | ⭐⭐⭐⭐                 |
+| [szkiba/mdcode][55]                                               | 15        | `2014/02/12` | Go         | N/A              | ⭐⭐⭐                   |
+| [devincornell/pymddoc][43]                                        | 0         | `2023/12/01` | Python     | Python           | ⭐⭐⭐                   |
+| [shiftkey/scribble][32] ([docs][33])                              | 40        | `2013/08/08` | .NET       | N/A              | ⭐⭐                     |
+| [calebpeterson/jest-transformer-test-md][35]                      | 2         | `2020/08/21` | JS         | Jest Tests       | ⭐⭐                     |
 | [tjstankus/commitate][52]                                         | 0         | `2014/05/29` | Ruby       | N/A              | ⭐                       |
-| [cmacmackin/markdown-include][53]                                 | 95        | `2023/02/07` | Python     | N/A              | ⭐⭐⭐⭐⭐               |
+| [GitHub Docs: Creating a permanent link to a code snippet][23]    | N/A       | N/A          | N/A        | N/A              | ⭐                       |
+| [javierfernandes/markdown-exercises][42]                          | 1         | `2017/05/01` | JS         | N/A              | ⭐                       |
+| [gatsby-remark-embed-snippet][39]                                 | N/A (55k) | `2024/01/23` | JS         | [Gatsby][40]     | ⭐                       |
+| [ARMmbed/snippet][30]                                             | 6         | `2021/08/05` | Python     | N/A              | ?                        |
+| [drewavis/markdowninclude][28]                                    | 1         | `2024/04/06` | JS         | VSCode Extension | ?                        |
+| [romnn/embedme][27]                                               | 0         | `2024/04/18` | Go         | N/A              | ?                        |
 
 ## 🫡 Contributions
 
 ### Development environment: Linux-like
 
 - For running `pre.sh` (Linux-like environment).
+
+  - From [./.github/dependencies.yml](./.github/dependencies.yml), which is used for
+    the GH Action to do a fresh install of everything:
+
+    ```yaml
+    bash: scripts.
+    findutils: scripts.
+    grep: tests.
+    xxd: tests.
+    git: scripts, tests.
+    xxhash: scripts (changeguard).
+    rsync: out-of-directory test.
+    expect: for `unbuffer`, useful to grab and compare ansi color symbols.
+    jq: dependency for [yq](https://github.com/kislyuk/yq), which is used to generate
+      the README; the README generator needs to use `tomlq` (which is a part of `yq`)
+      to query `pyproject.toml`.
+    
+    ```
+
   - Requires `pyenv`, or an exact matching version of python as in
     [.python-version](.python-version) (which is currently
-    `3.8.0
-`).
-  - `jq`, ([installation](https://jqlang.github.io/jq/)) required for
-    [yq](https://github.com/kislyuk/yq), which is itself required for our
-    [./README.md](./README.md) generation, which uses `tomlq` (from the
-    [yq](https://github.com/kislyuk/yq) package) to include version strings from
-    [./pyproject.toml](./pyproject.toml).
-  - `bash`, `grep`, `awk`, `sed` `xxd`, `git`, `xxhash`, `rsync` (for
-    tests/workflows).
-  - Requires nodejs (for act).
-  - Requires Go (to run act).
-  - docker (for act, animation).
+    `3.8.0`).
+  - act (to run the GH Action locally):
+    - Requires nodejs.
+    - Requires Go.
+    - docker.
+  - Generate animation:
+    - docker
 
 ### Commit Process
 
@@ -715,7 +767,7 @@ These instructions are for maintainers of the project.
 2. In the `develop` branch, bump the version in
    [./pyproject.toml](./pyproject.toml), following semantic versioning
    principles. Also modify the `last_unstable_release` and `last_stable_release`
-   in the `[tool.changeguard-project-metadata]` table as appropriate. Run
+   in the `[tool.snipinator-project-metadata]` table as appropriate. Run
    `bash ./scripts/pre.sh` to ensure everything is in order.
 3. In the `develop` branch, commit these changes with a message like
    `"Prepare release X.Y.Z"`. (See the contributions section
@@ -813,3 +865,7 @@ These instructions are for maintainers of the project.
 [51]: https://github.com/marc-bouvier-graveyard/baldir_markdown
 [52]: https://github.com/tjstankus/commitate
 [53]: https://github.com/cmacmackin/markdown-include
+[54]: https://github.com/mdx-js/mdx
+[55]:
+  https://github.com/szkiba/mdcode
+  "Extracts code blocks from README and produces tests; a similar approach, but quite different"

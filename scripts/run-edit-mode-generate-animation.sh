@@ -5,6 +5,13 @@ set -e -x -v -u -o pipefail
 SCRIPT_DIR=$(realpath "$(dirname "${BASH_SOURCE[0]}")")
 source "${SCRIPT_DIR}/utilities/common.sh"
 
+VHS_PS1=${VHS_PS1:-}
+if [[ -z "${VHS_PS1}" ]]; then
+  echo -e "${RED}VHS_PS1 is not set${NC}"
+  [[ $0 == "${BASH_SOURCE[0]}" ]] && EXIT="exit" || EXIT="return"
+  ${EXIT} 1
+fi
+
 # This is meant to run inside the vhs docker container.
 apt-get -y install git curl unzip gcc build-essential make zlib1g-dev \
   libssl-dev libffi-dev libncurses5-dev libncursesw5-dev libbz2-dev \
@@ -34,6 +41,7 @@ find "${TMP_DIR}" -type f -not -path '*/.*' -exec chmod 777 {} +
 cd "${TMP_DIR}"
 cp "${PROJ_PATH}/.python-version" .
 VENV_PATH="${TMP_DIR}/.venv" source "${PROJ_PATH}/scripts/utilities/ensure-venv.sh"
+pip install -U pip
 
 EXIT_CODE=0
 python -m snipinator.cli --help || EXIT_CODE=$?

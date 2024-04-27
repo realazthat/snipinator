@@ -36,7 +36,10 @@ SOURCE: `README.md.jinja2`.
     <a href="#-command-line-options">💻CLI</a>
     &nbsp;&bull;&nbsp;
     <a href="#-examples">💡Examples</a>
-    &nbsp;&bull;&nbsp;
+  </strong>
+</p>
+<p align="center">
+  <strong>
     <a href="#-jinja2-api">🤖Jinja2 API</a>
     &nbsp;&bull;&nbsp;
     <a href="#-requirements">✅Requirements</a>

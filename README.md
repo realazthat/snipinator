@@ -14,7 +14,7 @@ SOURCE: `README.md.jinja2`.
 
 -->
 
-# <div align="center">![Snipinator][22]</div>
+# <div align="center">[![Snipinator][22]][56]</div>
 
 <div align="center">
 
@@ -27,9 +27,11 @@ SOURCE: `README.md.jinja2`.
 
 <p align="center">
   <strong>
+    <a href="https://github.com/realazthat/snipinator">🏠Home</a>
+    &nbsp;&bull;&nbsp;
     <a href="#-features">🎇Features</a>
     &nbsp;&bull;&nbsp;
-    <a href="#-installation">🏠Installation</a>
+    <a href="#-installation">🔨Installation</a>
     &nbsp;&bull;&nbsp;
     <a href="#-usage">🚜Usage</a>
     &nbsp;&bull;&nbsp;
@@ -142,7 +144,7 @@ Note that `code.py` has a test:
     :camera:.
 - ⚙️🔗🗃️ More robust **references/links** to local files using [path()](#path).
 
-## 🏠 Installation
+## 🔨 Installation
 
 ```bash
 # Install from pypi (https://pypi.org/project/snipinator/)
@@ -872,3 +874,4 @@ These instructions are for maintainers of the project.
 [55]:
   https://github.com/szkiba/mdcode
   "Extracts code blocks from README and produces tests; a similar approach, but quite different"
+[56]: https://github.com/realazthat/snipinator

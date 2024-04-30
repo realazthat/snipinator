@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "snipinator"
-version = "1.3.1"
+version = "1.4.0"
 description = "Python code snippets for markdown files, e.g READMEs, from actual (testable) code."
 authors = [{name = "AYF", email = "realazthat@gmail.com"}]
 license = {file = "LICENSE.md"}
@@ -163,7 +163,7 @@ Repository = "https://github.com/realazthat/snipinator"
 packages = ["snipinator"]
 
 [tool.snipinator-project-metadata]
-last_unstable_release = "1.3.1"
-last_stable_release = "1.3.1"
+last_unstable_release = "1.4.0"
+last_stable_release = "1.4.0"
 
 [tool.tomlsort]

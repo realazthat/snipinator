@@ -64,5 +64,7 @@ python -m snipinator.cli --help
 python -m snipinator.cli --version
 echo -e "${GREEN}Success: snipinator smoke test ran successfully${NC}"
 
+
+
 echo -e "${GREEN}${BASH_SOURCE[0]}: Tests ran successfully${NC}"
 ################################################################################

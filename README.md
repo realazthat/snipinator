@@ -9,9 +9,12 @@ SOURCE: `README.md.jinja2`.
 
 
 
+
+
+
 -->
 
-# <div align="center">![Snipinator][22]</div>
+# <div align="center">[![Snipinator][22]][56]</div>
 
 <div align="center">
 
@@ -24,13 +27,25 @@ SOURCE: `README.md.jinja2`.
 
 <p align="center">
   <strong>
-    <a href="#-features">🎇Features</a> &nbsp;&bull;&nbsp;
-    <a href="#-installation">🛠️Installation</a> &nbsp;&bull;&nbsp;
-    <a href="#-usage">🔧Usage</a> &nbsp;&bull;&nbsp;
-    <a href="#-command-line-options">💻CLI</a> &nbsp;&bull;&nbsp;
-    <a href="#-examples">💡Examples</a> &nbsp;&bull;&nbsp;
-    <a href="#-api">🤖API</a> &nbsp;&bull;&nbsp;
-    <a href="#-requirements">✅Requirements</a> &nbsp;&bull;&nbsp;
+    <a href="https://github.com/realazthat/snipinator">🏠Home</a>
+    &nbsp;&bull;&nbsp;
+    <a href="#-features">🎇Features</a>
+    &nbsp;&bull;&nbsp;
+    <a href="#-installation">🔨Installation</a>
+    &nbsp;&bull;&nbsp;
+    <a href="#-usage">🚜Usage</a>
+    &nbsp;&bull;&nbsp;
+    <a href="#-command-line-options">💻CLI</a>
+    &nbsp;&bull;&nbsp;
+    <a href="#-examples">💡Examples</a>
+  </strong>
+</p>
+<p align="center">
+  <strong>
+    <a href="#-jinja2-api">🤖Jinja2 API</a>
+    &nbsp;&bull;&nbsp;
+    <a href="#-requirements">✅Requirements</a>
+    &nbsp;&bull;&nbsp;
     <a href="#-gotchas-and-limitations">🚸Gotchas</a>
   </strong>
 </p>
@@ -59,8 +74,8 @@ SOURCE: `README.md.jinja2`.
 
 ## ❔ What
 
-What it does: **Snipinator** lets you take a `EXAMPLE.md` template and include
-snippets from your (working and tested) codebase.
+What it does: **Snipinator** lets you take a `EXAMPLE.md` template
+and include snippets from your (working and tested) codebase.
 
 Turn this ([./snipinator/examples/EXAMPLE.md.jinja2](./snipinator/examples/EXAMPLE.md.jinja2)):
 
@@ -129,17 +144,17 @@ Note that `code.py` has a test:
     :camera:.
 - ⚙️🔗🗃️ More robust **references/links** to local files using [path()](#path).
 
-## 🛠️ Installation
+## 🔨 Installation
 
 ```bash
 # Install from pypi (https://pypi.org/project/snipinator/)
 pip install snipinator
 
 # Install from git (https://github.com/realazthat/snipinator)
-pip install git+https://github.com/realazthat/snipinator.git@v1.3.1
+pip install git+https://github.com/realazthat/snipinator.git@v1.4.0
 ```
 
-## 🔧 Usage
+## 🚜 Usage
 
 Example template README:
 ([./snipinator/examples/EXAMPLE.md.jinja2](./snipinator/examples/EXAMPLE.md.jinja2)):
@@ -218,27 +233,27 @@ Note that `code.py` has a test:
   - Generation script:
     [./snipinator/examples/long-example.sh](./snipinator/examples/long-example.sh).
 - Projects using Snipinator:
-  - [github.com/realazthat/snipinator](https://github.com/realazthat/snipinator),
-    See
+  - [realazthat/snipinator](https://github.com/realazthat/snipinator), See
     [snipinator/README.md.jinja2](https://github.com/realazthat/snipinator/blob/61cb88593baa099dc375cf5fd40679e4be673fc5/README.md.jinja2).
-  - [github.com/realazthat/changeguard](https://github.com/realazthat/changeguard),
-    See
+  - [realazthat/changeguard](https://github.com/realazthat/changeguard), See
     [changeguard/README.md.jinja2](https://github.com/realazthat/changeguard/blob/87d5104b52e651bb9195a3d46dd7f050acbcb534/README.md.jinja2).
-  - [github.com/realazthat/comfy-catapult](https://github.com/realazthat/comfy-catapult),
+  - [realazthat/comfy-catapult](https://github.com/realazthat/comfy-catapult),
     See
     [comfy-catapult/README.md.jinja2](https://github.com/realazthat/comfy-catapult/blob/ff353d48b25fa7b9c35fa11b31d5f2b3039c41c8/README.md.jinja2).
-  - [github.com/realazthat/comfylowda](https://github.com/realazthat/comfylowda),
-    See
+  - [realazthat/comfylowda](https://github.com/realazthat/comfylowda), See
     [comfylowda/README.md.jinja2](https://github.com/realazthat/comfylowda/blob/e01a32c38107aa0b89ccea21c4678d193a186a78/README.md.jinja2).
-  - [github.com/realazthat/excalidraw-brute-export-cli](https://github.com/realazthat/excalidraw-brute-export-cli),
+  - [realazthat/excalidraw-brute-export-cli](https://github.com/realazthat/excalidraw-brute-export-cli),
     See
     [excalidraw-brute-export-cli/README.md.jinja2](https://github.com/realazthat/excalidraw-brute-export-cli/blob/54a3b5b08b644e61c721ab565c576094234c5cc7/README.md.jinja2).
 
-## 🤖 API
+## 🤖 Jinja2 API
 
-(Jinja2) Functions made available:
+The regular Jinja2 v3 template syntax is supported. For more information, see
+[Template Designer Documentation](https://jinja.palletsprojects.com/en/3.1.x/templates/).
 
-### pysnippet
+Additional (Jinja2) functions made available:
+
+### 🐍✂ pysnippet
 
 Used several times in
 [./snipinator/examples/LONG-EXAMPLE.md.jinja2](./snipinator/examples/LONG-EXAMPLE.md.jinja2).
@@ -252,6 +267,7 @@ def pysnippet(path: str,
               *,
               escape: bool = False,
               indent: Union[str, int, None] = None,
+              indented: Union[str, int, None] = None,
               backtickify: Union[bool, str] = False,
               decomentify: Union[bool, Literal['nl']] = False,
               _ctx: _Context) -> Union[str, markupsafe.Markup]:
@@ -265,6 +281,8 @@ def pysnippet(path: str,
         False.
       indent (Union[str, int, None], optional): Should indent? By how much, or
         with what prefix? Defaults to None.
+      indented (Union[str, int, None], optional): Indents every line except the
+        first. By how much, or with what prefix? Defaults to None.
       backtickify (Union[bool, str], optional): Should surround with backticks?
         With what language? Defaults to False.
       decomentify (Union[bool, Literal['nl']]): Assuming that you will be using
@@ -282,7 +300,7 @@ def pysnippet(path: str,
 ```
 <!---->
 
-### pysignature
+### 🐍📖 pysignature
 
 Used several times in [./README.md.jinja2](./README.md.jinja2).
 
@@ -295,6 +313,7 @@ def pysignature(path: str,
                 *,
                 escape: bool = False,
                 indent: Union[str, int, None] = None,
+                indented: Union[str, int, None] = None,
                 backtickify: Union[bool, str] = False,
                 decomentify: Union[bool, Literal['nl']] = False,
                 _ctx: _Context) -> str:
@@ -309,6 +328,8 @@ def pysignature(path: str,
         False.
       indent (Union[str, int, None], optional): Should indent? By how much, or
         with what prefix? Defaults to None.
+      indented (Union[str, int, None], optional): Indents every line except the
+        first. By how much, or with what prefix? Defaults to None.
       backtickify (Union[bool, str], optional): Should surround with backticks?
         With what language? Defaults to False.
       decomentify (Union[bool, Literal['nl']]): Assuming that you will be using
@@ -326,7 +347,7 @@ def pysignature(path: str,
 ```
 <!---->
 
-### rawsnippet
+### ✂ rawsnippet
 
 Used several times in [./README.md.jinja2](./README.md.jinja2).
 
@@ -338,6 +359,7 @@ def rawsnippet(path: str,
                *,
                escape: bool = False,
                indent: Union[str, int, None] = None,
+               indented: Union[str, int, None] = None,
                backtickify: Union[bool, str] = False,
                decomentify: Union[bool, Literal['nl']] = False,
                _ctx: _Context) -> Union[str, markupsafe.Markup]:
@@ -349,6 +371,8 @@ def rawsnippet(path: str,
         False.
       indent (Union[str, int, None], optional): Should indent? By how much, or
         with what prefix? Defaults to None.
+      indented (Union[str, int, None], optional): Indents every line except the
+        first. By how much, or with what prefix? Defaults to None.
       backtickify (Union[bool, str], optional): Should surround with backticks?
         With what language? Defaults to False.
       decomentify (Union[bool, Literal['nl']]): Assuming that you will be using
@@ -367,7 +391,7 @@ def rawsnippet(path: str,
 ```
 <!---->
 
-### snippet
+### ✂ snippet
 
 Example in [./snipinator/examples/LONG-EXAMPLE.md.jinja2](./snipinator/examples/LONG-EXAMPLE.md.jinja2).
 
@@ -381,6 +405,7 @@ def snippet(path: str,
             *,
             escape: bool = False,
             indent: Union[str, int, None] = None,
+            indented: Union[str, int, None] = None,
             backtickify: Union[bool, str] = False,
             decomentify: Union[bool, Literal['nl']] = False,
             _ctx: _Context) -> Union[str, markupsafe.Markup]:
@@ -396,6 +421,8 @@ def snippet(path: str,
         False.
       indent (Union[str, int, None], optional): Should indent? By how much, or
         with what prefix? Defaults to None.
+      indented (Union[str, int, None], optional): Indents every line except the
+        first. By how much, or with what prefix? Defaults to None.
       backtickify (Union[bool, str], optional): Should surround with backticks?
         With what language? Defaults to False.
       decomentify (Union[bool, Literal['nl']]): Assuming that you will be using
@@ -414,7 +441,7 @@ def snippet(path: str,
 ```
 <!---->
 
-### shell
+### 🐚 shell
 
 Used several times in [./README.md.jinja2](./README.md.jinja2).
 
@@ -426,6 +453,7 @@ def shell(args: str,
           *,
           escape: bool = False,
           indent: Union[str, int, None] = None,
+          indented: Union[str, int, None] = None,
           backtickify: Union[bool, str] = False,
           decomentify: Union[bool, Literal['nl']] = False,
           rich: Union[Literal['svg'], Literal['img+b64+svg'], Literal['raw'],
@@ -445,14 +473,26 @@ def shell(args: str,
   access. If an adversary can control the `args` parameter, they can execute
   arbitrary commands on your system.
 
+  Note: On persistent output colors:
+
+  * I found that the environment variables TERM, COLORTERM and FORCE_COLOR,
+    CLI_WIDTH, COLUMNS also influence the outputs for some applications.
+  * Also various library versions used in various programs, e.g colorama,
+    rich-argparse, Pygments might influence the output.
+  * I had to pin all my python packages, and explicitly set TERM, COLORTERM and
+    FORCE_COLOR, CLI_WIDTH, COLUMNS to get the output to be consistent across
+    two different systems, both using Ubuntu, for a single program.
+
   Args:
       args (str): The command to run.
       escape (bool, optional): Should use HTML entities escaping? Defaults to
         False.
-      indent (Union[str, int, None], optional): Should indent? By how much, or with
-        what prefix? Defaults to None.
-      backtickify (Union[bool, str], optional): Should surround with backticks? With
-        what language? Defaults to False.
+      indent (Union[str, int, None], optional): Should indent? By how much, or
+        with what prefix? Defaults to None.
+      indented (Union[str, int, None], optional): Indents every line except the
+        first. By how much, or with what prefix? Defaults to None.
+      backtickify (Union[bool, str], optional): Should surround with backticks?
+        With what language? Defaults to False.
       decomentify (bool, optional): Assuming that you will be using HTML
         comments around this call, setting this to true will add corresponding
         uncomments to uncomment the output. This allows you to have the Jinja2
@@ -476,8 +516,8 @@ def shell(args: str,
         * Defaults to 'raw.
       rich_alt (Optional[str], optional): The alt text for the img tag. Defaults
         to None.
-      rich_bg_color (Optional[str], optional): The background color for the terminal
-        output. Valid colors include anything valid for SVG colors. See
+      rich_bg_color (Optional[str], optional): The background color for the
+        terminal output. Valid colors include anything valid for SVG colors. See
         <https://developer.mozilla.org/en-US/docs/Web/CSS/color>. Defaults to
         None (fully transparent).
       rich_term: (Optional[str], optional): Sets the TERM env var. Defaults to
@@ -497,7 +537,7 @@ def shell(args: str,
 ```
 <!---->
 
-### path
+### 🌀 path
 
 Used several times in [./README.md.jinja2](./README.md.jinja2).
 
@@ -509,6 +549,7 @@ def path(path: str,
          *,
          escape: bool = False,
          indent: Union[str, int, None] = None,
+         indented: Union[str, int, None] = None,
          backtickify: Union[bool, str] = False,
          decomentify: Union[bool, Literal['nl']] = False,
          link: Optional[Literal['md', 'html']] = None,
@@ -526,6 +567,8 @@ def path(path: str,
         False.
       indent (Union[str, int, None], optional): Should indent? By how much, or
         with what prefix? Defaults to None.
+      indented (Union[str, int, None], optional): Indents every line except the
+        first. By how much, or with what prefix? Defaults to None.
       backtickify (Union[bool, str], optional): Should surround with backticks?
         With what language? Defaults to False.
       decomentify (Union[bool, Literal['nl']]): Assuming that you will be using
@@ -549,9 +592,6 @@ def path(path: str,
 ```
 <!---->
 
-Also see Jinja2 v3
-[Template Designer Documentation](https://jinja.palletsprojects.com/en/3.1.x/templates/).
-
 ## ✅ Requirements
 
 - Linux-like environment
@@ -559,12 +599,11 @@ Also see Jinja2 v3
 - Python 3.8+
   - Why: Some dev dependencies require Python 3.8+.
 
-### Tested on
+### Tested Platforms
 
-- WSL2 Ubuntu 20.04, Python 3.8.0
-- Ubuntu 20.04, Python 3.8.0, 3.9.0, 3.10.0, 3.11.0, 3.12.0, tested in GitHub
-  Actions workflow
-  ([build-and-test.yml](./.github/workflows/build-and-test.yml)).
+- WSL2 Ubuntu 20.04, Python `3.8.0`.
+- Ubuntu 20.04, Python `3.8.0, 3.9.0, 3.10.0, 3.11.0, 3.12.0`, tested in GitHub Actions
+  workflow ([build-and-test.yml](./.github/workflows/build-and-test.yml)).
 
 ## 🚸 Gotchas and Limitations
 
@@ -577,16 +616,16 @@ Also see Jinja2 v3
   is sensitive to, in the templates. You'll have to escape it properly for
   jinja2, which involves using `{% raw %}` and
   `{% endraw %}` tags.
-- Recursion: Snipinator doesn't directly support recursive inclusion of
-  generated content. You can generate the contents of one file first, and
-  include that generated content into another template. This would mean that you
-  have to worry about order of generation.
+- Recursion: Snipinator doesn't directly support recursive
+  inclusion of generated content. You can generate the contents of one file
+  first, and include that generated content into another template. This would
+  mean that you have to worry about order of generation.
 - Embedded Backticks: If there are backticks in the included snippet, it might
   ruin the backticks you have in your markdown. This is why `backtickify`
-  parameter exists in the API, so that Snipinator provides the backticks, and it
-  will detect if there are backticks in the snippet and use a different number
-  of backticks on the entire snippet. So if the snippet contains
-  ` ```My Snippet``` `, Snipinator will use
+  parameter exists in the API, so that Snipinator provides the
+  backticks, and it will detect if there are backticks in the snippet and use a
+  different number of backticks on the entire snippet. So if the snippet
+  contains ` ```My Snippet``` `, Snipinator will use
   ` ````language ```My Snippet``` ```` ` and this is a method that Markdown uses
   to allow embedded backticks inside a code block.
 - Formatting: The `{{` `}}` used to
@@ -610,16 +649,17 @@ Also see Jinja2 v3
     surround the snippet call with that comment.
 - Editing the wrong file: When you have a template and a generated file, it is
   easy to edit the wrong file. To combat this:
-  - Snipinator provides a warning at the top of the generated file to remind you
-    that it is auto-generated.
-  - Snipinator will optionally chmod the file for you to make it read-only.
+  - Snipinator provides a warning at the top of the generated file
+    to remind you that it is auto-generated.
+  - Snipinator will optionally chmod the file for you to make it
+    read-only.
 - Newlines: This program assumes LF newlines. I don't know if it will work for
   anything else.
 - Combining `backtickify` and `indent`: Doesn't make much sense, but if you do
   it, it will run backtickify first, then indent everything including the
   backticks.
 
-## Versioning
+## 🤏 Versioning
 
 We use SemVer for versioning. For the versions available, see the tags on this
 repository.
@@ -640,57 +680,100 @@ Main libraries used in Snipinator are:
   {[pexpect](https://pexpect.readthedocs.io/en/stable/),
   [rich](https://github.com/Textualize/rich)}.
 
-## Related Projects
+## 🤝 Related Projects
 
-- [markdown-code-example-inserter](https://github.com/electrovir/markdown-code-example-inserter)
-  "Syncs code examples with markdown documentation."
-- [ARMmbed/snippet](https://github.com/ARMmbed/snippet) "A Python3 tool to
-  extract code snippets from source files".
-- [SimonCropp/MarkdownSnippets](https://github.com/SimonCropp/MarkdownSnippets)
-  "Extracts snippets from code files and merges them into markdown documents".
-- [shiftkey/scribble](https://github.com/shiftkey/scribble) "Making
-  documentation for .NET projects easy and fun".
+Not complete, and not necessarily up to date. Make a PR
+([contributions](#-contributions)) to insert/modify.
+
+| Project                                                           | Stars     | Last Update  | Language   | Platform         | Similarity X Obviousness |
+| ----------------------------------------------------------------- | --------- | ------------ | ---------- | ---------------- | ------------------------ |
+| [mdx-js/mdx][54]                                                  | 16.8k     | `2024/04/17` | JS         | N/A              | ⭐⭐⭐⭐⭐               |
+| [zakhenry/embedme][24]                                            | 222       | `2023/11/08` | JS         | N/A              | ⭐⭐⭐⭐⭐               |
+| [cmacmackin/markdown-include][53]                                 | 95        | `2023/02/07` | Python     | N/A              | ⭐⭐⭐⭐⭐               |
+| [SimonCropp/MarkdownSnippets][31]                                 | 23        | `2024/04/23` | .NET       | N/A              | ⭐⭐⭐⭐⭐               |
+| [endocode/snippetextractor][41]                                   | 4         | `2014/08/16` | C++        | N/A              | ⭐⭐⭐⭐⭐               |
+| [polywrap/doc-snippets][45]                                       | 3         | `2023/09/26` | JS         | N/A              | ⭐⭐⭐⭐⭐               |
+| [JulianCataldo/remark-embed][34]                                  | 2         | `2022/09/22` | JS         | N/A              | ⭐⭐⭐⭐⭐               |
+| [xrd/oreilly-snippets][47]                                        | 2         | `2015/10/15` | Ruby       | N/A              | ⭐⭐⭐⭐⭐               |
+| [DamonOehlman/injectcode][48]                                     | 1         | `2021/08/01` | JS         | N/A              | ⭐⭐⭐⭐⭐               |
+| [electrovir/markdown-code-example-inserter][25]                   | 1         | `2024/02/19` | JS         | N/A              | ⭐⭐⭐⭐⭐               |
+| [andersfischernielsen/Simple-Embedded-Markdown-Code-Snippets][46] | 1         | `2021/02/12` | JS         | N/A              | ⭐⭐⭐⭐⭐               |
+| [ildar-shaimordanov/git-markdown-snippet][36]                     | 0         | `2021/09/14` | Perl       | N/A              | ⭐⭐⭐⭐⭐               |
+| [teyc/markdown-snippet][50]                                       | 0         | `2024/01/22` | Powershell | N/A              | ⭐⭐⭐⭐⭐               |
+| [marc-bouvier-graveyard/baldir_markdown][51]                      | 0         | `2020/06/15` | Python     | N/A              | ⭐⭐⭐⭐⭐               |
+| [dineshsonachalam/markdown-autodocs][26]                          | 176       | `2022/09/19` | JS         | GH Action        | ⭐⭐⭐⭐                 |
+| [tokusumi/markdown-embed-code][29]                                | 28        | `2022/01/05` | Python     | VSCode Extension | ⭐⭐⭐⭐                 |
+| [sammndhr/gridsome-remark-embed-snippet][37]                      | 2         | `2021/06/14` | JS         | [Gridsome][38]   | ⭐⭐⭐⭐                 |
+| [NativeScript/markdown-snippet-injector][44]                      | 4         | `2019/01/24` | JS         | N/A              | ⭐⭐⭐⭐                 |
+| [fuxingloh/remark-code-import-replace][49]                        | 0         | `2022/12/21` | JS         | Remark?          | ⭐⭐⭐⭐                 |
+| [szkiba/mdcode][55]                                               | 15        | `2014/02/12` | Go         | N/A              | ⭐⭐⭐                   |
+| [devincornell/pymddoc][43]                                        | 0         | `2023/12/01` | Python     | Python           | ⭐⭐⭐                   |
+| [shiftkey/scribble][32] ([docs][33])                              | 40        | `2013/08/08` | .NET       | N/A              | ⭐⭐                     |
+| [calebpeterson/jest-transformer-test-md][35]                      | 2         | `2020/08/21` | JS         | Jest Tests       | ⭐⭐                     |
+| [tjstankus/commitate][52]                                         | 0         | `2014/05/29` | Ruby       | N/A              | ⭐                       |
+| [GitHub Docs: Creating a permanent link to a code snippet][23]    | N/A       | N/A          | N/A        | N/A              | ⭐                       |
+| [javierfernandes/markdown-exercises][42]                          | 1         | `2017/05/01` | JS         | N/A              | ⭐                       |
+| [gatsby-remark-embed-snippet][39]                                 | N/A (55k) | `2024/01/23` | JS         | [Gatsby][40]     | ⭐                       |
+| [ARMmbed/snippet][30]                                             | 6         | `2021/08/05` | Python     | N/A              | ?                        |
+| [drewavis/markdowninclude][28]                                    | 1         | `2024/04/06` | JS         | VSCode Extension | ?                        |
+| [romnn/embedme][27]                                               | 0         | `2024/04/18` | Go         | N/A              | ?                        |
 
 ## 🫡 Contributions
 
 ### Development environment: Linux-like
 
 - For running `pre.sh` (Linux-like environment).
+
+  - From [./.github/dependencies.yml](./.github/dependencies.yml), which is used for
+    the GH Action to do a fresh install of everything:
+
+    ```yaml
+    bash: scripts.
+    findutils: scripts.
+    grep: tests.
+    xxd: tests.
+    git: scripts, tests.
+    xxhash: scripts (changeguard).
+    rsync: out-of-directory test.
+    expect: for `unbuffer`, useful to grab and compare ansi color symbols.
+    jq: dependency for [yq](https://github.com/kislyuk/yq), which is used to generate
+      the README; the README generator needs to use `tomlq` (which is a part of `yq`)
+      to query `pyproject.toml`.
+    
+    ```
+
   - Requires `pyenv`, or an exact matching version of python as in
-    `.python-version` (which is currently
-    `3.8.0
-`).
-  - `jq`, ([installation](https://jqlang.github.io/jq/)) required for
-    [yq](https://github.com/kislyuk/yq), which is itself required for our
-    `./README.md` generation, which uses `tomlq` (from the
-    [yq](https://github.com/kislyuk/yq) package) to include version strings from
-    `./pyproject.toml`.
-  - `bash`, `grep`, `awk`, `sed` `xxd`, `git`, `xxhash` (for tests/workflows).
-  - Requires nodejs (for act).
-  - Requires Go (to run act).
-  - docker (for act).
+    [.python-version](.python-version) (which is currently
+    `3.8.0`).
+  - act (to run the GH Action locally):
+    - Requires nodejs.
+    - Requires Go.
+    - docker.
+  - Generate animation:
+    - docker
 
 ### Commit Process
 
 1. (Optionally) Fork the `develop` branch.
 2. Stage your files: `git add path/to/file.py`.
-3. `bash scripts/pre.sh`, this will format, lint, and test the code.
-4. `git status` check if anything changed (generated `./README.md`
-   for example), if so, `git add` the changes, and go back to the previous step.
+3. `bash ./scripts/pre.sh`, this will format, lint, and test the code.
+4. `git status` check if anything changed (generated
+   [./README.md](./README.md) for example), if so, `git add` the
+   changes, and go back to the previous step.
 5. `git commit -m "..."`.
 6. Make a PR to `develop` (or push to develop if you have the rights).
 
-## ⛙ Release Process
+## 🔄🚀 Release Process
 
 These instructions are for maintainers of the project.
 
 1. In the `develop` branch, run `bash ./scripts/pre.sh` to ensure
    everything is in order.
-2. In the `develop` branch, bump the version in `./pyproject.toml`,
-   following semantic versioning principles. Also modify the
-   `last_unstable_release` and `last_stable_release` in the
-   `[tool.changeguard-project-metadata]` table as appropriate. Run
-   `bash scripts/pre.sh` to ensure everything is in order.
+2. In the `develop` branch, bump the version in
+   [./pyproject.toml](./pyproject.toml), following semantic versioning
+   principles. Also modify the `last_unstable_release` and `last_stable_release`
+   in the `[tool.snipinator-project-metadata]` table as appropriate. Run
+   `bash ./scripts/pre.sh` to ensure everything is in order.
 3. In the `develop` branch, commit these changes with a message like
    `"Prepare release X.Y.Z"`. (See the contributions section
    [above](#commit-process)).
@@ -699,7 +782,7 @@ These instructions are for maintainers of the project.
 5. `master` branch: Tag the release: Create a git tag for the release with
    `git tag -a vX.Y.Z -m "Version X.Y.Z"`.
 6. Publish to PyPI: Publish the release to PyPI with
-   `bash scripts/deploy-to-pypi.sh`.
+   `bash ./scripts/deploy-to-pypi.sh`.
 7. Push to GitHub: Push the commit and tags to GitHub with
    `git push && git push --tags`.
 8. The `--no-ff` option adds a commit to the master branch for the merge, so
@@ -717,7 +800,7 @@ These instructions are for maintainers of the project.
   https://img.shields.io/pypi/v/snipinator?style=plastic&color=0A1E1E
 [5]: https://pypi.org/project/snipinator/
 [6]:
-  https://img.shields.io/github/commits-since/realazthat/snipinator/v1.3.1/master?style=plastic
+  https://img.shields.io/github/commits-since/realazthat/snipinator/v1.4.0/master?style=plastic
 [7]:
   https://img.shields.io/github/last-commit/realazthat/snipinator/master?style=plastic
 [8]:
@@ -725,19 +808,19 @@ These instructions are for maintainers of the project.
 [9]:
   https://img.shields.io/github/languages/top/realazthat/snipinator.svg?&cacheSeconds=28800&style=plastic&color=0A1E1E
 [10]:
-  https://github.com/realazthat/snipinator/compare/v1.3.1...master
+  https://github.com/realazthat/snipinator/compare/v1.4.0...master
 [11]:
   https://img.shields.io/github/actions/workflow/status/realazthat/snipinator/build-and-test.yml?branch=develop&style=plastic
 [12]:
-  https://img.shields.io/github/commits-since/realazthat/snipinator/v1.3.1/develop?style=plastic
+  https://img.shields.io/github/commits-since/realazthat/snipinator/v1.4.0/develop?style=plastic
 [13]:
-  https://github.com/realazthat/snipinator/compare/v1.3.1...develop
+  https://github.com/realazthat/snipinator/compare/v1.4.0...develop
 [14]:
   https://img.shields.io/github/last-commit/realazthat/snipinator/develop?style=plastic
 [15]:
-  https://img.shields.io/github/commits-since/realazthat/snipinator/v1.3.1/develop?style=plastic
+  https://img.shields.io/github/commits-since/realazthat/snipinator/v1.4.0/develop?style=plastic
 [16]:
-  https://github.com/realazthat/snipinator/compare/v1.3.1...develop
+  https://github.com/realazthat/snipinator/compare/v1.4.0...develop
 [17]: https://github.com/realazthat/snipinator/tree/master
 [18]: https://github.com/realazthat/snipinator/tree/develop
 
@@ -752,3 +835,43 @@ These instructions are for maintainers of the project.
   https://img.shields.io/badge/Platform-Linux-0A1E1E?style=plastic&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWxhcHRvcC1taW5pbWFsIj48cmVjdCB3aWR0aD0iMTgiIGhlaWdodD0iMTIiIHg9IjMiIHk9IjQiIHJ4PSIyIiByeT0iMiIvPjxsaW5lIHgxPSIyIiB4Mj0iMjIiIHkxPSIyMCIgeTI9IjIwIi8+PC9zdmc+
 [21]: ./LICENSE.md
 [22]: ./.github/logo-exported.svg
+[23]:
+  https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-a-permanent-link-to-a-code-snippet
+[24]: https://github.com/zakhenry/embedme
+[25]: https://github.com/electrovir/markdown-code-example-inserter
+[26]: https://github.com/dineshsonachalam/markdown-autodocs
+[27]: https://github.com/romnn/embedme
+[28]: https://github.com/drewavis/markdowninclude
+[29]: https://github.com/tokusumi/markdown-embed-code
+[30]: https://github.com/ARMmbed/snippet
+[31]: https://github.com/SimonCropp/MarkdownSnippets
+[32]: https://github.com/shiftkey/scribble
+[33]:
+  https://github.com/shiftkey/scribble/blob/master/docs/features/code-snippets.md
+[34]: https://github.com/JulianCataldo/remark-embed
+[35]: https://github.com/calebpeterson/jest-transformer-test-md
+[36]: https://github.com/ildar-shaimordanov/git-markdown-snippet
+[37]: https://github.com/sammndhr/gridsome-remark-embed-snippet
+[38]: https://gridsome.org/
+[39]:
+  https://github.com/gatsbyjs/gatsby/tree/master/packages/gatsby-remark-embed-snippet
+[40]: https://github.com/gatsbyjs/gatsby
+[41]: https://github.com/endocode/snippetextractor
+[42]: https://github.com/javierfernandes/markdown-exercises
+[43]: https://github.com/devincornell/pymddoc
+[44]: https://github.com/NativeScript/markdown-snippet-injector
+[45]: https://github.com/polywrap/doc-snippets
+[46]:
+  https://github.com/andersfischernielsen/Simple-Embedded-Markdown-Code-Snippets
+[47]: https://github.com/xrd/oreilly-snippets
+[48]: https://github.com/DamonOehlman/injectcode
+[49]: https://github.com/fuxingloh/remark-code-import-replace
+[50]: https://github.com/teyc/markdown-snippet
+[51]: https://github.com/marc-bouvier-graveyard/baldir_markdown
+[52]: https://github.com/tjstankus/commitate
+[53]: https://github.com/cmacmackin/markdown-include
+[54]: https://github.com/mdx-js/mdx
+[55]:
+  https://github.com/szkiba/mdcode
+  "Extracts code blocks from README and produces tests; a similar approach, but quite different"
+[56]: https://github.com/realazthat/snipinator

@@ -122,6 +122,7 @@ def pysignature(path: str,
                 *,
                 escape: bool = False,
                 indent: Union[str, int, None] = None,
+                indented: Union[str, int, None] = None,
                 backtickify: Union[bool, str] = False,
                 decomentify: Union[bool, Literal['nl']] = False,
                 _ctx: _Context) -> str:
@@ -136,6 +137,8 @@ def pysignature(path: str,
         False.
       indent (Union[str, int, None], optional): Should indent? By how much, or
         with what prefix? Defaults to None.
+      indented (Union[str, int, None], optional): Indents every line except the
+        first. By how much, or with what prefix? Defaults to None.
       backtickify (Union[bool, str], optional): Should surround with backticks?
         With what language? Defaults to False.
       decomentify (Union[bool, Literal['nl']]): Assuming that you will be using
@@ -156,6 +159,7 @@ def pysignature(path: str,
 
   signature = _Backtickify(signature, backtickify=backtickify)
   signature = _Indent(signature, indent=indent)
+  signature = _Indented(signature, indented=indented)
   signature = _Decomentify(signature, decomentify=decomentify)
   if not escape:
     return markupsafe.Markup(signature)
@@ -168,6 +172,7 @@ def pysnippet(path: str,
               *,
               escape: bool = False,
               indent: Union[str, int, None] = None,
+              indented: Union[str, int, None] = None,
               backtickify: Union[bool, str] = False,
               decomentify: Union[bool, Literal['nl']] = False,
               _ctx: _Context) -> Union[str, markupsafe.Markup]:
@@ -181,6 +186,8 @@ def pysnippet(path: str,
         False.
       indent (Union[str, int, None], optional): Should indent? By how much, or
         with what prefix? Defaults to None.
+      indented (Union[str, int, None], optional): Indents every line except the
+        first. By how much, or with what prefix? Defaults to None.
       backtickify (Union[bool, str], optional): Should surround with backticks?
         With what language? Defaults to False.
       decomentify (Union[bool, Literal['nl']]): Assuming that you will be using
@@ -204,6 +211,7 @@ def pysnippet(path: str,
 
   snippet = _Backtickify(snippet, backtickify=backtickify)
   snippet = _Indent(snippet, indent=indent)
+  snippet = _Indented(snippet, indented=indented)
   snippet = _Decomentify(snippet, decomentify=decomentify)
   if not escape:
     return markupsafe.Markup(snippet)
@@ -215,6 +223,7 @@ def rawsnippet(path: str,
                *,
                escape: bool = False,
                indent: Union[str, int, None] = None,
+               indented: Union[str, int, None] = None,
                backtickify: Union[bool, str] = False,
                decomentify: Union[bool, Literal['nl']] = False,
                _ctx: _Context) -> Union[str, markupsafe.Markup]:
@@ -226,6 +235,8 @@ def rawsnippet(path: str,
         False.
       indent (Union[str, int, None], optional): Should indent? By how much, or
         with what prefix? Defaults to None.
+      indented (Union[str, int, None], optional): Indents every line except the
+        first. By how much, or with what prefix? Defaults to None.
       backtickify (Union[bool, str], optional): Should surround with backticks?
         With what language? Defaults to False.
       decomentify (Union[bool, Literal['nl']]): Assuming that you will be using
@@ -245,6 +256,7 @@ def rawsnippet(path: str,
   snippet = path_.read_text()
   snippet = _Backtickify(snippet, backtickify=backtickify)
   snippet = _Indent(snippet, indent=indent)
+  snippet = _Indented(snippet, indented=indented)
   snippet = _Decomentify(snippet, decomentify=decomentify)
   if not escape:
     return markupsafe.Markup(snippet)
@@ -258,6 +270,7 @@ def snippet(path: str,
             *,
             escape: bool = False,
             indent: Union[str, int, None] = None,
+            indented: Union[str, int, None] = None,
             backtickify: Union[bool, str] = False,
             decomentify: Union[bool, Literal['nl']] = False,
             _ctx: _Context) -> Union[str, markupsafe.Markup]:
@@ -273,6 +286,8 @@ def snippet(path: str,
         False.
       indent (Union[str, int, None], optional): Should indent? By how much, or
         with what prefix? Defaults to None.
+      indented (Union[str, int, None], optional): Indents every line except the
+        first. By how much, or with what prefix? Defaults to None.
       backtickify (Union[bool, str], optional): Should surround with backticks?
         With what language? Defaults to False.
       decomentify (Union[bool, Literal['nl']]): Assuming that you will be using
@@ -305,6 +320,7 @@ def snippet(path: str,
   snippet = full_source[snippet_start:snippet_end]
   snippet = _Backtickify(snippet, backtickify=backtickify)
   snippet = _Indent(snippet, indent=indent)
+  snippet = _Indented(snippet, indented=indented)
   snippet = _Decomentify(snippet, decomentify=decomentify)
   if not escape:
     return markupsafe.Markup(snippet)
@@ -316,6 +332,7 @@ def path(path: str,
          *,
          escape: bool = False,
          indent: Union[str, int, None] = None,
+         indented: Union[str, int, None] = None,
          backtickify: Union[bool, str] = False,
          decomentify: Union[bool, Literal['nl']] = False,
          link: Optional[Literal['md', 'html']] = None,
@@ -333,6 +350,8 @@ def path(path: str,
         False.
       indent (Union[str, int, None], optional): Should indent? By how much, or
         with what prefix? Defaults to None.
+      indented (Union[str, int, None], optional): Indents every line except the
+        first. By how much, or with what prefix? Defaults to None.
       backtickify (Union[bool, str], optional): Should surround with backticks?
         With what language? Defaults to False.
       decomentify (Union[bool, Literal['nl']]): Assuming that you will be using
@@ -372,6 +391,7 @@ def path(path: str,
     output = text_str
   output = _Backtickify(output, backtickify=backtickify)
   output = _Indent(output, indent=indent)
+  output = _Indented(output, indented=indented)
   output = _Decomentify(output, decomentify=decomentify)
   if not escape:
     return markupsafe.Markup(output)
@@ -489,6 +509,7 @@ def shell(args: str,
           *,
           escape: bool = False,
           indent: Union[str, int, None] = None,
+          indented: Union[str, int, None] = None,
           backtickify: Union[bool, str] = False,
           decomentify: Union[bool, Literal['nl']] = False,
           rich: Union[Literal['svg'], Literal['img+b64+svg'], Literal['raw'],
@@ -508,14 +529,26 @@ def shell(args: str,
   access. If an adversary can control the `args` parameter, they can execute
   arbitrary commands on your system.
 
+  Note: On persistent output colors:
+
+  * I found that the environment variables TERM, COLORTERM and FORCE_COLOR,
+    CLI_WIDTH, COLUMNS also influence the outputs for some applications.
+  * Also various library versions used in various programs, e.g colorama,
+    rich-argparse, Pygments might influence the output.
+  * I had to pin all my python packages, and explicitly set TERM, COLORTERM and
+    FORCE_COLOR, CLI_WIDTH, COLUMNS to get the output to be consistent across
+    two different systems, both using Ubuntu, for a single program.
+
   Args:
       args (str): The command to run.
       escape (bool, optional): Should use HTML entities escaping? Defaults to
         False.
-      indent (Union[str, int, None], optional): Should indent? By how much, or with
-        what prefix? Defaults to None.
-      backtickify (Union[bool, str], optional): Should surround with backticks? With
-        what language? Defaults to False.
+      indent (Union[str, int, None], optional): Should indent? By how much, or
+        with what prefix? Defaults to None.
+      indented (Union[str, int, None], optional): Indents every line except the
+        first. By how much, or with what prefix? Defaults to None.
+      backtickify (Union[bool, str], optional): Should surround with backticks?
+        With what language? Defaults to False.
       decomentify (bool, optional): Assuming that you will be using HTML
         comments around this call, setting this to true will add corresponding
         uncomments to uncomment the output. This allows you to have the Jinja2
@@ -539,8 +572,8 @@ def shell(args: str,
         * Defaults to 'raw.
       rich_alt (Optional[str], optional): The alt text for the img tag. Defaults
         to None.
-      rich_bg_color (Optional[str], optional): The background color for the terminal
-        output. Valid colors include anything valid for SVG colors. See
+      rich_bg_color (Optional[str], optional): The background color for the
+        terminal output. Valid colors include anything valid for SVG colors. See
         <https://developer.mozilla.org/en-US/docs/Web/CSS/color>. Defaults to
         None (fully transparent).
       rich_term: (Optional[str], optional): Sets the TERM env var. Defaults to
@@ -641,6 +674,7 @@ def shell(args: str,
 
   output = _Backtickify(output, backtickify=backtickify)
   output = _Indent(output, indent=indent)
+  output = _Indented(output, indented=indented)
   output = _Decomentify(output, decomentify=decomentify)
   if not escape:
     return markupsafe.Markup(output)
@@ -825,6 +859,14 @@ def _Indent(text: str, *, indent: Union[str, int, None]) -> str:
     return textwrap.indent(text, indent)
   else:
     return text
+
+
+def _Indented(text: str, *, indented: Union[str, int, None]) -> str:
+  if indented is None:
+    return text
+  indent_str = ' ' * indented if isinstance(indented, int) else indented
+  lines = text.splitlines()
+  return '\n'.join([lines[0]] + [indent_str + line for line in lines[1:]])
 
 
 def _CountSequentialBackticks(text: str) -> int:

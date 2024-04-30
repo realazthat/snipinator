@@ -18,6 +18,13 @@ find ./snipinator -type f -name "*.md.jinja2" -print0 | while IFS= read -r -d ''
 done
 
 bash scripts/utilities/prettier.sh --parser markdown "${PWD}/README.md.jinja2" --write
+bash scripts/utilities/prettier.sh --parser markdown "${PWD}/LICENSE.md" --write
+
+# find all *.yml paths in .github
+find ./.github -type f -name "*.yml" -print0 | while IFS= read -r -d '' YML_FILE; do
+  YML_FILE=$(realpath "${YML_FILE}")
+  bash scripts/utilities/prettier.sh --parser yaml "${YML_FILE}" --write
+done
 
 yapf -r ./snipinator -i
 yapf -r ./scripts -i

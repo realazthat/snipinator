@@ -40,7 +40,7 @@ bash scripts/generate-readme.sh
 bash scripts/run-wheel-smoke-test.sh
 bash scripts/run-edit-mode-smoke-test.sh
 if [[ -z "${GITHUB_ACTIONS:-}" ]]; then
-  bash scripts/act.sh
+  bash scripts/utilities/act.sh
   bash scripts/precommit.sh
 fi
 

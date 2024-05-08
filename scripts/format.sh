@@ -17,6 +17,8 @@ find ./snipinator -type f -name "*.md.jinja2" -print0 | while IFS= read -r -d ''
   bash scripts/utilities/prettier.sh --parser markdown "${MARKDOWN_TEMPLATE}" --write
 done
 
+python -m mdreftidy.cli "${PWD}/README.md.jinja2" \
+  --renumber --remove-unused --move-to-bottom --sort-ref-blocks --inplace
 bash scripts/utilities/prettier.sh --parser markdown "${PWD}/README.md.jinja2" --write
 bash scripts/utilities/prettier.sh --parser markdown "${PWD}/LICENSE.md" --write
 

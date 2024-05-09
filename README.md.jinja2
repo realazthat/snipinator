@@ -1,9 +1,9 @@
 <!--
 {% set project_name='snipinator' %}
 {% set project_name_proper='Snipinator' %}
-{% set last_unstable_release=shell('tomlq -r \'.["tool"]["snipinator-project-metadata"]["last_unstable_release"]\' pyproject.toml',
+{% set last_unstable_release=shell('tomlq -r -e \'.["tool"]["snipinator-project-metadata"]["last_unstable_release"]\' pyproject.toml',
                                    include_args=False) | trim %}
-{% set last_stable_release=shell('tomlq -r \'.["tool"]["snipinator-project-metadata"]["last_stable_release"]\' pyproject.toml',
+{% set last_stable_release=shell('tomlq -r -e \'.["tool"]["snipinator-project-metadata"]["last_stable_release"]\' pyproject.toml',
                                  include_args=False) | trim %}
 {% set tested_python_versions=shell('python -m yq -r -c \'[.jobs["build-and-test"]["strategy"]["matrix"]["python-version"][].gh] | join(", ")\' .github/workflows/build-and-test.yml',
                                  include_args=False) | trim %}

@@ -14,6 +14,8 @@ TOML=${PROJ_PATH}/pyproject.toml EXTRA=dev \
 # find all *.md.jinja2 paths in snipinator
 find ./snipinator -type f -name "*.md.jinja2" -print0 | while IFS= read -r -d '' MARKDOWN_TEMPLATE; do
   MARKDOWN_TEMPLATE=$(realpath "${MARKDOWN_TEMPLATE}")
+  python -m mdreftidy.cli "${MARKDOWN_TEMPLATE}" \
+    --renumber --remove-unused --move-to-bottom --sort-ref-blocks --inplace
   bash scripts/utilities/prettier.sh --parser markdown "${MARKDOWN_TEMPLATE}" --write
 done
 

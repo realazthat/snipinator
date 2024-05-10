@@ -151,7 +151,7 @@ Note that `code.py` has a test:
 pip install snipinator
 
 # Install from git (https://github.com/realazthat/snipinator)
-pip install git+https://github.com/realazthat/snipinator.git@v1.4.0
+pip install git+https://github.com/realazthat/snipinator.git@v1.4.1
 ```
 
 ## 🚜 Usage
@@ -797,7 +797,7 @@ These instructions are for maintainers of the project.
 [4]:
   https://img.shields.io/badge/Platform-Linux-0A1E1E?style=plastic&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWxhcHRvcC1taW5pbWFsIj48cmVjdCB3aWR0aD0iMTgiIGhlaWdodD0iMTIiIHg9IjMiIHk9IjQiIHJ4PSIyIiByeT0iMiIvPjxsaW5lIHgxPSIyIiB4Mj0iMjIiIHkxPSIyMCIgeTI9IjIwIi8+PC9zdmc+
 [5]:
-  https://img.shields.io/github/languages/top/realazthat/snipinator.svg?&cacheSeconds=28800&style=plastic&color=0A1E1E
+  https://img.shields.io/github/languages/top/realazthat/snipinator.svg?cacheSeconds=28800&style=plastic&color=0A1E1E
 [6]:
   https://img.shields.io/github/license/realazthat/snipinator?style=plastic&color=0A1E1E
 [7]: ./LICENSE.md
@@ -812,22 +812,22 @@ These instructions are for maintainers of the project.
 [13]:
   https://github.com/realazthat/snipinator/actions/workflows/build-and-test.yml
 [14]:
-  https://img.shields.io/github/commits-since/realazthat/snipinator/v1.4.0/master?style=plastic
+  https://img.shields.io/github/commits-since/realazthat/snipinator/v1.4.1/master?style=plastic
 [15]:
-  https://github.com/realazthat/snipinator/compare/v1.4.0...master
+  https://github.com/realazthat/snipinator/compare/v1.4.1...master
 [16]:
   https://img.shields.io/github/last-commit/realazthat/snipinator/master?style=plastic
 [17]: https://github.com/realazthat/snipinator/tree/develop
 [18]:
   https://img.shields.io/github/actions/workflow/status/realazthat/snipinator/build-and-test.yml?branch=develop&style=plastic
 [19]:
-  https://img.shields.io/github/commits-since/realazthat/snipinator/v1.4.0/develop?style=plastic
+  https://img.shields.io/github/commits-since/realazthat/snipinator/v1.4.1/develop?style=plastic
 [20]:
-  https://github.com/realazthat/snipinator/compare/v1.4.0...develop
+  https://github.com/realazthat/snipinator/compare/v1.4.1...develop
 [21]:
-  https://img.shields.io/github/commits-since/realazthat/snipinator/v1.4.0/develop?style=plastic
+  https://img.shields.io/github/commits-since/realazthat/snipinator/v1.4.1/develop?style=plastic
 [22]:
-  https://github.com/realazthat/snipinator/compare/v1.4.0...develop
+  https://github.com/realazthat/snipinator/compare/v1.4.1...develop
 [23]:
   https://img.shields.io/github/last-commit/realazthat/snipinator/develop?style=plastic
 [24]: https://github.com/mdx-js/mdx

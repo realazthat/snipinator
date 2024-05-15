@@ -151,18 +151,29 @@ Generating the README:
 - Projects using {{project_name_proper}}:
   - [realazthat/snipinator][24]
     - Template: [snipinator/README.md.jinja2][25].
-    - Generating script: [snipinator/scripts/generate-readme.sh#L20][26].
-  - [realazthat/mdremotifier][27].
-    - Template: [mdremotifier/README.md.jinja2][28].
-    - Generating script: [mdremotifier/generate-readme.sh#L20][29].
-  - [realazthat/changeguard][30].
-    - Template: [changeguard/README.md.jinja2][31].
-  - [realazthat/comfy-catapult][32].
-    - Template: [comfy-catapult/README.md.jinja2][33].
-  - [realazthat/comfylowda][34].
-    - Template: [comfylowda/README.md.jinja2][35].
+    - Generated: [snipinator/README.md][26].
+    - Generation script: [snipinator/scripts/generate-readme.sh#L20][27].
+  - [realazthat/mdremotifier][28].
+    - Template: [mdremotifier/README.md.jinja2][29].
+    - Generated: [mdremotifier/README.md][30].
+    - Generation script: [mdremotifier/generate-readme.sh#L20][31].
+  - [realazthat/changeguard][32].
+    - Template: [changeguard/README.md.jinja2][33].
+    - Generated: [changeguard/README.md][34].
+    - Generation script: [changeguard/generate-readme.sh#L20][35].
   - [realazthat/excalidraw-brute-export-cli][36],
     - Template: [excalidraw-brute-export-cli/README.md.jinja2][37].
+    - Generated: [excalidraw-brute-export-cli/README.md][38].
+    - Generation script:
+      [excalidraw-brute-export-cli/generate-readme.sh#L65][39].
+  - [realazthat/comfy-catapult][40].
+    - Template: [comfy-catapult/README.md.jinja2][41].
+    - Generated: [comfy-catapult/README.md][42].
+    - Generation script: [comfy-catapult/generate-readme.sh#L17][43].
+  - [realazthat/comfylowda][44].
+    - Template: [comfylowda/README.md.jinja2][45].
+    - Generated: [comfylowda/README.md][46].
+    - Generation script: [comfylowda/generate-readme.sh#L17][47].
 
 ## 🤖 Jinja2 API
 
@@ -315,46 +326,46 @@ Not complete, and not necessarily up to date. Make a PR
 
 | Project                                                             | Stars     | Last Update  | Language   | Platform                 | Similarity X Obviousness |
 | ------------------------------------------------------------------- | --------- | ------------ | ---------- | ------------------------ | ------------------------ |
-| [mdx-js / mdx][38]                                                  | 16.8k     | `2024/04/17` | JS         | N/A                      | ⭐⭐⭐⭐⭐               |
-| [fletcher / MultiMarkdown-6][39]                                    | 599       | `2023/12/30` | C          | CLI                      | ⭐⭐⭐⭐⭐               |
-| [gajus / gitdown][40]                                               | 448       | `2022/03/01` | JS         | CLI                      | ⭐⭐⭐⭐⭐               |
-| [gpoore / codebraid][41]                                            | 362       | `2023/10/17` | Python     | CLI                      | ⭐⭐⭐⭐⭐               |
-| [amyreese / markdown-pp][42] (archived)                             | 307       | `2021/09/02` | Python     | CLI                      | ⭐⭐⭐⭐⭐               |
-| [zakhenry / embedme][43]                                            | 222       | `2023/11/08` | JS         | CLI                      | ⭐⭐⭐⭐⭐               |
-| [DCsunset / pandoc-include][44]                                     | 62        | `2024/04/30` | Python     | Pandoc / CLI             | ⭐⭐⭐⭐⭐               |
-| [BurdetteLamar / markdown_helper][45]                               | 38        | `2020/03/16` | Ruby       | CLI                      | ⭐⭐⭐⭐⭐               |
-| [SimonCropp / MarkdownSnippets][46]                                 | 23        | `2024/04/23` | .NET       | CLI                      | ⭐⭐⭐⭐⭐               |
-| [endocode / snippetextractor][47]                                   | 4         | `2014/08/16` | C++        | CLI                      | ⭐⭐⭐⭐⭐               |
-| [polywrap / doc-snippets][48]                                       | 3         | `2023/09/26` | JS         | CLI                      | ⭐⭐⭐⭐⭐               |
-| [hxtmike / markdown_include][49]                                    | 2         | `2024/05/09` | Python     | CLI                      | ⭐⭐⭐⭐⭐               |
-| [JulianCataldo / remark-embed][50]                                  | 2         | `2022/09/22` | JS         | JS / library             | ⭐⭐⭐⭐⭐               |
-| [xrd / oreilly-snippets][51]                                        | 2         | `2015/10/15` | Ruby       | Ruby / library           | ⭐⭐⭐⭐⭐               |
-| [DamonOehlman / injectcode][52]                                     | 1         | `2021/08/01` | JS         | CLI                      | ⭐⭐⭐⭐⭐               |
-| [electrovir / markdown-code-example-inserter][53]                   | 1         | `2024/02/19` | JS         | CLI                      | ⭐⭐⭐⭐⭐               |
-| [andersfischernielsen / Simple-Embedded-Markdown-Code-Snippets][54] | 1         | `2021/02/12` | JS         | CLI                      | ⭐⭐⭐⭐⭐               |
-| [ildar-shaimordanov / git-markdown-snippet][55]                     | 0         | `2021/09/14` | Perl       | CLI                      | ⭐⭐⭐⭐⭐               |
-| [teyc / markdown-snippet][56]                                       | 0         | `2024/01/22` | Powershell | Powershell / function    | ⭐⭐⭐⭐                 |
-| [marc-bouvier-graveyard / baldir_markdown][57]                      | 0         | `2020/06/15` | Python     | CLI                      | ⭐⭐⭐⭐⭐               |
-| [facelessuser / pymdown-extensions][58] ([snippets][59])            | 903       | `2024/05/05` | Python     | Python / PyMarkdown      | ⭐⭐⭐⭐                 |
-| [dineshsonachalam / markdown-autodocs][60]                          | 176       | `2022/09/19` | JS         | GH Action                | ⭐⭐⭐⭐                 |
-| [sethen / markdown-include][61]                                     | 148       | `2017/10/26` | JS         | CLI+config               | ⭐⭐⭐⭐                 |
-| [cmacmackin / markdown-include][62]                                 | 95        | `2023/02/07` | Python     | Python / library         | ⭐⭐⭐⭐                 |
-| [tokusumi / markdown-embed-code][63]                                | 28        | `2022/01/05` | Python     | GH Action                | ⭐⭐⭐⭐                 |
-| [sammndhr / gridsome-remark-embed-snippet][64]                      | 2         | `2021/06/14` | JS         | [Gridsome][65]           | ⭐⭐⭐⭐                 |
-| [NativeScript / markdown-snippet-injector][66]                      | 4         | `2019/01/24` | JS         | CLI                      | ⭐⭐⭐⭐                 |
-| [fossunited/markdown-macros][67]                                    | 0         | `2021/06/10` | Python     | Python / Python-Markdown | ⭐⭐⭐⭐                 |
-| [fuxingloh / remark-code-import-replace][68]                        | 0         | `2022/12/21` | JS         | Remark?                  | ⭐⭐⭐⭐                 |
-| [szkiba / mdcode][69]                                               | 15        | `2014/02/12` | Go         | CLI                      | ⭐⭐⭐                   |
-| [devincornell/pymddoc][70]                                          | 0         | `2023/12/01` | Python     | Python                   | ⭐⭐⭐                   |
-| [shiftkey / scribble][71] ([docs][72])                              | 40        | `2013/08/08` | .NET       | CLI                      | ⭐⭐                     |
-| [calebpeterson / jest-transformer-test-md][73]                      | 2         | `2020/08/21` | JS         | Jest Tests               | ⭐⭐                     |
-| [tjstankus / commitate][74]                                         | 0         | `2014/05/29` | Ruby       | CLI                      | ⭐                       |
-| [GitHub Docs: Creating a permanent link to a code snippet][75]      | N/A       | N/A          | N/A        | GitHub                   | ⭐                       |
-| [javierfernandes / markdown-exercises][76]                          | 1         | `2017/05/01` | JS         | N/A                      | ⭐                       |
-| [gatsby-remark-embed-snippet][77]                                   | N/A (55k) | `2024/01/23` | JS         | [Gatsby][78]             | ⭐                       |
-| [ARMmbed / snippet][79] ([docs][80])                                | 6         | `2021/08/05` | Python     | CLI                      | ⭐                       |
-| [drewavis / markdowninclude][81]                                    | 1         | `2024/04/06` | JS         | VSCode Extension         | ?                        |
-| [romnn / embedme][82]                                               | 0         | `2024/04/18` | Go         | N/A                      | ⭐                       |
+| [mdx-js / mdx][48]                                                  | 16.8k     | `2024/04/17` | JS         | N/A                      | ⭐⭐⭐⭐⭐               |
+| [fletcher / MultiMarkdown-6][49]                                    | 599       | `2023/12/30` | C          | CLI                      | ⭐⭐⭐⭐⭐               |
+| [gajus / gitdown][50]                                               | 448       | `2022/03/01` | JS         | CLI                      | ⭐⭐⭐⭐⭐               |
+| [gpoore / codebraid][51]                                            | 362       | `2023/10/17` | Python     | CLI                      | ⭐⭐⭐⭐⭐               |
+| [amyreese / markdown-pp][52] (archived)                             | 307       | `2021/09/02` | Python     | CLI                      | ⭐⭐⭐⭐⭐               |
+| [zakhenry / embedme][53]                                            | 222       | `2023/11/08` | JS         | CLI                      | ⭐⭐⭐⭐⭐               |
+| [DCsunset / pandoc-include][54]                                     | 62        | `2024/04/30` | Python     | Pandoc / CLI             | ⭐⭐⭐⭐⭐               |
+| [BurdetteLamar / markdown_helper][55]                               | 38        | `2020/03/16` | Ruby       | CLI                      | ⭐⭐⭐⭐⭐               |
+| [SimonCropp / MarkdownSnippets][56]                                 | 23        | `2024/04/23` | .NET       | CLI                      | ⭐⭐⭐⭐⭐               |
+| [endocode / snippetextractor][57]                                   | 4         | `2014/08/16` | C++        | CLI                      | ⭐⭐⭐⭐⭐               |
+| [polywrap / doc-snippets][58]                                       | 3         | `2023/09/26` | JS         | CLI                      | ⭐⭐⭐⭐⭐               |
+| [hxtmike / markdown_include][59]                                    | 2         | `2024/05/09` | Python     | CLI                      | ⭐⭐⭐⭐⭐               |
+| [JulianCataldo / remark-embed][60]                                  | 2         | `2022/09/22` | JS         | JS / library             | ⭐⭐⭐⭐⭐               |
+| [xrd / oreilly-snippets][61]                                        | 2         | `2015/10/15` | Ruby       | Ruby / library           | ⭐⭐⭐⭐⭐               |
+| [DamonOehlman / injectcode][62]                                     | 1         | `2021/08/01` | JS         | CLI                      | ⭐⭐⭐⭐⭐               |
+| [electrovir / markdown-code-example-inserter][63]                   | 1         | `2024/02/19` | JS         | CLI                      | ⭐⭐⭐⭐⭐               |
+| [andersfischernielsen / Simple-Embedded-Markdown-Code-Snippets][64] | 1         | `2021/02/12` | JS         | CLI                      | ⭐⭐⭐⭐⭐               |
+| [ildar-shaimordanov / git-markdown-snippet][65]                     | 0         | `2021/09/14` | Perl       | CLI                      | ⭐⭐⭐⭐⭐               |
+| [teyc / markdown-snippet][66]                                       | 0         | `2024/01/22` | Powershell | Powershell / function    | ⭐⭐⭐⭐                 |
+| [marc-bouvier-graveyard / baldir_markdown][67]                      | 0         | `2020/06/15` | Python     | CLI                      | ⭐⭐⭐⭐⭐               |
+| [facelessuser / pymdown-extensions][68] ([snippets][69])            | 903       | `2024/05/05` | Python     | Python / PyMarkdown      | ⭐⭐⭐⭐                 |
+| [dineshsonachalam / markdown-autodocs][70]                          | 176       | `2022/09/19` | JS         | GH Action                | ⭐⭐⭐⭐                 |
+| [sethen / markdown-include][71]                                     | 148       | `2017/10/26` | JS         | CLI+config               | ⭐⭐⭐⭐                 |
+| [cmacmackin / markdown-include][72]                                 | 95        | `2023/02/07` | Python     | Python / library         | ⭐⭐⭐⭐                 |
+| [tokusumi / markdown-embed-code][73]                                | 28        | `2022/01/05` | Python     | GH Action                | ⭐⭐⭐⭐                 |
+| [sammndhr / gridsome-remark-embed-snippet][74]                      | 2         | `2021/06/14` | JS         | [Gridsome][75]           | ⭐⭐⭐⭐                 |
+| [NativeScript / markdown-snippet-injector][76]                      | 4         | `2019/01/24` | JS         | CLI                      | ⭐⭐⭐⭐                 |
+| [fossunited/markdown-macros][77]                                    | 0         | `2021/06/10` | Python     | Python / Python-Markdown | ⭐⭐⭐⭐                 |
+| [fuxingloh / remark-code-import-replace][78]                        | 0         | `2022/12/21` | JS         | Remark?                  | ⭐⭐⭐⭐                 |
+| [szkiba / mdcode][79]                                               | 15        | `2014/02/12` | Go         | CLI                      | ⭐⭐⭐                   |
+| [devincornell/pymddoc][80]                                          | 0         | `2023/12/01` | Python     | Python                   | ⭐⭐⭐                   |
+| [shiftkey / scribble][81] ([docs][82])                              | 40        | `2013/08/08` | .NET       | CLI                      | ⭐⭐                     |
+| [calebpeterson / jest-transformer-test-md][83]                      | 2         | `2020/08/21` | JS         | Jest Tests               | ⭐⭐                     |
+| [tjstankus / commitate][84]                                         | 0         | `2014/05/29` | Ruby       | CLI                      | ⭐                       |
+| [GitHub Docs: Creating a permanent link to a code snippet][85]      | N/A       | N/A          | N/A        | GitHub                   | ⭐                       |
+| [javierfernandes / markdown-exercises][86]                          | 1         | `2017/05/01` | JS         | N/A                      | ⭐                       |
+| [gatsby-remark-embed-snippet][87]                                   | N/A (55k) | `2024/01/23` | JS         | [Gatsby][88]             | ⭐                       |
+| [ARMmbed / snippet][89] ([docs][90])                                | 6         | `2021/08/05` | Python     | CLI                      | ⭐                       |
+| [drewavis / markdowninclude][91]                                    | 1         | `2024/04/06` | JS         | VSCode Extension         | ?                        |
+| [romnn / embedme][92]                                               | 0         | `2024/04/18` | Go         | N/A                      | ⭐                       |
 
 ## 🫡 Contributions
 
@@ -463,78 +474,98 @@ These instructions are for maintainers of the project.
 [25]:
   https://github.com/realazthat/snipinator/blob/376cb1d83124ad00ce7c2a887d713ac2a85b9258/README.md.jinja2
 [26]:
+  https://github.com/realazthat/snipinator/blob/376cb1d83124ad00ce7c2a887d713ac2a85b9258/README.md?plain=1
+[27]:
   https://github.com/realazthat/snipinator/blob/376cb1d83124ad00ce7c2a887d713ac2a85b9258/scripts/generate-readme.sh#L20
-[27]: https://github.com/realazthat/mdremotifier
-[28]:
-  https://github.com/realazthat/mdremotifier/blob/b1ea58ebb4f1b223719c6103d67ed5d588e66181/README.md.jinja2
+[28]: https://github.com/realazthat/mdremotifier
 [29]:
-  https://github.com/realazthat/mdremotifier/blob/b1ea58ebb4f1b223719c6103d67ed5d588e66181/scripts/generate-readme.sh#L20
-[30]: https://github.com/realazthat/changeguard
+  https://github.com/realazthat/mdremotifier/blob/b1ea58ebb4f1b223719c6103d67ed5d588e66181/README.md.jinja2
+[30]:
+  https://github.com/realazthat/mdremotifier/blob/b1ea58ebb4f1b223719c6103d67ed5d588e66181/README.md?plain=1
 [31]:
-  https://github.com/realazthat/changeguard/blob/87d5104b52e651bb9195a3d46dd7f050acbcb534/README.md.jinja2
-[32]: https://github.com/realazthat/comfy-catapult
+  https://github.com/realazthat/mdremotifier/blob/b1ea58ebb4f1b223719c6103d67ed5d588e66181/scripts/generate-readme.sh#L20
+[32]: https://github.com/realazthat/changeguard
 [33]:
-  https://github.com/realazthat/comfy-catapult/blob/ff353d48b25fa7b9c35fa11b31d5f2b3039c41c8/README.md.jinja2
-[34]: https://github.com/realazthat/comfylowda
+  https://github.com/realazthat/changeguard/blob/909d21314de67f66ea05c6603a6df1d675d86697/README.md.jinja2
+[34]:
+  https://github.com/realazthat/changeguard/blob/909d21314de67f66ea05c6603a6df1d675d86697/README.md?plain=1
 [35]:
-  https://github.com/realazthat/comfylowda/blob/e01a32c38107aa0b89ccea21c4678d193a186a78/README.md.jinja2
+  https://github.com/realazthat/changeguard/blob/909d21314de67f66ea05c6603a6df1d675d86697/scripts/generate-readme.sh#L20
 [36]: https://github.com/realazthat/excalidraw-brute-export-cli
 [37]:
-  https://github.com/realazthat/excalidraw-brute-export-cli/blob/54a3b5b08b644e61c721ab565c576094234c5cc7/README.md.jinja2
-[38]: https://github.com/mdx-js/mdx
-[39]: https://github.com/fletcher/MultiMarkdown-6
-[40]: https://github.com/gajus/gitdown
-[41]: https://github.com/gpoore/codebraid
-[42]: https://github.com/amyreese/markdown-pp "Archived"
-[43]: https://github.com/zakhenry/embedme
-[44]: https://github.com/DCsunset/pandoc-include
-[45]: https://github.com/BurdetteLamar/markdown_helper
-[46]: https://github.com/SimonCropp/MarkdownSnippets
-[47]: https://github.com/endocode/snippetextractor
-[48]: https://github.com/polywrap/doc-snippets
-[49]: https://github.com/hxtmike/markdown_include
-[50]: https://github.com/JulianCataldo/remark-embed
-[51]: https://github.com/xrd/oreilly-snippets
-[52]: https://github.com/DamonOehlman/injectcode
-[53]: https://github.com/electrovir/markdown-code-example-inserter
-[54]:
+  https://github.com/realazthat/excalidraw-brute-export-cli/blob/4b689ab75cfdec71e5788b3194f8736246e7544f/README.md.jinja2
+[38]:
+  https://github.com/realazthat/excalidraw-brute-export-cli/blob/4b689ab75cfdec71e5788b3194f8736246e7544f/README.md?plain=1
+[39]:
+  https://github.com/realazthat/excalidraw-brute-export-cli/blob/4b689ab75cfdec71e5788b3194f8736246e7544f/scripts/generate-readme.sh#L65
+[40]: https://github.com/realazthat/comfy-catapult
+[41]:
+  https://github.com/realazthat/comfy-catapult/blob/ff353d48b25fa7b9c35fa11b31d5f2b3039c41c8/README.md.jinja2
+[42]:
+  https://github.com/realazthat/comfy-catapult/blob/ff353d48b25fa7b9c35fa11b31d5f2b3039c41c8/README.md?plain=1
+[43]:
+  https://github.com/realazthat/comfy-catapult/blob/ff353d48b25fa7b9c35fa11b31d5f2b3039c41c8/scripts/gen-readme.sh#L17
+[44]: https://github.com/realazthat/comfylowda
+[45]:
+  https://github.com/realazthat/comfylowda/blob/e01a32c38107aa0b89ccea21c4678d193a186a78/README.md.jinja2
+[46]:
+  https://github.com/realazthat/comfylowda/blob/e01a32c38107aa0b89ccea21c4678d193a186a78/README.md?plain=1
+[47]:
+  https://github.com/realazthat/comfylowda/blob/e01a32c38107aa0b89ccea21c4678d193a186a78/scripts/gen-readme.sh#L19
+[48]: https://github.com/mdx-js/mdx
+[49]: https://github.com/fletcher/MultiMarkdown-6
+[50]: https://github.com/gajus/gitdown
+[51]: https://github.com/gpoore/codebraid
+[52]: https://github.com/amyreese/markdown-pp "Archived"
+[53]: https://github.com/zakhenry/embedme
+[54]: https://github.com/DCsunset/pandoc-include
+[55]: https://github.com/BurdetteLamar/markdown_helper
+[56]: https://github.com/SimonCropp/MarkdownSnippets
+[57]: https://github.com/endocode/snippetextractor
+[58]: https://github.com/polywrap/doc-snippets
+[59]: https://github.com/hxtmike/markdown_include
+[60]: https://github.com/JulianCataldo/remark-embed
+[61]: https://github.com/xrd/oreilly-snippets
+[62]: https://github.com/DamonOehlman/injectcode
+[63]: https://github.com/electrovir/markdown-code-example-inserter
+[64]:
   https://github.com/andersfischernielsen/Simple-Embedded-Markdown-Code-Snippets
-[55]: https://github.com/ildar-shaimordanov/git-markdown-snippet
-[56]: https://github.com/teyc/markdown-snippet
-[57]: https://github.com/marc-bouvier-graveyard/baldir_markdown
-[58]: https://github.com/facelessuser/pymdown-extensions
-[59]: https://facelessuser.github.io/pymdown-extensions/extensions/snippets/
-[60]: https://github.com/dineshsonachalam/markdown-autodocs
-[61]:
+[65]: https://github.com/ildar-shaimordanov/git-markdown-snippet
+[66]: https://github.com/teyc/markdown-snippet
+[67]: https://github.com/marc-bouvier-graveyard/baldir_markdown
+[68]: https://github.com/facelessuser/pymdown-extensions
+[69]: https://facelessuser.github.io/pymdown-extensions/extensions/snippets/
+[70]: https://github.com/dineshsonachalam/markdown-autodocs
+[71]:
   https://github.com/sethen/markdown-include
   "CLI but requires that you make a json file with various optiosn to produce the output"
-[62]: https://github.com/cmacmackin/markdown-include
-[63]: https://github.com/tokusumi/markdown-embed-code
-[64]: https://github.com/sammndhr/gridsome-remark-embed-snippet
-[65]: https://gridsome.org/
-[66]: https://github.com/NativeScript/markdown-snippet-injector
-[67]: https://github.com/fossunited/markdown-macros
-[68]: https://github.com/fuxingloh/remark-code-import-replace
-[69]:
+[72]: https://github.com/cmacmackin/markdown-include
+[73]: https://github.com/tokusumi/markdown-embed-code
+[74]: https://github.com/sammndhr/gridsome-remark-embed-snippet
+[75]: https://gridsome.org/
+[76]: https://github.com/NativeScript/markdown-snippet-injector
+[77]: https://github.com/fossunited/markdown-macros
+[78]: https://github.com/fuxingloh/remark-code-import-replace
+[79]:
   https://github.com/szkiba/mdcode
   "Extracts code blocks from README and produces tests; a similar approach, but quite different"
-[70]: https://github.com/devincornell/pymddoc
-[71]: https://github.com/shiftkey/scribble
-[72]:
+[80]: https://github.com/devincornell/pymddoc
+[81]: https://github.com/shiftkey/scribble
+[82]:
   https://github.com/shiftkey/scribble/blob/master/docs/features/code-snippets.md
-[73]: https://github.com/calebpeterson/jest-transformer-test-md
-[74]: https://github.com/tjstankus/commitate "Missing usage example"
-[75]:
+[83]: https://github.com/calebpeterson/jest-transformer-test-md
+[84]: https://github.com/tjstankus/commitate "Missing usage example"
+[85]:
   https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-a-permanent-link-to-a-code-snippet
-[76]:
+[86]:
   https://github.com/javierfernandes/markdown-exercises
   "This doesn't embed files, rather allows markdown code sections to be tested, no usage example"
-[77]:
+[87]:
   https://github.com/gatsbyjs/gatsby/tree/master/packages/gatsby-remark-embed-snippet
-[78]: https://github.com/gatsbyjs/gatsby
-[79]:
+[88]: https://github.com/gatsbyjs/gatsby
+[89]:
   https://github.com/ARMmbed/snippet
   "Unclear from documentation on how to embed the code into the template"
-[80]: https://github.com/ARMmbed/snippet/blob/master/USAGE.md
-[81]: https://github.com/drewavis/markdowninclude
-[82]: https://github.com/romnn/embedme "Documentation is lacking"
+[90]: https://github.com/ARMmbed/snippet/blob/master/USAGE.md
+[91]: https://github.com/drewavis/markdowninclude
+[92]: https://github.com/romnn/embedme "Documentation is lacking"

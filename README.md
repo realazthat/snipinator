@@ -718,17 +718,17 @@ Not complete, and not necessarily up to date. Make a PR
 | [electrovir / markdown-code-example-inserter][63]                   | 1         | `2024/02/19` | JS         | CLI                      | ⭐⭐⭐⭐⭐               |
 | [andersfischernielsen / Simple-Embedded-Markdown-Code-Snippets][64] | 1         | `2021/02/12` | JS         | CLI                      | ⭐⭐⭐⭐⭐               |
 | [ildar-shaimordanov / git-markdown-snippet][65]                     | 0         | `2021/09/14` | Perl       | CLI                      | ⭐⭐⭐⭐⭐               |
-| [teyc / markdown-snippet][66]                                       | 0         | `2024/01/22` | Powershell | Powershell / function    | ⭐⭐⭐⭐                 |
-| [marc-bouvier-graveyard / baldir_markdown][67]                      | 0         | `2020/06/15` | Python     | CLI                      | ⭐⭐⭐⭐⭐               |
-| [facelessuser / pymdown-extensions][68] ([snippets][69])            | 903       | `2024/05/05` | Python     | Python / PyMarkdown      | ⭐⭐⭐⭐                 |
-| [dineshsonachalam / markdown-autodocs][70]                          | 176       | `2022/09/19` | JS         | GH Action                | ⭐⭐⭐⭐                 |
-| [sethen / markdown-include][71]                                     | 148       | `2017/10/26` | JS         | CLI+config               | ⭐⭐⭐⭐                 |
-| [cmacmackin / markdown-include][72]                                 | 95        | `2023/02/07` | Python     | Python / library         | ⭐⭐⭐⭐                 |
-| [tokusumi / markdown-embed-code][73]                                | 28        | `2022/01/05` | Python     | GH Action                | ⭐⭐⭐⭐                 |
-| [sammndhr / gridsome-remark-embed-snippet][74]                      | 2         | `2021/06/14` | JS         | [Gridsome][75]           | ⭐⭐⭐⭐                 |
-| [NativeScript / markdown-snippet-injector][76]                      | 4         | `2019/01/24` | JS         | CLI                      | ⭐⭐⭐⭐                 |
-| [fossunited/markdown-macros][77]                                    | 0         | `2021/06/10` | Python     | Python / Python-Markdown | ⭐⭐⭐⭐                 |
-| [fuxingloh / remark-code-import-replace][78]                        | 0         | `2022/12/21` | JS         | Remark?                  | ⭐⭐⭐⭐                 |
+| [marc-bouvier-graveyard / baldir_markdown][66]                      | 0         | `2020/06/15` | Python     | CLI                      | ⭐⭐⭐⭐⭐               |
+| [facelessuser / pymdown-extensions][67] ([snippets][68])            | 903       | `2024/05/05` | Python     | Python / PyMarkdown      | ⭐⭐⭐⭐                 |
+| [dineshsonachalam / markdown-autodocs][69]                          | 176       | `2022/09/19` | JS         | GH Action                | ⭐⭐⭐⭐                 |
+| [sethen / markdown-include][70]                                     | 148       | `2017/10/26` | JS         | CLI+config               | ⭐⭐⭐⭐                 |
+| [cmacmackin / markdown-include][71]                                 | 95        | `2023/02/07` | Python     | Python / library         | ⭐⭐⭐⭐                 |
+| [tokusumi / markdown-embed-code][72]                                | 28        | `2022/01/05` | Python     | GH Action                | ⭐⭐⭐⭐                 |
+| [sammndhr / gridsome-remark-embed-snippet][73]                      | 2         | `2021/06/14` | JS         | [Gridsome][74]           | ⭐⭐⭐⭐                 |
+| [NativeScript / markdown-snippet-injector][75]                      | 4         | `2019/01/24` | JS         | CLI                      | ⭐⭐⭐⭐                 |
+| [fossunited/markdown-macros][76]                                    | 0         | `2021/06/10` | Python     | Python / Python-Markdown | ⭐⭐⭐⭐                 |
+| [fuxingloh / remark-code-import-replace][77]                        | 0         | `2022/12/21` | JS         | Remark?                  | ⭐⭐⭐⭐                 |
+| [teyc / markdown-snippet][78]                                       | 0         | `2024/01/22` | Powershell | Powershell / function    | ⭐⭐⭐⭐                 |
 | [szkiba / mdcode][79]                                               | 15        | `2014/02/12` | Go         | CLI                      | ⭐⭐⭐                   |
 | [devincornell/pymddoc][80]                                          | 0         | `2023/12/01` | Python     | Python                   | ⭐⭐⭐                   |
 | [shiftkey / scribble][81] ([docs][82])                              | 40        | `2013/08/08` | .NET       | CLI                      | ⭐⭐                     |
@@ -914,21 +914,21 @@ These instructions are for maintainers of the project.
 [64]:
   https://github.com/andersfischernielsen/Simple-Embedded-Markdown-Code-Snippets
 [65]: https://github.com/ildar-shaimordanov/git-markdown-snippet
-[66]: https://github.com/teyc/markdown-snippet
-[67]: https://github.com/marc-bouvier-graveyard/baldir_markdown
-[68]: https://github.com/facelessuser/pymdown-extensions
-[69]: https://facelessuser.github.io/pymdown-extensions/extensions/snippets/
-[70]: https://github.com/dineshsonachalam/markdown-autodocs
-[71]:
+[66]: https://github.com/marc-bouvier-graveyard/baldir_markdown
+[67]: https://github.com/facelessuser/pymdown-extensions
+[68]: https://facelessuser.github.io/pymdown-extensions/extensions/snippets/
+[69]: https://github.com/dineshsonachalam/markdown-autodocs
+[70]:
   https://github.com/sethen/markdown-include
   "CLI but requires that you make a json file with various optiosn to produce the output"
-[72]: https://github.com/cmacmackin/markdown-include
-[73]: https://github.com/tokusumi/markdown-embed-code
-[74]: https://github.com/sammndhr/gridsome-remark-embed-snippet
-[75]: https://gridsome.org/
-[76]: https://github.com/NativeScript/markdown-snippet-injector
-[77]: https://github.com/fossunited/markdown-macros
-[78]: https://github.com/fuxingloh/remark-code-import-replace
+[71]: https://github.com/cmacmackin/markdown-include
+[72]: https://github.com/tokusumi/markdown-embed-code
+[73]: https://github.com/sammndhr/gridsome-remark-embed-snippet
+[74]: https://gridsome.org/
+[75]: https://github.com/NativeScript/markdown-snippet-injector
+[76]: https://github.com/fossunited/markdown-macros
+[77]: https://github.com/fuxingloh/remark-code-import-replace
+[78]: https://github.com/teyc/markdown-snippet
 [79]:
   https://github.com/szkiba/mdcode
   "Extracts code blocks from README and produces tests; a similar approach, but quite different"

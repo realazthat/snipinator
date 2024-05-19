@@ -249,6 +249,12 @@ Documentation:
 - Python 3.8+
   - Why: Some dev dependencies require Python 3.8+.
 
+### Tested Platforms
+
+- WSL2 Ubuntu 20.04, Python `{{rawsnippet('./.python-version') | trim}}`.
+- Ubuntu 20.04, Python `{{tested_python_versions}}`, tested in GitHub Actions
+  workflow ([build-and-test.yml](./.github/workflows/build-and-test.yml)).
+
 ## 🐳 Docker Image
 
 Docker images are published to
@@ -276,12 +282,6 @@ docker build -t my-{{project_name}}-image .
 # Run the docker image.
 docker run --rm -it my-{{project_name}}-image --help
 ```
-
-### Tested Platforms
-
-- WSL2 Ubuntu 20.04, Python `{{rawsnippet('./.python-version') | trim}}`.
-- Ubuntu 20.04, Python `{{tested_python_versions}}`, tested in GitHub Actions
-  workflow ([build-and-test.yml](./.github/workflows/build-and-test.yml)).
 
 ## 🚸 Gotchas and Limitations
 

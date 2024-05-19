@@ -631,6 +631,12 @@ def path(path: str,
 - Python 3.8+
   - Why: Some dev dependencies require Python 3.8+.
 
+### Tested Platforms
+
+- WSL2 Ubuntu 20.04, Python `3.8.0`.
+- Ubuntu 20.04, Python `3.8.0, 3.9.0, 3.10.0, 3.11.0, 3.12.0`, tested in GitHub Actions
+  workflow ([build-and-test.yml](https://github.com/realazthat/snipinator/blob/v1.4.1/.github/workflows/build-and-test.yml)).
+
 ## 🐳 Docker Image
 
 Docker images are published to
@@ -658,12 +664,6 @@ docker build -t my-snipinator-image .
 # Run the docker image.
 docker run --rm -it my-snipinator-image --help
 ```
-
-### Tested Platforms
-
-- WSL2 Ubuntu 20.04, Python `3.8.0`.
-- Ubuntu 20.04, Python `3.8.0, 3.9.0, 3.10.0, 3.11.0, 3.12.0`, tested in GitHub Actions
-  workflow ([build-and-test.yml](https://github.com/realazthat/snipinator/blob/v1.4.1/.github/workflows/build-and-test.yml)).
 
 ## 🚸 Gotchas and Limitations
 

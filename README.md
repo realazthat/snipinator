@@ -72,7 +72,7 @@ SOURCE: `README.md.jinja2`.
 
 </div>
 
-<img src=".github/demo.gif" alt="Demo" width="100%">
+<img src="./.github/demo.gif" alt="Demo" width="100%">
 
 ## ❔ What
 
@@ -813,7 +813,7 @@ Not complete, and not necessarily up to date. Make a PR
     ```
 
   - Requires `pyenv`, or an exact matching version of python as in
-    [.python-version](.python-version) (which is currently
+    [./.python-version](./.python-version) (which is currently
     `3.8.0`).
   - act (to run the GH Action locally):
     - Requires nodejs.

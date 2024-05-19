@@ -813,7 +813,7 @@ Not complete, and not necessarily up to date. Make a PR
     ```
 
   - Requires `pyenv`, or an exact matching version of python as in
-    [.python-version](https://github.com/realazthat/snipinator/blob/v1.4.1/.python-version) (which is currently
+    [./.python-version](https://github.com/realazthat/snipinator/blob/v1.4.1/.python-version) (which is currently
     `3.8.0`).
   - act (to run the GH Action locally):
     - Requires nodejs.

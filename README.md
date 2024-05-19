@@ -211,6 +211,22 @@ Note that `code.py` has a test:
 ````
 <!---->
 
+Some more flags:
+
+<!---->
+```bash
+
+python -m snipinator.cli \
+  -t "snipinator/examples/EXAMPLE.md.jinja2" \
+  --rm \
+  --force \
+  --create \
+  -o "snipinator/examples/EXAMPLE.generated.md" \
+  --chmod-ro
+
+```
+<!---->
+
 ## 💻 Command Line Options
 
 <!---->

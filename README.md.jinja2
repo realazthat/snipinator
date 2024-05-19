@@ -123,6 +123,14 @@ Generating the README:
 
 <!--{{ shell('python -m snipinator.cli -t snipinator/examples/EXAMPLE.md.jinja2', backtickify='bash', decomentify='nl') }}-->
 
+Some more flags:
+
+<!--{{ snippet('./snipinator/examples/example.sh',
+               start='# SNIPPET_START',
+               end='# SNIPPET_END',
+               backtickify='bash',
+               decomentify='nl') }}-->
+
 ## 💻 Command Line Options
 
 <!--{{ shell('python -m snipinator.cli --help',

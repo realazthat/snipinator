@@ -43,6 +43,8 @@
     &nbsp;&bull;&nbsp;
     <a href="#-requirements">✅Requirements</a>
     &nbsp;&bull;&nbsp;
+    <a href="#-docker-image">🐳Docker</a>
+    &nbsp;&bull;&nbsp;
     <a href="#-gotchas-and-limitations">🚸Gotchas</a>
   </strong>
 </p>
@@ -98,6 +100,7 @@ Into this ({{ path('./snipinator/examples/EXAMPLE.generated.md', link='md') }}):
   - Supports ANSI colors :heart: :green_heart: :blue_heart: with SVG output
     :camera:.
 - ⚙️🔗🗃️ More robust **references/links** to local files using [path()](#path).
+- 🐳🌊🖥️ Docker Image (See [README: Docker Image](#-docker-image)).
 
 ## 🔨 Installation
 
@@ -237,6 +240,34 @@ Documentation:
   - Why: Uses pexpect.spawn().
 - Python 3.8+
   - Why: Some dev dependencies require Python 3.8+.
+
+## 🐳 Docker Image
+
+Docker images are published to
+[hub.docker.com/r/realazthat/{{project_name}}](https://hub.docker.com/r/realazthat/{{project_name}})
+at each tag.
+
+```bash
+# Use the published images at hub.docker.com/r/realazthat/{{project_name}}.
+docker run --rm -it realazthat/{{project_name}}:v{{last_stable_release}} --help
+
+# /data in the docker image is the working directory, so paths are simpler.
+docker run --rm -it \
+  -v $(pwd):/data \
+  realazthat/{{project_name}}:v{{last_stable_release}} \
+  -t snipinator/examples/EXAMPLE.md.jinja2
+```
+
+If you want to build the image yourself, you can use the Dockerfile in the
+repository.
+
+```bash
+# Build the docker image.
+docker build -t my-{{project_name}}-image .
+
+# Run the docker image.
+docker run --rm -it my-{{project_name}}-image --help
+```
 
 ### Tested Platforms
 

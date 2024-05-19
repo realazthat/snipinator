@@ -46,6 +46,8 @@ SOURCE: `README.md.jinja2`.
     &nbsp;&bull;&nbsp;
     <a href="#-requirements">✅Requirements</a>
     &nbsp;&bull;&nbsp;
+    <a href="#-docker-image">🐳Docker</a>
+    &nbsp;&bull;&nbsp;
     <a href="#-gotchas-and-limitations">🚸Gotchas</a>
   </strong>
 </p>
@@ -143,6 +145,7 @@ Note that `code.py` has a test:
   - Supports ANSI colors :heart: :green_heart: :blue_heart: with SVG output
     :camera:.
 - ⚙️🔗🗃️ More robust **references/links** to local files using [path()](#path).
+- 🐳🌊🖥️ Docker Image (See [README: Docker Image](#-docker-image)).
 
 ## 🔨 Installation
 
@@ -611,6 +614,34 @@ def path(path: str,
   - Why: Uses pexpect.spawn().
 - Python 3.8+
   - Why: Some dev dependencies require Python 3.8+.
+
+## 🐳 Docker Image
+
+Docker images are published to
+[hub.docker.com/r/realazthat/snipinator](https://hub.docker.com/r/realazthat/snipinator)
+at each tag.
+
+```bash
+# Use the published images at hub.docker.com/r/realazthat/snipinator.
+docker run --rm -it realazthat/snipinator:v1.4.1 --help
+
+# /data in the docker image is the working directory, so paths are simpler.
+docker run --rm -it \
+  -v $(pwd):/data \
+  realazthat/snipinator:v1.4.1 \
+  -t snipinator/examples/EXAMPLE.md.jinja2
+```
+
+If you want to build the image yourself, you can use the Dockerfile in the
+repository.
+
+```bash
+# Build the docker image.
+docker build -t my-snipinator-image .
+
+# Run the docker image.
+docker run --rm -it my-snipinator-image --help
+```
 
 ### Tested Platforms
 

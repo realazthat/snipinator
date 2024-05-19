@@ -1,7 +1,7 @@
 <!--
 {% set project_name='snipinator' %}
 {% set project_name_proper='Snipinator' %}
-{% set last_unstable_release=shell('tomlq -r -e \'.["tool"]["snipinator-project-metadata"]["last_unstable_release"]\' pyproject.toml',
+{% set last_release=shell('tomlq -r -e \'.["tool"]["snipinator-project-metadata"]["last_release"]\' pyproject.toml',
                                    include_args=False) | trim %}
 {% set last_stable_release=shell('tomlq -r -e \'.["tool"]["snipinator-project-metadata"]["last_stable_release"]\' pyproject.toml',
                                  include_args=False) | trim %}
@@ -450,8 +450,8 @@ These instructions are for maintainers of the project.
    everything is in order.
 2. In the `develop` branch, bump the version in
    {{path('./pyproject.toml', link='md')}}, following semantic versioning
-   principles. Also modify the `last_unstable_release` and `last_stable_release`
-   in the `[tool.{{project_name}}-project-metadata]` table as appropriate. Run
+   principles. Also modify the `last_release` and `last_stable_release` in the
+   `[tool.{{project_name}}-project-metadata]` table as appropriate. Run
    `bash ./scripts/pre.sh` to ensure everything is in order.
 3. In the `develop` branch, commit these changes with a message like
    `"Prepare release X.Y.Z"`. (See the contributions section
@@ -504,9 +504,9 @@ These instructions are for maintainers of the project.
 [20]:
   https://github.com/realazthat/{{project_name}}/compare/v{{last_stable_release}}...develop
 [21]:
-  https://img.shields.io/github/commits-since/realazthat/{{project_name}}/v{{last_unstable_release}}/develop?style=plastic
+  https://img.shields.io/github/commits-since/realazthat/{{project_name}}/v{{last_release}}/develop?style=plastic
 [22]:
-  https://github.com/realazthat/{{project_name}}/compare/v{{last_unstable_release}}...develop
+  https://github.com/realazthat/{{project_name}}/compare/v{{last_release}}...develop
 [23]:
   https://img.shields.io/github/last-commit/realazthat/{{project_name}}/develop?style=plastic
 [24]: https://github.com/realazthat/snipinator

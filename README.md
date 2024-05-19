@@ -841,8 +841,8 @@ These instructions are for maintainers of the project.
    everything is in order.
 2. In the `develop` branch, bump the version in
    [./pyproject.toml](./pyproject.toml), following semantic versioning
-   principles. Also modify the `last_unstable_release` and `last_stable_release`
-   in the `[tool.snipinator-project-metadata]` table as appropriate. Run
+   principles. Also modify the `last_release` and `last_stable_release` in the
+   `[tool.snipinator-project-metadata]` table as appropriate. Run
    `bash ./scripts/pre.sh` to ensure everything is in order.
 3. In the `develop` branch, commit these changes with a message like
    `"Prepare release X.Y.Z"`. (See the contributions section

@@ -821,6 +821,7 @@ Not complete, and not necessarily up to date. Make a PR
     - docker.
   - Generate animation:
     - docker
+  - docker (for building the docker image).
 
 ### Commit Process
 

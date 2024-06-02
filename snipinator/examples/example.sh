@@ -5,6 +5,7 @@ set -e -x -v -u -o pipefail
 
 python -m snipinator.cli --help
 
+# SNIPPET_START
 python -m snipinator.cli \
   -t "snipinator/examples/EXAMPLE.md.jinja2" \
   --rm \
@@ -12,3 +13,4 @@ python -m snipinator.cli \
   --create \
   -o "snipinator/examples/EXAMPLE.generated.md" \
   --chmod-ro
+# SNIPPET_END

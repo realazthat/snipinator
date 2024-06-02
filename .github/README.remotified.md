@@ -46,6 +46,8 @@ SOURCE: `README.md.jinja2`.
     &nbsp;&bull;&nbsp;
     <a href="#-requirements">✅Requirements</a>
     &nbsp;&bull;&nbsp;
+    <a href="#-docker-image">🐳Docker</a>
+    &nbsp;&bull;&nbsp;
     <a href="#-gotchas-and-limitations">🚸Gotchas</a>
   </strong>
 </p>
@@ -70,14 +72,14 @@ SOURCE: `README.md.jinja2`.
 
 </div>
 
-<img alt="Demo" src="https://raw.githubusercontent.com/realazthat/snipinator/v1.4.1/.github/demo.gif" width="100%"/>
+<img alt="Demo" src="https://raw.githubusercontent.com/realazthat/snipinator/v1.5.0/.github/demo.gif" width="100%"/>
 
 ## ❔ What
 
 What it does: **Snipinator** lets you take a `EXAMPLE.md` template
 and include snippets from your (working and tested) codebase.
 
-Turn this ([./snipinator/examples/EXAMPLE.md.jinja2](https://github.com/realazthat/snipinator/blob/v1.4.1/snipinator/examples/EXAMPLE.md.jinja2)):
+Turn this ([./snipinator/examples/EXAMPLE.md.jinja2](https://github.com/realazthat/snipinator/blob/v1.5.0/snipinator/examples/EXAMPLE.md.jinja2)):
 
 <!---->
 ```md
@@ -93,7 +95,7 @@ Note that `code.py` has a test:
 ```
 <!---->
 
-Into this ([./snipinator/examples/EXAMPLE.generated.md](https://github.com/realazthat/snipinator/blob/v1.4.1/snipinator/examples/EXAMPLE.generated.md)):
+Into this ([./snipinator/examples/EXAMPLE.generated.md](https://github.com/realazthat/snipinator/blob/v1.5.0/snipinator/examples/EXAMPLE.generated.md)):
 
 <!---->
 ````md
@@ -143,6 +145,7 @@ Note that `code.py` has a test:
   - Supports ANSI colors :heart: :green_heart: :blue_heart: with SVG output
     :camera:.
 - ⚙️🔗🗃️ More robust **references/links** to local files using [path()](#path).
+- 🐳🌊🖥️ Docker Image (See [README: Docker Image](#-docker-image)).
 
 ## 🔨 Installation
 
@@ -151,13 +154,13 @@ Note that `code.py` has a test:
 pip install snipinator
 
 # Install from git (https://github.com/realazthat/snipinator)
-pip install git+https://github.com/realazthat/snipinator.git@v1.4.1
+pip install git+https://github.com/realazthat/snipinator.git@v1.5.0
 ```
 
 ## 🚜 Usage
 
 Example template README:
-([./snipinator/examples/EXAMPLE.md.jinja2](https://github.com/realazthat/snipinator/blob/v1.4.1/snipinator/examples/EXAMPLE.md.jinja2)):
+([./snipinator/examples/EXAMPLE.md.jinja2](https://github.com/realazthat/snipinator/blob/v1.5.0/snipinator/examples/EXAMPLE.md.jinja2)):
 
 <!---->
 ```md
@@ -208,43 +211,72 @@ Note that `code.py` has a test:
 ````
 <!---->
 
+Some more flags:
+
+<!---->
+```bash
+
+python -m snipinator.cli \
+  -t "snipinator/examples/EXAMPLE.md.jinja2" \
+  --rm \
+  --force \
+  --create \
+  -o "snipinator/examples/EXAMPLE.generated.md" \
+  --chmod-ro
+
+```
+<!---->
+
 ## 💻 Command Line Options
 
 <!---->
-<img alt="Output of `python -m snipinator.cli --help`" src="https://raw.githubusercontent.com/realazthat/snipinator/v1.4.1/README.help.generated.svg"/>
+<img alt="Output of `python -m snipinator.cli --help`" src="https://raw.githubusercontent.com/realazthat/snipinator/v1.5.0/README.help.generated.svg"/>
 <!-- -->
 
 ## 💡 Examples
 
 - Snipinator's own `README`:
-  - Template: [./README.md.jinja2](https://github.com/realazthat/snipinator/blob/v1.4.1/README.md.jinja2).
-  - Generated: [./README.md](https://github.com/realazthat/snipinator/blob/v1.4.1/README.md).
-  - Generation script: [./scripts/generate-readme.sh](https://github.com/realazthat/snipinator/blob/v1.4.1/scripts/generate-readme.sh).
+  - Template: [./README.md.jinja2](https://github.com/realazthat/snipinator/blob/v1.5.0/README.md.jinja2).
+  - Generated: [./README.md](https://github.com/realazthat/snipinator/blob/v1.5.0/README.md).
+  - Generation script: [./scripts/generate-readme.sh](https://github.com/realazthat/snipinator/blob/v1.5.0/scripts/generate-readme.sh).
 - Example:
-  - Template: [./snipinator/examples/EXAMPLE.md.jinja2](https://github.com/realazthat/snipinator/blob/v1.4.1/snipinator/examples/EXAMPLE.md.jinja2).
+  - Template: [./snipinator/examples/EXAMPLE.md.jinja2](https://github.com/realazthat/snipinator/blob/v1.5.0/snipinator/examples/EXAMPLE.md.jinja2).
   - Generated:
-    [./snipinator/examples/EXAMPLE.generated.md](https://github.com/realazthat/snipinator/blob/v1.4.1/snipinator/examples/EXAMPLE.generated.md).
-  - Generation script: [./snipinator/examples/example.sh](https://github.com/realazthat/snipinator/blob/v1.4.1/snipinator/examples/example.sh).
+    [./snipinator/examples/EXAMPLE.generated.md](https://github.com/realazthat/snipinator/blob/v1.5.0/snipinator/examples/EXAMPLE.generated.md).
+  - Generation script: [./snipinator/examples/example.sh](https://github.com/realazthat/snipinator/blob/v1.5.0/snipinator/examples/example.sh).
 - Long example of many features:
   - Template:
-    [./snipinator/examples/LONG-EXAMPLE.md.jinja2](https://github.com/realazthat/snipinator/blob/v1.4.1/snipinator/examples/LONG-EXAMPLE.md.jinja2).
+    [./snipinator/examples/LONG-EXAMPLE.md.jinja2](https://github.com/realazthat/snipinator/blob/v1.5.0/snipinator/examples/LONG-EXAMPLE.md.jinja2).
   - Generated:
-    [./snipinator/examples/LONG-EXAMPLE.generated.md](https://github.com/realazthat/snipinator/blob/v1.4.1/snipinator/examples/LONG-EXAMPLE.generated.md).
+    [./snipinator/examples/LONG-EXAMPLE.generated.md](https://github.com/realazthat/snipinator/blob/v1.5.0/snipinator/examples/LONG-EXAMPLE.generated.md).
   - Generation script:
-    [./snipinator/examples/long-example.sh](https://github.com/realazthat/snipinator/blob/v1.4.1/snipinator/examples/long-example.sh).
+    [./snipinator/examples/long-example.sh](https://github.com/realazthat/snipinator/blob/v1.5.0/snipinator/examples/long-example.sh).
 - Projects using Snipinator:
-  - [realazthat/snipinator](https://github.com/realazthat/snipinator), See
-    [snipinator/README.md.jinja2](https://github.com/realazthat/snipinator/blob/61cb88593baa099dc375cf5fd40679e4be673fc5/README.md.jinja2).
-  - [realazthat/changeguard](https://github.com/realazthat/changeguard), See
-    [changeguard/README.md.jinja2](https://github.com/realazthat/changeguard/blob/87d5104b52e651bb9195a3d46dd7f050acbcb534/README.md.jinja2).
-  - [realazthat/comfy-catapult](https://github.com/realazthat/comfy-catapult),
-    See
-    [comfy-catapult/README.md.jinja2](https://github.com/realazthat/comfy-catapult/blob/ff353d48b25fa7b9c35fa11b31d5f2b3039c41c8/README.md.jinja2).
-  - [realazthat/comfylowda](https://github.com/realazthat/comfylowda), See
-    [comfylowda/README.md.jinja2](https://github.com/realazthat/comfylowda/blob/e01a32c38107aa0b89ccea21c4678d193a186a78/README.md.jinja2).
-  - [realazthat/excalidraw-brute-export-cli](https://github.com/realazthat/excalidraw-brute-export-cli),
-    See
-    [excalidraw-brute-export-cli/README.md.jinja2](https://github.com/realazthat/excalidraw-brute-export-cli/blob/54a3b5b08b644e61c721ab565c576094234c5cc7/README.md.jinja2).
+  - [realazthat/snipinator][24]
+    - Template: [snipinator/README.md.jinja2][25].
+    - Generated: [snipinator/README.md][26].
+    - Generation script: [snipinator/scripts/generate-readme.sh#L20][27].
+  - [realazthat/mdremotifier][28].
+    - Template: [mdremotifier/README.md.jinja2][29].
+    - Generated: [mdremotifier/README.md][30].
+    - Generation script: [mdremotifier/generate-readme.sh#L20][31].
+  - [realazthat/changeguard][32].
+    - Template: [changeguard/README.md.jinja2][33].
+    - Generated: [changeguard/README.md][34].
+    - Generation script: [changeguard/generate-readme.sh#L20][35].
+  - [realazthat/excalidraw-brute-export-cli][36],
+    - Template: [excalidraw-brute-export-cli/README.md.jinja2][37].
+    - Generated: [excalidraw-brute-export-cli/README.md][38].
+    - Generation script:
+      [excalidraw-brute-export-cli/generate-readme.sh#L65][39].
+  - [realazthat/comfy-catapult][40].
+    - Template: [comfy-catapult/README.md.jinja2][41].
+    - Generated: [comfy-catapult/README.md][42].
+    - Generation script: [comfy-catapult/generate-readme.sh#L17][43].
+  - [realazthat/comfylowda][44].
+    - Template: [comfylowda/README.md.jinja2][45].
+    - Generated: [comfylowda/README.md][46].
+    - Generation script: [comfylowda/generate-readme.sh#L17][47].
 
 ## 🤖 Jinja2 API
 
@@ -256,7 +288,7 @@ Additional (Jinja2) functions made available:
 ### 🐍✂ pysnippet
 
 Used several times in
-[./snipinator/examples/LONG-EXAMPLE.md.jinja2](https://github.com/realazthat/snipinator/blob/v1.4.1/snipinator/examples/LONG-EXAMPLE.md.jinja2).
+[./snipinator/examples/LONG-EXAMPLE.md.jinja2](https://github.com/realazthat/snipinator/blob/v1.5.0/snipinator/examples/LONG-EXAMPLE.md.jinja2).
 
 Documentation:
 
@@ -302,7 +334,7 @@ def pysnippet(path: str,
 
 ### 🐍📖 pysignature
 
-Used several times in [./README.md.jinja2](https://github.com/realazthat/snipinator/blob/v1.4.1/README.md.jinja2).
+Used several times in [./README.md.jinja2](https://github.com/realazthat/snipinator/blob/v1.5.0/README.md.jinja2).
 
 Documentation:
 
@@ -349,7 +381,7 @@ def pysignature(path: str,
 
 ### ✂ rawsnippet
 
-Used several times in [./README.md.jinja2](https://github.com/realazthat/snipinator/blob/v1.4.1/README.md.jinja2).
+Used several times in [./README.md.jinja2](https://github.com/realazthat/snipinator/blob/v1.5.0/README.md.jinja2).
 
 Documentation:
 
@@ -393,7 +425,7 @@ def rawsnippet(path: str,
 
 ### ✂ snippet
 
-Example in [./snipinator/examples/LONG-EXAMPLE.md.jinja2](https://github.com/realazthat/snipinator/blob/v1.4.1/snipinator/examples/LONG-EXAMPLE.md.jinja2).
+Example in [./snipinator/examples/LONG-EXAMPLE.md.jinja2](https://github.com/realazthat/snipinator/blob/v1.5.0/snipinator/examples/LONG-EXAMPLE.md.jinja2).
 
 Documentation:
 
@@ -443,7 +475,7 @@ def snippet(path: str,
 
 ### 🐚 shell
 
-Used several times in [./README.md.jinja2](https://github.com/realazthat/snipinator/blob/v1.4.1/README.md.jinja2).
+Used several times in [./README.md.jinja2](https://github.com/realazthat/snipinator/blob/v1.5.0/README.md.jinja2).
 
 Documentation:
 
@@ -539,7 +571,7 @@ def shell(args: str,
 
 ### 🌀 path
 
-Used several times in [./README.md.jinja2](https://github.com/realazthat/snipinator/blob/v1.4.1/README.md.jinja2).
+Used several times in [./README.md.jinja2](https://github.com/realazthat/snipinator/blob/v1.5.0/README.md.jinja2).
 
 Documentation:
 
@@ -603,7 +635,34 @@ def path(path: str,
 
 - WSL2 Ubuntu 20.04, Python `3.8.0`.
 - Ubuntu 20.04, Python `3.8.0, 3.9.0, 3.10.0, 3.11.0, 3.12.0`, tested in GitHub Actions
-  workflow ([build-and-test.yml](https://github.com/realazthat/snipinator/blob/v1.4.1/.github/workflows/build-and-test.yml)).
+  workflow ([build-and-test.yml](https://github.com/realazthat/snipinator/blob/v1.5.0/.github/workflows/build-and-test.yml)).
+
+## 🐳 Docker Image
+
+Docker images are published to [ghcr.io/realazthat/snipinator][48] at each
+tag.
+
+```bash
+# Use the published images at ghcr.io/realazthat/snipinator.
+docker run --rm -it ghcr.io/realazthat/snipinator:v1.5.0 --help
+
+# /data in the docker image is the working directory, so paths are simpler.
+docker run --rm -it \
+  -v $(pwd):/data \
+  ghcr.io/realazthat/snipinator:v1.5.0 \
+  -t snipinator/examples/EXAMPLE.md.jinja2
+```
+
+If you want to build the image yourself, you can use the Dockerfile in the
+repository.
+
+```bash
+# Build the docker image.
+docker build -t my-snipinator-image .
+
+# Run the docker image.
+docker run --rm -it my-snipinator-image --help
+```
 
 ## 🚸 Gotchas and Limitations
 
@@ -633,7 +692,7 @@ def path(path: str,
   formatter and make the call invalid. Workarounds:
   - **Decommentify**: Put the snippet call inside a HTML comment, then use
     `decommentify` parameter. See
-    [./snipinator/examples/LONG-EXAMPLE.md.jinja2](https://github.com/realazthat/snipinator/blob/v1.4.1/snipinator/examples/LONG-EXAMPLE.md.jinja2) for
+    [./snipinator/examples/LONG-EXAMPLE.md.jinja2](https://github.com/realazthat/snipinator/blob/v1.5.0/snipinator/examples/LONG-EXAMPLE.md.jinja2) for
     examples.
   - [prettier](https://prettier.io/) formatter is pretty good at leaving the
     Jinja2 calls alone, especially if you don't have any spaces. This especially
@@ -667,7 +726,7 @@ repository.
 ## 🔑 License
 
 This project is licensed under the MIT License - see the
-[./LICENSE.md](https://github.com/realazthat/snipinator/blob/v1.4.1/LICENSE.md) file for details.
+[./LICENSE.md](https://github.com/realazthat/snipinator/blob/v1.5.0/LICENSE.md) file for details.
 
 ## 🙏 Thanks
 
@@ -685,38 +744,48 @@ Main libraries used in Snipinator are:
 Not complete, and not necessarily up to date. Make a PR
 ([contributions](#-contributions)) to insert/modify.
 
-| Project                                                           | Stars     | Last Update  | Language   | Platform         | Similarity X Obviousness |
-| ----------------------------------------------------------------- | --------- | ------------ | ---------- | ---------------- | ------------------------ |
-| [mdx-js/mdx][24]                                                  | 16.8k     | `2024/04/17` | JS         | N/A              | ⭐⭐⭐⭐⭐                    |
-| [zakhenry/embedme][25]                                            | 222       | `2023/11/08` | JS         | N/A              | ⭐⭐⭐⭐⭐                    |
-| [cmacmackin/markdown-include][26]                                 | 95        | `2023/02/07` | Python     | N/A              | ⭐⭐⭐⭐⭐                    |
-| [SimonCropp/MarkdownSnippets][27]                                 | 23        | `2024/04/23` | .NET       | N/A              | ⭐⭐⭐⭐⭐                    |
-| [endocode/snippetextractor][28]                                   | 4         | `2014/08/16` | C++        | N/A              | ⭐⭐⭐⭐⭐                    |
-| [polywrap/doc-snippets][29]                                       | 3         | `2023/09/26` | JS         | N/A              | ⭐⭐⭐⭐⭐                    |
-| [JulianCataldo/remark-embed][30]                                  | 2         | `2022/09/22` | JS         | N/A              | ⭐⭐⭐⭐⭐                    |
-| [xrd/oreilly-snippets][31]                                        | 2         | `2015/10/15` | Ruby       | N/A              | ⭐⭐⭐⭐⭐                    |
-| [DamonOehlman/injectcode][32]                                     | 1         | `2021/08/01` | JS         | N/A              | ⭐⭐⭐⭐⭐                    |
-| [electrovir/markdown-code-example-inserter][33]                   | 1         | `2024/02/19` | JS         | N/A              | ⭐⭐⭐⭐⭐                    |
-| [andersfischernielsen/Simple-Embedded-Markdown-Code-Snippets][34] | 1         | `2021/02/12` | JS         | N/A              | ⭐⭐⭐⭐⭐                    |
-| [ildar-shaimordanov/git-markdown-snippet][35]                     | 0         | `2021/09/14` | Perl       | N/A              | ⭐⭐⭐⭐⭐                    |
-| [teyc/markdown-snippet][36]                                       | 0         | `2024/01/22` | Powershell | N/A              | ⭐⭐⭐⭐⭐                    |
-| [marc-bouvier-graveyard/baldir_markdown][37]                      | 0         | `2020/06/15` | Python     | N/A              | ⭐⭐⭐⭐⭐                    |
-| [dineshsonachalam/markdown-autodocs][38]                          | 176       | `2022/09/19` | JS         | GH Action        | ⭐⭐⭐⭐                     |
-| [tokusumi/markdown-embed-code][39]                                | 28        | `2022/01/05` | Python     | VSCode Extension | ⭐⭐⭐⭐                     |
-| [sammndhr/gridsome-remark-embed-snippet][40]                      | 2         | `2021/06/14` | JS         | [Gridsome][41]   | ⭐⭐⭐⭐                     |
-| [NativeScript/markdown-snippet-injector][42]                      | 4         | `2019/01/24` | JS         | N/A              | ⭐⭐⭐⭐                     |
-| [fuxingloh/remark-code-import-replace][43]                        | 0         | `2022/12/21` | JS         | Remark?          | ⭐⭐⭐⭐                     |
-| [szkiba/mdcode][44]                                               | 15        | `2014/02/12` | Go         | N/A              | ⭐⭐⭐                      |
-| [devincornell/pymddoc][45]                                        | 0         | `2023/12/01` | Python     | Python           | ⭐⭐⭐                      |
-| [shiftkey/scribble][46] ([docs][47])                              | 40        | `2013/08/08` | .NET       | N/A              | ⭐⭐                       |
-| [calebpeterson/jest-transformer-test-md][48]                      | 2         | `2020/08/21` | JS         | Jest Tests       | ⭐⭐                       |
-| [tjstankus/commitate][49]                                         | 0         | `2014/05/29` | Ruby       | N/A              | ⭐                        |
-| [GitHub Docs: Creating a permanent link to a code snippet][50]    | N/A       | N/A          | N/A        | N/A              | ⭐                        |
-| [javierfernandes/markdown-exercises][51]                          | 1         | `2017/05/01` | JS         | N/A              | ⭐                        |
-| [gatsby-remark-embed-snippet][52]                                 | N/A (55k) | `2024/01/23` | JS         | [Gatsby][53]     | ⭐                        |
-| [ARMmbed/snippet][54]                                             | 6         | `2021/08/05` | Python     | N/A              | ?                        |
-| [drewavis/markdowninclude][55]                                    | 1         | `2024/04/06` | JS         | VSCode Extension | ?                        |
-| [romnn/embedme][56]                                               | 0         | `2024/04/18` | Go         | N/A              | ?                        |
+| Project                                                             | Stars     | Last Update  | Language   | Platform                 | Similarity X Obviousness |
+| ------------------------------------------------------------------- | --------- | ------------ | ---------- | ------------------------ | ------------------------ |
+| [mdx-js / mdx][49]                                                  | 16.8k     | `2024/04/17` | JS         | N/A                      | ⭐⭐⭐⭐⭐                    |
+| [fletcher / MultiMarkdown-6][50]                                    | 599       | `2023/12/30` | C          | CLI                      | ⭐⭐⭐⭐⭐                    |
+| [gajus / gitdown][51]                                               | 448       | `2022/03/01` | JS         | CLI                      | ⭐⭐⭐⭐⭐                    |
+| [gpoore / codebraid][52]                                            | 362       | `2023/10/17` | Python     | CLI                      | ⭐⭐⭐⭐⭐                    |
+| [amyreese / markdown-pp][53] (archived)                             | 307       | `2021/09/02` | Python     | CLI                      | ⭐⭐⭐⭐⭐                    |
+| [zakhenry / embedme][54]                                            | 222       | `2023/11/08` | JS         | CLI                      | ⭐⭐⭐⭐⭐                    |
+| [DCsunset / pandoc-include][55]                                     | 62        | `2024/04/30` | Python     | Pandoc / CLI             | ⭐⭐⭐⭐⭐                    |
+| [BurdetteLamar / markdown_helper][56]                               | 38        | `2020/03/16` | Ruby       | CLI                      | ⭐⭐⭐⭐⭐                    |
+| [SimonCropp / MarkdownSnippets][57]                                 | 23        | `2024/04/23` | .NET       | CLI                      | ⭐⭐⭐⭐⭐                    |
+| [endocode / snippetextractor][58]                                   | 4         | `2014/08/16` | C++        | CLI                      | ⭐⭐⭐⭐⭐                    |
+| [polywrap / doc-snippets][59]                                       | 3         | `2023/09/26` | JS         | CLI                      | ⭐⭐⭐⭐⭐                    |
+| [hxtmike / markdown_include][60]                                    | 2         | `2024/05/09` | Python     | CLI                      | ⭐⭐⭐⭐⭐                    |
+| [JulianCataldo / remark-embed][61]                                  | 2         | `2022/09/22` | JS         | JS / library             | ⭐⭐⭐⭐⭐                    |
+| [xrd / oreilly-snippets][62]                                        | 2         | `2015/10/15` | Ruby       | Ruby / library           | ⭐⭐⭐⭐⭐                    |
+| [DamonOehlman / injectcode][63]                                     | 1         | `2021/08/01` | JS         | CLI                      | ⭐⭐⭐⭐⭐                    |
+| [electrovir / markdown-code-example-inserter][64]                   | 1         | `2024/02/19` | JS         | CLI                      | ⭐⭐⭐⭐⭐                    |
+| [andersfischernielsen / Simple-Embedded-Markdown-Code-Snippets][65] | 1         | `2021/02/12` | JS         | CLI                      | ⭐⭐⭐⭐⭐                    |
+| [ildar-shaimordanov / git-markdown-snippet][66]                     | 0         | `2021/09/14` | Perl       | CLI                      | ⭐⭐⭐⭐⭐                    |
+| [marc-bouvier-graveyard / baldir_markdown][67]                      | 0         | `2020/06/15` | Python     | CLI                      | ⭐⭐⭐⭐⭐                    |
+| [facelessuser / pymdown-extensions][68] ([snippets][69])            | 903       | `2024/05/05` | Python     | Python / PyMarkdown      | ⭐⭐⭐⭐                     |
+| [dineshsonachalam / markdown-autodocs][70]                          | 176       | `2022/09/19` | JS         | GH Action                | ⭐⭐⭐⭐                     |
+| [sethen / markdown-include][71]                                     | 148       | `2017/10/26` | JS         | CLI+config               | ⭐⭐⭐⭐                     |
+| [cmacmackin / markdown-include][72]                                 | 95        | `2023/02/07` | Python     | Python / library         | ⭐⭐⭐⭐                     |
+| [tokusumi / markdown-embed-code][73]                                | 28        | `2022/01/05` | Python     | GH Action                | ⭐⭐⭐⭐                     |
+| [sammndhr / gridsome-remark-embed-snippet][74]                      | 2         | `2021/06/14` | JS         | [Gridsome][75]           | ⭐⭐⭐⭐                     |
+| [NativeScript / markdown-snippet-injector][76]                      | 4         | `2019/01/24` | JS         | CLI                      | ⭐⭐⭐⭐                     |
+| [fossunited/markdown-macros][77]                                    | 0         | `2021/06/10` | Python     | Python / Python-Markdown | ⭐⭐⭐⭐                     |
+| [fuxingloh / remark-code-import-replace][78]                        | 0         | `2022/12/21` | JS         | Remark?                  | ⭐⭐⭐⭐                     |
+| [teyc / markdown-snippet][79]                                       | 0         | `2024/01/22` | Powershell | Powershell / function    | ⭐⭐⭐⭐                     |
+| [szkiba / mdcode][80]                                               | 15        | `2014/02/12` | Go         | CLI                      | ⭐⭐⭐                      |
+| [devincornell/pymddoc][81]                                          | 0         | `2023/12/01` | Python     | Python                   | ⭐⭐⭐                      |
+| [shiftkey / scribble][82] ([docs][83])                              | 40        | `2013/08/08` | .NET       | CLI                      | ⭐⭐                       |
+| [calebpeterson / jest-transformer-test-md][84]                      | 2         | `2020/08/21` | JS         | Jest Tests               | ⭐⭐                       |
+| [tjstankus / commitate][85]                                         | 0         | `2014/05/29` | Ruby       | CLI                      | ⭐                        |
+| [GitHub Docs: Creating a permanent link to a code snippet][86]      | N/A       | N/A          | N/A        | GitHub                   | ⭐                        |
+| [javierfernandes / markdown-exercises][87]                          | 1         | `2017/05/01` | JS         | N/A                      | ⭐                        |
+| [gatsby-remark-embed-snippet][88]                                   | N/A (55k) | `2024/01/23` | JS         | [Gatsby][89]             | ⭐                        |
+| [ARMmbed / snippet][90] ([docs][91])                                | 6         | `2021/08/05` | Python     | CLI                      | ⭐                        |
+| [drewavis / markdowninclude][92]                                    | 1         | `2024/04/06` | JS         | VSCode Extension         | ?                        |
+| [romnn / embedme][93]                                               | 0         | `2024/04/18` | Go         | N/A                      | ⭐                        |
 
 ## 🫡 Contributions
 
@@ -724,7 +793,7 @@ Not complete, and not necessarily up to date. Make a PR
 
 - For running `pre.sh` (Linux-like environment).
 
-  - From [./.github/dependencies.yml](https://github.com/realazthat/snipinator/blob/v1.4.1/.github/dependencies.yml), which is used for
+  - From [./.github/dependencies.yml](https://github.com/realazthat/snipinator/blob/v1.5.0/.github/dependencies.yml), which is used for
     the GH Action to do a fresh install of everything:
 
     ```yaml
@@ -743,7 +812,7 @@ Not complete, and not necessarily up to date. Make a PR
     ```
 
   - Requires `pyenv`, or an exact matching version of python as in
-    [.python-version](https://github.com/realazthat/snipinator/blob/v1.4.1/.python-version) (which is currently
+    [./.python-version](https://github.com/realazthat/snipinator/blob/v1.5.0/.python-version) (which is currently
     `3.8.0`).
   - act (to run the GH Action locally):
     - Requires nodejs.
@@ -751,6 +820,7 @@ Not complete, and not necessarily up to date. Make a PR
     - docker.
   - Generate animation:
     - docker
+  - docker (for building the docker image).
 
 ### Commit Process
 
@@ -758,7 +828,7 @@ Not complete, and not necessarily up to date. Make a PR
 2. Stage your files: `git add path/to/file.py`.
 3. `bash ./scripts/pre.sh`, this will format, lint, and test the code.
 4. `git status` check if anything changed (generated
-   [./README.md](https://github.com/realazthat/snipinator/blob/v1.4.1/README.md) for example), if so, `git add` the
+   [./README.md](https://github.com/realazthat/snipinator/blob/v1.5.0/README.md) for example), if so, `git add` the
    changes, and go back to the previous step.
 5. `git commit -m "..."`.
 6. Make a PR to `develop` (or push to develop if you have the rights).
@@ -770,9 +840,9 @@ These instructions are for maintainers of the project.
 1. In the `develop` branch, run `bash ./scripts/pre.sh` to ensure
    everything is in order.
 2. In the `develop` branch, bump the version in
-   [./pyproject.toml](https://github.com/realazthat/snipinator/blob/v1.4.1/pyproject.toml), following semantic versioning
-   principles. Also modify the `last_unstable_release` and `last_stable_release`
-   in the `[tool.snipinator-project-metadata]` table as appropriate. Run
+   [./pyproject.toml](https://github.com/realazthat/snipinator/blob/v1.5.0/pyproject.toml), following semantic versioning
+   principles. Also modify the `last_release` and `last_stable_release` in the
+   `[tool.snipinator-project-metadata]` table as appropriate. Run
    `bash ./scripts/pre.sh` to ensure everything is in order.
 3. In the `develop` branch, commit these changes with a message like
    `"Prepare release X.Y.Z"`. (See the contributions section
@@ -790,59 +860,96 @@ These instructions are for maintainers of the project.
    `git checkout develop && git merge master`.
 9. Push the develop branch to GitHub: `git push origin develop`.
 
-[1]: https://raw.githubusercontent.com/realazthat/snipinator/v1.4.1/.github/logo-exported.svg
+[1]: https://raw.githubusercontent.com/realazthat/snipinator/v1.5.0/.github/logo-exported.svg
 [2]: https://github.com/realazthat/snipinator
 [3]: https://img.shields.io/badge/Audience-Developers-0A1E1E?style=plastic&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXVzZXJzIj48cGF0aCBkPSJNMTYgMjF2LTJhNCA0IDAgMCAwLTQtNEg2YTQgNCAwIDAgMC00IDR2MiIvPjxjaXJjbGUgY3g9IjkiIGN5PSI3IiByPSI0Ii8+PHBhdGggZD0iTTIyIDIxdi0yYTQgNCAwIDAgMC0zLTMuODciLz48cGF0aCBkPSJNMTYgMy4xM2E0IDQgMCAwIDEgMCA3Ljc1Ii8+PC9zdmc+
 [4]: https://img.shields.io/badge/Platform-Linux-0A1E1E?style=plastic&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWxhcHRvcC1taW5pbWFsIj48cmVjdCB3aWR0aD0iMTgiIGhlaWdodD0iMTIiIHg9IjMiIHk9IjQiIHJ4PSIyIiByeT0iMiIvPjxsaW5lIHgxPSIyIiB4Mj0iMjIiIHkxPSIyMCIgeTI9IjIwIi8+PC9zdmc+
 [5]: https://img.shields.io/github/languages/top/realazthat/snipinator.svg?cacheSeconds=28800&style=plastic&color=0A1E1E
 [6]: https://img.shields.io/github/license/realazthat/snipinator?style=plastic&color=0A1E1E
-[7]: https://github.com/realazthat/snipinator/blob/v1.4.1/LICENSE.md
+[7]: https://github.com/realazthat/snipinator/blob/v1.5.0/LICENSE.md
 [8]: https://img.shields.io/pypi/v/snipinator?style=plastic&color=0A1E1E
 [9]: https://pypi.org/project/snipinator/
 [10]: https://img.shields.io/pypi/pyversions/snipinator?style=plastic&color=0A1E1E
 [11]: https://github.com/realazthat/snipinator/tree/master
 [12]: https://img.shields.io/github/actions/workflow/status/realazthat/snipinator/build-and-test.yml?branch=master&style=plastic
 [13]: https://github.com/realazthat/snipinator/actions/workflows/build-and-test.yml
-[14]: https://img.shields.io/github/commits-since/realazthat/snipinator/v1.4.1/master?style=plastic
-[15]: https://github.com/realazthat/snipinator/compare/v1.4.1...master
+[14]: https://img.shields.io/github/commits-since/realazthat/snipinator/v1.5.0/master?style=plastic
+[15]: https://github.com/realazthat/snipinator/compare/v1.5.0...master
 [16]: https://img.shields.io/github/last-commit/realazthat/snipinator/master?style=plastic
 [17]: https://github.com/realazthat/snipinator/tree/develop
 [18]: https://img.shields.io/github/actions/workflow/status/realazthat/snipinator/build-and-test.yml?branch=develop&style=plastic
-[19]: https://img.shields.io/github/commits-since/realazthat/snipinator/v1.4.1/develop?style=plastic
-[20]: https://github.com/realazthat/snipinator/compare/v1.4.1...develop
-[21]: https://img.shields.io/github/commits-since/realazthat/snipinator/v1.4.1/develop?style=plastic
-[22]: https://github.com/realazthat/snipinator/compare/v1.4.1...develop
+[19]: https://img.shields.io/github/commits-since/realazthat/snipinator/v1.5.0/develop?style=plastic
+[20]: https://github.com/realazthat/snipinator/compare/v1.5.0...develop
+[21]: https://img.shields.io/github/commits-since/realazthat/snipinator/v1.5.0/develop?style=plastic
+[22]: https://github.com/realazthat/snipinator/compare/v1.5.0...develop
 [23]: https://img.shields.io/github/last-commit/realazthat/snipinator/develop?style=plastic
-[24]: https://github.com/mdx-js/mdx
-[25]: https://github.com/zakhenry/embedme
-[26]: https://github.com/cmacmackin/markdown-include
-[27]: https://github.com/SimonCropp/MarkdownSnippets
-[28]: https://github.com/endocode/snippetextractor
-[29]: https://github.com/polywrap/doc-snippets
-[30]: https://github.com/JulianCataldo/remark-embed
-[31]: https://github.com/xrd/oreilly-snippets
-[32]: https://github.com/DamonOehlman/injectcode
-[33]: https://github.com/electrovir/markdown-code-example-inserter
-[34]: https://github.com/andersfischernielsen/Simple-Embedded-Markdown-Code-Snippets
-[35]: https://github.com/ildar-shaimordanov/git-markdown-snippet
-[36]: https://github.com/teyc/markdown-snippet
-[37]: https://github.com/marc-bouvier-graveyard/baldir_markdown
-[38]: https://github.com/dineshsonachalam/markdown-autodocs
-[39]: https://github.com/tokusumi/markdown-embed-code
-[40]: https://github.com/sammndhr/gridsome-remark-embed-snippet
-[41]: https://gridsome.org/
-[42]: https://github.com/NativeScript/markdown-snippet-injector
-[43]: https://github.com/fuxingloh/remark-code-import-replace
-[44]: https://github.com/szkiba/mdcode "Extracts code blocks from README and produces tests; a similar approach, but quite different"
-[45]: https://github.com/devincornell/pymddoc
-[46]: https://github.com/shiftkey/scribble
-[47]: https://github.com/shiftkey/scribble/blob/master/docs/features/code-snippets.md
-[48]: https://github.com/calebpeterson/jest-transformer-test-md
-[49]: https://github.com/tjstankus/commitate
-[50]: https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-a-permanent-link-to-a-code-snippet
-[51]: https://github.com/javierfernandes/markdown-exercises
-[52]: https://github.com/gatsbyjs/gatsby/tree/master/packages/gatsby-remark-embed-snippet
-[53]: https://github.com/gatsbyjs/gatsby
-[54]: https://github.com/ARMmbed/snippet
-[55]: https://github.com/drewavis/markdowninclude
-[56]: https://github.com/romnn/embedme
+[24]: https://github.com/realazthat/snipinator
+[25]: https://github.com/realazthat/snipinator/blob/376cb1d83124ad00ce7c2a887d713ac2a85b9258/README.md.jinja2
+[26]: https://github.com/realazthat/snipinator/blob/376cb1d83124ad00ce7c2a887d713ac2a85b9258/README.md?plain=1
+[27]: https://github.com/realazthat/snipinator/blob/376cb1d83124ad00ce7c2a887d713ac2a85b9258/scripts/generate-readme.sh#L20
+[28]: https://github.com/realazthat/mdremotifier
+[29]: https://github.com/realazthat/mdremotifier/blob/b1ea58ebb4f1b223719c6103d67ed5d588e66181/README.md.jinja2
+[30]: https://github.com/realazthat/mdremotifier/blob/b1ea58ebb4f1b223719c6103d67ed5d588e66181/README.md?plain=1
+[31]: https://github.com/realazthat/mdremotifier/blob/b1ea58ebb4f1b223719c6103d67ed5d588e66181/scripts/generate-readme.sh#L20
+[32]: https://github.com/realazthat/changeguard
+[33]: https://github.com/realazthat/changeguard/blob/909d21314de67f66ea05c6603a6df1d675d86697/README.md.jinja2
+[34]: https://github.com/realazthat/changeguard/blob/909d21314de67f66ea05c6603a6df1d675d86697/README.md?plain=1
+[35]: https://github.com/realazthat/changeguard/blob/909d21314de67f66ea05c6603a6df1d675d86697/scripts/generate-readme.sh#L20
+[36]: https://github.com/realazthat/excalidraw-brute-export-cli
+[37]: https://github.com/realazthat/excalidraw-brute-export-cli/blob/4b689ab75cfdec71e5788b3194f8736246e7544f/README.md.jinja2
+[38]: https://github.com/realazthat/excalidraw-brute-export-cli/blob/4b689ab75cfdec71e5788b3194f8736246e7544f/README.md?plain=1
+[39]: https://github.com/realazthat/excalidraw-brute-export-cli/blob/4b689ab75cfdec71e5788b3194f8736246e7544f/scripts/generate-readme.sh#L65
+[40]: https://github.com/realazthat/comfy-catapult
+[41]: https://github.com/realazthat/comfy-catapult/blob/ff353d48b25fa7b9c35fa11b31d5f2b3039c41c8/README.md.jinja2
+[42]: https://github.com/realazthat/comfy-catapult/blob/ff353d48b25fa7b9c35fa11b31d5f2b3039c41c8/README.md?plain=1
+[43]: https://github.com/realazthat/comfy-catapult/blob/ff353d48b25fa7b9c35fa11b31d5f2b3039c41c8/scripts/gen-readme.sh#L17
+[44]: https://github.com/realazthat/comfylowda
+[45]: https://github.com/realazthat/comfylowda/blob/e01a32c38107aa0b89ccea21c4678d193a186a78/README.md.jinja2
+[46]: https://github.com/realazthat/comfylowda/blob/e01a32c38107aa0b89ccea21c4678d193a186a78/README.md?plain=1
+[47]: https://github.com/realazthat/comfylowda/blob/e01a32c38107aa0b89ccea21c4678d193a186a78/scripts/gen-readme.sh#L19
+[48]: https://ghcr.io/realazthat/snipinator
+[49]: https://github.com/mdx-js/mdx
+[50]: https://github.com/fletcher/MultiMarkdown-6
+[51]: https://github.com/gajus/gitdown
+[52]: https://github.com/gpoore/codebraid
+[53]: https://github.com/amyreese/markdown-pp "Archived"
+[54]: https://github.com/zakhenry/embedme
+[55]: https://github.com/DCsunset/pandoc-include
+[56]: https://github.com/BurdetteLamar/markdown_helper
+[57]: https://github.com/SimonCropp/MarkdownSnippets
+[58]: https://github.com/endocode/snippetextractor
+[59]: https://github.com/polywrap/doc-snippets
+[60]: https://github.com/hxtmike/markdown_include
+[61]: https://github.com/JulianCataldo/remark-embed
+[62]: https://github.com/xrd/oreilly-snippets
+[63]: https://github.com/DamonOehlman/injectcode
+[64]: https://github.com/electrovir/markdown-code-example-inserter
+[65]: https://github.com/andersfischernielsen/Simple-Embedded-Markdown-Code-Snippets
+[66]: https://github.com/ildar-shaimordanov/git-markdown-snippet
+[67]: https://github.com/marc-bouvier-graveyard/baldir_markdown
+[68]: https://github.com/facelessuser/pymdown-extensions
+[69]: https://facelessuser.github.io/pymdown-extensions/extensions/snippets/
+[70]: https://github.com/dineshsonachalam/markdown-autodocs
+[71]: https://github.com/sethen/markdown-include "CLI but requires that you make a json file with various optiosn to produce the output"
+[72]: https://github.com/cmacmackin/markdown-include
+[73]: https://github.com/tokusumi/markdown-embed-code
+[74]: https://github.com/sammndhr/gridsome-remark-embed-snippet
+[75]: https://gridsome.org/
+[76]: https://github.com/NativeScript/markdown-snippet-injector
+[77]: https://github.com/fossunited/markdown-macros
+[78]: https://github.com/fuxingloh/remark-code-import-replace
+[79]: https://github.com/teyc/markdown-snippet
+[80]: https://github.com/szkiba/mdcode "Extracts code blocks from README and produces tests; a similar approach, but quite different"
+[81]: https://github.com/devincornell/pymddoc
+[82]: https://github.com/shiftkey/scribble
+[83]: https://github.com/shiftkey/scribble/blob/master/docs/features/code-snippets.md
+[84]: https://github.com/calebpeterson/jest-transformer-test-md
+[85]: https://github.com/tjstankus/commitate "Missing usage example"
+[86]: https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-a-permanent-link-to-a-code-snippet
+[87]: https://github.com/javierfernandes/markdown-exercises "This doesn't embed files, rather allows markdown code sections to be tested, no usage example"
+[88]: https://github.com/gatsbyjs/gatsby/tree/master/packages/gatsby-remark-embed-snippet
+[89]: https://github.com/gatsbyjs/gatsby
+[90]: https://github.com/ARMmbed/snippet "Unclear from documentation on how to embed the code into the template"
+[91]: https://github.com/ARMmbed/snippet/blob/master/USAGE.md
+[92]: https://github.com/drewavis/markdowninclude
+[93]: https://github.com/romnn/embedme "Documentation is lacking"

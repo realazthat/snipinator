@@ -39,8 +39,14 @@ docker build -t {{docker_image_name|safe}} .
 
 {% endif -%}
 
+{% if example_type in ['docker-remote'] -%}
+# Use the published images at ghcr.io/realazthat/snipinator.
+{% endif -%}
 {{snipinator_cmd|safe}} --help
 
+{% if example_type in ['docker-local', 'docker-remote'] -%}
+# /data in the docker image is the working directory, so paths are simpler.
+{% endif -%}
 {{snipinator_cmd|safe}} \
   -t "snipinator/examples/EXAMPLE.md.jinja2" \
   --rm \

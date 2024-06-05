@@ -261,19 +261,6 @@ Documentation:
 Docker images are published to [ghcr.io/realazthat/{{project_name}}][50] at each
 tag.
 
-```bash
-# Use the published images at ghcr.io/realazthat/{{project_name}}.
-
-docker run --rm -it \
-  ghcr.io/realazthat/{{project_name}}:v{{last_stable_release}} --help
-
-# /data in the docker image is the working directory, so paths are simpler.
-docker run --rm -it \
-  -v $(pwd):/data \
-  ghcr.io/realazthat/{{project_name}}:v{{last_stable_release}} \
-  --help
-```
-
 <!--{{snippet('./snipinator/examples/remote-docker_example-noautorun.sh',
               start='# SNIPPET_START',
               end='\n# SNIPPET_END',
@@ -282,11 +269,6 @@ docker run --rm -it \
 
 If you want to build the image yourself, you can use the Dockerfile in the
 repository.
-
-```bash
-# Build the docker image.
-docker build -t my-snipinator-image .
-```
 
 <!--{{snippet('./snipinator/examples/local-docker_example.sh',
               start='# SNIPPET_START',

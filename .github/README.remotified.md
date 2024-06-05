@@ -644,26 +644,15 @@ def path(path: str,
 Docker images are published to [ghcr.io/realazthat/snipinator][50] at each
 tag.
 
-```bash
-# Use the published images at ghcr.io/realazthat/snipinator.
-
-docker run --rm -it \
-  ghcr.io/realazthat/snipinator:v1.6.0 --help
-
-# /data in the docker image is the working directory, so paths are simpler.
-docker run --rm -it \
-  -v $(pwd):/data \
-  ghcr.io/realazthat/snipinator:v1.6.0 \
-  --help
-```
-
 <!---->
 ```bash
 
+# Use the published images at ghcr.io/realazthat/snipinator.
 docker run --rm --tty \
   -v "${PWD}:/data" \
   ghcr.io/realazthat/snipinator:v1.6.0 --help
 
+# /data in the docker image is the working directory, so paths are simpler.
 docker run --rm --tty \
   -v "${PWD}:/data" \
   ghcr.io/realazthat/snipinator:v1.6.0 \
@@ -679,11 +668,6 @@ docker run --rm --tty \
 If you want to build the image yourself, you can use the Dockerfile in the
 repository.
 
-```bash
-# Build the docker image.
-docker build -t my-snipinator-image .
-```
-
 <!---->
 ```bash
 
@@ -693,6 +677,7 @@ docker run --rm --tty \
   -v "${PWD}:/data" \
   my-snipinator-image --help
 
+# /data in the docker image is the working directory, so paths are simpler.
 docker run --rm --tty \
   -v "${PWD}:/data" \
   my-snipinator-image \

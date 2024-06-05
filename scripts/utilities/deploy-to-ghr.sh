@@ -7,12 +7,12 @@ source "${SCRIPT_DIR}/common.sh"
 
 
 
-# E.g https://github.com/realazthat/snipinator.
+# E.g https://github.com/realazthat/project_name.
 REPO_URL=$(git remote get-url origin)
-# E.g realazthat/snipinator.
+# E.g realazthat/project_name.
 REPO_NAME=$(python -c 'from urllib.parse import urlparse; from pathlib import PurePath; repo_url = "'"${REPO_URL}"'"; parsed_url = urlparse(repo_url); path = PurePath(parsed_url.path); print(f"{path.parts[-2]}/{path.stem}")')
 # Compute project name in terms of REPO_NAME.
-# e.g snipinator.
+# e.g project_name.
 PROJECT_NAME=$(basename "${REPO_NAME}")
 
 # Example: v0.1.0

@@ -11,8 +11,10 @@ TOML=${PROJ_PATH}/pyproject.toml EXTRA=prod \
   TARGET_VENV_PATH="${PWD}/.venv" \
   bash "${PROJ_PATH}/scripts/utilities/ensure-reqs.sh"
 
+bash scripts/generate-examples.sh
+
 # For each sh in snipinator/examples
-find snipinator/examples -type f -name "*.sh" -print0 | while IFS= read -r -d '' EXAMPLE; do
+find snipinator/examples -type f -name "*_example.sh" -print0 | while IFS= read -r -d '' EXAMPLE; do
   bash "${EXAMPLE}"
   echo -e "${GREEN}${EXAMPLE} ran successfully${NC}"
 done

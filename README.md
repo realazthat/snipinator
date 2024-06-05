@@ -31,7 +31,7 @@ SOURCE: `README.md.jinja2`.
     &nbsp;&bull;&nbsp;
     <a href="#-features">🎇Features</a>
     &nbsp;&bull;&nbsp;
-    <a href="#-installation">🔨Installation</a>
+    <a href="#-install">🔨Install</a>
     &nbsp;&bull;&nbsp;
     <a href="#-usage">🚜Usage</a>
     &nbsp;&bull;&nbsp;
@@ -147,7 +147,7 @@ Note that `code.py` has a test:
 - ⚙️🔗🗃️ More robust **references/links** to local files using [path()](#path).
 - 🐳🌊🖥️ Docker Image (See [README: Docker Image](#-docker-image)).
 
-## 🔨 Installation
+## 🔨 Install
 
 ```bash
 # Install from pypi (https://pypi.org/project/snipinator/)
@@ -216,6 +216,10 @@ Some more flags:
 <!---->
 ```bash
 
+
+
+python -m snipinator.cli --help
+
 python -m snipinator.cli \
   -t "snipinator/examples/EXAMPLE.md.jinja2" \
   --rm \
@@ -223,7 +227,6 @@ python -m snipinator.cli \
   --create \
   -o "snipinator/examples/EXAMPLE.generated.md" \
   --chmod-ro
-
 ```
 <!---->
 
@@ -243,14 +246,15 @@ python -m snipinator.cli \
   - Template: [./snipinator/examples/EXAMPLE.md.jinja2](./snipinator/examples/EXAMPLE.md.jinja2).
   - Generated:
     [./snipinator/examples/EXAMPLE.generated.md](./snipinator/examples/EXAMPLE.generated.md).
-  - Generation script: [./snipinator/examples/example.sh](./snipinator/examples/example.sh).
+  - Generation script:
+    [./snipinator/examples/example_example.sh](./snipinator/examples/example_example.sh).
 - Long example of many features:
   - Template:
     [./snipinator/examples/LONG-EXAMPLE.md.jinja2](./snipinator/examples/LONG-EXAMPLE.md.jinja2).
   - Generated:
     [./snipinator/examples/LONG-EXAMPLE.generated.md](./snipinator/examples/LONG-EXAMPLE.generated.md).
   - Generation script:
-    [./snipinator/examples/long-example.sh](./snipinator/examples/long-example.sh).
+    [./snipinator/examples/long_example.sh](./snipinator/examples/long_example.sh).
 - Projects using Snipinator:
   - [realazthat/snipinator][26]
     - Template: [snipinator/README.md.jinja2][27].
@@ -644,14 +648,37 @@ tag.
 
 ```bash
 # Use the published images at ghcr.io/realazthat/snipinator.
-docker run --rm -it ghcr.io/realazthat/snipinator:v1.6.0 --help
+
+docker run --rm -it \
+  ghcr.io/realazthat/snipinator:v1.6.0 --help
 
 # /data in the docker image is the working directory, so paths are simpler.
 docker run --rm -it \
   -v $(pwd):/data \
   ghcr.io/realazthat/snipinator:v1.6.0 \
-  -t snipinator/examples/EXAMPLE.md.jinja2
+  --help
 ```
+
+<!---->
+```bash
+
+
+
+docker run --rm --tty \
+  -v "${PWD}:/data" \
+  v1.6.0 --help
+
+docker run --rm --tty \
+  -v "${PWD}:/data" \
+  v1.6.0 \
+  -t "snipinator/examples/EXAMPLE.md.jinja2" \
+  --rm \
+  --force \
+  --create \
+  -o "snipinator/examples/EXAMPLE.generated.md" \
+  --chmod-ro
+```
+<!---->
 
 If you want to build the image yourself, you can use the Dockerfile in the
 repository.
@@ -659,10 +686,28 @@ repository.
 ```bash
 # Build the docker image.
 docker build -t my-snipinator-image .
-
-# Run the docker image.
-docker run --rm -it my-snipinator-image --help
 ```
+
+<!---->
+```bash
+
+docker build -t my-snipinator-image .
+
+docker run --rm --tty \
+  -v "${PWD}:/data" \
+  my-snipinator-image --help
+
+docker run --rm --tty \
+  -v "${PWD}:/data" \
+  my-snipinator-image \
+  -t "snipinator/examples/EXAMPLE.md.jinja2" \
+  --rm \
+  --force \
+  --create \
+  -o "snipinator/examples/EXAMPLE.generated.md" \
+  --chmod-ro
+```
+<!---->
 
 ## 🚸 Gotchas and Limitations
 

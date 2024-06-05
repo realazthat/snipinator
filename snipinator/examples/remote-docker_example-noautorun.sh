@@ -20,12 +20,12 @@ fi
 # Use the published images at ghcr.io/realazthat/snipinator.
 docker run --rm --tty \
   -v "${PWD}:/data" \
-  ghcr.io/realazthat/snipinator:v1.6.0 --help
+  ghcr.io/realazthat/snipinator:v2.0.0 --help
 
 # /data in the docker image is the working directory, so paths are simpler.
 docker run --rm --tty \
   -v "${PWD}:/data" \
-  ghcr.io/realazthat/snipinator:v1.6.0 \
+  ghcr.io/realazthat/snipinator:v2.0.0 \
   -t "snipinator/examples/EXAMPLE.md.jinja2" \
   --rm \
   --force \

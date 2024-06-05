@@ -216,8 +216,6 @@ Some more flags:
 <!---->
 ```bash
 
-
-
 python -m snipinator.cli --help
 
 python -m snipinator.cli \
@@ -662,15 +660,13 @@ docker run --rm -it \
 <!---->
 ```bash
 
-
+docker run --rm --tty \
+  -v "${PWD}:/data" \
+  ghcr.io/realazthat/snipinator:v1.6.0 --help
 
 docker run --rm --tty \
   -v "${PWD}:/data" \
-  v1.6.0 --help
-
-docker run --rm --tty \
-  -v "${PWD}:/data" \
-  v1.6.0 \
+  ghcr.io/realazthat/snipinator:v1.6.0 \
   -t "snipinator/examples/EXAMPLE.md.jinja2" \
   --rm \
   --force \

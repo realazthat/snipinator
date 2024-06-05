@@ -49,7 +49,7 @@ python -m snipinator.cli \
 LAST_VERSION=$(tomlq -r -e '.["tool"]["snipinator-project-metadata"]["last_stable_release"]' pyproject.toml)
 python -m snipinator.cli \
   -t "${PROJ_PATH}/snipinator/examples/example_example.sh.jinja2" \
-  --args '{"example_type": "docker-remote", "docker_image_name": "v'"${LAST_VERSION}"'"}' \
+  --args '{"example_type": "docker-remote", "docker_image_name": "ghcr.io/realazthat/snipinator:v'"${LAST_VERSION}"'"}' \
   --warning-header "${CUSTOM_WARNING%.}" \
   --rm \
   --force \

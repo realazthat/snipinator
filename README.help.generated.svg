@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<svg xmlns="http://www.w3.org/2000/svg" class="rich-terminal" viewBox="0 0 1970 1026.0">
+<svg xmlns="http://www.w3.org/2000/svg" class="rich-terminal" viewBox="0 0 1970 1196.8">
 <!-- Generated with Rich textualize.io -->
 <rect width="100%" height="100%" fill="black"/>
 <style>
@@ -19,347 +19,401 @@ url(&quot;https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff/FiraCode-Bo
 font-style: bold;
 font-weight: 700;
 }
-.terminal-4130950426-matrix {
+.terminal-3849153439-matrix {
 font-family: Fira Code, monospace;
 font-size: 20px;
 line-height: 24.4px;
 font-variant-east-asian: full-width;
 }
-.terminal-4130950426-title {
+.terminal-3849153439-title {
 font-size: 18px;
 font-weight: bold;
 font-family: arial;
 }
-.terminal-4130950426-r1 { fill: #d9d9d9 }
-.terminal-4130950426-r2 { fill: #ff8700 }
-.terminal-4130950426-r3 { fill: #808080 }
-.terminal-4130950426-r4 { fill: #58d1eb }
-.terminal-4130950426-r5 { fill: #00af87 }
-.terminal-4130950426-r6 { fill: #d9d9d9;font-weight: bold }
+.terminal-3849153439-r1 { fill: #d9d9d9 }
+.terminal-3849153439-r2 { fill: #ff8700 }
+.terminal-3849153439-r3 { fill: #808080 }
+.terminal-3849153439-r4 { fill: #58d1eb }
+.terminal-3849153439-r5 { fill: #00af87 }
+.terminal-3849153439-r6 { fill: #d9d9d9;font-weight: bold }
 </style>
 <defs>
-<clipPath id="terminal-4130950426-clip-terminal">
-<rect x="0" y="0" width="1951.0" height="975.0"/>
+<clipPath id="terminal-3849153439-clip-terminal">
+<rect x="0" y="0" width="1951.0" height="1145.8"/>
 </clipPath>
-<clipPath id="terminal-4130950426-line-0">
+<clipPath id="terminal-3849153439-line-0">
 <rect x="0" y="1.5" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-4130950426-line-1">
+<clipPath id="terminal-3849153439-line-1">
 <rect x="0" y="25.9" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-4130950426-line-2">
+<clipPath id="terminal-3849153439-line-2">
 <rect x="0" y="50.3" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-4130950426-line-3">
+<clipPath id="terminal-3849153439-line-3">
 <rect x="0" y="74.7" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-4130950426-line-4">
+<clipPath id="terminal-3849153439-line-4">
 <rect x="0" y="99.1" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-4130950426-line-5">
+<clipPath id="terminal-3849153439-line-5">
 <rect x="0" y="123.5" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-4130950426-line-6">
+<clipPath id="terminal-3849153439-line-6">
 <rect x="0" y="147.9" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-4130950426-line-7">
+<clipPath id="terminal-3849153439-line-7">
 <rect x="0" y="172.3" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-4130950426-line-8">
+<clipPath id="terminal-3849153439-line-8">
 <rect x="0" y="196.7" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-4130950426-line-9">
+<clipPath id="terminal-3849153439-line-9">
 <rect x="0" y="221.1" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-4130950426-line-10">
+<clipPath id="terminal-3849153439-line-10">
 <rect x="0" y="245.5" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-4130950426-line-11">
+<clipPath id="terminal-3849153439-line-11">
 <rect x="0" y="269.9" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-4130950426-line-12">
+<clipPath id="terminal-3849153439-line-12">
 <rect x="0" y="294.3" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-4130950426-line-13">
+<clipPath id="terminal-3849153439-line-13">
 <rect x="0" y="318.7" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-4130950426-line-14">
+<clipPath id="terminal-3849153439-line-14">
 <rect x="0" y="343.1" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-4130950426-line-15">
+<clipPath id="terminal-3849153439-line-15">
 <rect x="0" y="367.5" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-4130950426-line-16">
+<clipPath id="terminal-3849153439-line-16">
 <rect x="0" y="391.9" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-4130950426-line-17">
+<clipPath id="terminal-3849153439-line-17">
 <rect x="0" y="416.3" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-4130950426-line-18">
+<clipPath id="terminal-3849153439-line-18">
 <rect x="0" y="440.7" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-4130950426-line-19">
+<clipPath id="terminal-3849153439-line-19">
 <rect x="0" y="465.1" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-4130950426-line-20">
+<clipPath id="terminal-3849153439-line-20">
 <rect x="0" y="489.5" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-4130950426-line-21">
+<clipPath id="terminal-3849153439-line-21">
 <rect x="0" y="513.9" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-4130950426-line-22">
+<clipPath id="terminal-3849153439-line-22">
 <rect x="0" y="538.3" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-4130950426-line-23">
+<clipPath id="terminal-3849153439-line-23">
 <rect x="0" y="562.7" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-4130950426-line-24">
+<clipPath id="terminal-3849153439-line-24">
 <rect x="0" y="587.1" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-4130950426-line-25">
+<clipPath id="terminal-3849153439-line-25">
 <rect x="0" y="611.5" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-4130950426-line-26">
+<clipPath id="terminal-3849153439-line-26">
 <rect x="0" y="635.9" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-4130950426-line-27">
+<clipPath id="terminal-3849153439-line-27">
 <rect x="0" y="660.3" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-4130950426-line-28">
+<clipPath id="terminal-3849153439-line-28">
 <rect x="0" y="684.7" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-4130950426-line-29">
+<clipPath id="terminal-3849153439-line-29">
 <rect x="0" y="709.1" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-4130950426-line-30">
+<clipPath id="terminal-3849153439-line-30">
 <rect x="0" y="733.5" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-4130950426-line-31">
+<clipPath id="terminal-3849153439-line-31">
 <rect x="0" y="757.9" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-4130950426-line-32">
+<clipPath id="terminal-3849153439-line-32">
 <rect x="0" y="782.3" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-4130950426-line-33">
+<clipPath id="terminal-3849153439-line-33">
 <rect x="0" y="806.7" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-4130950426-line-34">
+<clipPath id="terminal-3849153439-line-34">
 <rect x="0" y="831.1" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-4130950426-line-35">
+<clipPath id="terminal-3849153439-line-35">
 <rect x="0" y="855.5" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-4130950426-line-36">
+<clipPath id="terminal-3849153439-line-36">
 <rect x="0" y="879.9" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-4130950426-line-37">
+<clipPath id="terminal-3849153439-line-37">
 <rect x="0" y="904.3" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-4130950426-line-38">
+<clipPath id="terminal-3849153439-line-38">
 <rect x="0" y="928.7" width="1952" height="24.65"/>
+</clipPath>
+<clipPath id="terminal-3849153439-line-39">
+<rect x="0" y="953.1" width="1952" height="24.65"/>
+</clipPath>
+<clipPath id="terminal-3849153439-line-40">
+<rect x="0" y="977.5" width="1952" height="24.65"/>
+</clipPath>
+<clipPath id="terminal-3849153439-line-41">
+<rect x="0" y="1001.9" width="1952" height="24.65"/>
+</clipPath>
+<clipPath id="terminal-3849153439-line-42">
+<rect x="0" y="1026.3" width="1952" height="24.65"/>
+</clipPath>
+<clipPath id="terminal-3849153439-line-43">
+<rect x="0" y="1050.7" width="1952" height="24.65"/>
+</clipPath>
+<clipPath id="terminal-3849153439-line-44">
+<rect x="0" y="1075.1" width="1952" height="24.65"/>
+</clipPath>
+<clipPath id="terminal-3849153439-line-45">
+<rect x="0" y="1099.5" width="1952" height="24.65"/>
 </clipPath>
 </defs>
 <g transform="translate(9, 0)">
-<g class="terminal-4130950426-matrix">
-<text class="terminal-4130950426-r1" x="0" y="20" textLength="402.6" clip-path="url(#terminal-4130950426-line-0)">$ python -m snipinator.cli --help</text>
-<text class="terminal-4130950426-r1" x="1952" y="20" textLength="12.2" clip-path="url(#terminal-4130950426-line-0)">
+<g class="terminal-3849153439-matrix">
+<text class="terminal-3849153439-r1" x="0" y="20" textLength="402.6" clip-path="url(#terminal-3849153439-line-0)">$ python -m snipinator.cli --help</text>
+<text class="terminal-3849153439-r1" x="1952" y="20" textLength="12.2" clip-path="url(#terminal-3849153439-line-0)">
 </text>
-<text class="terminal-4130950426-r2" x="0" y="44.4" textLength="73.2" clip-path="url(#terminal-4130950426-line-1)">Usage:</text>
-<text class="terminal-4130950426-r3" x="85.4" y="44.4" textLength="292.8" clip-path="url(#terminal-4130950426-line-1)">python -m snipinator.cli</text>
-<text class="terminal-4130950426-r1" x="378.2" y="44.4" textLength="24.4" clip-path="url(#terminal-4130950426-line-1)"> [</text>
-<text class="terminal-4130950426-r4" x="402.6" y="44.4" textLength="24.4" clip-path="url(#terminal-4130950426-line-1)">-h</text>
-<text class="terminal-4130950426-r1" x="427" y="44.4" textLength="24.4" clip-path="url(#terminal-4130950426-line-1)">] </text>
-<text class="terminal-4130950426-r4" x="451.4" y="44.4" textLength="24.4" clip-path="url(#terminal-4130950426-line-1)">-t</text>
-<text class="terminal-4130950426-r5" x="488" y="44.4" textLength="97.6" clip-path="url(#terminal-4130950426-line-1)">TEMPLATE</text>
-<text class="terminal-4130950426-r1" x="585.6" y="44.4" textLength="24.4" clip-path="url(#terminal-4130950426-line-1)"> [</text>
-<text class="terminal-4130950426-r4" x="610" y="44.4" textLength="61" clip-path="url(#terminal-4130950426-line-1)">--cwd</text>
-<text class="terminal-4130950426-r5" x="683.2" y="44.4" textLength="36.6" clip-path="url(#terminal-4130950426-line-1)">CWD</text>
-<text class="terminal-4130950426-r1" x="719.8" y="44.4" textLength="36.6" clip-path="url(#terminal-4130950426-line-1)">] [</text>
-<text class="terminal-4130950426-r4" x="756.4" y="44.4" textLength="24.4" clip-path="url(#terminal-4130950426-line-1)">-a</text>
-<text class="terminal-4130950426-r5" x="793" y="44.4" textLength="48.8" clip-path="url(#terminal-4130950426-line-1)">ARGS</text>
-<text class="terminal-4130950426-r1" x="841.8" y="44.4" textLength="36.6" clip-path="url(#terminal-4130950426-line-1)">] [</text>
-<text class="terminal-4130950426-r4" x="878.4" y="44.4" textLength="268.4" clip-path="url(#terminal-4130950426-line-1)">--templates-searchpath</text>
-<text class="terminal-4130950426-r5" x="1159" y="44.4" textLength="244" clip-path="url(#terminal-4130950426-line-1)">TEMPLATES_SEARCHPATH</text>
-<text class="terminal-4130950426-r1" x="1403" y="44.4" textLength="36.6" clip-path="url(#terminal-4130950426-line-1)">] [</text>
-<text class="terminal-4130950426-r4" x="1439.6" y="44.4" textLength="24.4" clip-path="url(#terminal-4130950426-line-1)">-o</text>
-<text class="terminal-4130950426-r5" x="1476.2" y="44.4" textLength="73.2" clip-path="url(#terminal-4130950426-line-1)">OUTPUT</text>
-<text class="terminal-4130950426-r1" x="1549.4" y="44.4" textLength="36.6" clip-path="url(#terminal-4130950426-line-1)">] [</text>
-<text class="terminal-4130950426-r4" x="1586" y="44.4" textLength="48.8" clip-path="url(#terminal-4130950426-line-1)">--rm</text>
-<text class="terminal-4130950426-r1" x="1634.8" y="44.4" textLength="36.6" clip-path="url(#terminal-4130950426-line-1)">] [</text>
-<text class="terminal-4130950426-r4" x="1671.4" y="44.4" textLength="24.4" clip-path="url(#terminal-4130950426-line-1)">-f</text>
-<text class="terminal-4130950426-r1" x="1695.8" y="44.4" textLength="36.6" clip-path="url(#terminal-4130950426-line-1)">] [</text>
-<text class="terminal-4130950426-r4" x="1732.4" y="44.4" textLength="97.6" clip-path="url(#terminal-4130950426-line-1)">--create</text>
-<text class="terminal-4130950426-r1" x="1830" y="44.4" textLength="12.2" clip-path="url(#terminal-4130950426-line-1)">]</text>
-<text class="terminal-4130950426-r1" x="1952" y="44.4" textLength="12.2" clip-path="url(#terminal-4130950426-line-1)">
+<text class="terminal-3849153439-r2" x="0" y="44.4" textLength="73.2" clip-path="url(#terminal-3849153439-line-1)">Usage:</text>
+<text class="terminal-3849153439-r3" x="85.4" y="44.4" textLength="292.8" clip-path="url(#terminal-3849153439-line-1)">python -m snipinator.cli</text>
+<text class="terminal-3849153439-r1" x="378.2" y="44.4" textLength="24.4" clip-path="url(#terminal-3849153439-line-1)"> [</text>
+<text class="terminal-3849153439-r4" x="402.6" y="44.4" textLength="24.4" clip-path="url(#terminal-3849153439-line-1)">-h</text>
+<text class="terminal-3849153439-r1" x="427" y="44.4" textLength="24.4" clip-path="url(#terminal-3849153439-line-1)">] </text>
+<text class="terminal-3849153439-r4" x="451.4" y="44.4" textLength="24.4" clip-path="url(#terminal-3849153439-line-1)">-t</text>
+<text class="terminal-3849153439-r5" x="488" y="44.4" textLength="97.6" clip-path="url(#terminal-3849153439-line-1)">TEMPLATE</text>
+<text class="terminal-3849153439-r1" x="585.6" y="44.4" textLength="24.4" clip-path="url(#terminal-3849153439-line-1)"> [</text>
+<text class="terminal-3849153439-r4" x="610" y="44.4" textLength="61" clip-path="url(#terminal-3849153439-line-1)">--cwd</text>
+<text class="terminal-3849153439-r5" x="683.2" y="44.4" textLength="36.6" clip-path="url(#terminal-3849153439-line-1)">CWD</text>
+<text class="terminal-3849153439-r1" x="719.8" y="44.4" textLength="36.6" clip-path="url(#terminal-3849153439-line-1)">] [</text>
+<text class="terminal-3849153439-r4" x="756.4" y="44.4" textLength="24.4" clip-path="url(#terminal-3849153439-line-1)">-a</text>
+<text class="terminal-3849153439-r5" x="793" y="44.4" textLength="48.8" clip-path="url(#terminal-3849153439-line-1)">ARGS</text>
+<text class="terminal-3849153439-r1" x="841.8" y="44.4" textLength="36.6" clip-path="url(#terminal-3849153439-line-1)">] [</text>
+<text class="terminal-3849153439-r4" x="878.4" y="44.4" textLength="268.4" clip-path="url(#terminal-3849153439-line-1)">--templates-searchpath</text>
+<text class="terminal-3849153439-r5" x="1159" y="44.4" textLength="244" clip-path="url(#terminal-3849153439-line-1)">TEMPLATES_SEARCHPATH</text>
+<text class="terminal-3849153439-r1" x="1403" y="44.4" textLength="36.6" clip-path="url(#terminal-3849153439-line-1)">] [</text>
+<text class="terminal-3849153439-r4" x="1439.6" y="44.4" textLength="24.4" clip-path="url(#terminal-3849153439-line-1)">-o</text>
+<text class="terminal-3849153439-r5" x="1476.2" y="44.4" textLength="73.2" clip-path="url(#terminal-3849153439-line-1)">OUTPUT</text>
+<text class="terminal-3849153439-r1" x="1549.4" y="44.4" textLength="36.6" clip-path="url(#terminal-3849153439-line-1)">] [</text>
+<text class="terminal-3849153439-r4" x="1586" y="44.4" textLength="48.8" clip-path="url(#terminal-3849153439-line-1)">--rm</text>
+<text class="terminal-3849153439-r1" x="1634.8" y="44.4" textLength="36.6" clip-path="url(#terminal-3849153439-line-1)">] [</text>
+<text class="terminal-3849153439-r4" x="1671.4" y="44.4" textLength="24.4" clip-path="url(#terminal-3849153439-line-1)">-f</text>
+<text class="terminal-3849153439-r1" x="1695.8" y="44.4" textLength="36.6" clip-path="url(#terminal-3849153439-line-1)">] [</text>
+<text class="terminal-3849153439-r4" x="1732.4" y="44.4" textLength="97.6" clip-path="url(#terminal-3849153439-line-1)">--create</text>
+<text class="terminal-3849153439-r1" x="1830" y="44.4" textLength="12.2" clip-path="url(#terminal-3849153439-line-1)">]</text>
+<text class="terminal-3849153439-r1" x="1952" y="44.4" textLength="12.2" clip-path="url(#terminal-3849153439-line-1)">
 </text>
-<text class="terminal-4130950426-r1" x="0" y="68.8" textLength="402.6" clip-path="url(#terminal-4130950426-line-2)">                                [</text>
-<text class="terminal-4130950426-r4" x="402.6" y="68.8" textLength="85.4" clip-path="url(#terminal-4130950426-line-2)">--check</text>
-<text class="terminal-4130950426-r1" x="488" y="68.8" textLength="36.6" clip-path="url(#terminal-4130950426-line-2)">] [</text>
-<text class="terminal-4130950426-r4" x="524.6" y="68.8" textLength="207.4" clip-path="url(#terminal-4130950426-line-2)">--warning-message</text>
-<text class="terminal-4130950426-r5" x="744.2" y="68.8" textLength="183" clip-path="url(#terminal-4130950426-line-2)">WARNING_MESSAGE</text>
-<text class="terminal-4130950426-r1" x="927.2" y="68.8" textLength="36.6" clip-path="url(#terminal-4130950426-line-2)">] [</text>
-<text class="terminal-4130950426-r4" x="963.8" y="68.8" textLength="122" clip-path="url(#terminal-4130950426-line-2)">--chmod-ro</text>
-<text class="terminal-4130950426-r1" x="1085.8" y="68.8" textLength="36.6" clip-path="url(#terminal-4130950426-line-2)"> | </text>
-<text class="terminal-4130950426-r4" x="1122.4" y="68.8" textLength="85.4" clip-path="url(#terminal-4130950426-line-2)">--chmod</text>
-<text class="terminal-4130950426-r5" x="1220" y="68.8" textLength="61" clip-path="url(#terminal-4130950426-line-2)">CHMOD</text>
-<text class="terminal-4130950426-r1" x="1281" y="68.8" textLength="36.6" clip-path="url(#terminal-4130950426-line-2)">] [</text>
-<text class="terminal-4130950426-r4" x="1317.6" y="68.8" textLength="219.6" clip-path="url(#terminal-4130950426-line-2)">--template-newline</text>
-<text class="terminal-4130950426-r5" x="1549.4" y="68.8" textLength="207.4" clip-path="url(#terminal-4130950426-line-2)">{auto,lf,crlf,cr}</text>
-<text class="terminal-4130950426-r1" x="1756.8" y="68.8" textLength="12.2" clip-path="url(#terminal-4130950426-line-2)">]</text>
-<text class="terminal-4130950426-r1" x="1952" y="68.8" textLength="12.2" clip-path="url(#terminal-4130950426-line-2)">
+<text class="terminal-3849153439-r1" x="0" y="68.8" textLength="402.6" clip-path="url(#terminal-3849153439-line-2)">                                [</text>
+<text class="terminal-3849153439-r4" x="402.6" y="68.8" textLength="85.4" clip-path="url(#terminal-3849153439-line-2)">--check</text>
+<text class="terminal-3849153439-r1" x="488" y="68.8" textLength="36.6" clip-path="url(#terminal-3849153439-line-2)">] [</text>
+<text class="terminal-3849153439-r4" x="524.6" y="68.8" textLength="207.4" clip-path="url(#terminal-3849153439-line-2)">--warning-message</text>
+<text class="terminal-3849153439-r5" x="744.2" y="68.8" textLength="183" clip-path="url(#terminal-3849153439-line-2)">WARNING_MESSAGE</text>
+<text class="terminal-3849153439-r1" x="927.2" y="68.8" textLength="36.6" clip-path="url(#terminal-3849153439-line-2)"> | </text>
+<text class="terminal-3849153439-r4" x="963.8" y="68.8" textLength="195.2" clip-path="url(#terminal-3849153439-line-2)">--warning-header</text>
+<text class="terminal-3849153439-r5" x="1171.2" y="68.8" textLength="170.8" clip-path="url(#terminal-3849153439-line-2)">WARNING_HEADER</text>
+<text class="terminal-3849153439-r1" x="1342" y="68.8" textLength="36.6" clip-path="url(#terminal-3849153439-line-2)">] [</text>
+<text class="terminal-3849153439-r4" x="1378.6" y="68.8" textLength="183" clip-path="url(#terminal-3849153439-line-2)">--block-comment</text>
+<text class="terminal-3849153439-r5" x="1573.8" y="68.8" textLength="329.4" clip-path="url(#terminal-3849153439-line-2)">BLOCK_COMMENT BLOCK_COMMENT</text>
+<text class="terminal-3849153439-r1" x="1903.2" y="68.8" textLength="12.2" clip-path="url(#terminal-3849153439-line-2)">]</text>
+<text class="terminal-3849153439-r1" x="1952" y="68.8" textLength="12.2" clip-path="url(#terminal-3849153439-line-2)">
 </text>
-<text class="terminal-4130950426-r1" x="0" y="93.2" textLength="402.6" clip-path="url(#terminal-4130950426-line-3)">                                [</text>
-<text class="terminal-4130950426-r4" x="402.6" y="93.2" textLength="195.2" clip-path="url(#terminal-4130950426-line-3)">--output-newline</text>
-<text class="terminal-4130950426-r5" x="610" y="93.2" textLength="207.4" clip-path="url(#terminal-4130950426-line-3)">{auto,lf,crlf,cr}</text>
-<text class="terminal-4130950426-r1" x="817.4" y="93.2" textLength="36.6" clip-path="url(#terminal-4130950426-line-3)">] [</text>
-<text class="terminal-4130950426-r4" x="854" y="93.2" textLength="109.8" clip-path="url(#terminal-4130950426-line-3)">--version</text>
-<text class="terminal-4130950426-r1" x="963.8" y="93.2" textLength="12.2" clip-path="url(#terminal-4130950426-line-3)">]</text>
-<text class="terminal-4130950426-r1" x="1952" y="93.2" textLength="12.2" clip-path="url(#terminal-4130950426-line-3)">
+<text class="terminal-3849153439-r1" x="0" y="93.2" textLength="402.6" clip-path="url(#terminal-3849153439-line-3)">                                [</text>
+<text class="terminal-3849153439-r4" x="402.6" y="93.2" textLength="122" clip-path="url(#terminal-3849153439-line-3)">--chmod-ro</text>
+<text class="terminal-3849153439-r1" x="524.6" y="93.2" textLength="36.6" clip-path="url(#terminal-3849153439-line-3)"> | </text>
+<text class="terminal-3849153439-r4" x="561.2" y="93.2" textLength="85.4" clip-path="url(#terminal-3849153439-line-3)">--chmod</text>
+<text class="terminal-3849153439-r5" x="658.8" y="93.2" textLength="61" clip-path="url(#terminal-3849153439-line-3)">CHMOD</text>
+<text class="terminal-3849153439-r1" x="719.8" y="93.2" textLength="36.6" clip-path="url(#terminal-3849153439-line-3)">] [</text>
+<text class="terminal-3849153439-r4" x="756.4" y="93.2" textLength="219.6" clip-path="url(#terminal-3849153439-line-3)">--template-newline</text>
+<text class="terminal-3849153439-r5" x="988.2" y="93.2" textLength="207.4" clip-path="url(#terminal-3849153439-line-3)">{auto,lf,crlf,cr}</text>
+<text class="terminal-3849153439-r1" x="1195.6" y="93.2" textLength="36.6" clip-path="url(#terminal-3849153439-line-3)">] [</text>
+<text class="terminal-3849153439-r4" x="1232.2" y="93.2" textLength="195.2" clip-path="url(#terminal-3849153439-line-3)">--output-newline</text>
+<text class="terminal-3849153439-r5" x="1439.6" y="93.2" textLength="207.4" clip-path="url(#terminal-3849153439-line-3)">{auto,lf,crlf,cr}</text>
+<text class="terminal-3849153439-r1" x="1647" y="93.2" textLength="36.6" clip-path="url(#terminal-3849153439-line-3)">] [</text>
+<text class="terminal-3849153439-r4" x="1683.6" y="93.2" textLength="109.8" clip-path="url(#terminal-3849153439-line-3)">--version</text>
+<text class="terminal-3849153439-r1" x="1793.4" y="93.2" textLength="12.2" clip-path="url(#terminal-3849153439-line-3)">]</text>
+<text class="terminal-3849153439-r1" x="1952" y="93.2" textLength="12.2" clip-path="url(#terminal-3849153439-line-3)">
 </text>
-<text class="terminal-4130950426-r1" x="1952" y="117.6" textLength="12.2" clip-path="url(#terminal-4130950426-line-4)">
+<text class="terminal-3849153439-r1" x="1952" y="117.6" textLength="12.2" clip-path="url(#terminal-3849153439-line-4)">
 </text>
-<text class="terminal-4130950426-r1" x="0" y="142" textLength="1085.8" clip-path="url(#terminal-4130950426-line-5)">CLI: Python code snipinator for markdown files, e.g READMEs, from actual (testable) code.</text>
-<text class="terminal-4130950426-r1" x="1952" y="142" textLength="12.2" clip-path="url(#terminal-4130950426-line-5)">
+<text class="terminal-3849153439-r1" x="0" y="142" textLength="1085.8" clip-path="url(#terminal-3849153439-line-5)">CLI: Python code snipinator for markdown files, e.g READMEs, from actual (testable) code.</text>
+<text class="terminal-3849153439-r1" x="1952" y="142" textLength="12.2" clip-path="url(#terminal-3849153439-line-5)">
 </text>
-<text class="terminal-4130950426-r1" x="1952" y="166.4" textLength="12.2" clip-path="url(#terminal-4130950426-line-6)">
+<text class="terminal-3849153439-r1" x="1952" y="166.4" textLength="12.2" clip-path="url(#terminal-3849153439-line-6)">
 </text>
-<text class="terminal-4130950426-r2" x="0" y="190.8" textLength="231.8" clip-path="url(#terminal-4130950426-line-7)">Optional Arguments:</text>
-<text class="terminal-4130950426-r1" x="1952" y="190.8" textLength="12.2" clip-path="url(#terminal-4130950426-line-7)">
+<text class="terminal-3849153439-r2" x="0" y="190.8" textLength="231.8" clip-path="url(#terminal-3849153439-line-7)">Optional Arguments:</text>
+<text class="terminal-3849153439-r1" x="1952" y="190.8" textLength="12.2" clip-path="url(#terminal-3849153439-line-7)">
 </text>
-<text class="terminal-4130950426-r4" x="24.4" y="215.2" textLength="24.4" clip-path="url(#terminal-4130950426-line-8)">-h</text>
-<text class="terminal-4130950426-r1" x="48.8" y="215.2" textLength="24.4" clip-path="url(#terminal-4130950426-line-8)">, </text>
-<text class="terminal-4130950426-r4" x="73.2" y="215.2" textLength="73.2" clip-path="url(#terminal-4130950426-line-8)">--help</text>
-<text class="terminal-4130950426-r1" x="292.8" y="215.2" textLength="378.2" clip-path="url(#terminal-4130950426-line-8)">show this help message and exit</text>
-<text class="terminal-4130950426-r1" x="1952" y="215.2" textLength="12.2" clip-path="url(#terminal-4130950426-line-8)">
+<text class="terminal-3849153439-r4" x="24.4" y="215.2" textLength="24.4" clip-path="url(#terminal-3849153439-line-8)">-h</text>
+<text class="terminal-3849153439-r1" x="48.8" y="215.2" textLength="24.4" clip-path="url(#terminal-3849153439-line-8)">, </text>
+<text class="terminal-3849153439-r4" x="73.2" y="215.2" textLength="73.2" clip-path="url(#terminal-3849153439-line-8)">--help</text>
+<text class="terminal-3849153439-r1" x="292.8" y="215.2" textLength="378.2" clip-path="url(#terminal-3849153439-line-8)">show this help message and exit</text>
+<text class="terminal-3849153439-r1" x="1952" y="215.2" textLength="12.2" clip-path="url(#terminal-3849153439-line-8)">
 </text>
-<text class="terminal-4130950426-r4" x="24.4" y="239.6" textLength="24.4" clip-path="url(#terminal-4130950426-line-9)">-t</text>
-<text class="terminal-4130950426-r1" x="48.8" y="239.6" textLength="24.4" clip-path="url(#terminal-4130950426-line-9)">, </text>
-<text class="terminal-4130950426-r4" x="73.2" y="239.6" textLength="122" clip-path="url(#terminal-4130950426-line-9)">--template</text>
-<text class="terminal-4130950426-r5" x="207.4" y="239.6" textLength="97.6" clip-path="url(#terminal-4130950426-line-9)">TEMPLATE</text>
-<text class="terminal-4130950426-r1" x="1952" y="239.6" textLength="12.2" clip-path="url(#terminal-4130950426-line-9)">
+<text class="terminal-3849153439-r4" x="24.4" y="239.6" textLength="24.4" clip-path="url(#terminal-3849153439-line-9)">-t</text>
+<text class="terminal-3849153439-r1" x="48.8" y="239.6" textLength="24.4" clip-path="url(#terminal-3849153439-line-9)">, </text>
+<text class="terminal-3849153439-r4" x="73.2" y="239.6" textLength="122" clip-path="url(#terminal-3849153439-line-9)">--template</text>
+<text class="terminal-3849153439-r5" x="207.4" y="239.6" textLength="97.6" clip-path="url(#terminal-3849153439-line-9)">TEMPLATE</text>
+<text class="terminal-3849153439-r1" x="1952" y="239.6" textLength="12.2" clip-path="url(#terminal-3849153439-line-9)">
 </text>
-<text class="terminal-4130950426-r1" x="292.8" y="264" textLength="549" clip-path="url(#terminal-4130950426-line-10)">Path to the template file. Use &quot;-&quot; for stdin.</text>
-<text class="terminal-4130950426-r1" x="1952" y="264" textLength="12.2" clip-path="url(#terminal-4130950426-line-10)">
+<text class="terminal-3849153439-r1" x="292.8" y="264" textLength="549" clip-path="url(#terminal-3849153439-line-10)">Path to the template file. Use &quot;-&quot; for stdin.</text>
+<text class="terminal-3849153439-r1" x="1952" y="264" textLength="12.2" clip-path="url(#terminal-3849153439-line-10)">
 </text>
-<text class="terminal-4130950426-r4" x="24.4" y="288.4" textLength="61" clip-path="url(#terminal-4130950426-line-11)">--cwd</text>
-<text class="terminal-4130950426-r5" x="97.6" y="288.4" textLength="36.6" clip-path="url(#terminal-4130950426-line-11)">CWD</text>
-<text class="terminal-4130950426-r1" x="292.8" y="288.4" textLength="1293.2" clip-path="url(#terminal-4130950426-line-11)">Directory to use as the base for snippet paths in the template. Defaults to the current working directory.</text>
-<text class="terminal-4130950426-r1" x="1952" y="288.4" textLength="12.2" clip-path="url(#terminal-4130950426-line-11)">
+<text class="terminal-3849153439-r4" x="24.4" y="288.4" textLength="61" clip-path="url(#terminal-3849153439-line-11)">--cwd</text>
+<text class="terminal-3849153439-r5" x="97.6" y="288.4" textLength="36.6" clip-path="url(#terminal-3849153439-line-11)">CWD</text>
+<text class="terminal-3849153439-r1" x="292.8" y="288.4" textLength="1293.2" clip-path="url(#terminal-3849153439-line-11)">Directory to use as the base for snippet paths in the template. Defaults to the current working directory.</text>
+<text class="terminal-3849153439-r1" x="1952" y="288.4" textLength="12.2" clip-path="url(#terminal-3849153439-line-11)">
 </text>
-<text class="terminal-4130950426-r4" x="24.4" y="312.8" textLength="24.4" clip-path="url(#terminal-4130950426-line-12)">-a</text>
-<text class="terminal-4130950426-r1" x="48.8" y="312.8" textLength="24.4" clip-path="url(#terminal-4130950426-line-12)">, </text>
-<text class="terminal-4130950426-r4" x="73.2" y="312.8" textLength="73.2" clip-path="url(#terminal-4130950426-line-12)">--args</text>
-<text class="terminal-4130950426-r5" x="158.6" y="312.8" textLength="48.8" clip-path="url(#terminal-4130950426-line-12)">ARGS</text>
-<text class="terminal-4130950426-r1" x="292.8" y="312.8" textLength="1232.2" clip-path="url(#terminal-4130950426-line-12)">JSON string with template arguments. Any extra values the user wishes to pass to the template, e.g. `</text>
-<text class="terminal-4130950426-r6" x="1525" y="312.8" textLength="195.2" clip-path="url(#terminal-4130950426-line-12)">{'name': 'John'}</text>
-<text class="terminal-4130950426-r1" x="1720.2" y="312.8" textLength="207.4" clip-path="url(#terminal-4130950426-line-12)">` if they wish to</text>
-<text class="terminal-4130950426-r1" x="1952" y="312.8" textLength="12.2" clip-path="url(#terminal-4130950426-line-12)">
+<text class="terminal-3849153439-r4" x="24.4" y="312.8" textLength="24.4" clip-path="url(#terminal-3849153439-line-12)">-a</text>
+<text class="terminal-3849153439-r1" x="48.8" y="312.8" textLength="24.4" clip-path="url(#terminal-3849153439-line-12)">, </text>
+<text class="terminal-3849153439-r4" x="73.2" y="312.8" textLength="73.2" clip-path="url(#terminal-3849153439-line-12)">--args</text>
+<text class="terminal-3849153439-r5" x="158.6" y="312.8" textLength="48.8" clip-path="url(#terminal-3849153439-line-12)">ARGS</text>
+<text class="terminal-3849153439-r1" x="292.8" y="312.8" textLength="1232.2" clip-path="url(#terminal-3849153439-line-12)">JSON string with template arguments. Any extra values the user wishes to pass to the template, e.g. `</text>
+<text class="terminal-3849153439-r6" x="1525" y="312.8" textLength="195.2" clip-path="url(#terminal-3849153439-line-12)">{'name': 'John'}</text>
+<text class="terminal-3849153439-r1" x="1720.2" y="312.8" textLength="207.4" clip-path="url(#terminal-3849153439-line-12)">` if they wish to</text>
+<text class="terminal-3849153439-r1" x="1952" y="312.8" textLength="12.2" clip-path="url(#terminal-3849153439-line-12)">
 </text>
-<text class="terminal-4130950426-r1" x="292.8" y="337.2" textLength="695.4" clip-path="url(#terminal-4130950426-line-13)">render variables as Jinja2 is capable of. Defaults to {}.</text>
-<text class="terminal-4130950426-r1" x="1952" y="337.2" textLength="12.2" clip-path="url(#terminal-4130950426-line-13)">
+<text class="terminal-3849153439-r1" x="292.8" y="337.2" textLength="695.4" clip-path="url(#terminal-3849153439-line-13)">render variables as Jinja2 is capable of. Defaults to {}.</text>
+<text class="terminal-3849153439-r1" x="1952" y="337.2" textLength="12.2" clip-path="url(#terminal-3849153439-line-13)">
 </text>
-<text class="terminal-4130950426-r4" x="24.4" y="361.6" textLength="268.4" clip-path="url(#terminal-4130950426-line-14)">--templates-searchpath</text>
-<text class="terminal-4130950426-r5" x="305" y="361.6" textLength="244" clip-path="url(#terminal-4130950426-line-14)">TEMPLATES_SEARCHPATH</text>
-<text class="terminal-4130950426-r1" x="1952" y="361.6" textLength="12.2" clip-path="url(#terminal-4130950426-line-14)">
+<text class="terminal-3849153439-r4" x="24.4" y="361.6" textLength="268.4" clip-path="url(#terminal-3849153439-line-14)">--templates-searchpath</text>
+<text class="terminal-3849153439-r5" x="305" y="361.6" textLength="244" clip-path="url(#terminal-3849153439-line-14)">TEMPLATES_SEARCHPATH</text>
+<text class="terminal-3849153439-r1" x="1952" y="361.6" textLength="12.2" clip-path="url(#terminal-3849153439-line-14)">
 </text>
-<text class="terminal-4130950426-r1" x="292.8" y="386" textLength="1622.6" clip-path="url(#terminal-4130950426-line-15)">Path to the directory with templates for include directives etc. Defaults to None, which means nothing can be included using Jinja2's</text>
-<text class="terminal-4130950426-r1" x="1952" y="386" textLength="12.2" clip-path="url(#terminal-4130950426-line-15)">
+<text class="terminal-3849153439-r1" x="292.8" y="386" textLength="1622.6" clip-path="url(#terminal-3849153439-line-15)">Path to the directory with templates for include directives etc. Defaults to None, which means nothing can be included using Jinja2's</text>
+<text class="terminal-3849153439-r1" x="1952" y="386" textLength="12.2" clip-path="url(#terminal-3849153439-line-15)">
 </text>
-<text class="terminal-4130950426-r1" x="292.8" y="410.4" textLength="658.8" clip-path="url(#terminal-4130950426-line-16)">include directives, which most users won't be needing.</text>
-<text class="terminal-4130950426-r1" x="1952" y="410.4" textLength="12.2" clip-path="url(#terminal-4130950426-line-16)">
+<text class="terminal-3849153439-r1" x="292.8" y="410.4" textLength="658.8" clip-path="url(#terminal-3849153439-line-16)">include directives, which most users won't be needing.</text>
+<text class="terminal-3849153439-r1" x="1952" y="410.4" textLength="12.2" clip-path="url(#terminal-3849153439-line-16)">
 </text>
-<text class="terminal-4130950426-r4" x="24.4" y="434.8" textLength="24.4" clip-path="url(#terminal-4130950426-line-17)">-o</text>
-<text class="terminal-4130950426-r1" x="48.8" y="434.8" textLength="24.4" clip-path="url(#terminal-4130950426-line-17)">, </text>
-<text class="terminal-4130950426-r4" x="73.2" y="434.8" textLength="97.6" clip-path="url(#terminal-4130950426-line-17)">--output</text>
-<text class="terminal-4130950426-r5" x="183" y="434.8" textLength="73.2" clip-path="url(#terminal-4130950426-line-17)">OUTPUT</text>
-<text class="terminal-4130950426-r1" x="292.8" y="434.8" textLength="744.2" clip-path="url(#terminal-4130950426-line-17)">Path to the output file. Use &quot;-&quot; for stdout. Defaults to &quot;-&quot;.</text>
-<text class="terminal-4130950426-r1" x="1952" y="434.8" textLength="12.2" clip-path="url(#terminal-4130950426-line-17)">
+<text class="terminal-3849153439-r4" x="24.4" y="434.8" textLength="24.4" clip-path="url(#terminal-3849153439-line-17)">-o</text>
+<text class="terminal-3849153439-r1" x="48.8" y="434.8" textLength="24.4" clip-path="url(#terminal-3849153439-line-17)">, </text>
+<text class="terminal-3849153439-r4" x="73.2" y="434.8" textLength="97.6" clip-path="url(#terminal-3849153439-line-17)">--output</text>
+<text class="terminal-3849153439-r5" x="183" y="434.8" textLength="73.2" clip-path="url(#terminal-3849153439-line-17)">OUTPUT</text>
+<text class="terminal-3849153439-r1" x="292.8" y="434.8" textLength="744.2" clip-path="url(#terminal-3849153439-line-17)">Path to the output file. Use &quot;-&quot; for stdout. Defaults to &quot;-&quot;.</text>
+<text class="terminal-3849153439-r1" x="1952" y="434.8" textLength="12.2" clip-path="url(#terminal-3849153439-line-17)">
 </text>
-<text class="terminal-4130950426-r4" x="24.4" y="459.2" textLength="48.8" clip-path="url(#terminal-4130950426-line-18)">--rm</text>
-<text class="terminal-4130950426-r1" x="292.8" y="459.2" textLength="1537.2" clip-path="url(#terminal-4130950426-line-18)">Remove any existing file at the output path, before writing the new one; useful if the existing file might be write protected.</text>
-<text class="terminal-4130950426-r1" x="1952" y="459.2" textLength="12.2" clip-path="url(#terminal-4130950426-line-18)">
+<text class="terminal-3849153439-r4" x="24.4" y="459.2" textLength="48.8" clip-path="url(#terminal-3849153439-line-18)">--rm</text>
+<text class="terminal-3849153439-r1" x="292.8" y="459.2" textLength="1537.2" clip-path="url(#terminal-3849153439-line-18)">Remove any existing file at the output path, before writing the new one; useful if the existing file might be write protected.</text>
+<text class="terminal-3849153439-r1" x="1952" y="459.2" textLength="12.2" clip-path="url(#terminal-3849153439-line-18)">
 </text>
-<text class="terminal-4130950426-r4" x="24.4" y="483.6" textLength="24.4" clip-path="url(#terminal-4130950426-line-19)">-f</text>
-<text class="terminal-4130950426-r1" x="48.8" y="483.6" textLength="24.4" clip-path="url(#terminal-4130950426-line-19)">, </text>
-<text class="terminal-4130950426-r4" x="73.2" y="483.6" textLength="85.4" clip-path="url(#terminal-4130950426-line-19)">--force</text>
-<text class="terminal-4130950426-r1" x="292.8" y="483.6" textLength="1610.4" clip-path="url(#terminal-4130950426-line-19)">Force remove the existing file at the output path, before writing the new one; useful if the existing file might be write protected.</text>
-<text class="terminal-4130950426-r1" x="1952" y="483.6" textLength="12.2" clip-path="url(#terminal-4130950426-line-19)">
+<text class="terminal-3849153439-r4" x="24.4" y="483.6" textLength="24.4" clip-path="url(#terminal-3849153439-line-19)">-f</text>
+<text class="terminal-3849153439-r1" x="48.8" y="483.6" textLength="24.4" clip-path="url(#terminal-3849153439-line-19)">, </text>
+<text class="terminal-3849153439-r4" x="73.2" y="483.6" textLength="85.4" clip-path="url(#terminal-3849153439-line-19)">--force</text>
+<text class="terminal-3849153439-r1" x="292.8" y="483.6" textLength="1610.4" clip-path="url(#terminal-3849153439-line-19)">Force remove the existing file at the output path, before writing the new one; useful if the existing file might be write protected.</text>
+<text class="terminal-3849153439-r1" x="1952" y="483.6" textLength="12.2" clip-path="url(#terminal-3849153439-line-19)">
 </text>
-<text class="terminal-4130950426-r1" x="292.8" y="508" textLength="219.6" clip-path="url(#terminal-4130950426-line-20)">Defaults to False.</text>
-<text class="terminal-4130950426-r1" x="1952" y="508" textLength="12.2" clip-path="url(#terminal-4130950426-line-20)">
+<text class="terminal-3849153439-r1" x="292.8" y="508" textLength="219.6" clip-path="url(#terminal-3849153439-line-20)">Defaults to False.</text>
+<text class="terminal-3849153439-r1" x="1952" y="508" textLength="12.2" clip-path="url(#terminal-3849153439-line-20)">
 </text>
-<text class="terminal-4130950426-r4" x="24.4" y="532.4" textLength="97.6" clip-path="url(#terminal-4130950426-line-21)">--create</text>
-<text class="terminal-4130950426-r1" x="292.8" y="532.4" textLength="1598.2" clip-path="url(#terminal-4130950426-line-21)">Create an empty file at the destination if it does not exist. Useful if the file references itself via path() etc. and so therefore</text>
-<text class="terminal-4130950426-r1" x="1952" y="532.4" textLength="12.2" clip-path="url(#terminal-4130950426-line-21)">
+<text class="terminal-3849153439-r4" x="24.4" y="532.4" textLength="97.6" clip-path="url(#terminal-3849153439-line-21)">--create</text>
+<text class="terminal-3849153439-r1" x="292.8" y="532.4" textLength="1598.2" clip-path="url(#terminal-3849153439-line-21)">Create an empty file at the destination if it does not exist. Useful if the file references itself via path() etc. and so therefore</text>
+<text class="terminal-3849153439-r1" x="1952" y="532.4" textLength="12.2" clip-path="url(#terminal-3849153439-line-21)">
 </text>
-<text class="terminal-4130950426-r1" x="292.8" y="556.8" textLength="573.4" clip-path="url(#terminal-4130950426-line-22)">must exist during rendering. Defaults to False.</text>
-<text class="terminal-4130950426-r1" x="1952" y="556.8" textLength="12.2" clip-path="url(#terminal-4130950426-line-22)">
+<text class="terminal-3849153439-r1" x="292.8" y="556.8" textLength="573.4" clip-path="url(#terminal-3849153439-line-22)">must exist during rendering. Defaults to False.</text>
+<text class="terminal-3849153439-r1" x="1952" y="556.8" textLength="12.2" clip-path="url(#terminal-3849153439-line-22)">
 </text>
-<text class="terminal-4130950426-r4" x="24.4" y="581.2" textLength="85.4" clip-path="url(#terminal-4130950426-line-23)">--check</text>
-<text class="terminal-4130950426-r1" x="292.8" y="581.2" textLength="1634.8" clip-path="url(#terminal-4130950426-line-23)">Check if the output file is the same as the rendered text, and exit with a non-zero status code if it is not. Does not write the file.</text>
-<text class="terminal-4130950426-r1" x="1952" y="581.2" textLength="12.2" clip-path="url(#terminal-4130950426-line-23)">
+<text class="terminal-3849153439-r4" x="24.4" y="581.2" textLength="85.4" clip-path="url(#terminal-3849153439-line-23)">--check</text>
+<text class="terminal-3849153439-r1" x="292.8" y="581.2" textLength="1634.8" clip-path="url(#terminal-3849153439-line-23)">Check if the output file is the same as the rendered text, and exit with a non-zero status code if it is not. Does not write the file.</text>
+<text class="terminal-3849153439-r1" x="1952" y="581.2" textLength="12.2" clip-path="url(#terminal-3849153439-line-23)">
 </text>
-<text class="terminal-4130950426-r1" x="292.8" y="605.6" textLength="512.4" clip-path="url(#terminal-4130950426-line-24)">Ignores options that modify the file (e.g </text>
-<text class="terminal-4130950426-r4" x="805.2" y="605.6" textLength="48.8" clip-path="url(#terminal-4130950426-line-24)">--rm</text>
-<text class="terminal-4130950426-r1" x="854" y="605.6" textLength="61" clip-path="url(#terminal-4130950426-line-24)"> and </text>
-<text class="terminal-4130950426-r4" x="915" y="605.6" textLength="122" clip-path="url(#terminal-4130950426-line-24)">--chmod-ro</text>
-<text class="terminal-4130950426-r1" x="1037" y="605.6" textLength="561.2" clip-path="url(#terminal-4130950426-line-24)">). Useful for CI pipelines. Defaults to False.</text>
-<text class="terminal-4130950426-r1" x="1952" y="605.6" textLength="12.2" clip-path="url(#terminal-4130950426-line-24)">
+<text class="terminal-3849153439-r1" x="292.8" y="605.6" textLength="512.4" clip-path="url(#terminal-3849153439-line-24)">Ignores options that modify the file (e.g </text>
+<text class="terminal-3849153439-r4" x="805.2" y="605.6" textLength="48.8" clip-path="url(#terminal-3849153439-line-24)">--rm</text>
+<text class="terminal-3849153439-r1" x="854" y="605.6" textLength="61" clip-path="url(#terminal-3849153439-line-24)"> and </text>
+<text class="terminal-3849153439-r4" x="915" y="605.6" textLength="122" clip-path="url(#terminal-3849153439-line-24)">--chmod-ro</text>
+<text class="terminal-3849153439-r1" x="1037" y="605.6" textLength="561.2" clip-path="url(#terminal-3849153439-line-24)">). Useful for CI pipelines. Defaults to False.</text>
+<text class="terminal-3849153439-r1" x="1952" y="605.6" textLength="12.2" clip-path="url(#terminal-3849153439-line-24)">
 </text>
-<text class="terminal-4130950426-r4" x="24.4" y="630" textLength="207.4" clip-path="url(#terminal-4130950426-line-25)">--warning-message</text>
-<text class="terminal-4130950426-r5" x="244" y="630" textLength="183" clip-path="url(#terminal-4130950426-line-25)">WARNING_MESSAGE</text>
-<text class="terminal-4130950426-r1" x="1952" y="630" textLength="12.2" clip-path="url(#terminal-4130950426-line-25)">
+<text class="terminal-3849153439-r4" x="24.4" y="630" textLength="207.4" clip-path="url(#terminal-3849153439-line-25)">--warning-message</text>
+<text class="terminal-3849153439-r5" x="244" y="630" textLength="183" clip-path="url(#terminal-3849153439-line-25)">WARNING_MESSAGE</text>
+<text class="terminal-3849153439-r1" x="1952" y="630" textLength="12.2" clip-path="url(#terminal-3849153439-line-25)">
 </text>
-<text class="terminal-4130950426-r1" x="292.8" y="654.4" textLength="1537.2" clip-path="url(#terminal-4130950426-line-26)">Warning message to include in the output file. To prevent accidentally editing generated file. Defaults to the default warning</text>
-<text class="terminal-4130950426-r1" x="1952" y="654.4" textLength="12.2" clip-path="url(#terminal-4130950426-line-26)">
+<text class="terminal-3849153439-r1" x="292.8" y="654.4" textLength="195.2" clip-path="url(#terminal-3849153439-line-26)">Deprecated: Use </text>
+<text class="terminal-3849153439-r4" x="488" y="654.4" textLength="195.2" clip-path="url(#terminal-3849153439-line-26)">--warning-header</text>
+<text class="terminal-3849153439-r1" x="683.2" y="654.4" textLength="1195.6" clip-path="url(#terminal-3849153439-line-26)"> instead. Warning message to include in the output file. To prevent accidentally editing generated</text>
+<text class="terminal-3849153439-r1" x="1952" y="654.4" textLength="12.2" clip-path="url(#terminal-3849153439-line-26)">
 </text>
-<text class="terminal-4130950426-r1" x="292.8" y="678.8" textLength="97.6" clip-path="url(#terminal-4130950426-line-27)">message.</text>
-<text class="terminal-4130950426-r1" x="1952" y="678.8" textLength="12.2" clip-path="url(#terminal-4130950426-line-27)">
+<text class="terminal-3849153439-r1" x="292.8" y="678.8" textLength="1586" clip-path="url(#terminal-3849153439-line-27)">file. Use {template_file_name} to be a standin for the template file name. Standard python str.format() will be used to format the</text>
+<text class="terminal-3849153439-r1" x="1952" y="678.8" textLength="12.2" clip-path="url(#terminal-3849153439-line-27)">
 </text>
-<text class="terminal-4130950426-r4" x="24.4" y="703.2" textLength="122" clip-path="url(#terminal-4130950426-line-28)">--chmod-ro</text>
-<text class="terminal-4130950426-r1" x="292.8" y="703.2" textLength="854" clip-path="url(#terminal-4130950426-line-28)">Like chmod, but portable between linux and windows, effectively does `</text>
-<text class="terminal-4130950426-r6" x="1146.8" y="703.2" textLength="109.8" clip-path="url(#terminal-4130950426-line-28)">chmod a-w</text>
-<text class="terminal-4130950426-r1" x="1256.6" y="703.2" textLength="610" clip-path="url(#terminal-4130950426-line-28)">`. To prevent accidentally editing generated file.</text>
-<text class="terminal-4130950426-r1" x="1952" y="703.2" textLength="12.2" clip-path="url(#terminal-4130950426-line-28)">
+<text class="terminal-3849153439-r1" x="292.8" y="703.2" textLength="1024.8" clip-path="url(#terminal-3849153439-line-28)">message. Do not include comment tags in the message; control the comment format via </text>
+<text class="terminal-3849153439-r4" x="1317.6" y="703.2" textLength="183" clip-path="url(#terminal-3849153439-line-28)">--block-comment</text>
+<text class="terminal-3849153439-r1" x="1500.6" y="703.2" textLength="12.2" clip-path="url(#terminal-3849153439-line-28)">.</text>
+<text class="terminal-3849153439-r1" x="1952" y="703.2" textLength="12.2" clip-path="url(#terminal-3849153439-line-28)">
 </text>
-<text class="terminal-4130950426-r1" x="292.8" y="727.6" textLength="219.6" clip-path="url(#terminal-4130950426-line-29)">Defaults to False.</text>
-<text class="terminal-4130950426-r1" x="1952" y="727.6" textLength="12.2" clip-path="url(#terminal-4130950426-line-29)">
+<text class="terminal-3849153439-r4" x="24.4" y="727.6" textLength="195.2" clip-path="url(#terminal-3849153439-line-29)">--warning-header</text>
+<text class="terminal-3849153439-r5" x="231.8" y="727.6" textLength="170.8" clip-path="url(#terminal-3849153439-line-29)">WARNING_HEADER</text>
+<text class="terminal-3849153439-r1" x="1952" y="727.6" textLength="12.2" clip-path="url(#terminal-3849153439-line-29)">
 </text>
-<text class="terminal-4130950426-r4" x="24.4" y="752" textLength="85.4" clip-path="url(#terminal-4130950426-line-30)">--chmod</text>
-<text class="terminal-4130950426-r5" x="122" y="752" textLength="61" clip-path="url(#terminal-4130950426-line-30)">CHMOD</text>
-<text class="terminal-4130950426-r1" x="292.8" y="752" textLength="195.2" clip-path="url(#terminal-4130950426-line-30)">Deprecated: Use </text>
-<text class="terminal-4130950426-r4" x="488" y="752" textLength="122" clip-path="url(#terminal-4130950426-line-30)">--chmod-ro</text>
-<text class="terminal-4130950426-r1" x="610" y="752" textLength="1317.6" clip-path="url(#terminal-4130950426-line-30)">. Change the mode (permissions) of the output file, an octant (see chmod help for more info) e.g 444 or 555.</text>
-<text class="terminal-4130950426-r1" x="1952" y="752" textLength="12.2" clip-path="url(#terminal-4130950426-line-30)">
+<text class="terminal-3849153439-r1" x="292.8" y="752" textLength="1598.2" clip-path="url(#terminal-3849153439-line-30)">Warning header to include in the output file. To prevent accidentally editing generated file. Include all necessary comment tags in</text>
+<text class="terminal-3849153439-r1" x="1952" y="752" textLength="12.2" clip-path="url(#terminal-3849153439-line-30)">
 </text>
-<text class="terminal-4130950426-r1" x="292.8" y="776.4" textLength="793" clip-path="url(#terminal-4130950426-line-31)">To prevent accidentally editing generated file. Defaults to None.</text>
-<text class="terminal-4130950426-r1" x="1952" y="776.4" textLength="12.2" clip-path="url(#terminal-4130950426-line-31)">
+<text class="terminal-3849153439-r1" x="292.8" y="776.4" textLength="1586" clip-path="url(#terminal-3849153439-line-31)">the message. Also escape as necessary; it will be put into the file raw. Use {template_file_name} to be a standin for the template</text>
+<text class="terminal-3849153439-r1" x="1952" y="776.4" textLength="12.2" clip-path="url(#terminal-3849153439-line-31)">
 </text>
-<text class="terminal-4130950426-r4" x="24.4" y="800.8" textLength="219.6" clip-path="url(#terminal-4130950426-line-32)">--template-newline</text>
-<text class="terminal-4130950426-r5" x="256.2" y="800.8" textLength="207.4" clip-path="url(#terminal-4130950426-line-32)">{auto,lf,crlf,cr}</text>
-<text class="terminal-4130950426-r1" x="1952" y="800.8" textLength="12.2" clip-path="url(#terminal-4130950426-line-32)">
+<text class="terminal-3849153439-r1" x="292.8" y="800.8" textLength="1403" clip-path="url(#terminal-3849153439-line-32)">file name. Standard python str.format() will be used to format the message. Defaults to the default warning header.</text>
+<text class="terminal-3849153439-r1" x="1952" y="800.8" textLength="12.2" clip-path="url(#terminal-3849153439-line-32)">
 </text>
-<text class="terminal-4130950426-r1" x="292.8" y="825.2" textLength="1598.2" clip-path="url(#terminal-4130950426-line-33)">See &lt;https://docs.python.org/3/library/functions.html#open&gt; for more info on the behavior. Defaults to auto, which means the python</text>
-<text class="terminal-4130950426-r1" x="1952" y="825.2" textLength="12.2" clip-path="url(#terminal-4130950426-line-33)">
+<text class="terminal-3849153439-r4" x="24.4" y="825.2" textLength="183" clip-path="url(#terminal-3849153439-line-33)">--block-comment</text>
+<text class="terminal-3849153439-r5" x="219.6" y="825.2" textLength="329.4" clip-path="url(#terminal-3849153439-line-33)">BLOCK_COMMENT BLOCK_COMMENT</text>
+<text class="terminal-3849153439-r1" x="1952" y="825.2" textLength="12.2" clip-path="url(#terminal-3849153439-line-33)">
 </text>
-<text class="terminal-4130950426-r1" x="292.8" y="849.6" textLength="195.2" clip-path="url(#terminal-4130950426-line-34)">default is used.</text>
-<text class="terminal-4130950426-r1" x="1952" y="849.6" textLength="12.2" clip-path="url(#terminal-4130950426-line-34)">
+<text class="terminal-3849153439-r1" x="292.8" y="849.6" textLength="1024.8" clip-path="url(#terminal-3849153439-line-34)">The comment tags for comments, for decomentify() function. Defaults to &quot;&lt;!--&quot;,&quot;--&gt;&quot;.</text>
+<text class="terminal-3849153439-r1" x="1952" y="849.6" textLength="12.2" clip-path="url(#terminal-3849153439-line-34)">
 </text>
-<text class="terminal-4130950426-r4" x="24.4" y="874" textLength="195.2" clip-path="url(#terminal-4130950426-line-35)">--output-newline</text>
-<text class="terminal-4130950426-r5" x="231.8" y="874" textLength="207.4" clip-path="url(#terminal-4130950426-line-35)">{auto,lf,crlf,cr}</text>
-<text class="terminal-4130950426-r1" x="1952" y="874" textLength="12.2" clip-path="url(#terminal-4130950426-line-35)">
+<text class="terminal-3849153439-r4" x="24.4" y="874" textLength="122" clip-path="url(#terminal-3849153439-line-35)">--chmod-ro</text>
+<text class="terminal-3849153439-r1" x="292.8" y="874" textLength="854" clip-path="url(#terminal-3849153439-line-35)">Like chmod, but portable between linux and windows, effectively does `</text>
+<text class="terminal-3849153439-r6" x="1146.8" y="874" textLength="109.8" clip-path="url(#terminal-3849153439-line-35)">chmod a-w</text>
+<text class="terminal-3849153439-r1" x="1256.6" y="874" textLength="610" clip-path="url(#terminal-3849153439-line-35)">`. To prevent accidentally editing generated file.</text>
+<text class="terminal-3849153439-r1" x="1952" y="874" textLength="12.2" clip-path="url(#terminal-3849153439-line-35)">
 </text>
-<text class="terminal-4130950426-r1" x="292.8" y="898.4" textLength="1598.2" clip-path="url(#terminal-4130950426-line-36)">See &lt;https://docs.python.org/3/library/functions.html#open&gt; for more info on the behavior. Defaults to auto, which means the python</text>
-<text class="terminal-4130950426-r1" x="1952" y="898.4" textLength="12.2" clip-path="url(#terminal-4130950426-line-36)">
+<text class="terminal-3849153439-r1" x="292.8" y="898.4" textLength="219.6" clip-path="url(#terminal-3849153439-line-36)">Defaults to False.</text>
+<text class="terminal-3849153439-r1" x="1952" y="898.4" textLength="12.2" clip-path="url(#terminal-3849153439-line-36)">
 </text>
-<text class="terminal-4130950426-r1" x="292.8" y="922.8" textLength="195.2" clip-path="url(#terminal-4130950426-line-37)">default is used.</text>
-<text class="terminal-4130950426-r1" x="1952" y="922.8" textLength="12.2" clip-path="url(#terminal-4130950426-line-37)">
+<text class="terminal-3849153439-r4" x="24.4" y="922.8" textLength="85.4" clip-path="url(#terminal-3849153439-line-37)">--chmod</text>
+<text class="terminal-3849153439-r5" x="122" y="922.8" textLength="61" clip-path="url(#terminal-3849153439-line-37)">CHMOD</text>
+<text class="terminal-3849153439-r1" x="292.8" y="922.8" textLength="195.2" clip-path="url(#terminal-3849153439-line-37)">Deprecated: Use </text>
+<text class="terminal-3849153439-r4" x="488" y="922.8" textLength="122" clip-path="url(#terminal-3849153439-line-37)">--chmod-ro</text>
+<text class="terminal-3849153439-r1" x="610" y="922.8" textLength="1317.6" clip-path="url(#terminal-3849153439-line-37)">. Change the mode (permissions) of the output file, an octant (see chmod help for more info) e.g 444 or 555.</text>
+<text class="terminal-3849153439-r1" x="1952" y="922.8" textLength="12.2" clip-path="url(#terminal-3849153439-line-37)">
 </text>
-<text class="terminal-4130950426-r4" x="24.4" y="947.2" textLength="109.8" clip-path="url(#terminal-4130950426-line-38)">--version</text>
-<text class="terminal-4130950426-r1" x="292.8" y="947.2" textLength="317.2" clip-path="url(#terminal-4130950426-line-38)">Show the version and exit.</text>
-<text class="terminal-4130950426-r1" x="1952" y="947.2" textLength="12.2" clip-path="url(#terminal-4130950426-line-38)">
+<text class="terminal-3849153439-r1" x="292.8" y="947.2" textLength="793" clip-path="url(#terminal-3849153439-line-38)">To prevent accidentally editing generated file. Defaults to None.</text>
+<text class="terminal-3849153439-r1" x="1952" y="947.2" textLength="12.2" clip-path="url(#terminal-3849153439-line-38)">
 </text>
-<text class="terminal-4130950426-r1" x="1952" y="971.6" textLength="12.2" clip-path="url(#terminal-4130950426-line-39)">
+<text class="terminal-3849153439-r4" x="24.4" y="971.6" textLength="219.6" clip-path="url(#terminal-3849153439-line-39)">--template-newline</text>
+<text class="terminal-3849153439-r5" x="256.2" y="971.6" textLength="207.4" clip-path="url(#terminal-3849153439-line-39)">{auto,lf,crlf,cr}</text>
+<text class="terminal-3849153439-r1" x="1952" y="971.6" textLength="12.2" clip-path="url(#terminal-3849153439-line-39)">
+</text>
+<text class="terminal-3849153439-r1" x="292.8" y="996" textLength="1598.2" clip-path="url(#terminal-3849153439-line-40)">See &lt;https://docs.python.org/3/library/functions.html#open&gt; for more info on the behavior. Defaults to auto, which means the python</text>
+<text class="terminal-3849153439-r1" x="1952" y="996" textLength="12.2" clip-path="url(#terminal-3849153439-line-40)">
+</text>
+<text class="terminal-3849153439-r1" x="292.8" y="1020.4" textLength="195.2" clip-path="url(#terminal-3849153439-line-41)">default is used.</text>
+<text class="terminal-3849153439-r1" x="1952" y="1020.4" textLength="12.2" clip-path="url(#terminal-3849153439-line-41)">
+</text>
+<text class="terminal-3849153439-r4" x="24.4" y="1044.8" textLength="195.2" clip-path="url(#terminal-3849153439-line-42)">--output-newline</text>
+<text class="terminal-3849153439-r5" x="231.8" y="1044.8" textLength="207.4" clip-path="url(#terminal-3849153439-line-42)">{auto,lf,crlf,cr}</text>
+<text class="terminal-3849153439-r1" x="1952" y="1044.8" textLength="12.2" clip-path="url(#terminal-3849153439-line-42)">
+</text>
+<text class="terminal-3849153439-r1" x="292.8" y="1069.2" textLength="1598.2" clip-path="url(#terminal-3849153439-line-43)">See &lt;https://docs.python.org/3/library/functions.html#open&gt; for more info on the behavior. Defaults to auto, which means the python</text>
+<text class="terminal-3849153439-r1" x="1952" y="1069.2" textLength="12.2" clip-path="url(#terminal-3849153439-line-43)">
+</text>
+<text class="terminal-3849153439-r1" x="292.8" y="1093.6" textLength="195.2" clip-path="url(#terminal-3849153439-line-44)">default is used.</text>
+<text class="terminal-3849153439-r1" x="1952" y="1093.6" textLength="12.2" clip-path="url(#terminal-3849153439-line-44)">
+</text>
+<text class="terminal-3849153439-r4" x="24.4" y="1118" textLength="109.8" clip-path="url(#terminal-3849153439-line-45)">--version</text>
+<text class="terminal-3849153439-r1" x="292.8" y="1118" textLength="317.2" clip-path="url(#terminal-3849153439-line-45)">Show the version and exit.</text>
+<text class="terminal-3849153439-r1" x="1952" y="1118" textLength="12.2" clip-path="url(#terminal-3849153439-line-45)">
+</text>
+<text class="terminal-3849153439-r1" x="1952" y="1142.4" textLength="12.2" clip-path="url(#terminal-3849153439-line-46)">
 </text>
 </g>
 </g>

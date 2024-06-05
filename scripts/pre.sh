@@ -30,6 +30,8 @@ fi
 
 EXTRA=dev bash scripts/utilities/pin-extra-reqs.sh
 EXTRA=prod bash scripts/utilities/pin-extra-reqs.sh
+bash scripts/quickrun.sh
+bash scripts/generate-examples.sh
 bash scripts/run-all-examples.sh
 bash scripts/run-all-tests.sh
 bash scripts/format.sh

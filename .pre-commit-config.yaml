@@ -18,7 +18,7 @@ repos:
   - id: detect-private-key
   - id: double-quote-string-fixer
   - id: end-of-file-fixer
-    exclude: ^.*\.(md|svg)$
+    exclude: ^.*\.(md|svg|sh)$
   - id: fix-byte-order-marker
   - id: fix-encoding-pragma
     exclude: ^.*__init__.py$
@@ -26,7 +26,7 @@ repos:
   - id: name-tests-test
   - id: requirements-txt-fixer
   - id: trailing-whitespace
-    exclude: README.md
+    exclude: (^README.md$)|^.*\.(sh)$
   - id: check-byte-order-marker
 - repo: https://github.com/jlebar/pre-commit-hooks
   rev: f2d115a052860b09b2888b4f104be614bf3b4779

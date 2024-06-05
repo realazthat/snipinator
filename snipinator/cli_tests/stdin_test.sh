@@ -17,13 +17,13 @@ function delete_tmp_dir {
 trap delete_tmp_dir EXIT
 
 
-
+################################################################################
 TEMPLATE=$(cat <<EOF
 
-{{ 'TEST' }}
+{{ 'TEST' }}.
 EOF
 )
-echo "${TEMPLATE}" > "${TMP_DIR}/EXAMPLE.md.jinja2"
+echo "${TEMPLATE%.}" > "${TMP_DIR}/EXAMPLE.md.jinja2"
 
 
 EXPECTED_OUTPUT=$(cat <<'EOF'
@@ -34,11 +34,10 @@ SOURCE: `-`.
 
 -->
 
-TEST
-
+TEST.
 EOF
 )
-echo "${EXPECTED_OUTPUT}" > "${TMP_DIR}/EXAMPLE.expected.md"
+echo "${EXPECTED_OUTPUT%.}" > "${TMP_DIR}/EXAMPLE.expected.md"
 # FAIL HARD if file has CRLF line endings
 if grep -q $'\r' "${TMP_DIR}/EXAMPLE.expected.md"; then
   echo -e "${RED}File has CRLF line endings${NC}"

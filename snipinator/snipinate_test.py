@@ -8,13 +8,16 @@
 import unittest
 from pathlib import Path
 
-from .snipinate import _Context, path
+from .snipinate import BlockCommentStyle, _Context, path
 
 
 class SnipinateTest(unittest.TestCase):
 
   def _MakeContext(self):
-    return _Context(cwd=Path.cwd(), template_file_name='-', written_files=set())
+    return _Context(cwd=Path.cwd(),
+                    template_file_name='-',
+                    written_files=set(),
+                    block_comment=BlockCommentStyle(open='<!--', close='-->'))
 
   def test_path(self):
     self.assertEqual('snipinator/snipinate.py',

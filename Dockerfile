@@ -7,7 +7,7 @@ WORKDIR /snipinator
 # apt-get -y upgrade &&
 
 COPY . /snipinator
-RUN apt-get -y update && apt-get -y --no-install-recommends install bash && \
+RUN apt-get -y update && apt-get -y --no-install-recommends install bash=5.1-6ubuntu1.1 && \
   apt-get -y clean && \
   apt-get -y autoremove && \
   rm -rf /var/lib/apt/lists/* && \

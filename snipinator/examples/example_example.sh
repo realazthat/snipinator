@@ -6,8 +6,6 @@
 set -e -x -v -u -o pipefail
 
 # SNIPPET_START
-python -m snipinator.cli --help
-
 python -m snipinator.cli \
   -t "snipinator/examples/EXAMPLE.md.jinja2" \
   --rm \

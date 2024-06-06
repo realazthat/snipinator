@@ -19,10 +19,6 @@ fi
 # SNIPPET_START
 docker build -t my-snipinator-image .
 
-docker run --rm --tty \
-  -v "${PWD}:/data" \
-  my-snipinator-image --help
-
 # /data in the docker image is the working directory, so paths are simpler.
 docker run --rm --tty \
   -v "${PWD}:/data" \

@@ -155,8 +155,8 @@ def pysignature(path: str,
         first. By how much, or with what prefix? Defaults to None.
       backtickify (Union[bool, str], optional): Should surround with backticks?
         With what language? Defaults to False.
-      decomentify (Union[bool, Literal['nl']]): Assuming that you will be using
-        HTML comments around this call, setting this to true will add
+      decomentify (Union[bool, Literal['nl']], optional): Assuming that you will
+        be using HTML comments around this call, setting this to true will add
         correspondingcomments to uncomment the output. This allows you to have
         the Jinja2 call unmolested by markdown formatters, because they will be
         inside of a comment section. "nl" adds additional newlines after the
@@ -204,8 +204,8 @@ def pysnippet(path: str,
         first. By how much, or with what prefix? Defaults to None.
       backtickify (Union[bool, str], optional): Should surround with backticks?
         With what language? Defaults to False.
-      decomentify (Union[bool, Literal['nl']]): Assuming that you will be using
-        HTML comments around this call, setting this to true will add
+      decomentify (Union[bool, Literal['nl']], optional): Assuming that you will
+        be using HTML comments around this call, setting this to true will add
         correspondingcomments to uncomment the output. This allows you to have
         the Jinja2 call unmolested by markdown formatters, because they will be
         inside of a comment section. "nl" adds additional newlines after the
@@ -253,8 +253,8 @@ def rawsnippet(path: str,
         first. By how much, or with what prefix? Defaults to None.
       backtickify (Union[bool, str], optional): Should surround with backticks?
         With what language? Defaults to False.
-      decomentify (Union[bool, Literal['nl']]): Assuming that you will be using
-        HTML comments around this call, setting this to true will add
+      decomentify (Union[bool, Literal['nl']], optional): Assuming that you will
+        be using HTML comments around this call, setting this to true will add
         correspondingcomments to uncomment the output. This allows you to have
         the Jinja2 call unmolested by markdown formatters, because they will be
         inside of a comment section. "nl" adds additional newlines after the
@@ -304,8 +304,8 @@ def snippet(path: str,
         first. By how much, or with what prefix? Defaults to None.
       backtickify (Union[bool, str], optional): Should surround with backticks?
         With what language? Defaults to False.
-      decomentify (Union[bool, Literal['nl']]): Assuming that you will be using
-        HTML comments around this call, setting this to true will add
+      decomentify (Union[bool, Literal['nl']], optional): Assuming that you will
+        be using HTML comments around this call, setting this to true will add
         correspondingcomments to uncomment the output. This allows you to have
         the Jinja2 call unmolested by markdown formatters, because they will be
         inside of a comment section. "nl" adds additional newlines after the
@@ -320,18 +320,10 @@ def snippet(path: str,
   path_ = _CheckPath(path=path, cwd=_ctx.cwd)
 
   full_source = path_.read_text()
-
-  snippet_start = full_source.find(start)
-  snippet_end = full_source.find(end)
-  if snippet_start == -1:
-    raise ValueError(
-        f'Searched for {json.dumps(start)} in {json.dumps(path)} but not found')
-  if snippet_end == -1:
-    raise ValueError(
-        f'Searched for {json.dumps(end)} in {json.dumps(str(path))} but not found'
-    )
-  snippet_start += len(start)
-  snippet = full_source[snippet_start:snippet_end]
+  snippet = _ExtractDelimted(name=f'input ({path})',
+                             text=full_source,
+                             start=start,
+                             end=end)
   snippet = _Backtickify(snippet, backtickify=backtickify)
   snippet = _Indent(snippet, indent=indent)
   snippet = _Indented(snippet, indented=indented)
@@ -368,23 +360,23 @@ def path(path: str,
         first. By how much, or with what prefix? Defaults to None.
       backtickify (Union[bool, str], optional): Should surround with backticks?
         With what language? Defaults to False.
-      decomentify (Union[bool, Literal['nl']]): Assuming that you will be using
-        HTML comments around this call, setting this to true will add
+      decomentify (Union[bool, Literal['nl']], optional): Assuming that you will
+        be using HTML comments around this call, setting this to true will add
         correspondingcomments to uncomment the output. This allows you to have
         the Jinja2 call unmolested by markdown formatters, because they will be
         inside of a comment section. "nl" adds additional newlines after the
         newline delimiters. Defaults to False.
-      link (Optional[Literal['md', 'html']], optional): If specified, will
+      link (Literal['md', 'html'], optional): If specified, will
         return a markdown or html link to the path. Defaults to None.
-      text (Optional[str], optional): If specified, will use this text as the
+      text (str, optional): If specified, will use this text as the
         return value instead of the path. If used with link, will return this
         text as the link text instead of the path. Defaults to None.
       _ctx (_Context): This is used by the system and is not available as an
         argument.
 
   Returns:
-      Union[str, markupsafe.Markup]: Just returns the path. If the path doesn't exist,
-        it will raise an error.
+      Union[str, markupsafe.Markup]: Just returns the path. If the path doesn't
+        exist, it will raise an error.
   """
   _CheckPath(path=path, cwd=_ctx.cwd)
 
@@ -519,6 +511,24 @@ font-family: arial;
   return svg
 
 
+def _ExtractDelimted(*, name: str, text: str, start: Optional[str],
+                     end: Optional[str]) -> str:
+
+  if start is not None:
+    start_index = text.find(start)
+    if start_index == -1:
+      raise ValueError(
+          f'Start delimiter {json.dumps(start)} not found in {name}')
+    start_index += len(start)
+    text = text[start_index:]
+  if end is not None:
+    end_index = text.find(end)
+    if end_index == -1:
+      raise ValueError(f'End delimiter {json.dumps(end)} not found in {name}')
+    text = text[:end_index]
+  return text
+
+
 def shell(args: str,
           *,
           escape: bool = False,
@@ -534,6 +544,8 @@ def shell(args: str,
           rich_rows: int = 24,
           rich_cols: int = 80,
           include_args: bool = True,
+          start: Optional[str] = None,
+          end: Optional[str] = None,
           _ctx: _Context) -> Union[str, markupsafe.Markup]:
   """Run a shell command and return the output.
 
@@ -568,7 +580,8 @@ def shell(args: str,
         uncomments to uncomment the output. This allows you to have the Jinja2
         call unmolested by markdown formatters, because they will be inside of
         a comment section. Defaults to False.
-      rich (Union[Literal['svg'], Literal['img+b64+svg'], Literal['raw'], str], optional):
+      rich (Union[Literal['svg'], Literal['img+b64+svg'], Literal['raw'], str],
+        optional):
         Optionally outputs colored terminal output as an image.
         * If `rich` is a relative file path that ends with ".svg", the svg will
           be saved to that location and an img tag will be emitted. The path
@@ -584,13 +597,13 @@ def shell(args: str,
         * If 'raw' the raw (uncolored) terminal output will be dumped into the
           markdown directly.
         * Defaults to 'raw.
-      rich_alt (Optional[str], optional): The alt text for the img tag. Defaults
+      rich_alt (str, optional): The alt text for the img tag. Defaults
         to None.
-      rich_bg_color (Optional[str], optional): The background color for the
+      rich_bg_color (str, optional): The background color for the
         terminal output. Valid colors include anything valid for SVG colors. See
         <https://developer.mozilla.org/en-US/docs/Web/CSS/color>. Defaults to
         None (fully transparent).
-      rich_term: (Optional[str], optional): Sets the TERM env var. Defaults to
+      rich_term: (str, optional): Sets the TERM env var. Defaults to
         None, which uses whatever the env vars already have.
       rich_rows (int, optional): The number of rows to use for the terminal
         output. Doesn't seem to have much effect. Defaults to 24.
@@ -598,6 +611,10 @@ def shell(args: str,
         output. Defaults to 80.
       include_args (bool, optional): Should include the command that was run in
         the output? Defaults to True.
+      start (str, optional): If specified, will return only the text after this
+        delimiter. Defaults to None.
+      end (str, optional): If specified, will return only the text before this
+        delimiter. Defaults to None.
       _ctx (_Context): This is used by the system and is not available as an
         argument.
 
@@ -622,11 +639,13 @@ def shell(args: str,
         # trunk-ignore(bandit/B602)
         shell=True,
         check=True)
-    output = ''
+    output = _ExtractDelimted(name='output',
+                              text=result.stdout,
+                              start=start,
+                              end=end)
     if include_args:
       prefix = '$ '
-      output = f'{prefix}{args}\n'
-    output += result.stdout
+      output = f'{prefix}{args}\n{output}'
     if not output.endswith('\n'):
       output += '\n'
   elif (rich in ['svg', 'img+svg']
@@ -636,6 +655,8 @@ def shell(args: str,
                           term=rich_term,
                           rows=rich_rows,
                           cols=rich_cols)
+    output = _ExtractDelimted(name='output', text=output, start=start, end=end)
+
     svg = _GetTerminalSVG(args=args,
                           terminal_output=output,
                           cols=rich_cols,

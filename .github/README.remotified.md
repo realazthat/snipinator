@@ -211,12 +211,10 @@ Note that `code.py` has a test:
 ````
 <!---->
 
-Some more flags:
+Fuller example:
 
 <!---->
 ```bash
-
-python -m snipinator.cli --help
 
 python -m snipinator.cli \
   -t "snipinator/examples/EXAMPLE.md.jinja2" \
@@ -227,6 +225,12 @@ python -m snipinator.cli \
   --chmod-ro
 ```
 <!---->
+
+Screenshot in the terminal:
+
+<!---->
+<img alt="Output of `./snipinator/examples/example_example.sh`" src="https://raw.githubusercontent.com/realazthat/snipinator/v2.0.0/README.example.generated.svg"/>
+<!-- -->
 
 ## 💻 Command Line Options
 
@@ -319,8 +323,8 @@ def pysnippet(path: str,
         first. By how much, or with what prefix? Defaults to None.
       backtickify (Union[bool, str], optional): Should surround with backticks?
         With what language? Defaults to False.
-      decomentify (Union[bool, Literal['nl']]): Assuming that you will be using
-        HTML comments around this call, setting this to true will add
+      decomentify (Union[bool, Literal['nl']], optional): Assuming that you will
+        be using HTML comments around this call, setting this to true will add
         correspondingcomments to uncomment the output. This allows you to have
         the Jinja2 call unmolested by markdown formatters, because they will be
         inside of a comment section. "nl" adds additional newlines after the
@@ -366,8 +370,8 @@ def pysignature(path: str,
         first. By how much, or with what prefix? Defaults to None.
       backtickify (Union[bool, str], optional): Should surround with backticks?
         With what language? Defaults to False.
-      decomentify (Union[bool, Literal['nl']]): Assuming that you will be using
-        HTML comments around this call, setting this to true will add
+      decomentify (Union[bool, Literal['nl']], optional): Assuming that you will
+        be using HTML comments around this call, setting this to true will add
         correspondingcomments to uncomment the output. This allows you to have
         the Jinja2 call unmolested by markdown formatters, because they will be
         inside of a comment section. "nl" adds additional newlines after the
@@ -409,8 +413,8 @@ def rawsnippet(path: str,
         first. By how much, or with what prefix? Defaults to None.
       backtickify (Union[bool, str], optional): Should surround with backticks?
         With what language? Defaults to False.
-      decomentify (Union[bool, Literal['nl']]): Assuming that you will be using
-        HTML comments around this call, setting this to true will add
+      decomentify (Union[bool, Literal['nl']], optional): Assuming that you will
+        be using HTML comments around this call, setting this to true will add
         correspondingcomments to uncomment the output. This allows you to have
         the Jinja2 call unmolested by markdown formatters, because they will be
         inside of a comment section. "nl" adds additional newlines after the
@@ -459,8 +463,8 @@ def snippet(path: str,
         first. By how much, or with what prefix? Defaults to None.
       backtickify (Union[bool, str], optional): Should surround with backticks?
         With what language? Defaults to False.
-      decomentify (Union[bool, Literal['nl']]): Assuming that you will be using
-        HTML comments around this call, setting this to true will add
+      decomentify (Union[bool, Literal['nl']], optional): Assuming that you will
+        be using HTML comments around this call, setting this to true will add
         correspondingcomments to uncomment the output. This allows you to have
         the Jinja2 call unmolested by markdown formatters, because they will be
         inside of a comment section. "nl" adds additional newlines after the
@@ -498,6 +502,8 @@ def shell(args: str,
           rich_rows: int = 24,
           rich_cols: int = 80,
           include_args: bool = True,
+          start: Optional[str] = None,
+          end: Optional[str] = None,
           _ctx: _Context) -> Union[str, markupsafe.Markup]:
   """Run a shell command and return the output.
 
@@ -532,7 +538,8 @@ def shell(args: str,
         uncomments to uncomment the output. This allows you to have the Jinja2
         call unmolested by markdown formatters, because they will be inside of
         a comment section. Defaults to False.
-      rich (Union[Literal['svg'], Literal['img+b64+svg'], Literal['raw'], str], optional):
+      rich (Union[Literal['svg'], Literal['img+b64+svg'], Literal['raw'], str],
+        optional):
         Optionally outputs colored terminal output as an image.
         * If `rich` is a relative file path that ends with ".svg", the svg will
           be saved to that location and an img tag will be emitted. The path
@@ -548,13 +555,13 @@ def shell(args: str,
         * If 'raw' the raw (uncolored) terminal output will be dumped into the
           markdown directly.
         * Defaults to 'raw.
-      rich_alt (Optional[str], optional): The alt text for the img tag. Defaults
+      rich_alt (str, optional): The alt text for the img tag. Defaults
         to None.
-      rich_bg_color (Optional[str], optional): The background color for the
+      rich_bg_color (str, optional): The background color for the
         terminal output. Valid colors include anything valid for SVG colors. See
         <https://developer.mozilla.org/en-US/docs/Web/CSS/color>. Defaults to
         None (fully transparent).
-      rich_term: (Optional[str], optional): Sets the TERM env var. Defaults to
+      rich_term: (str, optional): Sets the TERM env var. Defaults to
         None, which uses whatever the env vars already have.
       rich_rows (int, optional): The number of rows to use for the terminal
         output. Doesn't seem to have much effect. Defaults to 24.
@@ -562,6 +569,10 @@ def shell(args: str,
         output. Defaults to 80.
       include_args (bool, optional): Should include the command that was run in
         the output? Defaults to True.
+      start (str, optional): If specified, will return only the text after this
+        delimiter. Defaults to None.
+      end (str, optional): If specified, will return only the text before this
+        delimiter. Defaults to None.
       _ctx (_Context): This is used by the system and is not available as an
         argument.
 
@@ -605,23 +616,23 @@ def path(path: str,
         first. By how much, or with what prefix? Defaults to None.
       backtickify (Union[bool, str], optional): Should surround with backticks?
         With what language? Defaults to False.
-      decomentify (Union[bool, Literal['nl']]): Assuming that you will be using
-        HTML comments around this call, setting this to true will add
+      decomentify (Union[bool, Literal['nl']], optional): Assuming that you will
+        be using HTML comments around this call, setting this to true will add
         correspondingcomments to uncomment the output. This allows you to have
         the Jinja2 call unmolested by markdown formatters, because they will be
         inside of a comment section. "nl" adds additional newlines after the
         newline delimiters. Defaults to False.
-      link (Optional[Literal['md', 'html']], optional): If specified, will
+      link (Literal['md', 'html'], optional): If specified, will
         return a markdown or html link to the path. Defaults to None.
-      text (Optional[str], optional): If specified, will use this text as the
+      text (str, optional): If specified, will use this text as the
         return value instead of the path. If used with link, will return this
         text as the link text instead of the path. Defaults to None.
       _ctx (_Context): This is used by the system and is not available as an
         argument.
 
   Returns:
-      Union[str, markupsafe.Markup]: Just returns the path. If the path doesn't exist,
-        it will raise an error.
+      Union[str, markupsafe.Markup]: Just returns the path. If the path doesn't
+        exist, it will raise an error.
   """
 ```
 <!---->
@@ -648,10 +659,6 @@ tag.
 ```bash
 
 # Use the published images at ghcr.io/realazthat/snipinator.
-docker run --rm --tty \
-  -v "${PWD}:/data" \
-  ghcr.io/realazthat/snipinator:v2.0.0 --help
-
 # /data in the docker image is the working directory, so paths are simpler.
 docker run --rm --tty \
   -v "${PWD}:/data" \
@@ -672,10 +679,6 @@ repository.
 ```bash
 
 docker build -t my-snipinator-image .
-
-docker run --rm --tty \
-  -v "${PWD}:/data" \
-  my-snipinator-image --help
 
 # /data in the docker image is the working directory, so paths are simpler.
 docker run --rm --tty \

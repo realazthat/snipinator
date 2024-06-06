@@ -226,12 +226,6 @@ python -m snipinator.cli \
 ```
 <!---->
 
-Screenshot in the terminal:
-
-<!---->
-<img src="README.example.generated.svg" alt="Output of `./snipinator/examples/example_example.sh`" />
-<!---->
-
 ## 💻 Command Line Options
 
 <!---->

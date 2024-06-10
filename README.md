@@ -154,7 +154,7 @@ Note that `code.py` has a test:
 pip install snipinator
 
 # Install from git (https://github.com/realazthat/snipinator)
-pip install git+https://github.com/realazthat/snipinator.git@v2.0.0
+pip install git+https://github.com/realazthat/snipinator.git@v2.1.0
 ```
 
 ## 🚜 Usage
@@ -656,7 +656,7 @@ tag.
 # /data in the docker image is the working directory, so paths are simpler.
 docker run --rm --tty \
   -v "${PWD}:/data" \
-  ghcr.io/realazthat/snipinator:v2.0.0 \
+  ghcr.io/realazthat/snipinator:v2.1.0 \
   -t "snipinator/examples/EXAMPLE.md.jinja2" \
   --rm \
   --force \
@@ -918,9 +918,9 @@ These instructions are for maintainers of the project.
 [13]:
   https://github.com/realazthat/snipinator/actions/workflows/build-and-test.yml
 [14]:
-  https://img.shields.io/github/commits-since/realazthat/snipinator/v2.0.0/master?style=plastic
+  https://img.shields.io/github/commits-since/realazthat/snipinator/v2.1.0/master?style=plastic
 [15]:
-  https://github.com/realazthat/snipinator/compare/v2.0.0...master
+  https://github.com/realazthat/snipinator/compare/v2.1.0...master
 [16]:
   https://img.shields.io/github/last-commit/realazthat/snipinator/master?style=plastic
 [17]: https://github.com/realazthat/snipinator/commits/master
@@ -928,13 +928,13 @@ These instructions are for maintainers of the project.
 [19]:
   https://img.shields.io/github/actions/workflow/status/realazthat/snipinator/build-and-test.yml?branch=develop&style=plastic
 [20]:
-  https://img.shields.io/github/commits-since/realazthat/snipinator/v2.0.0/develop?style=plastic
+  https://img.shields.io/github/commits-since/realazthat/snipinator/v2.1.0/develop?style=plastic
 [21]:
-  https://github.com/realazthat/snipinator/compare/v2.0.0...develop
+  https://github.com/realazthat/snipinator/compare/v2.1.0...develop
 [22]:
-  https://img.shields.io/github/commits-since/realazthat/snipinator/v2.0.0/develop?style=plastic
+  https://img.shields.io/github/commits-since/realazthat/snipinator/v2.1.0/develop?style=plastic
 [23]:
-  https://github.com/realazthat/snipinator/compare/v2.0.0...develop
+  https://github.com/realazthat/snipinator/compare/v2.1.0...develop
 [24]:
   https://img.shields.io/github/last-commit/realazthat/snipinator/develop?style=plastic
 [25]: https://github.com/realazthat/snipinator/commits/develop

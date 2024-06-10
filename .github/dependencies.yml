@@ -14,3 +14,17 @@ dev:
     dependency for [yq](https://github.com/kislyuk/yq), which is used to
     generate the README; the README generator needs to use `tomlq` (which is a
     part of `yq`) to query `pyproject.toml`.
+  unzip: scripts (pyenv).
+  zlib: scripts (pyenv)
+  curl: scripts (pyenv).
+  git-core: scripts (pyenv).
+  gcc: scripts (pyenv).
+  make: scripts (pyenv).
+  zlib1g-dev: scripts (pyenv).
+  libbz2-dev: scripts (pyenv).
+  libreadline-dev: scripts (pyenv).
+  libsqlite3-dev: scripts (pyenv).
+  libssl-dev: scripts (pyenv).
+  libffi-dev:
+    bdist_wheel (otherwise `pip install .` fails). If installing pyenv, this
+    must be installed _first_.

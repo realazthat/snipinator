@@ -832,7 +832,6 @@ Not complete, and not necessarily up to date. Make a PR
       the README; the README generator needs to use `tomlq` (which is a part of `yq`)
       to query `pyproject.toml`.
     unzip: scripts (pyenv).
-    zlib: scripts (pyenv)
     curl: scripts (pyenv).
     git-core: scripts (pyenv).
     gcc: scripts (pyenv).

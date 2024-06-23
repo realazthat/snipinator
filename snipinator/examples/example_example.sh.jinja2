@@ -1,6 +1,8 @@
 {%- if True -%}
 # https://gist.github.com/mohanpedala/1e2ff5661761d3abd0385e8223e16425
 set -e -x -v -u -o pipefail
+set +v
+PS4="${GREEN}$ ${NC}"
 
 {% endif -%}
 
@@ -33,11 +35,15 @@ fi
 
 {% endif-%}
 
+: ECHO_SNIPPET_START
 # SNIPPET_START
 {% if example_type in ['docker-local'] -%}
 docker build -t {{docker_image_name|safe}} .
 
 {% endif -%}
+
+# View the template file.
+cat "snipinator/examples/EXAMPLE.md.jinja2"
 
 {% if example_type in ['docker-remote'] -%}
 # Use the published images at ghcr.io/realazthat/snipinator.
@@ -52,4 +58,9 @@ docker build -t {{docker_image_name|safe}} .
   --create \
   -o "snipinator/examples/EXAMPLE.generated.md" \
   --chmod-ro
+
+# View the generated file.
+cat "snipinator/examples/EXAMPLE.generated.md"
+
 # SNIPPET_END
+: ECHO_SNIPPET_END

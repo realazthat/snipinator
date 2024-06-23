@@ -4,6 +4,8 @@
 
 # https://gist.github.com/mohanpedala/1e2ff5661761d3abd0385e8223e16425
 set -e -x -v -u -o pipefail
+set +v
+PS4="${GREEN}$ ${NC}"
 
 
 YELLOW='\033[1;33m'
@@ -16,7 +18,11 @@ if [[ -n "${GITHUB_ACTIONS:-}" ]]; then
   exit 0
 fi
 
+: ECHO_SNIPPET_START
 # SNIPPET_START
+# View the template file.
+cat "snipinator/examples/EXAMPLE.md.jinja2"
+
 # Use the published images at ghcr.io/realazthat/snipinator.
 # /data in the docker image is the working directory, so paths are simpler.
 docker run --rm --tty \
@@ -28,4 +34,9 @@ docker run --rm --tty \
   --create \
   -o "snipinator/examples/EXAMPLE.generated.md" \
   --chmod-ro
+
+# View the generated file.
+cat "snipinator/examples/EXAMPLE.generated.md"
+
 # SNIPPET_END
+: ECHO_SNIPPET_END

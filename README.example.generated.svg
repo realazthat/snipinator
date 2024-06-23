@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<svg xmlns="http://www.w3.org/2000/svg" class="rich-terminal" viewBox="0 0 1970 318.4">
+<svg xmlns="http://www.w3.org/2000/svg" class="rich-terminal" viewBox="0 0 1970 977.1999999999999">
 <!-- Generated with Rich textualize.io -->
 <rect width="100%" height="100%" fill="black"/>
 <style>
@@ -19,87 +19,243 @@ url(&quot;https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff/FiraCode-Bo
 font-style: bold;
 font-weight: 700;
 }
-.terminal-2069365396-matrix {
+.terminal-1796721396-matrix {
 font-family: Fira Code, monospace;
 font-size: 20px;
 line-height: 24.4px;
 font-variant-east-asian: full-width;
 }
-.terminal-2069365396-title {
+.terminal-1796721396-title {
 font-size: 18px;
 font-weight: bold;
 font-family: arial;
 }
-.terminal-2069365396-r1 { fill: #d9d9d9 }
-.terminal-2069365396-r2 { fill: #98e024;font-weight: bold }
+.terminal-1796721396-r1 { fill: #d9d9d9 }
+.terminal-1796721396-r2 { fill: #98e024 }
 </style>
 <defs>
-<clipPath id="terminal-2069365396-clip-terminal">
-<rect x="0" y="0" width="1951.0" height="267.4"/>
+<clipPath id="terminal-1796721396-clip-terminal">
+<rect x="0" y="0" width="1951.0" height="926.1999999999999"/>
 </clipPath>
-<clipPath id="terminal-2069365396-line-0">
+<clipPath id="terminal-1796721396-line-0">
 <rect x="0" y="1.5" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-2069365396-line-1">
+<clipPath id="terminal-1796721396-line-1">
 <rect x="0" y="25.9" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-2069365396-line-2">
+<clipPath id="terminal-1796721396-line-2">
 <rect x="0" y="50.3" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-2069365396-line-3">
+<clipPath id="terminal-1796721396-line-3">
 <rect x="0" y="74.7" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-2069365396-line-4">
+<clipPath id="terminal-1796721396-line-4">
 <rect x="0" y="99.1" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-2069365396-line-5">
+<clipPath id="terminal-1796721396-line-5">
 <rect x="0" y="123.5" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-2069365396-line-6">
+<clipPath id="terminal-1796721396-line-6">
 <rect x="0" y="147.9" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-2069365396-line-7">
+<clipPath id="terminal-1796721396-line-7">
 <rect x="0" y="172.3" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-2069365396-line-8">
+<clipPath id="terminal-1796721396-line-8">
 <rect x="0" y="196.7" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-2069365396-line-9">
+<clipPath id="terminal-1796721396-line-9">
 <rect x="0" y="221.1" width="1952" height="24.65"/>
+</clipPath>
+<clipPath id="terminal-1796721396-line-10">
+<rect x="0" y="245.5" width="1952" height="24.65"/>
+</clipPath>
+<clipPath id="terminal-1796721396-line-11">
+<rect x="0" y="269.9" width="1952" height="24.65"/>
+</clipPath>
+<clipPath id="terminal-1796721396-line-12">
+<rect x="0" y="294.3" width="1952" height="24.65"/>
+</clipPath>
+<clipPath id="terminal-1796721396-line-13">
+<rect x="0" y="318.7" width="1952" height="24.65"/>
+</clipPath>
+<clipPath id="terminal-1796721396-line-14">
+<rect x="0" y="343.1" width="1952" height="24.65"/>
+</clipPath>
+<clipPath id="terminal-1796721396-line-15">
+<rect x="0" y="367.5" width="1952" height="24.65"/>
+</clipPath>
+<clipPath id="terminal-1796721396-line-16">
+<rect x="0" y="391.9" width="1952" height="24.65"/>
+</clipPath>
+<clipPath id="terminal-1796721396-line-17">
+<rect x="0" y="416.3" width="1952" height="24.65"/>
+</clipPath>
+<clipPath id="terminal-1796721396-line-18">
+<rect x="0" y="440.7" width="1952" height="24.65"/>
+</clipPath>
+<clipPath id="terminal-1796721396-line-19">
+<rect x="0" y="465.1" width="1952" height="24.65"/>
+</clipPath>
+<clipPath id="terminal-1796721396-line-20">
+<rect x="0" y="489.5" width="1952" height="24.65"/>
+</clipPath>
+<clipPath id="terminal-1796721396-line-21">
+<rect x="0" y="513.9" width="1952" height="24.65"/>
+</clipPath>
+<clipPath id="terminal-1796721396-line-22">
+<rect x="0" y="538.3" width="1952" height="24.65"/>
+</clipPath>
+<clipPath id="terminal-1796721396-line-23">
+<rect x="0" y="562.7" width="1952" height="24.65"/>
+</clipPath>
+<clipPath id="terminal-1796721396-line-24">
+<rect x="0" y="587.1" width="1952" height="24.65"/>
+</clipPath>
+<clipPath id="terminal-1796721396-line-25">
+<rect x="0" y="611.5" width="1952" height="24.65"/>
+</clipPath>
+<clipPath id="terminal-1796721396-line-26">
+<rect x="0" y="635.9" width="1952" height="24.65"/>
+</clipPath>
+<clipPath id="terminal-1796721396-line-27">
+<rect x="0" y="660.3" width="1952" height="24.65"/>
+</clipPath>
+<clipPath id="terminal-1796721396-line-28">
+<rect x="0" y="684.7" width="1952" height="24.65"/>
+</clipPath>
+<clipPath id="terminal-1796721396-line-29">
+<rect x="0" y="709.1" width="1952" height="24.65"/>
+</clipPath>
+<clipPath id="terminal-1796721396-line-30">
+<rect x="0" y="733.5" width="1952" height="24.65"/>
+</clipPath>
+<clipPath id="terminal-1796721396-line-31">
+<rect x="0" y="757.9" width="1952" height="24.65"/>
+</clipPath>
+<clipPath id="terminal-1796721396-line-32">
+<rect x="0" y="782.3" width="1952" height="24.65"/>
+</clipPath>
+<clipPath id="terminal-1796721396-line-33">
+<rect x="0" y="806.7" width="1952" height="24.65"/>
+</clipPath>
+<clipPath id="terminal-1796721396-line-34">
+<rect x="0" y="831.1" width="1952" height="24.65"/>
+</clipPath>
+<clipPath id="terminal-1796721396-line-35">
+<rect x="0" y="855.5" width="1952" height="24.65"/>
+</clipPath>
+<clipPath id="terminal-1796721396-line-36">
+<rect x="0" y="879.9" width="1952" height="24.65"/>
 </clipPath>
 </defs>
 <g transform="translate(9, 0)">
-<g class="terminal-2069365396-matrix">
-<text class="terminal-2069365396-r1" x="1952" y="20" textLength="12.2" clip-path="url(#terminal-2069365396-line-0)">
+<g class="terminal-1796721396-matrix">
+<text class="terminal-1796721396-r1" x="1952" y="20" textLength="12.2" clip-path="url(#terminal-1796721396-line-0)">
 </text>
-<text class="terminal-2069365396-r1" x="0" y="44.4" textLength="317.2" clip-path="url(#terminal-2069365396-line-1)">python -m snipinator.cli \</text>
-<text class="terminal-2069365396-r1" x="1952" y="44.4" textLength="12.2" clip-path="url(#terminal-2069365396-line-1)">
+<text class="terminal-1796721396-r2" x="0" y="44.4" textLength="24.4" clip-path="url(#terminal-1796721396-line-1)">$ </text>
+<text class="terminal-1796721396-r1" x="24.4" y="44.4" textLength="500.2" clip-path="url(#terminal-1796721396-line-1)">cat snipinator/examples/EXAMPLE.md.jinja2</text>
+<text class="terminal-1796721396-r1" x="1952" y="44.4" textLength="12.2" clip-path="url(#terminal-1796721396-line-1)">
 </text>
-<text class="terminal-2069365396-r1" x="0" y="68.8" textLength="561.2" clip-path="url(#terminal-2069365396-line-2)">  -t &quot;snipinator/examples/EXAMPLE.md.jinja2&quot; \</text>
-<text class="terminal-2069365396-r1" x="1952" y="68.8" textLength="12.2" clip-path="url(#terminal-2069365396-line-2)">
+<text class="terminal-1796721396-r1" x="0" y="68.8" textLength="122" clip-path="url(#terminal-1796721396-line-2)"># A README</text>
+<text class="terminal-1796721396-r1" x="1952" y="68.8" textLength="12.2" clip-path="url(#terminal-1796721396-line-2)">
 </text>
-<text class="terminal-2069365396-r1" x="0" y="93.2" textLength="97.6" clip-path="url(#terminal-2069365396-line-3)">  --rm \</text>
-<text class="terminal-2069365396-r1" x="1952" y="93.2" textLength="12.2" clip-path="url(#terminal-2069365396-line-3)">
+<text class="terminal-1796721396-r1" x="1952" y="93.2" textLength="12.2" clip-path="url(#terminal-1796721396-line-3)">
 </text>
-<text class="terminal-2069365396-r1" x="0" y="117.6" textLength="134.2" clip-path="url(#terminal-2069365396-line-4)">  --force \</text>
-<text class="terminal-2069365396-r1" x="1952" y="117.6" textLength="12.2" clip-path="url(#terminal-2069365396-line-4)">
+<text class="terminal-1796721396-r1" x="0" y="117.6" textLength="280.6" clip-path="url(#terminal-1796721396-line-4)">Here is a code snippet:</text>
+<text class="terminal-1796721396-r1" x="1952" y="117.6" textLength="12.2" clip-path="url(#terminal-1796721396-line-4)">
 </text>
-<text class="terminal-2069365396-r1" x="0" y="142" textLength="146.4" clip-path="url(#terminal-2069365396-line-5)">  --create \</text>
-<text class="terminal-2069365396-r1" x="1952" y="142" textLength="12.2" clip-path="url(#terminal-2069365396-line-5)">
+<text class="terminal-1796721396-r1" x="1952" y="142" textLength="12.2" clip-path="url(#terminal-1796721396-line-5)">
 </text>
-<text class="terminal-2069365396-r1" x="0" y="166.4" textLength="597.8" clip-path="url(#terminal-2069365396-line-6)">  -o &quot;snipinator/examples/EXAMPLE.generated.md&quot; \</text>
-<text class="terminal-2069365396-r1" x="1952" y="166.4" textLength="12.2" clip-path="url(#terminal-2069365396-line-6)">
+<text class="terminal-1796721396-r1" x="0" y="166.4" textLength="1366.4" clip-path="url(#terminal-1796721396-line-6)">&lt;!--{{ pysnippet(path='snipinator/examples/code.py', symbol='MyClass', backtickify='py', decomentify='nl') }}--&gt;</text>
+<text class="terminal-1796721396-r1" x="1952" y="166.4" textLength="12.2" clip-path="url(#terminal-1796721396-line-6)">
 </text>
-<text class="terminal-2069365396-r1" x="0" y="190.8" textLength="146.4" clip-path="url(#terminal-2069365396-line-7)">  --chmod-ro</text>
-<text class="terminal-2069365396-r1" x="1952" y="190.8" textLength="12.2" clip-path="url(#terminal-2069365396-line-7)">
+<text class="terminal-1796721396-r1" x="1952" y="190.8" textLength="12.2" clip-path="url(#terminal-1796721396-line-7)">
 </text>
-<text class="terminal-2069365396-r1" x="0" y="215.2" textLength="1756.8" clip-path="url(#terminal-2069365396-line-8)">+ python -m snipinator.cli -t snipinator/examples/EXAMPLE.md.jinja2 --rm --force --create -o snipinator/examples/EXAMPLE.generated.md --chmod-ro</text>
-<text class="terminal-2069365396-r1" x="1952" y="215.2" textLength="12.2" clip-path="url(#terminal-2069365396-line-8)">
+<text class="terminal-1796721396-r1" x="0" y="215.2" textLength="378.2" clip-path="url(#terminal-1796721396-line-8)">Note that `code.py` has a test:</text>
+<text class="terminal-1796721396-r1" x="1952" y="215.2" textLength="12.2" clip-path="url(#terminal-1796721396-line-8)">
 </text>
-<text class="terminal-2069365396-r2" x="0" y="239.6" textLength="1024.8" clip-path="url(#terminal-2069365396-line-9)">Changed mode of snipinator/examples/EXAMPLE.generated.md from rw-r--r-- =&gt; r--r--r--</text>
-<text class="terminal-2069365396-r1" x="1952" y="239.6" textLength="12.2" clip-path="url(#terminal-2069365396-line-9)">
+<text class="terminal-1796721396-r1" x="0" y="239.6" textLength="707.6" clip-path="url(#terminal-1796721396-line-9)">{{path('./snipinator/examples/code_test.py', link='md')}}.</text>
+<text class="terminal-1796721396-r1" x="1952" y="239.6" textLength="12.2" clip-path="url(#terminal-1796721396-line-9)">
 </text>
-<text class="terminal-2069365396-r1" x="1952" y="264" textLength="12.2" clip-path="url(#terminal-2069365396-line-10)">
+<text class="terminal-1796721396-r2" x="0" y="264" textLength="24.4" clip-path="url(#terminal-1796721396-line-10)">$ </text>
+<text class="terminal-1796721396-r1" x="24.4" y="264" textLength="1732.4" clip-path="url(#terminal-1796721396-line-10)">python -m snipinator.cli -t snipinator/examples/EXAMPLE.md.jinja2 --rm --force --create -o snipinator/examples/EXAMPLE.generated.md --chmod-ro</text>
+<text class="terminal-1796721396-r1" x="1952" y="264" textLength="12.2" clip-path="url(#terminal-1796721396-line-10)">
+</text>
+<text class="terminal-1796721396-r2" x="0" y="288.4" textLength="24.4" clip-path="url(#terminal-1796721396-line-11)">$ </text>
+<text class="terminal-1796721396-r1" x="24.4" y="288.4" textLength="536.8" clip-path="url(#terminal-1796721396-line-11)">cat snipinator/examples/EXAMPLE.generated.md</text>
+<text class="terminal-1796721396-r1" x="1952" y="288.4" textLength="12.2" clip-path="url(#terminal-1796721396-line-11)">
+</text>
+<text class="terminal-1796721396-r1" x="0" y="312.8" textLength="48.8" clip-path="url(#terminal-1796721396-line-12)">&lt;!--</text>
+<text class="terminal-1796721396-r1" x="1952" y="312.8" textLength="12.2" clip-path="url(#terminal-1796721396-line-12)">
+</text>
+<text class="terminal-1796721396-r1" x="1952" y="337.2" textLength="12.2" clip-path="url(#terminal-1796721396-line-13)">
+</text>
+<text class="terminal-1796721396-r1" x="0" y="361.6" textLength="890.6" clip-path="url(#terminal-1796721396-line-14)">WARNING: This file is auto-generated by snipinator. Do not edit directly.</text>
+<text class="terminal-1796721396-r1" x="1952" y="361.6" textLength="12.2" clip-path="url(#terminal-1796721396-line-14)">
+</text>
+<text class="terminal-1796721396-r1" x="0" y="386" textLength="585.6" clip-path="url(#terminal-1796721396-line-15)">SOURCE: `snipinator/examples/EXAMPLE.md.jinja2`.</text>
+<text class="terminal-1796721396-r1" x="1952" y="386" textLength="12.2" clip-path="url(#terminal-1796721396-line-15)">
+</text>
+<text class="terminal-1796721396-r1" x="1952" y="410.4" textLength="12.2" clip-path="url(#terminal-1796721396-line-16)">
+</text>
+<text class="terminal-1796721396-r1" x="0" y="434.8" textLength="36.6" clip-path="url(#terminal-1796721396-line-17)">--&gt;</text>
+<text class="terminal-1796721396-r1" x="1952" y="434.8" textLength="12.2" clip-path="url(#terminal-1796721396-line-17)">
+</text>
+<text class="terminal-1796721396-r1" x="0" y="459.2" textLength="122" clip-path="url(#terminal-1796721396-line-18)"># A README</text>
+<text class="terminal-1796721396-r1" x="1952" y="459.2" textLength="12.2" clip-path="url(#terminal-1796721396-line-18)">
+</text>
+<text class="terminal-1796721396-r1" x="1952" y="483.6" textLength="12.2" clip-path="url(#terminal-1796721396-line-19)">
+</text>
+<text class="terminal-1796721396-r1" x="0" y="508" textLength="280.6" clip-path="url(#terminal-1796721396-line-20)">Here is a code snippet:</text>
+<text class="terminal-1796721396-r1" x="1952" y="508" textLength="12.2" clip-path="url(#terminal-1796721396-line-20)">
+</text>
+<text class="terminal-1796721396-r1" x="1952" y="532.4" textLength="12.2" clip-path="url(#terminal-1796721396-line-21)">
+</text>
+<text class="terminal-1796721396-r1" x="0" y="556.8" textLength="85.4" clip-path="url(#terminal-1796721396-line-22)">&lt;!----&gt;</text>
+<text class="terminal-1796721396-r1" x="1952" y="556.8" textLength="12.2" clip-path="url(#terminal-1796721396-line-22)">
+</text>
+<text class="terminal-1796721396-r1" x="0" y="581.2" textLength="61" clip-path="url(#terminal-1796721396-line-23)">```py</text>
+<text class="terminal-1796721396-r1" x="1952" y="581.2" textLength="12.2" clip-path="url(#terminal-1796721396-line-23)">
+</text>
+<text class="terminal-1796721396-r1" x="0" y="605.6" textLength="170.8" clip-path="url(#terminal-1796721396-line-24)">class MyClass:</text>
+<text class="terminal-1796721396-r1" x="1952" y="605.6" textLength="12.2" clip-path="url(#terminal-1796721396-line-24)">
+</text>
+<text class="terminal-1796721396-r1" x="0" y="630" textLength="366" clip-path="url(#terminal-1796721396-line-25)">  &quot;&quot;&quot;This is a global class&quot;&quot;&quot;</text>
+<text class="terminal-1796721396-r1" x="1952" y="630" textLength="12.2" clip-path="url(#terminal-1796721396-line-25)">
+</text>
+<text class="terminal-1796721396-r1" x="1952" y="654.4" textLength="12.2" clip-path="url(#terminal-1796721396-line-26)">
+</text>
+<text class="terminal-1796721396-r1" x="0" y="678.8" textLength="329.4" clip-path="url(#terminal-1796721396-line-27)">  def __init__(self, name):</text>
+<text class="terminal-1796721396-r1" x="1952" y="678.8" textLength="12.2" clip-path="url(#terminal-1796721396-line-27)">
+</text>
+<text class="terminal-1796721396-r1" x="0" y="703.2" textLength="244" clip-path="url(#terminal-1796721396-line-28)">    self.name = name</text>
+<text class="terminal-1796721396-r1" x="1952" y="703.2" textLength="12.2" clip-path="url(#terminal-1796721396-line-28)">
+</text>
+<text class="terminal-1796721396-r1" x="1952" y="727.6" textLength="12.2" clip-path="url(#terminal-1796721396-line-29)">
+</text>
+<text class="terminal-1796721396-r1" x="0" y="752" textLength="317.2" clip-path="url(#terminal-1796721396-line-30)">  def MyClassMethod(self):</text>
+<text class="terminal-1796721396-r1" x="1952" y="752" textLength="12.2" clip-path="url(#terminal-1796721396-line-30)">
+</text>
+<text class="terminal-1796721396-r1" x="0" y="776.4" textLength="451.4" clip-path="url(#terminal-1796721396-line-31)">    &quot;&quot;&quot;This is a method of MyClass&quot;&quot;&quot;</text>
+<text class="terminal-1796721396-r1" x="1952" y="776.4" textLength="12.2" clip-path="url(#terminal-1796721396-line-31)">
+</text>
+<text class="terminal-1796721396-r1" x="0" y="800.8" textLength="244" clip-path="url(#terminal-1796721396-line-32)">    print(self.name)</text>
+<text class="terminal-1796721396-r1" x="1952" y="800.8" textLength="12.2" clip-path="url(#terminal-1796721396-line-32)">
+</text>
+<text class="terminal-1796721396-r1" x="0" y="825.2" textLength="36.6" clip-path="url(#terminal-1796721396-line-33)">```</text>
+<text class="terminal-1796721396-r1" x="1952" y="825.2" textLength="12.2" clip-path="url(#terminal-1796721396-line-33)">
+</text>
+<text class="terminal-1796721396-r1" x="0" y="849.6" textLength="85.4" clip-path="url(#terminal-1796721396-line-34)">&lt;!----&gt;</text>
+<text class="terminal-1796721396-r1" x="1952" y="849.6" textLength="12.2" clip-path="url(#terminal-1796721396-line-34)">
+</text>
+<text class="terminal-1796721396-r1" x="1952" y="874" textLength="12.2" clip-path="url(#terminal-1796721396-line-35)">
+</text>
+<text class="terminal-1796721396-r1" x="0" y="898.4" textLength="378.2" clip-path="url(#terminal-1796721396-line-36)">Note that `code.py` has a test:</text>
+<text class="terminal-1796721396-r1" x="1952" y="898.4" textLength="12.2" clip-path="url(#terminal-1796721396-line-36)">
+</text>
+<text class="terminal-1796721396-r1" x="0" y="922.8" textLength="890.6" clip-path="url(#terminal-1796721396-line-37)">[./snipinator/examples/code_test.py](./snipinator/examples/code_test.py).</text>
+<text class="terminal-1796721396-r1" x="1952" y="922.8" textLength="12.2" clip-path="url(#terminal-1796721396-line-37)">
 </text>
 </g>
 </g>

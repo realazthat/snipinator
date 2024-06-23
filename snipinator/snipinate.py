@@ -12,6 +12,7 @@ import html
 import json
 import logging
 import os
+import re
 import subprocess
 import sys
 import textwrap
@@ -287,6 +288,7 @@ def snippet(path: str,
             indented: Union[str, int, None] = None,
             backtickify: Union[bool, str] = False,
             decomentify: Union[bool, Literal['nl']] = False,
+            regex: Union[bool, str] = False,
             _ctx: _Context) -> Union[str, markupsafe.Markup]:
   """Returns a _delimited_ snippet from a file.
 
@@ -310,6 +312,10 @@ def snippet(path: str,
         the Jinja2 call unmolested by markdown formatters, because they will be
         inside of a comment section. "nl" adds additional newlines after the
         newline delimiters. Defaults to False.
+      regex (Union[bool, str], optional): If True, `start` and `end` will be
+        treated as regular expressions. Optionally, can pass in python regex
+        flags separated by `|` characters, e.g "IGNORECASE|MULTILINE". Defaults
+        to False.
       _ctx (_Context): This is used by the system and is not available as an
         argument.
 
@@ -323,7 +329,8 @@ def snippet(path: str,
   snippet = _ExtractDelimted(name=f'input ({path})',
                              text=full_source,
                              start=start,
-                             end=end)
+                             end=end,
+                             regex=regex)
   snippet = _Backtickify(snippet, backtickify=backtickify)
   snippet = _Indent(snippet, indent=indent)
   snippet = _Indented(snippet, indented=indented)
@@ -512,19 +519,39 @@ font-family: arial;
 
 
 def _ExtractDelimted(*, name: str, text: str, start: Optional[str],
-                     end: Optional[str]) -> str:
+                     end: Optional[str], regex: Union[bool, str]) -> str:
+  flags = 0
+  if isinstance(regex, str):
+    for flag in regex.split('|'):
+      # Use RegexFlag to get the flag value
+      flags |= re.RegexFlag[flag].value
+    regex = True
 
-  if start is not None:
+  if start is not None and not regex:
     start_index = text.find(start)
     if start_index == -1:
       raise ValueError(
           f'Start delimiter {json.dumps(start)} not found in {name}')
     start_index += len(start)
     text = text[start_index:]
-  if end is not None:
+  elif start is not None and regex:
+    start_match = re.search(start, text, flags)
+    if start_match is None:
+      raise ValueError(
+          f'Start delimiter {json.dumps(start)} not found in {name}')
+    start_index = start_match.end()
+    text = text[start_index:]
+
+  if end is not None and not regex:
     end_index = text.find(end)
     if end_index == -1:
       raise ValueError(f'End delimiter {json.dumps(end)} not found in {name}')
+    text = text[:end_index]
+  elif end is not None and regex:
+    end_match = re.search(end, text, flags)
+    if end_match is None:
+      raise ValueError(f'End delimiter {json.dumps(end)} not found in {name}')
+    end_index = end_match.start()
     text = text[:end_index]
   return text
 
@@ -546,6 +573,7 @@ def shell(args: str,
           include_args: bool = True,
           start: Optional[str] = None,
           end: Optional[str] = None,
+          regex: Union[bool, str] = False,
           _ctx: _Context) -> Union[str, markupsafe.Markup]:
   """Run a shell command and return the output.
 
@@ -615,6 +643,10 @@ def shell(args: str,
         delimiter. Defaults to None.
       end (str, optional): If specified, will return only the text before this
         delimiter. Defaults to None.
+      regex (Union[bool, str], optional): If True, `start` and `end` will be
+        treated as regular expressions. Optionally, can pass in python regex
+        flags separated by `|` characters, e.g "IGNORECASE|MULTILINE". Defaults
+        to False.
       _ctx (_Context): This is used by the system and is not available as an
         argument.
 
@@ -642,7 +674,8 @@ def shell(args: str,
     output = _ExtractDelimted(name='output',
                               text=result.stdout,
                               start=start,
-                              end=end)
+                              end=end,
+                              regex=regex)
     if include_args:
       prefix = '$ '
       output = f'{prefix}{args}\n{output}'
@@ -655,7 +688,11 @@ def shell(args: str,
                           term=rich_term,
                           rows=rich_rows,
                           cols=rich_cols)
-    output = _ExtractDelimted(name='output', text=output, start=start, end=end)
+    output = _ExtractDelimted(name='output',
+                              text=output,
+                              start=start,
+                              end=end,
+                              regex=regex)
 
     svg = _GetTerminalSVG(args=args,
                           terminal_output=output,

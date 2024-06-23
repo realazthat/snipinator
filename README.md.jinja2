@@ -7,6 +7,8 @@
                                  include_args=False) | trim %}
 {% set tested_python_versions=shell('python -m yq -r -c \'[.jobs["build-and-test"]["strategy"]["matrix"]["python-version"][].gh] | join(", ")\' .github/workflows/build-and-test.yml',
                                  include_args=False) | trim %}
+{% set dev_dependencies=shell('python -m yq -r -c \'.dev | keys_unsorted | join(" ")\' .github/dependencies.yml',
+                              include_args=False)|trim %}
 {% set badge_color='0A1E1E' %}
 
 -->
@@ -125,10 +127,16 @@ Generating the README:
 
 Fuller example:
 
-<!--{{ snippet('./snipinator/examples/example_example.sh',
-               start='# SNIPPET_START',
-               end='\n# SNIPPET_END',
-               backtickify='bash',
+<!--{{ shell('cat ./.deleteme/example_example.output',
+               start=': ECHO_SNIPPET_START',
+               end='^.*: ECHO_SNIPPET_END',
+               regex='MULTILINE',
+               rich='README.example.generated.svg',
+               rich_alt='Output of `bash ./snipinator/examples/example_example.sh`',
+               rich_bg_color='black',
+               rich_term='xterm-256color',
+               rich_cols=160,
+               include_args=False,
                decomentify='nl') }}-->
 
 ## 💻 Command Line Options
@@ -413,6 +421,9 @@ Not complete, and not necessarily up to date. Make a PR
     backtickify='yaml',
     indented=4
     )}}
+
+    - On Ubuntu: `sudo apt-get update` and then
+      `sudo apt-get install -y {{dev_dependencies}}`.
 
   - Requires `pyenv`, or an exact matching version of python as in
     {{path('./.python-version', link='md')}} (which is currently

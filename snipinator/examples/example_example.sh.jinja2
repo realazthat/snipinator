@@ -9,6 +9,7 @@ PS4="${GREEN}$ ${NC}"
 {#- example_type: {docker-remote, docker-local, python_module} -#}
 {#- docker_image_name: str -#}
 {#- module_name: str -#}
+{#- snipinator_cmd: str -#}
 
 {%- macro abort(error) -%}
     {{ None['[ERROR] ' ~ error][0] }}

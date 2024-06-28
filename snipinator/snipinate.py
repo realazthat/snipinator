@@ -23,6 +23,7 @@ from typing import Generator, List, Literal, NamedTuple, Optional, Set, Union
 
 import markupsafe
 import pexpect  # type: ignore[import]
+import yaml
 from defusedxml import minidom  # type: ignore[import]
 from jinja2 import Environment, FileSystemLoader, TemplateSyntaxError
 from rich.console import Console
@@ -88,11 +89,14 @@ def Snipinate(template_file_name: str, template_string: str, cwd: Path,
     loader: Optional[FileSystemLoader] = None
     if templates_searchpath is not None:
       loader = FileSystemLoader(templates_searchpath)
+    # TODO: Set newline_sequence. comment_start_string, comment_end_string,
+    # line_comment_prefix, autoescape?
     env = Environment(loader=loader,
                       autoescape=True,
                       keep_trailing_newline=True)
 
-    # Bind pysnippet_function cwd argument to the current working directory
+    # This is the context that will be passed to the Jinja2 functions, if they
+    # need access to more global state.
     ctx = _Context(cwd=cwd,
                    template_file_name=template_file_name,
                    written_files=set(),
@@ -422,7 +426,16 @@ def _ExecuteANSI(args: str, cwd: Path, term: Optional[str], rows: int,
       cwd=str(cwd),
       env=env,  # type: ignore
       dimensions=(rows, cols))
-  return pty.read().decode()
+  output: str = pty.read().decode()
+  returncode = pty.wait()
+  if returncode != 0:
+    raise Exception(f'Command failed: {json.dumps(args)}'
+                    f'\n  exit code: {returncode}'
+                    f'\n  output: {output}'
+                    f'\n  cwd: {cwd}'
+                    f'\n  env:\n{textwrap.indent(yaml.safe_dump(env), "    ")}')
+
+  return output
 
 
 def _GetTerminalSVG(args: str,

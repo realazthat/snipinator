@@ -5,11 +5,12 @@
 # https://gist.github.com/mohanpedala/1e2ff5661761d3abd0385e8223e16425
 set -e -x -v -u -o pipefail
 set +v
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
 PS4="${GREEN}$ ${NC}"
 
 
-YELLOW='\033[1;33m'
-NC='\033[0m' # No Color
 
 # Don't run this in act/GH actions because act doesn't play with with nested
 # docker; the paths mess up.

@@ -30,14 +30,14 @@ find ./.github -type f -name "*.yml" -print0 | while IFS= read -r -d '' YML_FILE
   bash scripts/utilities/prettier.sh --parser yaml "${YML_FILE}" --write
 done
 
-yapf -r ./snipinator -i
-yapf -r ./scripts -i
+python -m yapf -r ./snipinator -i
+python -m yapf -r ./scripts -i
 if toml-sort "${PROJ_PATH}/pyproject.toml" --check; then
   :
 else
   toml-sort --in-place "${PROJ_PATH}/pyproject.toml"
 fi
-autoflake --remove-all-unused-imports --in-place --recursive ./snipinator
-isort ./snipinator
+python -m autoflake --remove-all-unused-imports --in-place --recursive ./snipinator
+python -m isort ./snipinator
 
 # vulture ./snipinator

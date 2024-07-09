@@ -660,6 +660,7 @@ cat "snipinator/examples/EXAMPLE.md.jinja2"
 # Use the published images at ghcr.io/realazthat/snipinator.
 # /data in the docker image is the working directory, so paths are simpler.
 docker run --rm --tty \
+  -u "$(id -u):$(id -g)" \
   -v "${PWD}:/data" \
   ghcr.io/realazthat/snipinator:v2.1.0 \
   -t "snipinator/examples/EXAMPLE.md.jinja2" \
@@ -688,6 +689,7 @@ cat "snipinator/examples/EXAMPLE.md.jinja2"
 
 # /data in the docker image is the working directory, so paths are simpler.
 docker run --rm --tty \
+  -u "$(id -u):$(id -g)" \
   -v "${PWD}:/data" \
   my-snipinator-image \
   -t "snipinator/examples/EXAMPLE.md.jinja2" \

@@ -19,7 +19,7 @@ PS4="${GREEN}$ ${NC}"
 {%- endmacro -%}
 
 {%- if example_type in ['docker-remote', 'docker-local'] -%}
-  {% set snipinator_cmd='docker run --rm --tty \\\n  -v \"${PWD}:/data\" \\\n  ' ~ docker_image_name %}
+  {% set snipinator_cmd='docker run --rm --tty \\\n  -u \"$(id -u):$(id -g)\" \\\n  -v \"${PWD}:/data\" \\\n  ' ~ docker_image_name %}
 {%- elif example_type=='python_module' -%}
   {% set snipinator_cmd='python -m ' ~ module_name %}
 {%- else -%}

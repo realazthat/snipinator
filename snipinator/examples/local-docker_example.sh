@@ -28,6 +28,7 @@ cat "snipinator/examples/EXAMPLE.md.jinja2"
 
 # /data in the docker image is the working directory, so paths are simpler.
 docker run --rm --tty \
+  -u "$(id -u):$(id -g)" \
   -v "${PWD}:/data" \
   my-snipinator-image \
   -t "snipinator/examples/EXAMPLE.md.jinja2" \

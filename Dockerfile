@@ -16,8 +16,7 @@ RUN apt-get -y update && apt-get -y --no-install-recommends install bash=5.2.15-
   chown -R user:user /snipinator /home/user/.local && \
   chmod -R a+wrX /snipinator
 
-
-COPY . /snipinator
+COPY --chown=user:user . /snipinator
 USER user
 WORKDIR /snipinator
 ENV PATH=/home/user/.local/bin:$PATH

@@ -24,7 +24,6 @@ from typing import Any, BinaryIO, Callable, Dict, List, Optional, TextIO
 import colorama
 from rich.console import Console
 from rich_argparse import RichHelpFormatter  # type: ignore[import]
-from typing_extensions import Literal
 
 from . import _build_version
 from .snipinate import BlockCommentStyle, Snipinate
@@ -42,6 +41,10 @@ SOURCE: `{template_file_name}`.
 -->
 '''.strip() + '\n'
 _DEFAULT_BLOCK_COMMENT = ['<!--', '-->']
+
+_ARGPARSE_BOOL_CHOICES = ['true', 'false', 'True', 'False', '1', '0']
+_ARGPARSE_BOOL_TRUE = ['true', 'True', '1']
+_ARGPARSE_BOOL_FALSE = ['false', 'False', '0']
 
 
 def _GetProgramName() -> str:
@@ -468,20 +471,21 @@ def main() -> None:
         ' help for more info) e.g 444 or 555. To prevent accidentally editing'
         ' generated file. Defaults to None.')
     backup_group = p.add_mutually_exclusive_group()
+
     backup_group.add_argument(
         '--make-backup',
-        action='store_true',
+        choices=_ARGPARSE_BOOL_CHOICES,
         default=None,
         help='Make a backup of the output file before writing'
         ' the new one. Defaults to False.')
     backup_group.add_argument(
         '--make-tmp-backup',
-        action='store_true',
+        choices=_ARGPARSE_BOOL_CHOICES,
         default=None,
         help='Make a temporary backup of the output file before'
         ' writing the new one. If snipiniator runs'
         ' successfully, the backup file will be deleted.'
-        ' Defaults to True if no backup option is specified.')
+        ' Defaults to True if --make-backup is set to False.')
 
     p.add_argument('--template-newline',
                    action=_NewlineAction,
@@ -520,19 +524,26 @@ def main() -> None:
     else:
       warning_header = args.warning_header
 
-    make_backup: Optional[Literal[True]] = args.make_backup
-    make_tmp_backup: Optional[Literal[True]] = args.make_tmp_backup
-    if make_backup is None and make_tmp_backup is None:
-      make_tmp_backup = True
+    make_backup: bool
+    if args.make_backup is None:
+      make_backup = False
+    else:
+      make_backup = args.make_backup in _ARGPARSE_BOOL_TRUE
+
+    make_tmp_backup: bool
+    if args.make_tmp_backup is None:
+      make_tmp_backup = not make_backup and args.output != '-'
+    else:
+      make_tmp_backup = args.make_tmp_backup in _ARGPARSE_BOOL_TRUE
 
     if args.rm and args.output == '-':
       raise ValueError('Cannot use --rm with stdout')
     if args.move and args.output == '-':
       raise ValueError('Cannot use --move with stdout')
-    if args.make_backup and args.output == '-':
-      raise ValueError('Cannot use --make-backup with stdout')
-    if args.make_tmp_backup and args.output == '-':
-      raise ValueError('Cannot use --make-tmp-backup with stdout')
+    if make_backup and args.output == '-':
+      raise ValueError('Cannot use --make-backup true with stdout')
+    if make_tmp_backup and args.output == '-':
+      raise ValueError('Cannot use --make-tmp-backup true with stdout')
     if args.chmod and args.output == '-':
       raise ValueError('Cannot use --chmod with stdout')
     if args.chmod_ro and args.output == '-':

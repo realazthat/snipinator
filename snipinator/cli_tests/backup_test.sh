@@ -43,7 +43,7 @@ cp "${TMP_DIR}/EXAMPLE.generated.md" "${TMP_DIR}/EXAMPLE.generated.old.md"
 
 
 python -m snipinator.cli --cwd "${TMP_DIR}" \
-  --make-backup \
+  --make-backup 1 \
   -t "${TMP_DIR}/EXAMPLE.md.jinja2" \
   -o "${TMP_DIR}/EXAMPLE.generated.md"
 

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "snipinator"
-version = "2.1.0"
+version = "2.2.0"
 description = "Python code snippets for markdown files, e.g READMEs, from actual (testable) code."
 authors = [{name = "AYF", email = "realazthat@gmail.com"}]
 license = {file = "LICENSE.md"}
@@ -28,10 +28,13 @@ dependencies = [
   "mdurl <1",
   "pexpect >4,<5",
   "ptyprocess >=0.7,<0.8",
+  "pyyaml >=6,<7",
   "Pygments >=2,<3",
   "rich >=13,<14",
   "rich-argparse >=1,<2",
-  "types-colorama >=0.4,<1"
+  "types-colorama >=0.4,<1",
+  "typing_extensions >=4,<5",
+  "types-pyyaml >=6,<7"
 ]
 keywords = [
   "github",
@@ -66,9 +69,11 @@ prod = [
   "pexpect==4.9.0",
   "ptyprocess==0.7.0",
   "pygments==2.17.2",
+  "pyyaml==6.0.1",
   "rich==13.7.1",
   "rich-argparse==1.4.0",
   "types-colorama==0.4.15.20240311",
+  "types-pyyaml==6.0.12.20240311",
   "typing-extensions==4.10.0"
 ]
 # Set of dev dependencies, all pinned, so that they are known to work. To add a
@@ -172,7 +177,7 @@ Repository = "https://github.com/realazthat/snipinator"
 packages = ["snipinator"]
 
 [tool.snipinator-project-metadata]
-last_release = "2.1.0"
-last_stable_release = "2.1.0"
+last_release = "2.2.0"
+last_stable_release = "2.2.0"
 
 [tool.tomlsort]

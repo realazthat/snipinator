@@ -37,9 +37,6 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version.gh }}
-      - name: Install nvm
-        run: |
-          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
       - name: Set up .python-version
         run: |
           echo "${{ matrix.python-version.file }}"
@@ -55,6 +52,9 @@ jobs:
         run: |
           # See project/.github/dependencies.yml for a list of dependencies.
           sudo apt-get update && sudo apt-get install -y ${APT_DEPS}
+      - name: Install nvm
+        run: |
+          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
       - name: Run everything
         run: |
           bash scripts/pre.sh

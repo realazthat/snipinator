@@ -70,13 +70,8 @@ python -m snipinator.cli --cwd "${TMP_DIR}" \
 git diff --no-index --exit-code \
   "${TMP_DIR}/EXAMPLE.custom-warning.expected.sh" \
   "${TMP_DIR}/EXAMPLE.custom-warning.generated.sh"
-################################################################################
-
-
 echo -e "${GREEN}Successfully generated expected output${NC}"
-
-
-
+################################################################################
 
 
 echo -e "${GREEN}${BASH_SOURCE[0]}: All tests passed${NC}"

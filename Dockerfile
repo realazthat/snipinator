@@ -6,8 +6,7 @@ WORKDIR /snipinator
 # apt-get -y --no-install-recommends install git=1:2.39.2-1.1 &&
 # apt-get -y upgrade &&
 
-COPY . /snipinator
-RUN apt-get -y update && apt-get -y --no-install-recommends install bash=5.2.15-2+b2 && \
+RUN apt-get -y update && apt-get -y --no-install-recommends install bash=5.2.15-2+b7 && \
   apt-get -y clean && \
   apt-get -y autoremove && \
   rm -rf /var/lib/apt/lists/* && \
@@ -17,11 +16,9 @@ RUN apt-get -y update && apt-get -y --no-install-recommends install bash=5.2.15-
   chown -R user:user /snipinator /home/user/.local && \
   chmod -R a+wrX /snipinator
 
-
+COPY --chown=user:user . /snipinator
 USER user
 WORKDIR /snipinator
-ENV PATH=/home/user/.local/bin:$PATH
-ENV PYTHONPATH=/home/user/.local/lib/python3.12/site-packages
 ENV PATH=/home/user/.local/bin:$PATH
 ENV PYTHONPATH=/home/user/.local/lib/python3.12/site-packages
 RUN pip install --no-cache-dir --prefix=/home/user/.local .

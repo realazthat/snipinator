@@ -4,8 +4,17 @@
 
 # https://gist.github.com/mohanpedala/1e2ff5661761d3abd0385e8223e16425
 set -e -x -v -u -o pipefail
+set +v
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+PS4="${GREEN}$ ${NC}"
 
+: ECHO_SNIPPET_START
 # SNIPPET_START
+# View the template file.
+cat "snipinator/examples/EXAMPLE.md.jinja2"
+
 python -m snipinator.cli \
   -t "snipinator/examples/EXAMPLE.md.jinja2" \
   --rm \
@@ -13,4 +22,9 @@ python -m snipinator.cli \
   --create \
   -o "snipinator/examples/EXAMPLE.generated.md" \
   --chmod-ro
+
+# View the generated file.
+cat "snipinator/examples/EXAMPLE.generated.md"
+
 # SNIPPET_END
+: ECHO_SNIPPET_END

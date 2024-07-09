@@ -1,19 +1,25 @@
 {%- if True -%}
 # https://gist.github.com/mohanpedala/1e2ff5661761d3abd0385e8223e16425
 set -e -x -v -u -o pipefail
+set +v
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+PS4="${GREEN}$ ${NC}"
 
 {% endif -%}
 
 {#- example_type: {docker-remote, docker-local, python_module} -#}
 {#- docker_image_name: str -#}
 {#- module_name: str -#}
+{#- snipinator_cmd: str -#}
 
 {%- macro abort(error) -%}
     {{ None['[ERROR] ' ~ error][0] }}
 {%- endmacro -%}
 
 {%- if example_type in ['docker-remote', 'docker-local'] -%}
-  {% set snipinator_cmd='docker run --rm --tty \\\n  -v \"${PWD}:/data\" \\\n  ' ~ docker_image_name %}
+  {% set snipinator_cmd='docker run --rm --tty \\\n  -u \"$(id -u):$(id -g)\" \\\n  -v \"${PWD}:/data\" \\\n  ' ~ docker_image_name %}
 {%- elif example_type=='python_module' -%}
   {% set snipinator_cmd='python -m ' ~ module_name %}
 {%- else -%}
@@ -21,8 +27,6 @@ set -e -x -v -u -o pipefail
 {%- endif -%}
 
 {%- if example_type in ['docker-remote', 'docker-local'] %}
-YELLOW='\033[1;33m'
-NC='\033[0m' # No Color
 
 # Don't run this in act/GH actions because act doesn't play with with nested
 # docker; the paths mess up.
@@ -33,11 +37,15 @@ fi
 
 {% endif-%}
 
+: ECHO_SNIPPET_START
 # SNIPPET_START
 {% if example_type in ['docker-local'] -%}
 docker build -t {{docker_image_name|safe}} .
 
 {% endif -%}
+
+# View the template file.
+cat "snipinator/examples/EXAMPLE.md.jinja2"
 
 {% if example_type in ['docker-remote'] -%}
 # Use the published images at ghcr.io/realazthat/snipinator.
@@ -52,4 +60,9 @@ docker build -t {{docker_image_name|safe}} .
   --create \
   -o "snipinator/examples/EXAMPLE.generated.md" \
   --chmod-ro
+
+# View the generated file.
+cat "snipinator/examples/EXAMPLE.generated.md"
+
 # SNIPPET_END
+: ECHO_SNIPPET_END

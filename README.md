@@ -12,6 +12,7 @@ SOURCE: `README.md.jinja2`.
 
 
 
+
 -->
 
 # <div align="center">[![Snipinator][1]][2]</div>
@@ -154,7 +155,7 @@ Note that `code.py` has a test:
 pip install snipinator
 
 # Install from git (https://github.com/realazthat/snipinator)
-pip install git+https://github.com/realazthat/snipinator.git@v2.1.0
+pip install git+https://github.com/realazthat/snipinator.git@v2.2.0
 ```
 
 ## 🚜 Usage
@@ -214,16 +215,7 @@ Note that `code.py` has a test:
 Fuller example:
 
 <!---->
-```bash
-
-python -m snipinator.cli \
-  -t "snipinator/examples/EXAMPLE.md.jinja2" \
-  --rm \
-  --force \
-  --create \
-  -o "snipinator/examples/EXAMPLE.generated.md" \
-  --chmod-ro
-```
+<img src="README.example.generated.svg" alt="Output of `bash ./snipinator/examples/example_example.sh`" />
 <!---->
 
 ## 💻 Command Line Options
@@ -440,6 +432,7 @@ def snippet(path: str,
             indented: Union[str, int, None] = None,
             backtickify: Union[bool, str] = False,
             decomentify: Union[bool, Literal['nl']] = False,
+            regex: Union[bool, str] = False,
             _ctx: _Context) -> Union[str, markupsafe.Markup]:
   """Returns a _delimited_ snippet from a file.
 
@@ -463,6 +456,10 @@ def snippet(path: str,
         the Jinja2 call unmolested by markdown formatters, because they will be
         inside of a comment section. "nl" adds additional newlines after the
         newline delimiters. Defaults to False.
+      regex (Union[bool, str], optional): If True, `start` and `end` will be
+        treated as regular expressions. Optionally, can pass in python regex
+        flags separated by `|` characters, e.g "IGNORECASE|MULTILINE". Defaults
+        to False.
       _ctx (_Context): This is used by the system and is not available as an
         argument.
 
@@ -498,6 +495,7 @@ def shell(args: str,
           include_args: bool = True,
           start: Optional[str] = None,
           end: Optional[str] = None,
+          regex: Union[bool, str] = False,
           _ctx: _Context) -> Union[str, markupsafe.Markup]:
   """Run a shell command and return the output.
 
@@ -567,6 +565,10 @@ def shell(args: str,
         delimiter. Defaults to None.
       end (str, optional): If specified, will return only the text before this
         delimiter. Defaults to None.
+      regex (Union[bool, str], optional): If True, `start` and `end` will be
+        treated as regular expressions. Optionally, can pass in python regex
+        flags separated by `|` characters, e.g "IGNORECASE|MULTILINE". Defaults
+        to False.
       _ctx (_Context): This is used by the system and is not available as an
         argument.
 
@@ -652,17 +654,25 @@ tag.
 <!---->
 ```bash
 
+# View the template file.
+cat "snipinator/examples/EXAMPLE.md.jinja2"
+
 # Use the published images at ghcr.io/realazthat/snipinator.
 # /data in the docker image is the working directory, so paths are simpler.
 docker run --rm --tty \
+  -u "$(id -u):$(id -g)" \
   -v "${PWD}:/data" \
-  ghcr.io/realazthat/snipinator:v2.1.0 \
+  ghcr.io/realazthat/snipinator:v2.2.0 \
   -t "snipinator/examples/EXAMPLE.md.jinja2" \
   --rm \
   --force \
   --create \
   -o "snipinator/examples/EXAMPLE.generated.md" \
   --chmod-ro
+
+# View the generated file.
+cat "snipinator/examples/EXAMPLE.generated.md"
+
 ```
 <!---->
 
@@ -674,8 +684,12 @@ repository.
 
 docker build -t my-snipinator-image .
 
+# View the template file.
+cat "snipinator/examples/EXAMPLE.md.jinja2"
+
 # /data in the docker image is the working directory, so paths are simpler.
 docker run --rm --tty \
+  -u "$(id -u):$(id -g)" \
   -v "${PWD}:/data" \
   my-snipinator-image \
   -t "snipinator/examples/EXAMPLE.md.jinja2" \
@@ -684,6 +698,10 @@ docker run --rm --tty \
   --create \
   -o "snipinator/examples/EXAMPLE.generated.md" \
   --chmod-ro
+
+# View the generated file.
+cat "snipinator/examples/EXAMPLE.generated.md"
+
 ```
 <!---->
 
@@ -831,8 +849,23 @@ Not complete, and not necessarily up to date. Make a PR
     jq: dependency for [yq](https://github.com/kislyuk/yq), which is used to generate
       the README; the README generator needs to use `tomlq` (which is a part of `yq`)
       to query `pyproject.toml`.
+    unzip: scripts (pyenv).
+    curl: scripts (pyenv).
+    git-core: scripts (pyenv).
+    gcc: scripts (pyenv).
+    make: scripts (pyenv).
+    zlib1g-dev: scripts (pyenv).
+    libbz2-dev: scripts (pyenv).
+    libreadline-dev: scripts (pyenv).
+    libsqlite3-dev: scripts (pyenv).
+    libssl-dev: scripts (pyenv).
+    libffi-dev: bdist_wheel (otherwise `pip install .` fails). If installing pyenv, this
+      must be installed _first_.
     
     ```
+
+    - On Ubuntu: `sudo apt-get update` and then
+      `sudo apt-get install -y bash findutils grep xxd git xxhash rsync expect jq unzip curl git-core gcc make zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev libssl-dev libffi-dev`.
 
   - Requires `pyenv`, or an exact matching version of python as in
     [./.python-version](./.python-version) (which is currently
@@ -905,9 +938,9 @@ These instructions are for maintainers of the project.
 [13]:
   https://github.com/realazthat/snipinator/actions/workflows/build-and-test.yml
 [14]:
-  https://img.shields.io/github/commits-since/realazthat/snipinator/v2.1.0/master?style=plastic
+  https://img.shields.io/github/commits-since/realazthat/snipinator/v2.2.0/master?style=plastic
 [15]:
-  https://github.com/realazthat/snipinator/compare/v2.1.0...master
+  https://github.com/realazthat/snipinator/compare/v2.2.0...master
 [16]:
   https://img.shields.io/github/last-commit/realazthat/snipinator/master?style=plastic
 [17]: https://github.com/realazthat/snipinator/commits/master
@@ -915,13 +948,13 @@ These instructions are for maintainers of the project.
 [19]:
   https://img.shields.io/github/actions/workflow/status/realazthat/snipinator/build-and-test.yml?branch=develop&style=plastic
 [20]:
-  https://img.shields.io/github/commits-since/realazthat/snipinator/v2.1.0/develop?style=plastic
+  https://img.shields.io/github/commits-since/realazthat/snipinator/v2.2.0/develop?style=plastic
 [21]:
-  https://github.com/realazthat/snipinator/compare/v2.1.0...develop
+  https://github.com/realazthat/snipinator/compare/v2.2.0...develop
 [22]:
-  https://img.shields.io/github/commits-since/realazthat/snipinator/v2.1.0/develop?style=plastic
+  https://img.shields.io/github/commits-since/realazthat/snipinator/v2.2.0/develop?style=plastic
 [23]:
-  https://github.com/realazthat/snipinator/compare/v2.1.0...develop
+  https://github.com/realazthat/snipinator/compare/v2.2.0...develop
 [24]:
   https://img.shields.io/github/last-commit/realazthat/snipinator/develop?style=plastic
 [25]: https://github.com/realazthat/snipinator/commits/develop

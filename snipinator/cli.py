@@ -11,10 +11,12 @@ import html
 import io
 import json
 import shlex
+import shutil
 import subprocess
 import sys
 import time
 import warnings
+from functools import partial
 from pathlib import Path
 from shutil import get_terminal_size
 from typing import Any, BinaryIO, Callable, Dict, List, Optional, TextIO
@@ -39,6 +41,10 @@ SOURCE: `{template_file_name}`.
 -->
 '''.strip() + '\n'
 _DEFAULT_BLOCK_COMMENT = ['<!--', '-->']
+
+_ARGPARSE_BOOL_CHOICES = ['true', 'false', 'True', 'False', '1', '0']
+_ARGPARSE_BOOL_TRUE = ['true', 'True', '1']
+_ARGPARSE_BOOL_FALSE = ['false', 'False', '0']
 
 
 def _GetProgramName() -> str:
@@ -97,20 +103,23 @@ def _ChmodPathlib(path: Path, mode10: int, console: Console):
   path.chmod(mode10)
 
 
-def _ChmodSubprocess(path: Path, mode10: int, console: Console):
+def _ChmodSubprocess(path: Path, mode10: int, console: Console, verbose: bool):
   cmd = ['chmod', str(mode10), str(path)]
-  console.print(f'Running: {shlex.join(cmd)}', style='bold blue')
+  if verbose:
+    console.print(f'Running: {shlex.join(cmd)}', style='bold blue')
   subprocess.run(cmd, check=True)
 
 
-def _ChmodTryAll(*, path: Path, mode10: int, console: Console) -> None:
+def _ChmodTryAll(*, path: Path, mode10: int, console: Console,
+                 verbose: bool) -> None:
 
-  chmods: List[Callable[[Path, int, Console],
-                        None]] = [_ChmodPathlib, _ChmodSubprocess]
+  chmods: List[Callable[[Path, int, Console], None]]
+  chmods = [_ChmodPathlib, partial(_ChmodSubprocess, verbose=verbose)]
 
   for chmod in chmods:
     try:
-      console.print(f'Trying chmod method: {chmod}', style='bold blue')
+      if verbose:
+        console.print(f'Trying chmod method: {chmod}', style='bold blue')
       original_mode8 = _GetPermissionOctant8(path=path)
       if original_mode8 == _OctalStr(mode10=mode10):
         # Already has the correct mode
@@ -158,7 +167,7 @@ def _ChmodTryAll(*, path: Path, mode10: int, console: Console) -> None:
   raise ValueError(f'Failed to change mode of {path}')
 
 
-def _MakeWritable(path: Path, console: Console) -> None:
+def _MakeWritable(path: Path, console: Console, verbose: bool) -> None:
 
   # Get the current permissions
   original_mode8: str = _GetPermissionOctant8(path=path)
@@ -175,12 +184,13 @@ def _MakeWritable(path: Path, console: Console) -> None:
                      f'\n Actual: 0o{original_mode8} => 0o{new_mode8}'
                      f'\n Actual: {original_mode10} => {new_mode10}')
   else:
-    console.print(
-        f'Changed mode of {path} from {_OctalToRWXStr(original_mode10)} => {_OctalToRWXStr(new_mode10)}',
-        style='bold green')
+    if verbose:
+      console.print(
+          f'Changed mode of {path} from {_OctalToRWXStr(original_mode10)} => {_OctalToRWXStr(new_mode10)}',
+          style='bold green')
 
 
-def _MakeReadonly(path: Path, console: Console) -> None:
+def _MakeReadonly(path: Path, console: Console, verbose: bool) -> None:
 
   # Get the current permissions
   original_mode8: str = _GetPermissionOctant8(path=path)
@@ -197,9 +207,10 @@ def _MakeReadonly(path: Path, console: Console) -> None:
                      f'\n Actual: 0o{original_mode8} => 0o{new_mode8}'
                      f'\n Actual: {original_mode10} => {new_mode10}')
   else:
-    console.print(
-        f'Changed mode of {path} from {_OctalToRWXStr(original_mode10)} => {_OctalToRWXStr(new_mode10)}',
-        style='bold green')
+    if verbose:
+      console.print(
+          f'Changed mode of {path} from {_OctalToRWXStr(original_mode10)} => {_OctalToRWXStr(new_mode10)}',
+          style='bold green')
 
 
 class _NewlineAction(argparse.Action):
@@ -235,6 +246,80 @@ def _WriteToFile(rendered: str, template_newline: Optional[str],
   with io.StringIO(rendered, newline=template_newline) as rendered_io:
     for line in rendered_io:
       output_io.write(line)
+
+
+def _RemoveOutputPath(output_path: Path, force: bool, console: Console,
+                      verbose: bool) -> None:
+  try:
+    output_path.unlink()
+  except PermissionError:
+    if not force:
+      raise
+    _MakeWritable(output_path, console=console, verbose=verbose)
+    output_path.unlink()
+
+
+def _Move(src: Path, dst: Path, force: bool, console: Console,
+          verbose: bool) -> None:
+  try:
+    shutil.move(str(src), str(dst))
+  except (PermissionError, FileNotFoundError):
+    if not force:
+      raise
+    _MakeWritable(dst, console=console, verbose=verbose)
+    shutil.move(str(src), str(dst))
+
+
+def _CreateOutputFile(template_newline: Optional[str],
+                      output_newline: Optional[str], output_path: Path,
+                      rendered: str, console: Console) -> None:
+
+  if template_newline is None and output_newline is None:
+    # Simple case, nothing was specified for newlines, use python defaults.
+    output_path.write_text(rendered, encoding=None)
+  else:
+    with output_path.open('w', encoding=None,
+                          newline=output_newline) as output_file:
+      _WriteToFile(rendered=rendered,
+                   template_newline=template_newline,
+                   output_io=output_file)
+
+
+def _SealOutputFile(output_path: Path, chmod: Optional[str], chmod_ro: bool,
+                    console: Console, verbose: bool) -> None:
+  ############################################################################
+  if chmod_ro:
+    _MakeReadonly(output_path, console=console, verbose=verbose)
+  ############################################################################
+  if chmod:
+    warnings.warn('The --chmod option is deprecated, use --chmod-ro instead.',
+                  DeprecationWarning,
+                  stacklevel=2)
+    mode8: str = chmod
+    mode10: int = int(chmod, 8)
+    _ChmodTryAll(path=output_path,
+                 mode10=mode10,
+                 console=console,
+                 verbose=verbose)
+    if verbose:
+      console.print(f'Changed mode of {output_path} to {mode8}',
+                    style='bold green')
+
+
+def _MakeBackup(output_path: Path, console: Console,
+                verbose: bool) -> Optional[Path]:
+  if not output_path.exists():
+    if verbose:
+      console.print(f'No backup made because {output_path} does not exist.',
+                    style='bold yellow')
+    return None
+  backup_path = output_path.with_suffix(output_path.suffix + '.bak')
+  if backup_path.exists():
+    backup_path.unlink()
+  shutil.copy(output_path, backup_path)
+  if verbose:
+    console.print(f'Backed up {output_path} to {backup_path}', style='bold')
+  return backup_path
 
 
 class _CustomRichHelpFormatter(RichHelpFormatter):
@@ -301,9 +386,15 @@ def main() -> None:
     p.add_argument(
         '--rm',
         action='store_true',
-        default=False,
-        help='Remove any existing file at the output path, before writing the new'
-        ' one; useful if the existing file might be write protected.')
+        default=None,
+        help='Remove any existing file at the output path, before writing the'
+        ' new one; useful if the existing file might be write protected.')
+    p.add_argument(
+        '--move',
+        action='store_true',
+        default=None,
+        help='Write output to a temporary location,'
+        ' then use filesystem move operation to write it to the destination.')
     p.add_argument(
         '-f',
         '--force',
@@ -379,6 +470,23 @@ def main() -> None:
         ' Change the mode (permissions) of the output file, an octant (see chmod'
         ' help for more info) e.g 444 or 555. To prevent accidentally editing'
         ' generated file. Defaults to None.')
+    backup_group = p.add_mutually_exclusive_group()
+
+    backup_group.add_argument(
+        '--make-backup',
+        choices=_ARGPARSE_BOOL_CHOICES,
+        default=None,
+        help='Make a backup of the output file before writing'
+        ' the new one. Defaults to False.')
+    backup_group.add_argument(
+        '--make-tmp-backup',
+        choices=_ARGPARSE_BOOL_CHOICES,
+        default=None,
+        help='Make a temporary backup of the output file before'
+        ' writing the new one. If snipiniator runs'
+        ' successfully, the backup file will be deleted.'
+        ' Defaults to True if --make-backup is set to False.')
+
     p.add_argument('--template-newline',
                    action=_NewlineAction,
                    metavar='{auto,lf,crlf,cr}',
@@ -396,8 +504,13 @@ def main() -> None:
                    action='version',
                    version=_build_version,
                    help='Show the version and exit.')
+    p.add_argument('--verbose',
+                   action='store_true',
+                   default=False,
+                   help='Print more information.')
     args = p.parse_args()
 
+    verbose: bool = args.verbose
     template_newline: Optional[str] = args.template_newline
     output_newline: Optional[str] = args.output_newline
     block_comment = BlockCommentStyle(*args.block_comment)
@@ -411,8 +524,26 @@ def main() -> None:
     else:
       warning_header = args.warning_header
 
+    make_backup: bool
+    if args.make_backup is None:
+      make_backup = False
+    else:
+      make_backup = args.make_backup in _ARGPARSE_BOOL_TRUE
+
+    make_tmp_backup: bool
+    if args.make_tmp_backup is None:
+      make_tmp_backup = not make_backup and args.output != '-'
+    else:
+      make_tmp_backup = args.make_tmp_backup in _ARGPARSE_BOOL_TRUE
+
     if args.rm and args.output == '-':
       raise ValueError('Cannot use --rm with stdout')
+    if args.move and args.output == '-':
+      raise ValueError('Cannot use --move with stdout')
+    if make_backup and args.output == '-':
+      raise ValueError('Cannot use --make-backup true with stdout')
+    if make_tmp_backup and args.output == '-':
+      raise ValueError('Cannot use --make-tmp-backup true with stdout')
     if args.chmod and args.output == '-':
       raise ValueError('Cannot use --chmod with stdout')
     if args.chmod_ro and args.output == '-':
@@ -499,38 +630,49 @@ def main() -> None:
       sys.exit(0 if rendered == original_output else 1)
       return
     ############################################################################
-    if output_path.exists() and args.rm:
-      try:
-        output_path.unlink()
-      except PermissionError:
-        if not args.force:
-          raise
-        _MakeWritable(output_path, console=console)
-        output_path.unlink()
-
-    if template_newline is None and output_newline is None:
-      # Simple case, nothing was specified for newlines, use python defaults.
-      output_path.write_text(rendered, encoding=None)
+    backup_path: Optional[Path] = None
+    if make_backup or make_tmp_backup:
+      backup_path = _MakeBackup(output_path, console, verbose=verbose)
+    ############################################################################
+    if args.move:
+      tmp_output_path = output_path.with_suffix(output_path.suffix + '.tmp')
+      _CreateOutputFile(template_newline=template_newline,
+                        output_newline=output_newline,
+                        output_path=tmp_output_path,
+                        rendered=rendered,
+                        console=console)
+      if output_path.exists() and args.rm:
+        _RemoveOutputPath(output_path,
+                          force=args.force,
+                          console=console,
+                          verbose=verbose)
+      _Move(src=tmp_output_path,
+            dst=output_path,
+            force=args.force,
+            console=console,
+            verbose=verbose)
     else:
-      with output_path.open('w', encoding=None,
-                            newline=output_newline) as output_file:
-        _WriteToFile(rendered=rendered,
-                     template_newline=template_newline,
-                     output_io=output_file)
+      if output_path.exists() and args.rm:
+        _RemoveOutputPath(output_path,
+                          force=args.force,
+                          console=console,
+                          verbose=verbose)
+      _CreateOutputFile(template_newline=template_newline,
+                        output_newline=output_newline,
+                        output_path=output_path,
+                        rendered=rendered,
+                        console=console)
     ############################################################################
-    if args.chmod_ro:
-      _MakeReadonly(output_path, console=console)
+    _SealOutputFile(output_path=output_path,
+                    chmod=args.chmod,
+                    chmod_ro=args.chmod_ro,
+                    console=console,
+                    verbose=verbose)
     ############################################################################
-    if args.chmod:
-      warnings.warn('The --chmod option is deprecated, use --chmod-ro instead.',
-                    DeprecationWarning,
-                    stacklevel=2)
-      mode8: str = args.chmod
-      mode10: int = int(args.chmod, 8)
-      _ChmodTryAll(path=output_path, mode10=mode10, console=console)
-      console.print(f'Changed mode of {output_path} to {mode8}',
-                    style='bold green')
-
+    # If everything was succesful, and --make-tmp-backup was specified, delete
+    # the backup.
+    if make_tmp_backup and backup_path is not None:
+      backup_path.unlink()
     ############################################################################
     sys.exit(0)
     return

@@ -16,6 +16,8 @@ class SnipinateTest(unittest.TestCase):
   def _MakeContext(self):
     return _Context(cwd=Path.cwd(),
                     template_file_name='-',
+                    artifact_path=Path('.'),
+                    output_base_path=Path('.'),
                     written_files=set(),
                     block_comment=BlockCommentStyle(open='<!--', close='-->'))
 

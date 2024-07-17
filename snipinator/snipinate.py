@@ -19,7 +19,7 @@ import textwrap
 from functools import partial
 from io import StringIO
 from pathlib import Path
-from typing import Generator, List, Literal, NamedTuple, Optional, Set, Union
+from typing import Generator, List, NamedTuple, Optional, Set, Union
 
 import markupsafe
 import pexpect  # type: ignore[import]
@@ -30,6 +30,7 @@ from rich.console import Console
 from rich.terminal_theme import MONOKAI
 from rich.text import Text
 from rich.themes import DEFAULT as DEFAULT_THEME
+from typing_extensions import Literal
 
 logger = logging.getLogger(__name__)
 
@@ -56,9 +57,11 @@ def _Comment(text: str, style: Union[BlockCommentStyle,
     return ''
 
 
-def Snipinate(template_file_name: str, template_string: str, cwd: Path,
-              template_args: dict, templates_searchpath: Optional[Path],
-              block_comment: BlockCommentStyle, warning_header: str) -> str:
+def Snipinate(template_file_name: Union[Path, Literal['-']],
+              template_string: str, cwd: Path, template_args: dict,
+              templates_searchpath: Optional[Path],
+              block_comment: BlockCommentStyle, warning_header: str,
+              artifact_path: Path, output_base_path: Path) -> str:
   """Render the markdown template.
 
   Args:
@@ -78,6 +81,11 @@ def Snipinate(template_file_name: str, template_string: str, cwd: Path,
       warning_message (str, optional): If specified, the top of the rendered
         markdown will contain this warning. Useful for adding warnings about
         editing the file, since it is generated. Defaults to DEFAULT_WARNING.
+      output_base_path (Path): If specified, will use this as the base path the
+        output file is relative to, used to construct the relative paths in the
+        README to the artifacts.
+      artifact_path (Path): If specified, will use this as the base path for any
+        artifacts that are written to disk.
 
   Returns:
       str: Rendered markdown.
@@ -99,6 +107,8 @@ def Snipinate(template_file_name: str, template_string: str, cwd: Path,
     # need access to more global state.
     ctx = _Context(cwd=cwd,
                    template_file_name=template_file_name,
+                   artifact_path=artifact_path,
+                   output_base_path=output_base_path,
                    written_files=set(),
                    block_comment=block_comment)
     env.globals['pysignature'] = partial(pysignature, _ctx=ctx)
@@ -131,7 +141,9 @@ class _Context(NamedTuple):
   """Private context for the Jinja2 functions."""
 
   cwd: Path
-  template_file_name: str
+  artifact_path: Path
+  output_base_path: Path
+  template_file_name: Union[Path, Literal['-']]
   written_files: Set[Path]
   block_comment: Optional[BlockCommentStyle]
 
@@ -723,13 +735,10 @@ def shell(args: str,
         raise ValueError(
             f'Path is absolute: {json.dumps(str(svg_path))}, it should be relative'
         )
-      template_directory = _ctx.cwd
-      if _ctx.template_file_name != '-':
-        template_directory = Path(_ctx.template_file_name).parent
-      svg_path = template_directory / svg_path
-      if not _is_relative_to(svg_path, template_directory):
+      svg_path = _ctx.artifact_path / svg_path
+      if not _is_relative_to(svg_path, _ctx.artifact_path):
         raise ValueError(
-            f'Path is not relative to cwd: {json.dumps(str(svg_path))}, cwd: {json.dumps(str(_ctx.cwd))}'
+            f'Path is not relative to artifact_path: {json.dumps(str(svg_path))}, artifact_path: {json.dumps(str(_ctx.artifact_path))}'
         )
       if svg_path in _ctx.written_files:
         raise ValueError(
@@ -737,7 +746,7 @@ def shell(args: str,
             ' it appears you are writing to the same file twice in the same template.'
         )
       _ctx.written_files.add(svg_path)
-      template_rel_svg_path = svg_path.relative_to(template_directory)
+      output_rel_svg_path = svg_path.relative_to(_ctx.output_base_path)
       svg_path.parent.mkdir(parents=True, exist_ok=True)
 
       svg_path.write_text(svg)
@@ -747,7 +756,7 @@ def shell(args: str,
         rich_alt_escaped = html.escape(rich_alt, quote=True)
         alt_attr = 'alt="' + rich_alt_escaped + '" '
 
-      output = f'<img src="{str(template_rel_svg_path)}" {alt_attr}/>'
+      output = f'<img src="{str(output_rel_svg_path)}" {alt_attr}/>'
     else:
       raise ValueError(
           f'Unsupported rich format: {json.dumps(rich)} it should'
@@ -842,8 +851,28 @@ def _FindTargetNode(*, start: ast.AST,
   return None
 
 
+def _GetLineNo(node: ast.AST) -> int:
+  """Because lineno is not well typed, hide all access to lineno behind this function."""
+  if not hasattr(node, 'lineno'):
+    raise AssertionError(f'lineno not found for {node}')
+  lineno = getattr(node, 'lineno', None)
+  if not isinstance(lineno, int):
+    raise AssertionError(f'lineno is not an int for {node}')
+  return lineno
+
+
+def _GetEndLineNo(node: ast.AST) -> Optional[int]:
+  """Because end_lineno is not well typed, hide all access to end_lineno behind this function."""
+  if not hasattr(node, 'end_lineno'):
+    return None
+  end_lineno = getattr(node, 'end_lineno', None)
+  if not isinstance(end_lineno, int):
+    raise AssertionError(f'end_lineno is not an int for {node}')
+  return end_lineno
+
+
 def _DumpNode(*, source: str, node: ast.AST) -> str:
-  start_line_index = node.lineno - 1
+  start_line_index = _GetLineNo(node) - 1
   end_line_index = _GetEOLIndex(node)
   code = source.splitlines()[start_line_index:end_line_index + 1]
   return '\n'.join(code)
@@ -874,9 +903,9 @@ def _GetClassDocstringEndIndex(class_node: ast.ClassDef) -> int:
 
 
 def _GetEOLIndex(node: ast.AST) -> int:
-
-  if hasattr(node, 'end_lineno') and node.end_lineno is not None:
-    return node.end_lineno - 1
+  end_line_no: Optional[int] = _GetEndLineNo(node)
+  if hasattr(node, 'end_lineno') and end_line_no is not None:
+    return end_line_no - 1
 
   lineno = getattr(node, 'lineno', None)
   name = getattr(node, 'name', 'N/A')
@@ -923,7 +952,7 @@ def _GetSymbolSignature(source: str, path: str, symbol: str) -> str:
       raise ValueError(
           f'Symbol {json.dumps(symbol)} not found in {json.dumps(str(path))}')
 
-    start_line_index = target_node.lineno - 1
+    start_line_index = _GetLineNo(target_node) - 1
     end_line_index = _EndIndex(target_node)
     if end_line_index is None:
       raise ValueError(

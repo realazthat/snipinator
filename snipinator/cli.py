@@ -19,13 +19,15 @@ import warnings
 from functools import partial
 from pathlib import Path
 from shutil import get_terminal_size
-from typing import Any, BinaryIO, Callable, Dict, List, Optional, TextIO
+from typing import Any, BinaryIO, Callable, Dict, List, Optional, TextIO, Union
 
 import colorama
 from rich.console import Console
 from rich_argparse import RichHelpFormatter  # type: ignore[import]
+from typing_extensions import Literal
 
 from . import _build_version
+from .private.utilities import GetIOPath, GetPath
 from .snipinate import BlockCommentStyle, Snipinate
 
 _NEWLINE_HELP = (' See '
@@ -378,6 +380,21 @@ def main() -> None:
         ' Defaults to None, which means nothing can be included using Jinja2\'s'
         ' include directives, which most users won\'t be needing.')
     p.add_argument(
+        '--output-base-path',
+        type=Path,
+        default=None,
+        help='Base path the output file is relative to, used to construct the'
+        ' relative paths in the README, that point to the artifacts, e.g SVG'
+        ' files. If not specified, -o/--output is used, unless it is \'-\','
+        ' in which case --cwd is used.')
+    p.add_argument(
+        '--artifact-path',
+        type=Path,
+        default=None,
+        help='Path to the directory with artifacts, e.g svg files that are'
+        ' written out. If not specified, -t/--template is used, unless it is'
+        ' \'-\', in which case --cwd is used.')
+    p.add_argument(
         '-o',
         '--output',
         type=str,
@@ -510,6 +527,28 @@ def main() -> None:
                    help='Print more information.')
     args = p.parse_args()
 
+    cwd: Path = GetPath(args.cwd)
+    template: str = args.template
+    template_file_name: Union[Path, Literal['-']] = GetIOPath(template)
+    output: Union[Path, Literal['-']] = GetIOPath(args.output)
+    output_base_path: Optional[Path] = args.output_base_path
+    if output_base_path is None:
+      if output == '-':
+        output_base_path = GetPath(cwd)
+      else:
+        output_base_path = output.parent
+    output_base_path = GetPath(output_base_path)
+
+    artifact_path: Optional[Path] = args.artifact_path
+    if artifact_path is None:
+      if template_file_name == '-':
+        artifact_path = cwd
+      else:
+        artifact_path = template_file_name.parent
+    artifact_path = GetPath(artifact_path)
+
+    template_args: Dict[str, Any] = args.args
+    templates_searchpath: Optional[Path] = GetPath(args.templates_searchpath)
     verbose: bool = args.verbose
     template_newline: Optional[str] = args.template_newline
     output_newline: Optional[str] = args.output_newline
@@ -532,40 +571,42 @@ def main() -> None:
 
     make_tmp_backup: bool
     if args.make_tmp_backup is None:
-      make_tmp_backup = not make_backup and args.output != '-'
+      make_tmp_backup = not make_backup and output != '-'
     else:
       make_tmp_backup = args.make_tmp_backup in _ARGPARSE_BOOL_TRUE
 
-    if args.rm and args.output == '-':
+    if args.rm and output == '-':
       raise ValueError('Cannot use --rm with stdout')
-    if args.move and args.output == '-':
+    if args.move and output == '-':
       raise ValueError('Cannot use --move with stdout')
-    if make_backup and args.output == '-':
+    if make_backup and output == '-':
       raise ValueError('Cannot use --make-backup true with stdout')
-    if make_tmp_backup and args.output == '-':
+    if make_tmp_backup and output == '-':
       raise ValueError('Cannot use --make-tmp-backup true with stdout')
-    if args.chmod and args.output == '-':
+    if args.chmod and output == '-':
       raise ValueError('Cannot use --chmod with stdout')
-    if args.chmod_ro and args.output == '-':
+    if args.chmod_ro and output == '-':
       raise ValueError('Cannot use --chmod-ro with stdout')
-    if args.create and args.output == '-':
+    if args.create and output == '-':
       raise ValueError('Cannot use --create with stdout')
-    if args.check and args.output == '-':
+    if args.check and output == '-':
       raise ValueError('Cannot use --check with stdout')
     ############################################################################
-    template_file_name: str = args.template
     template_string: str
     if template_file_name != '-':
       # If we are not dealing with stdin:
 
       # Treat it as a path.
-      template_file_path = Path(template_file_name)
-      if template_file_path.is_absolute():
+      if template_file_name.is_absolute():
         # If the path is absolute, we want a relative path for the file name
         # (which is used for debugging and error messages).
         #
         # TODO: Do we want this behavior?
-        template_file_name = str(template_file_path.relative_to(args.cwd))
+        template_file_path = template_file_name
+        template_file_name = template_file_name.relative_to(cwd)
+      else:
+        # If the path is relative, we want to resolve it to an absolute path.
+        template_file_path = cwd / template_file_name
       with template_file_path.open('r', encoding=None,
                                    newline=template_newline) as f:
         template_string = f.read()
@@ -582,21 +623,23 @@ def main() -> None:
           template_string = template_io.read()
     ############################################################################
     if args.create:
-      if args.output == '-':
+      if output == '-':
         raise ValueError('Cannot use --create with stdout')
-      output_path = Path(args.output)
+      output_path = output
       if not output_path.exists():
         output_path.touch()
     ############################################################################
     rendered = Snipinate(template_file_name=template_file_name,
                          template_string=template_string,
-                         cwd=args.cwd,
-                         template_args=args.args,
-                         templates_searchpath=args.templates_searchpath,
+                         cwd=cwd,
+                         artifact_path=artifact_path,
+                         output_base_path=output_base_path,
+                         template_args=template_args,
+                         templates_searchpath=templates_searchpath,
                          block_comment=block_comment,
                          warning_header=warning_header)
     ############################################################################
-    if args.output == '-':
+    if output == '-':
       # Deal with the stdout case.
       if output_newline is not None and template_newline is None:
         # Simple case, nothing was specified for newlines, use python defaults.
@@ -620,7 +663,7 @@ def main() -> None:
         sys.exit(0)
         return
     ############################################################################
-    output_path = Path(args.output)
+    output_path = output
     ############################################################################
     if args.check:
       original_output: Optional[str] = None

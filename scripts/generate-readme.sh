@@ -28,7 +28,7 @@ PS4="${GREEN}$ ${NC}" unbuffer bash -x ./snipinator/examples/example_example.sh 
 
 
 python -m snipinator.cli \
-  -t "${PROJ_PATH}/README.md.jinja2" \
+  -t "${PROJ_PATH}/.github/README.md.jinja2" \
   --rm \
   --force \
   --create \

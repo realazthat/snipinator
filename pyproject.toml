@@ -173,8 +173,8 @@ Homepage = "https://github.com/realazthat/snipinator"
 Documentation = "https://github.com/realazthat/snipinator"
 Repository = "https://github.com/realazthat/snipinator"
 
-[tool.setuptools]
-packages = ["snipinator"]
+[tool.setuptools.packages.find]
+include = ["snipinator", "snipinator.*"]
 
 [tool.snipinator-project-metadata]
 last_release = "2.2.0"

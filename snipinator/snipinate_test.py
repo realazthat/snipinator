@@ -19,7 +19,8 @@ class SnipinateTest(unittest.TestCase):
                     artifact_path=Path('.'),
                     output_base_path=Path('.'),
                     written_files=set(),
-                    block_comment=BlockCommentStyle(open='<!--', close='-->'))
+                    block_comment=BlockCommentStyle(open='<!--', close='-->'),
+                    skip_unchanged=False)
 
   def test_path(self):
     self.assertEqual('snipinator/snipinate.py',

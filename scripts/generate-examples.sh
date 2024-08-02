@@ -32,7 +32,8 @@ python -m snipinator.cli \
   --force \
   --create \
   -o "${PROJ_PATH}/snipinator/examples/example_example.sh" \
-  --chmod-ro
+  --chmod-ro \
+  --skip-unchanged
 
 
 python -m snipinator.cli \
@@ -43,7 +44,8 @@ python -m snipinator.cli \
   --force \
   --create \
   -o "${PROJ_PATH}/snipinator/examples/local-docker_example.sh" \
-  --chmod-ro
+  --chmod-ro \
+  --skip-unchanged
 
 
 LAST_VERSION=$(tomlq -r -e '.["tool"]["snipinator-project-metadata"]["last_stable_release"]' pyproject.toml)
@@ -55,4 +57,5 @@ python -m snipinator.cli \
   --force \
   --create \
   -o "${PROJ_PATH}/snipinator/examples/remote-docker_example-noautorun.sh" \
-  --chmod-ro
+  --chmod-ro \
+  --skip-unchanged

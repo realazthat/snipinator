@@ -21,7 +21,8 @@ python -m snipinator.cli \
   --force \
   --create \
   -o "snipinator/examples/EXAMPLE.generated.md" \
-  --chmod-ro
+  --chmod-ro \
+  --skip-unchanged
 
 # View the generated file.
 cat "snipinator/examples/EXAMPLE.generated.md"

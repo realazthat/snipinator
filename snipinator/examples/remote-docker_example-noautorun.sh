@@ -29,7 +29,7 @@ cat "snipinator/examples/EXAMPLE.md.jinja2"
 docker run --rm --tty \
   -u "$(id -u):$(id -g)" \
   -v "${PWD}:/data" \
-  ghcr.io/realazthat/snipinator:v2.2.0 \
+  ghcr.io/realazthat/snipinator:v3.0.0 \
   -t "snipinator/examples/EXAMPLE.md.jinja2" \
   --rm \
   --force \

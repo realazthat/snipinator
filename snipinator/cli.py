@@ -680,9 +680,14 @@ def main() -> None:
           original_output = f.read()
       if args.check:
         sys.exit(0 if rendered == original_output else 1)
+        return
       elif args.skip_unchanged:
-        pass
-      return
+        if rendered == original_output:
+          if verbose:
+            console.print(f'Skipping {output_path} because it is unchanged.',
+                          style='bold yellow')
+          sys.exit(0)
+          return
     ############################################################################
     backup_path: Optional[Path] = None
     if make_backup or make_tmp_backup:

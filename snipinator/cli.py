@@ -417,9 +417,9 @@ def main() -> None:
         '--force',
         action='store_true',
         default=False,
-        help='Force remove the existing file at the output path, before writing'
-        ' the new one; useful if the existing file might be write protected.'
-        ' Defaults to False.')
+        help='Combined with --rm, --force removes the existing file at the'
+        ' output path, before writing the new one; useful if the existing file'
+        ' might be write protected. Defaults to False.')
     p.add_argument(
         '--create',
         action='store_true',
@@ -435,6 +435,13 @@ def main() -> None:
         ' exit with a non-zero status code if it is not. Does not write the'
         ' file. Ignores options that modify the file (e.g --rm and --chmod-ro).'
         ' Useful for CI pipelines. Defaults to False.')
+    p.add_argument(
+        '--skip-unchanged',
+        action='store_true',
+        default=False,
+        help=
+        'Skip modifying the file if the rendered text is the same as the existing file.'
+    )
     warning_group = p.add_mutually_exclusive_group(required=False)
     # TODO(realz): Remove in next major release.
     warning_group.add_argument(
@@ -637,7 +644,8 @@ def main() -> None:
                          template_args=template_args,
                          templates_searchpath=templates_searchpath,
                          block_comment=block_comment,
-                         warning_header=warning_header)
+                         warning_header=warning_header,
+                         skip_unchanged=args.skip_unchanged)
     ############################################################################
     if output == '-':
       # Deal with the stdout case.
@@ -665,12 +673,15 @@ def main() -> None:
     ############################################################################
     output_path = output
     ############################################################################
-    if args.check:
+    if args.check or args.skip_unchanged:
       original_output: Optional[str] = None
       if output_path.exists():
         with output_path.open('r', encoding=None, newline=output_newline) as f:
           original_output = f.read()
-      sys.exit(0 if rendered == original_output else 1)
+      if args.check:
+        sys.exit(0 if rendered == original_output else 1)
+      elif args.skip_unchanged:
+        pass
       return
     ############################################################################
     backup_path: Optional[Path] = None

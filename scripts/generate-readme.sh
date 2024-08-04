@@ -33,7 +33,8 @@ python -m snipinator.cli \
   --force \
   --create \
   -o "${PROJ_PATH}/README.md" \
-  --chmod-ro
+  --chmod-ro \
+  --skip-unchanged
 
 LAST_VERSION=$(tomlq -r -e '.["tool"]["snipinator-project-metadata"]["last_stable_release"]' pyproject.toml)
 python -m mdremotifier.cli \

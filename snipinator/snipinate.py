@@ -58,10 +58,15 @@ def _Comment(text: str, style: Union[BlockCommentStyle,
 
 
 def Snipinate(template_file_name: Union[Path, Literal['-']],
-              template_string: str, cwd: Path, template_args: dict,
+              template_string: str,
+              cwd: Path,
+              template_args: dict,
               templates_searchpath: Optional[Path],
-              block_comment: BlockCommentStyle, warning_header: str,
-              artifact_path: Path, output_base_path: Path) -> str:
+              block_comment: BlockCommentStyle,
+              warning_header: str,
+              artifact_path: Path,
+              output_base_path: Path,
+              skip_unchanged: bool = False) -> str:
   """Render the markdown template.
 
   Args:
@@ -81,11 +86,13 @@ def Snipinate(template_file_name: Union[Path, Literal['-']],
       warning_message (str, optional): If specified, the top of the rendered
         markdown will contain this warning. Useful for adding warnings about
         editing the file, since it is generated. Defaults to DEFAULT_WARNING.
+      artifact_path (Path): If specified, will use this as the base path for any
+        artifacts that are written to disk.
       output_base_path (Path): If specified, will use this as the base path the
         output file is relative to, used to construct the relative paths in the
         README to the artifacts.
-      artifact_path (Path): If specified, will use this as the base path for any
-        artifacts that are written to disk.
+      skip_unchanged: If True, will skip writing any files (e.g SVGs) if the the
+        same as the existing file. Defaults to False.
 
   Returns:
       str: Rendered markdown.
@@ -110,7 +117,8 @@ def Snipinate(template_file_name: Union[Path, Literal['-']],
                    artifact_path=artifact_path,
                    output_base_path=output_base_path,
                    written_files=set(),
-                   block_comment=block_comment)
+                   block_comment=block_comment,
+                   skip_unchanged=skip_unchanged)
     env.globals['pysignature'] = partial(pysignature, _ctx=ctx)
     env.globals['pysnippet'] = partial(pysnippet, _ctx=ctx)
     env.globals['rawsnippet'] = partial(rawsnippet, _ctx=ctx)
@@ -146,6 +154,7 @@ class _Context(NamedTuple):
   template_file_name: Union[Path, Literal['-']]
   written_files: Set[Path]
   block_comment: Optional[BlockCommentStyle]
+  skip_unchanged: bool
 
 
 def pysignature(path: str,
@@ -581,6 +590,26 @@ def _ExtractDelimted(*, name: str, text: str, start: Optional[str],
   return text
 
 
+def _WriteTextArtifact(*, path: Path, text: str, _ctx: _Context):
+  if _ctx.skip_unchanged and path.exists():
+    existing_text = path.read_text()
+    if text == existing_text:
+      return
+  if not _is_relative_to(path, _ctx.artifact_path):
+    raise ValueError(
+        f'Path is not relative to artifact_path: {json.dumps(str(path))}, artifact_path: {json.dumps(str(_ctx.artifact_path))}'
+    )
+  if path in _ctx.written_files:
+    raise ValueError(
+        f'File already written: {json.dumps(str(path))},'
+        ' it appears you are writing to the same file twice in the same template.'
+    )
+  _ctx.written_files.add(path)
+
+  path.parent.mkdir(parents=True, exist_ok=True)
+  path.write_text(text)
+
+
 def shell(args: str,
           *,
           escape: bool = False,
@@ -736,20 +765,10 @@ def shell(args: str,
             f'Path is absolute: {json.dumps(str(svg_path))}, it should be relative'
         )
       svg_path = _ctx.artifact_path / svg_path
-      if not _is_relative_to(svg_path, _ctx.artifact_path):
-        raise ValueError(
-            f'Path is not relative to artifact_path: {json.dumps(str(svg_path))}, artifact_path: {json.dumps(str(_ctx.artifact_path))}'
-        )
-      if svg_path in _ctx.written_files:
-        raise ValueError(
-            f'File already written: {json.dumps(str(svg_path))},'
-            ' it appears you are writing to the same file twice in the same template.'
-        )
-      _ctx.written_files.add(svg_path)
       output_rel_svg_path = svg_path.relative_to(_ctx.output_base_path)
       svg_path.parent.mkdir(parents=True, exist_ok=True)
 
-      svg_path.write_text(svg)
+      _WriteTextArtifact(path=svg_path, text=svg, _ctx=_ctx)
 
       alt_attr = ''
       if rich_alt is not None:

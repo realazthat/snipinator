@@ -127,12 +127,12 @@ Generating the README:
 
 Fuller example:
 
-<!--{{ shell('cat ./.deleteme/example_example.output',
+<!--{{ shell('cat ./.deleteme/simple_example.output',
                start=': ECHO_SNIPPET_START',
                end='^.*: ECHO_SNIPPET_END',
                regex='MULTILINE',
                rich='README.example.generated.svg',
-               rich_alt='Output of `bash ./snipinator/examples/example_example.sh`',
+               rich_alt='Output of `bash ./snipinator/examples/simple_example.sh`',
                rich_bg_color='black',
                rich_term='xterm-256color',
                rich_cols=160,
@@ -160,7 +160,7 @@ Fuller example:
   - Generated:
     {{path('./snipinator/examples/EXAMPLE.generated.md', link='md')}}.
   - Generation script:
-    {{path('./snipinator/examples/example_example.sh', link='md')}}.
+    {{path('./snipinator/examples/simple_example.sh', link='md')}}.
 - Long example of many features:
   - Template:
     {{path('./snipinator/examples/LONG-EXAMPLE.md.jinja2', link='md')}}.

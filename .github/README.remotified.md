@@ -215,7 +215,7 @@ Note that `code.py` has a test:
 Fuller example:
 
 <!---->
-<img alt="Output of `bash ./snipinator/examples/example_example.sh`" src="https://raw.githubusercontent.com/realazthat/snipinator/v3.1.0/.github/README.example.generated.svg"/>
+<img alt="Output of `bash ./snipinator/examples/simple_example.sh`" src="https://raw.githubusercontent.com/realazthat/snipinator/v3.1.0/.github/README.example.generated.svg"/>
 <!-- -->
 
 ## 💻 Command Line Options
@@ -235,7 +235,7 @@ Fuller example:
   - Generated:
     [./snipinator/examples/EXAMPLE.generated.md](https://github.com/realazthat/snipinator/blob/v3.1.0/snipinator/examples/EXAMPLE.generated.md).
   - Generation script:
-    [./snipinator/examples/example_example.sh](https://github.com/realazthat/snipinator/blob/v3.1.0/snipinator/examples/example_example.sh).
+    [./snipinator/examples/simple_example.sh](https://github.com/realazthat/snipinator/blob/v3.1.0/snipinator/examples/simple_example.sh).
 - Long example of many features:
   - Template:
     [./snipinator/examples/LONG-EXAMPLE.md.jinja2](https://github.com/realazthat/snipinator/blob/v3.1.0/snipinator/examples/LONG-EXAMPLE.md.jinja2).

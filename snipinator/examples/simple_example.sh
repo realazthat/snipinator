@@ -13,19 +13,19 @@ PS4="${GREEN}$ ${NC}"
 : ECHO_SNIPPET_START
 # SNIPPET_START
 # View the template file.
-cat "snipinator/examples/EXAMPLE.md.jinja2"
+cat "snipinator/examples/SIMPLE.md.jinja2"
 
 python -m snipinator.cli \
-  -t "snipinator/examples/EXAMPLE.md.jinja2" \
+  -t "snipinator/examples/SIMPLE.md.jinja2" \
   --rm \
   --force \
   --create \
-  -o "snipinator/examples/EXAMPLE.generated.md" \
+  -o "snipinator/examples/SIMPLE.generated.md" \
   --chmod-ro \
   --skip-unchanged
 
 # View the generated file.
-cat "snipinator/examples/EXAMPLE.generated.md"
+cat "snipinator/examples/SIMPLE.generated.md"
 
 # SNIPPET_END
 : ECHO_SNIPPET_END

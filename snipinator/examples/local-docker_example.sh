@@ -24,23 +24,23 @@ fi
 docker build -t my-snipinator-image .
 
 # View the template file.
-cat "snipinator/examples/EXAMPLE.md.jinja2"
+cat "snipinator/examples/SIMPLE.md.jinja2"
 
 # /data in the docker image is the working directory, so paths are simpler.
 docker run --rm --tty \
   -u "$(id -u):$(id -g)" \
   -v "${PWD}:/data" \
   my-snipinator-image \
-  -t "snipinator/examples/EXAMPLE.md.jinja2" \
+  -t "snipinator/examples/SIMPLE.md.jinja2" \
   --rm \
   --force \
   --create \
-  -o "snipinator/examples/EXAMPLE.generated.md" \
+  -o "snipinator/examples/SIMPLE.generated.md" \
   --chmod-ro \
   --skip-unchanged
 
 # View the generated file.
-cat "snipinator/examples/EXAMPLE.generated.md"
+cat "snipinator/examples/SIMPLE.generated.md"
 
 # SNIPPET_END
 : ECHO_SNIPPET_END

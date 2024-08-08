@@ -662,7 +662,7 @@ docker run --rm --tty \
   -u "$(id -u):$(id -g)" \
   -v "${PWD}:/data" \
   ghcr.io/realazthat/snipinator:v3.1.1 \
-  -t "snipinator/examples/EXAMPLE.md.jinja2" \
+  -t "snipinator/examples/SIMPLE.md.jinja2" \
   --rm \
   --force \
   --create \

@@ -234,7 +234,7 @@ Fuller example:
   - Template: [./snipinator/examples/SIMPLE.md.jinja2](https://github.com/realazthat/snipinator/blob/v3.1.1/snipinator/examples/SIMPLE.md.jinja2).
   - Generated: [./snipinator/examples/SIMPLE.generated.md](https://github.com/realazthat/snipinator/blob/v3.1.1/snipinator/examples/SIMPLE.generated.md).
   - Generation script:
-    [./snipinator/examples/example_example.sh](https://github.com/realazthat/snipinator/blob/v3.1.1/snipinator/examples/example_example.sh).
+    [./snipinator/examples/simple_example.sh](https://github.com/realazthat/snipinator/blob/v3.1.1/snipinator/examples/simple_example.sh).
 - Long example of many features:
   - Template:
     [./snipinator/examples/LONG-EXAMPLE.md.jinja2](https://github.com/realazthat/snipinator/blob/v3.1.1/snipinator/examples/LONG-EXAMPLE.md.jinja2).

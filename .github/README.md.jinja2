@@ -78,13 +78,13 @@
 What it does: **{{project_name_proper}}** lets you take a `EXAMPLE.md` template
 and include snippets from your (working and tested) codebase.
 
-Turn this ({{ path('./snipinator/examples/EXAMPLE.md.jinja2', link='md') }}):
+Turn this ({{ path('./snipinator/examples/SIMPLE.md.jinja2', link='md') }}):
 
-<!--{{ rawsnippet('./snipinator/examples/EXAMPLE.md.jinja2', backtickify='md', decomentify='nl') }}-->
+<!--{{ rawsnippet('./snipinator/examples/SIMPLE.md.jinja2', backtickify='md', decomentify='nl') }}-->
 
-Into this ({{ path('./snipinator/examples/EXAMPLE.generated.md', link='md') }}):
+Into this ({{ path('./snipinator/examples/SIMPLE.generated.md', link='md') }}):
 
-<!--{{ rawsnippet('./snipinator/examples/EXAMPLE.generated.md', backtickify='md', decomentify='nl') }}-->
+<!--{{ rawsnippet('./snipinator/examples/SIMPLE.generated.md', backtickify='md', decomentify='nl') }}-->
 
 ## 🎇 Features
 
@@ -117,22 +117,22 @@ pip install git+https://github.com/realazthat/{{project_name}}.git@v{{last_stabl
 ## 🚜 Usage
 
 Example template README:
-({{path('./snipinator/examples/EXAMPLE.md.jinja2', link='md')}}):
+({{path('./snipinator/examples/SIMPLE.md.jinja2', link='md')}}):
 
-<!--{{ rawsnippet('./snipinator/examples/EXAMPLE.md.jinja2', backtickify='md', decomentify='nl') }}-->
+<!--{{ rawsnippet('./snipinator/examples/SIMPLE.md.jinja2', backtickify='md', decomentify='nl') }}-->
 
 Generating the README:
 
-<!--{{ shell('python -m snipinator.cli -t snipinator/examples/EXAMPLE.md.jinja2', backtickify='bash', decomentify='nl') }}-->
+<!--{{ shell('python -m snipinator.cli -t snipinator/examples/SIMPLE.md.jinja2', backtickify='bash', decomentify='nl') }}-->
 
 Fuller example:
 
-<!--{{ shell('cat ./.deleteme/example_example.output',
+<!--{{ shell('cat ./.deleteme/simple_example.output',
                start=': ECHO_SNIPPET_START',
                end='^.*: ECHO_SNIPPET_END',
                regex='MULTILINE',
                rich='README.example.generated.svg',
-               rich_alt='Output of `bash ./snipinator/examples/example_example.sh`',
+               rich_alt='Output of `bash ./snipinator/examples/simple_example.sh`',
                rich_bg_color='black',
                rich_term='xterm-256color',
                rich_cols=160,
@@ -156,11 +156,10 @@ Fuller example:
   - Generated: {{path('./README.md', link='md')}}.
   - Generation script: {{path('./scripts/generate-readme.sh', link='md')}}.
 - Example:
-  - Template: {{path('./snipinator/examples/EXAMPLE.md.jinja2', link='md')}}.
-  - Generated:
-    {{path('./snipinator/examples/EXAMPLE.generated.md', link='md')}}.
+  - Template: {{path('./snipinator/examples/SIMPLE.md.jinja2', link='md')}}.
+  - Generated: {{path('./snipinator/examples/SIMPLE.generated.md', link='md')}}.
   - Generation script:
-    {{path('./snipinator/examples/example_example.sh', link='md')}}.
+    {{path('./snipinator/examples/simple_example.sh', link='md')}}.
 - Long example of many features:
   - Template:
     {{path('./snipinator/examples/LONG-EXAMPLE.md.jinja2', link='md')}}.

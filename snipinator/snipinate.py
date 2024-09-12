@@ -591,10 +591,11 @@ def _ExtractDelimted(*, name: str, text: str, start: Optional[str],
 
 
 def _WriteTextArtifact(*, path: Path, text: str, _ctx: _Context):
-  if _ctx.skip_unchanged and path.exists():
-    existing_text = path.read_text()
-    if text == existing_text:
-      return
+  """Writes text to a file, relative to the artifact path.
+
+  Used to write artifacts, e.g. SVGs, to disk, and to ensure there are no
+  obvious errors, e.g ensuring that that the path is unique within the template.
+  """
   if not _is_relative_to(path, _ctx.artifact_path):
     raise ValueError(
         f'Path is not relative to artifact_path: {json.dumps(str(path))}, artifact_path: {json.dumps(str(_ctx.artifact_path))}'
@@ -605,6 +606,11 @@ def _WriteTextArtifact(*, path: Path, text: str, _ctx: _Context):
         ' it appears you are writing to the same file twice in the same template.'
     )
   _ctx.written_files.add(path)
+
+  if _ctx.skip_unchanged and path.exists():
+    existing_text = path.read_text()
+    if text == existing_text:
+      return
 
   path.parent.mkdir(parents=True, exist_ok=True)
   path.write_text(text)

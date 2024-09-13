@@ -5,26 +5,26 @@ source code to see how it's done.
 
 ## pysnippet: global class
 
-`{{ pysnippet(path='snipinator/examples/code.py', symbol='MyClass', backtickify='py') }}`
+`{{ pysnippet(path='examples/code.py', symbol='MyClass', backtickify='py') }}`
 
 ## pysnippet: global method
 
-`{{ pysnippet(path='snipinator/examples/code.py', symbol='GlobalMethod', backtickify='py') }}`
+`{{ pysnippet(path='examples/code.py', symbol='GlobalMethod', backtickify='py') }}`
 
 ## pysnippet: class member method
 
-`{{ pysnippet(path='snipinator/examples/code.py', symbol='MyClass.MyClassMethod', backtickify='py') }}`
+`{{ pysnippet(path='examples/code.py', symbol='MyClass.MyClassMethod', backtickify='py') }}`
 
 ## pysignature: class member method
 
 Same thing but just the signature:
 
-`{{ pysignature(path='snipinator/examples/code.py', symbol='MyClass.MyClassMethod', backtickify='py') }}`
+`{{ pysignature(path='examples/code.py', symbol='MyClass.MyClassMethod', backtickify='py') }}`
 
 ## snippet
 
 <!--
-{{ snippet(path='snipinator/examples/code.py',
+{{ snippet(path='examples/code.py',
            start='  # DELIM_TEST_START',
            end='  # DELIM_TEST_END',
            backtickify='py',
@@ -34,7 +34,7 @@ Same thing but just the signature:
 ## self referencing path
 
 <!--
-{{ path('snipinator/examples/LONG-EXAMPLE.generated.md') }}
+{{ path('examples/LONG-EXAMPLE.generated.md') }}
 -->
 
 ## shell, no terminal colors

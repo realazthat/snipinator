@@ -6,9 +6,9 @@ set -e -x -v -u -o pipefail
 python -m snipinator.cli --help
 
 python -m snipinator.cli \
-  -t "snipinator/examples/LONG-EXAMPLE.md.jinja2" \
+  -t "examples/LONG-EXAMPLE.md.jinja2" \
   --rm \
   --force \
   --create \
-  -o "snipinator/examples/LONG-EXAMPLE.generated.md" \
+  -o "examples/LONG-EXAMPLE.generated.md" \
   --chmod-ro

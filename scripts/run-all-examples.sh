@@ -13,8 +13,8 @@ TOML=${PROJ_PATH}/pyproject.toml EXTRA=prod \
 
 bash scripts/generate-examples.sh
 
-# For each sh in snipinator/examples
-find snipinator/examples -type f -name "*_example.sh" -print0 | while IFS= read -r -d '' EXAMPLE; do
+# For each sh in examples
+find examples -type f -name "*_example.sh" -print0 | while IFS= read -r -d '' EXAMPLE; do
   bash "${EXAMPLE}"
   echo -e "${GREEN}${EXAMPLE} ran successfully${NC}"
 done

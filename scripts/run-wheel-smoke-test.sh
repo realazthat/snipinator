@@ -27,7 +27,12 @@ cd "${TMP_PROJ_PATH}"
 
 
 # Copy everything including hidden files, but ignore errors.
-cp -a "${PROJ_PATH}/." "${TMP_PROJ_PATH}" || true
+rsync -av \
+  --exclude node_modules/ \
+  --exclude '.cache' \
+  --exclude '.git' \
+  --exclude '.venv' \
+  "${PROJ_PATH}/" "${TMP_PROJ_PATH}/"
 
 # Make everything writable, because `python -m build` copies everything and then
 # deletes it, which is a problem if something is read only.
